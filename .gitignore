@@ -55,3 +55,4 @@ yarn-error.log*
 
 # Project specific
 .tmp/
+package-lock.json
