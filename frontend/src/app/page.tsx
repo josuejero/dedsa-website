@@ -23,6 +23,8 @@ const GET_RECENT_POSTS = gql`
   }
 `;
 
+export const revalidate = 3600;
+
 export default async function Home() {
   // Fetch data using Apollo Client
   const { data } = await getClient().query({
