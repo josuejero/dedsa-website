@@ -17,6 +17,9 @@ wp plugin install publishpress-authors --activate
 wp plugin install redis-cache --activate
 wp plugin install wordfence --activate
 
+wp eval-file setup-scripts/custom-post-types.php
+wp eval-file setup-scripts/register-acf-fields.php
+
 # Create default pages
 echo "Creating default pages..."
 wp post create --post_type=page --post_title='Home' --post_status=publish
