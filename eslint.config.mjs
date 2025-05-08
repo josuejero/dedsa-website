@@ -1,15 +1,12 @@
-
 import { FlatCompat } from '@eslint/eslintrc';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import pluginNext from '@next/eslint-plugin-next';
 import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
-import pluginNext from '@next/eslint-plugin-next';
-
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -17,10 +14,8 @@ const compat = new FlatCompat({
 });
 
 export default [
-  
   ...compat.extends('eslint:recommended', 'plugin:react/recommended'),
 
-  
   {
     plugins: { react: pluginReact },
     rules: {
@@ -29,7 +24,6 @@ export default [
     },
   },
 
-  
   {
     plugins: { 'react-hooks': pluginReactHooks },
     rules: {
@@ -38,7 +32,6 @@ export default [
     },
   },
 
-  
   {
     plugins: { next: pluginNext },
     rules: {
