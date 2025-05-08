@@ -5,16 +5,16 @@
 /* Custom base styles */
 @layer base {
   h1 {
-    @apply text-4xl font-bold mb-4;
+    @apply text-4xl md:text-5xl font-bold mb-4;
   }
   h2 {
-    @apply text-3xl font-bold mb-3;
+    @apply text-3xl font-bold mb-6;
   }
   h3 {
-    @apply text-2xl font-bold mb-2;
+    @apply text-2xl font-bold mb-4;
   }
   h4 {
-    @apply text-xl font-bold mb-1;
+    @apply text-xl font-bold mb-2;
   }
   p {
     @apply mb-4;
@@ -40,5 +40,24 @@
 
   .container-page {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Card styling */
+  .card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden border border-gray-200;
+  }
+
+  /* Section styling */
+  .section-light {
+    @apply py-16 bg-white;
+  }
+
+  .section-dark {
+    @apply py-16 bg-gray-100;
+  }
+
+  /* Event list styling */
+  .event-item {
+    @apply border-l-4 border-dsa-red pl-4 py-2;
   }
 }

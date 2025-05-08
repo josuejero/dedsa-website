@@ -2,11 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import { gql } from '@apollo/client';
 import { getClient } from '../lib/apollo-client';
+import NewsletterSignup from '../components/NewsletterSignup';
 
 // Define the GraphQL query to fetch recent posts
 const GET_RECENT_POSTS = gql`
   query GetRecentPosts {
-    posts(first: 5) {
+    posts(first: 3) {
       nodes {
         id
         title
@@ -29,7 +30,7 @@ const GET_RECENT_POSTS = gql`
   }
 `;
 
-export const revalidate = 3600;
+export const revalidate = 3600; // Revalidate this page every hour
 
 export default async function Home() {
   // Fetch data using Apollo Client
@@ -42,22 +43,25 @@ export default async function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-dsa-red text-white py-16">
+      <section className="bg-dsa-red text-white py-16 md:py-20">
         <div className="container-page">
           <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold mb-4">Delaware DSA</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Delaware DSA</h1>
             <p className="text-xl mb-8">
               We're building a democratic-socialist Delaware where production and resources are
               controlled by the people, not private profit. Join us in creating a state that works
               for the many, not the few.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link href="/join" className="btn bg-white text-dsa-red hover:bg-gray-100">
+              <Link
+                href="/join"
+                className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium"
+              >
                 Join Our Chapter
               </Link>
               <Link
                 href="/newsletter"
-                className="btn border border-white text-white hover:bg-white hover:text-dsa-red"
+                className="btn border border-white text-white hover:bg-white hover:text-dsa-red font-medium"
               >
                 Subscribe to Newsletter
               </Link>
@@ -149,8 +153,11 @@ export default async function Home() {
               <p>Loading recent posts...</p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {posts.map((post, index) => (
-                  <article key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                {posts.map((post) => (
+                  <article
+                    key={post.id}
+                    className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200"
+                  >
                     {post.featuredImage?.node && (
                       <div className="h-48 overflow-hidden">
                         <img
@@ -171,7 +178,7 @@ export default async function Home() {
                         {post.author?.node?.name && ` | By ${post.author.node.name}`}
                       </p>
                       <div
-                        className="text-gray-700 mb-4"
+                        className="text-gray-700 mb-4 line-clamp-3"
                         dangerouslySetInnerHTML={{ __html: post.excerpt }}
                       />
                       <Link
@@ -195,7 +202,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Get Involved Section - Events */}
+      {/* Get Involved Section - Events and Committees */}
       <section className="py-16 bg-gray-100">
         <div className="container-page">
           <h2 className="text-3xl font-bold mb-8 text-center">Get Involved</h2>
@@ -329,7 +336,7 @@ export default async function Home() {
           </p>
           <Link
             href="/join"
-            className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3"
+            className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3 font-medium"
           >
             Join Delaware DSA
           </Link>
