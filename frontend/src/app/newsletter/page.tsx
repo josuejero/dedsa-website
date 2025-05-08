@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { GET_POSTS_AND_CATEGORIES } from './queries';
 import NewsletterHeader from './components/NewsletterHeader';
 import NewsletterLayout from './components/NewsletterLayout';
-import NewsletterContent from './components/NewsletterContent';
+import { Post } from './types';
 
 export const metadata: Metadata = {
   title: 'Newsletter',
@@ -27,7 +27,9 @@ export default async function Newsletter({
   const categories = data?.categories?.nodes || [];
 
   const filteredPosts = selectedCategory
-    ? posts.filter((post) => post.categories.nodes.some((cat) => cat.slug === selectedCategory))
+    ? posts.filter((post: unknown) =>
+        (post as Post).categories.nodes.some((cat: any) => cat.slug === selectedCategory),
+      )
     : posts;
 
   return (
