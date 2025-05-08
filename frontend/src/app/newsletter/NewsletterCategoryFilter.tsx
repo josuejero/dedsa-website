@@ -1,13 +1,7 @@
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
-
-interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  count: number;
-}
+import { Category } from './types';
 
 interface NewsletterCategoryFilterProps {
   categories: Category[];
@@ -23,13 +17,10 @@ export default function NewsletterCategoryFilter({
   const router = useRouter();
   const pathname = usePathname();
 
-  
   const handleCategoryChange = (categorySlug: string | null) => {
-    
     if (categorySlug === null) {
       router.push(pathname);
     } else {
-      
       router.push(`${pathname}?category=${categorySlug}`);
     }
   };
