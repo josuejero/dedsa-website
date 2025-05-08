@@ -151,7 +151,7 @@ export default async function Join() {
                 </li>
               </ul>
               <a
-                href="https:
+                href="https://www.example.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full btn btn-primary text-center block"
@@ -341,7 +341,7 @@ export default async function Join() {
             wealthy few. Join Delaware DSA today.
           </p>
           <a
-            href="https:
+            href="https://www.example.com"
             target="_blank"
             rel="noopener noreferrer"
             className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3"

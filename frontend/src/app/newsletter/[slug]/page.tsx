@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
 import { gql } from '@apollo/client';
 
-
 interface Author {
   id: string;
   name: string;
@@ -40,7 +39,6 @@ export async function generateMetadata(
   { params }: { params: { slug: string } },
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  
   const { data } = await getClient().query({
     query: GET_POST_BY_SLUG,
     variables: { slug: params.slug },
@@ -48,7 +46,6 @@ export async function generateMetadata(
 
   const post = data?.post;
 
-  
   if (!post) {
     return {
       title: 'Post Not Found',
@@ -61,7 +58,6 @@ export async function generateMetadata(
     description: `${post.title} - Delaware DSA Newsletter article`,
   };
 }
-
 
 const GET_POST_BY_SLUG = gql`
   query GetPostBySlug($slug: ID!) {
@@ -98,7 +94,6 @@ const GET_POST_BY_SLUG = gql`
   }
 `;
 
-
 const GET_RELATED_POSTS = gql`
   query GetRelatedPosts($categoryIds: [ID], $currentPostId: ID!) {
     posts(first: 3, where: { categoryIn: $categoryIds, notIn: [$currentPostId] }) {
@@ -111,7 +106,6 @@ const GET_RELATED_POSTS = gql`
     }
   }
 `;
-
 
 export async function generateStaticParams() {
   const GET_ALL_POST_SLUGS = gql`
@@ -140,21 +134,17 @@ export async function generateStaticParams() {
 
 export default async function PostDetail({ params }: { params: { slug: string } }) {
   try {
-    
     const { data } = await getClient().query({
       query: GET_POST_BY_SLUG,
       variables: { slug: params.slug },
     });
 
-    
     if (!data.post) {
       return notFound();
     }
 
-    
     const categoryIds = data.post.categories.nodes.map((cat: { id: string }) => cat.id);
 
-    
     let relatedPosts: any[] = [];
     if (categoryIds.length > 0) {
       const relatedResult = await getClient().query({
@@ -168,7 +158,6 @@ export default async function PostDetail({ params }: { params: { slug: string } 
       relatedPosts = relatedResult.data.posts.nodes;
     }
 
-    
     const author = data.post.author?.node || {
       id: 'default',
       name: 'Delaware DSA',
@@ -181,7 +170,6 @@ export default async function PostDetail({ params }: { params: { slug: string } 
       author,
     };
 
-    
     const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -274,7 +262,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                 <h3 className="text-lg font-bold mb-4">Share this article</h3>
                 <div className="flex space-x-4">
                   <a
-                    href={`https:
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                       post.title,
                     )}&url=${encodeURIComponent(
                       `${process.env.NEXT_PUBLIC_BASE_URL}/newsletter/${post.slug}`,
@@ -288,7 +276,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                     </svg>
                   </a>
                   <a
-                    href={`https:
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
                       `${process.env.NEXT_PUBLIC_BASE_URL}/newsletter/${post.slug}`,
                     )}`}
                     target="_blank"
@@ -312,7 +300,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
-                      xmlns="http:
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         strokeLinecap="round"
@@ -361,7 +349,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http:
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   strokeLinecap="round"

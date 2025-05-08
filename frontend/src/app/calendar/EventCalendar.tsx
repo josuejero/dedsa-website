@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
-
-interface Event {
+interface CalendarEvent {
   id: string;
   title: string;
   excerpt: string;
@@ -19,7 +18,7 @@ interface Event {
 }
 
 interface EventCalendarProps {
-  events: Event[];
+  events: CalendarEvent[];
   selectedMonth: string;
 }
 
@@ -28,26 +27,22 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
   const pathname = usePathname();
   const [selectedMonthState, setSelectedMonthState] = useState<string>(selectedMonth);
 
-  
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
-  
   const months: { [key: string]: string } = {};
-  events.forEach((event) => {
-    const eventDate = new Date(event.meta.eventDate);
+  events.forEach((calendarEvent) => {
+    const eventDate = new Date(calendarEvent.meta.eventDate);
     const monthKey = `${eventDate.getFullYear()}-${eventDate.getMonth()}`;
     const monthName = eventDate.toLocaleString('default', { month: 'long', year: 'numeric' });
     months[monthKey] = monthName;
   });
 
-  
   const sortedMonths = Object.entries(months)
     .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
     .map(([key, value]) => ({ key, value }));
 
-  
   useEffect(() => {
     if (!selectedMonthState && sortedMonths.length > 0) {
       const currentMonthKey = `${currentYear}-${currentMonth}`;
@@ -55,42 +50,36 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
       const newMonth = futureMonths.length > 0 ? futureMonths[0].key : sortedMonths[0].key;
       setSelectedMonthState(newMonth);
 
-      
       router.push(`${pathname}?month=${newMonth}`);
     }
   }, [currentMonth, currentYear, pathname, router, selectedMonthState, sortedMonths]);
 
-  
   const handleMonthChange = (month: string) => {
     setSelectedMonthState(month);
     router.push(`${pathname}?month=${month}`);
   };
 
-  
   const filteredEvents = selectedMonthState
-    ? events.filter((event) => {
-        const eventDate = new Date(event.meta.eventDate);
+    ? events.filter((calendarEvent) => {
+        const eventDate = new Date(calendarEvent.meta.eventDate);
         const eventMonthKey = `${eventDate.getFullYear()}-${eventDate.getMonth()}`;
         return eventMonthKey === selectedMonthState;
       })
     : events;
 
-  
-  const eventsByDate: { [key: string]: Event[] } = {};
-  filteredEvents.forEach((event) => {
-    const dateKey = new Date(event.meta.eventDate).toISOString().split('T')[0];
+  const eventsByDate: { [key: string]: CalendarEvent[] } = {};
+  filteredEvents.forEach((calendarEvent) => {
+    const dateKey = new Date(calendarEvent.meta.eventDate).toISOString().split('T')[0];
     if (!eventsByDate[dateKey]) {
       eventsByDate[dateKey] = [];
     }
-    eventsByDate[dateKey].push(event);
+    eventsByDate[dateKey].push(calendarEvent);
   });
 
-  
   const sortedDates = Object.keys(eventsByDate).sort();
 
   return (
     <>
-      {}
       <div className="mb-8">
         <label htmlFor="month-select" className="block text-lg font-medium mb-2">
           Select Month
@@ -140,14 +129,14 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http:
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth="2"
                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                          ></path>
+                          />
                         </svg>
                         <span>{event.meta.eventTime || 'Time TBA'}</span>
                       </div>
@@ -159,7 +148,7 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http:
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             strokeLinecap="round"
@@ -192,14 +181,14 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
-                            xmlns="http:
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
                               strokeWidth="2"
                               d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                            ></path>
+                            />
                           </svg>
                           Join Virtual Meeting
                         </a>

@@ -5,7 +5,6 @@ import { gql } from '@apollo/client';
 import { getClient } from '../lib/apollo-client';
 import NewsletterSignup from '../components/NewsletterSignup';
 
-
 const GET_RECENT_POSTS = gql`
   query GetRecentPosts {
     posts(first: 3) {
@@ -31,10 +30,9 @@ const GET_RECENT_POSTS = gql`
   }
 `;
 
-export const revalidate = 3600; 
+export const revalidate = 3600;
 
 export default async function Home() {
-  
   const { data } = await getClient().query({
     query: GET_RECENT_POSTS,
   });
@@ -43,12 +41,11 @@ export default async function Home() {
 
   return (
     <>
-      {}
+      {/* Landing Section */}
       <section className="bg-gradient-to-br from-dsa-red to-red-700 text-white py-20 md:py-28">
         <div className="container-page relative">
-          {}
           <div className="absolute top-0 right-0 opacity-10 w-80 h-80">
-            <svg viewBox="0 0 200 200" xmlns="http:
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
               <path
                 fill="#FFFFFF"
                 d="M45.7,-58.2C58.9,-51.3,69,-37.4,73.9,-22.1C78.8,-6.7,78.5,10.1,72.3,24.5C66.1,38.9,54,50.9,40,58.6C26,66.3,10.1,69.8,-6.4,77.5C-22.9,85.1,-45.7,96.9,-60.1,89.8C-74.5,82.8,-80.4,56.9,-82.2,34.3C-84,11.7,-81.6,-7.5,-75.6,-25.2C-69.7,-42.9,-60.2,-59.1,-46.6,-65.9C-33,-72.8,-15.3,-70.3,0.7,-71.1C16.7,-72,33.5,-76.2,45.7,-58.2Z"
@@ -84,7 +81,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {}
+      {/* Our Mission Section */}
       <section className="py-20 bg-white">
         <div className="container-page">
           <div className="max-w-4xl mx-auto text-center bg-gray-50 p-8 sm:p-12 rounded-xl shadow-sm">
@@ -116,7 +113,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {}
+      {/* Strategic Priorities Section */}
       <section className="py-20 bg-gray-100">
         <div className="container-page">
           <h2 className="text-3xl font-bold mb-2 text-center">
@@ -127,115 +124,63 @@ export default async function Home() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border-l-4 border-dsa-red">
-              <div className="flex items-start mb-4">
-                <div className="p-2 bg-red-100 rounded-full mr-4">
-                  <svg
-                    className="w-6 h-6 text-dsa-red"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http:
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    />
-                  </svg>
+            {[
+              {
+                title: 'Defending Communities from ICE',
+                desc: "Building networks to protect immigrants from detention and deportation, establishing sanctuary policies, and supporting migrants' rights.",
+                iconPath:
+                  'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+              },
+              {
+                title: 'Delaware Against Apartheid',
+                desc: 'Continuing our commitment to Palestinian liberation through campaigns like "No Appetite 4 Apartheid" to decrease economic support for the state of Israel, and working to establish apartheid-free zones throughout Delaware.',
+                iconPath:
+                  'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+              },
+              {
+                title: 'Enacting Rent Stabilization & Housing Justice',
+                desc: 'Fighting for tenant protections, rent control, and public housing through our H.O.M.E.S. Campaign, while organizing tenant unions across the state.',
+                iconPath:
+                  'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+              },
+              {
+                title: 'Creating a Trans Refuge State',
+                desc: 'Supporting legislation to make Delaware a safe haven for transgender people facing persecution elsewhere, following the model developed by Trans Refuge Now.',
+                iconPath:
+                  'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z',
+              },
+            ].map((p) => (
+              <div
+                key={p.title}
+                className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border-l-4 border-dsa-red"
+              >
+                <div className="flex items-start mb-4">
+                  <div className="p-2 bg-red-100 rounded-full mr-4">
+                    <svg
+                      className="w-6 h-6 text-dsa-red"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d={p.iconPath}
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold">{p.title}</h3>
                 </div>
-                <h3 className="text-xl font-bold">Defending Communities from ICE</h3>
+                <p className="pl-12">{p.desc}</p>
               </div>
-              <p className="pl-12">
-                Building networks to protect immigrants from detention and deportation, establishing
-                sanctuary policies, and supporting migrants' rights.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border-l-4 border-dsa-red">
-              <div className="flex items-start mb-4">
-                <div className="p-2 bg-red-100 rounded-full mr-4">
-                  <svg
-                    className="w-6 h-6 text-dsa-red"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http:
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold">Delaware Against Apartheid</h3>
-              </div>
-              <p className="pl-12">
-                Continuing our commitment to Palestinian liberation through campaigns like "No
-                Appetite 4 Apartheid" to decrease economic support for the state of Israel, and
-                working to establish apartheid-free zones throughout Delaware.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border-l-4 border-dsa-red">
-              <div className="flex items-start mb-4">
-                <div className="p-2 bg-red-100 rounded-full mr-4">
-                  <svg
-                    className="w-6 h-6 text-dsa-red"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http:
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold">Enacting Rent Stabilization & Housing Justice</h3>
-              </div>
-              <p className="pl-12">
-                Fighting for tenant protections, rent control, and public housing through our
-                H.O.M.E.S. Campaign, while organizing tenant unions across the state.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border-l-4 border-dsa-red">
-              <div className="flex items-start mb-4">
-                <div className="p-2 bg-red-100 rounded-full mr-4">
-                  <svg
-                    className="w-6 h-6 text-dsa-red"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http:
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold">Creating a Trans Refuge State</h3>
-              </div>
-              <p className="pl-12">
-                Supporting legislation to make Delaware a safe haven for transgender people facing
-                persecution elsewhere, following the model developed by Trans Refuge Now.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {}
+      {/* Latest Updates Section */}
       <section className="py-20 bg-white">
         <div className="container-page">
           <h2 className="text-3xl font-bold mb-2">Latest Updates</h2>
@@ -258,7 +203,7 @@ export default async function Home() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {posts.map((post) => (
+                {posts.map((post: any) => (
                   <article
                     key={post.id}
                     className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
@@ -278,7 +223,7 @@ export default async function Home() {
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http:
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             strokeLinecap="round"
@@ -299,7 +244,7 @@ export default async function Home() {
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http:
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             strokeLinecap="round"
@@ -321,7 +266,7 @@ export default async function Home() {
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
-                              xmlns="http:
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
                                 strokeLinecap="round"
@@ -348,7 +293,7 @@ export default async function Home() {
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http:
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             strokeLinecap="round"
@@ -376,14 +321,13 @@ export default async function Home() {
         </div>
       </section>
 
-      {}
+      {/* Get Involved Section */}
       <section className="py-20 bg-gray-100">
         <div className="container-page">
           <h2 className="text-3xl font-bold mb-2 text-center">Get Involved</h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-12 rounded"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {}
             <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200">
               <div className="flex items-center mb-6">
                 <svg
@@ -391,11 +335,9 @@ export default async function Home() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http:
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
                     strokeWidth={2}
                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                   />
@@ -439,7 +381,7 @@ export default async function Home() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 014 0z"
                       />
                     </svg>
                     St. Thomas Episcopal Parish (276 S. College Ave, Newark)
@@ -475,7 +417,7 @@ export default async function Home() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14"
                       />
                     </svg>
                     Virtual via Zoom
@@ -590,7 +532,6 @@ export default async function Home() {
               </div>
             </div>
 
-            {}
             <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200">
               <div className="flex items-center mb-6">
                 <svg
@@ -598,16 +539,14 @@ export default async function Home() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http:
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
                     strokeWidth={2}
                     d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <h3 className="text-2xl font-bold">Committees & Working Groups</h3>
+                <h3 className="text-2xl font-bold">Committees &amp; Working Groups</h3>
               </div>
 
               <div className="space-y-4">
@@ -730,13 +669,12 @@ export default async function Home() {
         </div>
       </section>
 
-      {}
+      {/* Our Chapter at a Glance Section */}
       <section className="py-16 bg-white">
         <div className="container-page">
           <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-10 rounded-xl shadow-md relative overflow-hidden">
-            {}
             <div className="absolute inset-0 opacity-5">
-              <svg width="100%" height="100%" xmlns="http:
+              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
                     <path
@@ -780,11 +718,10 @@ export default async function Home() {
         </div>
       </section>
 
-      {}
+      {/* Join the Movement Section */}
       <section className="py-20 bg-gradient-to-br from-dsa-red to-red-700 text-white relative overflow-hidden">
-        {}
         <div className="absolute inset-0 flex justify-center opacity-10">
-          <svg width="100%" height="100%" xmlns="http:
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern
                 id="diagonalHatch"

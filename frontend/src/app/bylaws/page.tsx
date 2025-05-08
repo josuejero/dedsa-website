@@ -234,7 +234,7 @@ export default async function Bylaws() {
             </a>
 
             <a
-              href="https:
+              href="https://www.nationaldsa.org/constitution"
               target="_blank"
               rel="noopener noreferrer"
               className="border border-gray-200 rounded-lg p-6 hover:bg-gray-50 transition-colors block"

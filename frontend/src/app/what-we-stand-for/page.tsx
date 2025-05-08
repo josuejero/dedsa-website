@@ -4,7 +4,6 @@ import { gql } from '@apollo/client';
 import { getClient } from '../../lib/apollo-client';
 import { Metadata } from 'next';
 
-
 export const metadata: Metadata = {
   title: 'What We Stand For',
   description:
@@ -17,7 +16,6 @@ interface Position {
   content: string;
   order: number;
 }
-
 
 const GET_POSITIONS_PAGE = gql`
   query GetPositionsPage {
@@ -36,12 +34,10 @@ const GET_POSITIONS_PAGE = gql`
 `;
 
 export default async function WhatWeStandFor() {
-  
   const { data } = await getClient().query({
     query: GET_POSITIONS_PAGE,
   });
 
-  
   const pageContent =
     data?.page?.content ||
     `
@@ -55,7 +51,6 @@ export default async function WhatWeStandFor() {
     </p>
   `;
 
-  
   let positions =
     data?.positions?.nodes?.map((node: any) => ({
       id: node.id,
@@ -65,7 +60,6 @@ export default async function WhatWeStandFor() {
     })) || [];
 
   if (positions.length === 0) {
-    
     positions = [
       {
         id: 'healthcare',

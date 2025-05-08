@@ -3,11 +3,9 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import NewsletterSignup from '../NewsletterSignup';
 import * as newsletterHook from '../../hooks/useNewsletterSubscription';
 
-
 jest.mock('@/hooks/useNewsletterSubscription');
 
 describe('NewsletterSignup Component', () => {
-  
   const setupHookMock = (options = {}) => {
     const defaultMock = {
       email: '',
@@ -21,13 +19,11 @@ describe('NewsletterSignup Component', () => {
       reset: jest.fn(),
     };
 
-    
     const mockImplementation = {
       ...defaultMock,
       ...options,
     };
 
-    
     jest
       .spyOn(newsletterHook, 'useNewsletterSubscription')
       .mockImplementation(
@@ -41,7 +37,6 @@ describe('NewsletterSignup Component', () => {
   };
 
   beforeEach(() => {
-    
     jest.clearAllMocks();
   });
 
@@ -49,15 +44,12 @@ describe('NewsletterSignup Component', () => {
     setupHookMock();
     render(<NewsletterSignup />);
 
-    
     expect(screen.getByText('Stay Updated')).toBeInTheDocument();
     expect(screen.getByText(/subscribe to our newsletter/i)).toBeInTheDocument();
 
-    
     expect(screen.getByPlaceholderText('Your email address')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Subscribe' })).toBeInTheDocument();
 
-    
     const container = screen.getByText('Stay Updated').closest('div');
     expect(container).toHaveClass('bg-dsa-red');
     expect(container).toHaveClass('text-white');
@@ -67,12 +59,10 @@ describe('NewsletterSignup Component', () => {
     setupHookMock();
     render(<NewsletterSignup variant="sidebar" />);
 
-    
     const container = screen.getByText('Stay Updated').closest('div');
     expect(container).toHaveClass('bg-white');
     expect(container).not.toHaveClass('text-white');
 
-    
     const input = screen.getByPlaceholderText('Your email address');
     expect(input).toHaveClass('w-full');
     expect(input).not.toHaveClass('sm:w-2/3');
@@ -82,7 +72,6 @@ describe('NewsletterSignup Component', () => {
     setupHookMock();
     render(<NewsletterSignup variant="footer" />);
 
-    
     const container = screen.getByText('Stay Updated').closest('div');
     expect(container).toHaveClass('bg-gray-800');
     expect(container).toHaveClass('text-white');
@@ -105,13 +94,10 @@ describe('NewsletterSignup Component', () => {
 
     render(<NewsletterSignup />);
 
-    
     const emailInput = screen.getByPlaceholderText('Your email address');
 
-    
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
 
-    
     expect(mockSetEmail).toHaveBeenCalledWith('test@example.com');
   });
 
@@ -121,13 +107,10 @@ describe('NewsletterSignup Component', () => {
 
     render(<NewsletterSignup />);
 
-    
     const form = screen.getByRole('button', { name: 'Subscribe' }).closest('form');
 
-    
     fireEvent.submit(form!);
 
-    
     expect(mockSubscribe).toHaveBeenCalled();
   });
 
@@ -136,10 +119,8 @@ describe('NewsletterSignup Component', () => {
 
     render(<NewsletterSignup />);
 
-    
     expect(screen.getByText('Subscribing...')).toBeInTheDocument();
 
-    
     const submitButton = screen.getByRole('button', { name: 'Subscribing...' });
     expect(submitButton).toBeDisabled();
   });
@@ -149,11 +130,9 @@ describe('NewsletterSignup Component', () => {
 
     render(<NewsletterSignup />);
 
-    
     expect(screen.getByText('Thank You!')).toBeInTheDocument();
     expect(screen.getByText(/successfully subscribed/i)).toBeInTheDocument();
 
-    
     expect(screen.getByRole('button', { name: /subscribe another email/i })).toBeInTheDocument();
   });
 
@@ -163,11 +142,9 @@ describe('NewsletterSignup Component', () => {
 
     render(<NewsletterSignup />);
 
-    
     const resetButton = screen.getByRole('button', { name: /subscribe another email/i });
     fireEvent.click(resetButton);
 
-    
     expect(mockReset).toHaveBeenCalled();
   });
 
@@ -177,7 +154,6 @@ describe('NewsletterSignup Component', () => {
 
     render(<NewsletterSignup />);
 
-    
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
     expect(screen.getByText(errorMessage)).toHaveClass('bg-red-100');
   });
@@ -187,18 +163,15 @@ describe('NewsletterSignup Component', () => {
 
     render(<NewsletterSignup />);
 
-    
     const form = screen.getByRole('button', { name: 'Subscribe' }).closest('form');
     expect(form).toHaveClass('flex');
     expect(form).toHaveClass('flex-col');
     expect(form).toHaveClass('sm:flex-row');
 
-    
     const input = screen.getByPlaceholderText('Your email address');
     expect(input).toHaveClass('w-full');
     expect(input).toHaveClass('sm:w-2/3');
 
-    
     const button = screen.getByRole('button', { name: 'Subscribe' });
     expect(button).toHaveClass('mt-2');
     expect(button).toHaveClass('sm:mt-0');

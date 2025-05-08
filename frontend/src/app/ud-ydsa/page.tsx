@@ -45,9 +45,9 @@ export default async function UdYdsa() {
     meetingLocation: 'Morris Library, Room 202, University of Delaware',
     meetingSchedule: 'Every Wednesday at 7:00 PM during the academic year',
     socialMedia: {
-      instagram: 'https:
-      twitter: 'https:
-      facebook: 'https:
+      instagram: 'https://instagram.com',
+      twitter: 'https://twitter.com',
+      facebook: 'https://facebook.com',
     },
   };
 

@@ -51,7 +51,6 @@ export default async function Committees() {
     <p>We encourage all members to join at least one committee or working group. This is the best way to get involved and make meaningful contributions to our chapter's work.</p>
   `;
 
-  
   let committees: Committee[] =
     data?.committees?.nodes?.map((node: any) => ({
       id: node.id,
