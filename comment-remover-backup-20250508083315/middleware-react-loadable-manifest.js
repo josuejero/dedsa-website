@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"../node_modules/@apollo/client-react-streaming/dist/index.cc.js -> ./SimulatePreloadedQuery.cc.js\":{\"id\":\"../node_modules/@apollo/client-react-streaming/dist/index.cc.js -> ./SimulatePreloadedQuery.cc.js\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_apollo_client-react-streaming_dist_SimulatePreloadedQuery_cc_js.js\"]}}"

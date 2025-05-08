@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Navigation menu items based on the outline
+  
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'Newsletter', href: '/newsletter' },
@@ -24,10 +24,10 @@ export default function Header() {
     <header className="bg-white shadow-md">
       <div className="container-page py-4">
         <div className="flex items-center justify-between">
-          {/* Logo and Site Title */}
+          {}
           <div className="flex items-center space-x-2">
             <Link href="/" className="flex items-center space-x-2">
-              {/* Replace with actual logo when available */}
+              {}
               <div className="w-10 h-10 bg-dsa-red rounded-full flex items-center justify-center">
                 <span className="text-white font-bold">DSA</span>
               </div>
@@ -35,7 +35,7 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+          {}
           <nav className="hidden md:flex space-x-6">
             {navItems.map((item) => (
               <Link
@@ -48,21 +48,21 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Join Button */}
+          {}
           <div className="hidden md:block">
             <Link href="/join" className="btn btn-primary">
               Join Our Chapter
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {}
           <button
             className="md:hidden text-gray-500"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="http:
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
@@ -87,7 +87,7 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {}
         {isMenuOpen && (
           <nav className="mt-4 pb-2 md:hidden">
             <ul className="flex flex-col space-y-2">

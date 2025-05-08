@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import { getClient } from '../../lib/apollo-client';
 import { Metadata } from 'next';
 
-// Define metadata for the page
+
 export const metadata: Metadata = {
   title: 'What We Stand For',
   description:
@@ -18,7 +18,7 @@ interface Position {
   order: number;
 }
 
-// GraphQL query to fetch page content and positions
+
 const GET_POSITIONS_PAGE = gql`
   query GetPositionsPage {
     page(id: "what-we-stand-for", idType: URI) {
@@ -36,12 +36,12 @@ const GET_POSITIONS_PAGE = gql`
 `;
 
 export default async function WhatWeStandFor() {
-  // Fetch data using Apollo Client
+  
   const { data } = await getClient().query({
     query: GET_POSITIONS_PAGE,
   });
 
-  // If no page content is found, use default content
+  
   const pageContent =
     data?.page?.content ||
     `
@@ -55,7 +55,7 @@ export default async function WhatWeStandFor() {
     </p>
   `;
 
-  // If no positions are found, use sample positions
+  
   let positions =
     data?.positions?.nodes?.map((node: any) => ({
       id: node.id,
@@ -65,7 +65,7 @@ export default async function WhatWeStandFor() {
     })) || [];
 
   if (positions.length === 0) {
-    // Sample positions for development
+    
     positions = [
       {
         id: 'healthcare',
@@ -157,7 +157,7 @@ export default async function WhatWeStandFor() {
   return (
     <div className="bg-gray-100 py-12">
       <div className="container-page">
-        {/* Hero Section */}
+        {}
         <div className="bg-dsa-red text-white p-8 md:p-12 rounded-lg mb-12">
           <h1 className="text-4xl font-bold mb-4">What We Stand For</h1>
           <p className="text-xl">
@@ -167,7 +167,7 @@ export default async function WhatWeStandFor() {
           </p>
         </div>
 
-        {/* Page Introduction */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-12">
           <div
             className="prose prose-lg max-w-none"
@@ -175,7 +175,7 @@ export default async function WhatWeStandFor() {
           />
         </div>
 
-        {/* Position Cards */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {positions.map((position: Position) => (
             <div key={position.id} className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -192,7 +192,7 @@ export default async function WhatWeStandFor() {
           ))}
         </div>
 
-        {/* Call to Action */}
+        {}
         <div className="mt-12 text-center bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold mb-4">Join Our Movement</h2>
           <p className="text-xl mb-6 max-w-2xl mx-auto">

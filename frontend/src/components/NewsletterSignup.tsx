@@ -17,7 +17,7 @@ export default function NewsletterSignup({
   const { email, setEmail, subscribe, isSubmitting, isSuccess, isError, errorMessage, reset } =
     useNewsletterSubscription();
 
-  // Different styles based on variant
+  
   const containerClasses = {
     banner: 'bg-dsa-red text-white p-6 rounded-lg',
     sidebar: 'bg-white p-6 rounded-lg shadow-md',
@@ -39,7 +39,7 @@ export default function NewsletterSignup({
     footer: 'w-full sm:w-2/3 p-2 text-black rounded-l focus:outline-none',
   }[variant];
 
-  // Success state
+  
   if (isSuccess) {
     return (
       <div className={containerClasses}>
@@ -87,7 +87,7 @@ export default function NewsletterSignup({
             <span className="flex items-center justify-center">
               <svg
                 className="animate-spin -ml-1 mr-2 h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="http:
                 fill="none"
                 viewBox="0 0 24 24"
               >

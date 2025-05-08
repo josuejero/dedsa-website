@@ -17,7 +17,7 @@ export default function LeadershipCard({ title, name, bio, email, imageUrl }: Le
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="p-6">
-        {/* Header with image if available */}
+        {}
         <div className="flex items-center mb-4">
           <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4">
             {imageUrl ? (
@@ -35,7 +35,7 @@ export default function LeadershipCard({ title, name, bio, email, imageUrl }: Le
           </div>
         </div>
 
-        {/* Bio - expanded or truncated */}
+        {}
         <div className="mb-4">
           {isExpanded ? (
             <div className="prose" dangerouslySetInnerHTML={{ __html: bio }} />
@@ -43,7 +43,7 @@ export default function LeadershipCard({ title, name, bio, email, imageUrl }: Le
             <div className="prose line-clamp-3" dangerouslySetInnerHTML={{ __html: bio }} />
           )}
 
-          {/* Expand/collapse button */}
+          {}
           {bio.length > 150 && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
@@ -54,7 +54,7 @@ export default function LeadershipCard({ title, name, bio, email, imageUrl }: Le
           )}
         </div>
 
-        {/* Contact */}
+        {}
         <div>
           <a href={`mailto:${email}`} className="text-dsa-red hover:underline flex items-center">
             <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

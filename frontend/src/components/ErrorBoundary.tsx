@@ -10,7 +10,7 @@ interface ErrorBoundaryProps {
 
 export default function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
   useEffect(() => {
-    // Log the error to an error reporting service
+    
     console.error('Unhandled error:', error);
   }, [error]);
 

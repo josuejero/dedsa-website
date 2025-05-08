@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-// Secret key for security
+
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET || 'DEFAULT_SECRET_CHANGE_ME';
 
 export async function POST(request: NextRequest) {
@@ -9,17 +9,17 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { path, secret, tag } = body;
 
-    // Validate the secret
+    
     if (secret !== REVALIDATE_SECRET) {
       return NextResponse.json({ error: 'Invalid secret' }, { status: 401 });
     }
 
-    // Validate the path or tag
+    
     if (!path && !tag) {
       return NextResponse.json({ error: 'Either path or tag must be provided' }, { status: 400 });
     }
 
-    // Revalidate the path or tag
+    
     if (path) {
       revalidatePath(path);
       return NextResponse.json({

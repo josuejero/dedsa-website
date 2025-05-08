@@ -1,20 +1,20 @@
-#!/bin/bash
-# Navigate to your WP root before running this script:
-# cd /path/to/delaware-dsa-website/backend
 
-# 1. Local DB credentials & path
+
+
+
+
 LOCAL_PATH="$(pwd)"
 LOCAL_DB_NAME="delaware_dsa_backend"
 LOCAL_DB_USER="root"
 LOCAL_DB_PASS="root"
 
-# 2. Production credentials
+
 REMOTE_DB_NAME="production_db_name"
 REMOTE_DB_USER="production_db_user"
 REMOTE_DB_PASS="production_db_password"
 REMOTE_DB_HOST="production_db_host"
 
-# 3. Timestamp for backup
+
 DATE=$(date +"%Y%m%d_%H%M%S")
 BACKUP_FILE="backup_${DATE}.sql"
 

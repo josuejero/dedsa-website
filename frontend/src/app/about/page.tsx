@@ -56,7 +56,7 @@ export default async function About() {
       <div className="container-page">
         <h1 className="text-4xl font-bold mb-4">About Delaware DSA</h1>
 
-        {/* Main Content */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <div
             className="prose prose-lg max-w-none"
@@ -64,18 +64,18 @@ export default async function About() {
           />
         </div>
 
-        {/* Mission Statement */}
+        {}
         <div className="bg-dsa-red text-white p-8 rounded-lg mb-8">
           <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
           <p className="text-xl italic">&quot;{aboutInfo.missionStatement}&quot;</p>
         </div>
 
-        {/* History Timeline */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-6">Our History</h2>
 
           <div className="relative border-l-4 border-dsa-red pl-6 pb-2">
-            {/* Founding Year */}
+            {}
             <div className="mb-8 relative">
               <div className="absolute -left-10 mt-2 w-6 h-6 rounded-full bg-dsa-red"></div>
               <h3 className="text-xl font-bold">{aboutInfo.foundingYear}</h3>
@@ -86,7 +86,7 @@ export default async function About() {
               </p>
             </div>
 
-            {/* 2022 */}
+            {}
             <div className="mb-8 relative">
               <div className="absolute -left-10 mt-2 w-6 h-6 rounded-full bg-dsa-red"></div>
               <h3 className="text-xl font-bold">2022</h3>
@@ -97,7 +97,7 @@ export default async function About() {
               </p>
             </div>
 
-            {/* 2023 */}
+            {}
             <div className="mb-8 relative">
               <div className="absolute -left-10 mt-2 w-6 h-6 rounded-full bg-dsa-red"></div>
               <h3 className="text-xl font-bold">2023</h3>
@@ -108,7 +108,7 @@ export default async function About() {
               </p>
             </div>
 
-            {/* 2024 */}
+            {}
             <div className="mb-8 relative">
               <div className="absolute -left-10 mt-2 w-6 h-6 rounded-full bg-dsa-red"></div>
               <h3 className="text-xl font-bold">2024</h3>
@@ -119,7 +119,7 @@ export default async function About() {
               </p>
             </div>
 
-            {/* Present */}
+            {}
             <div className="relative">
               <div className="absolute -left-10 mt-2 w-6 h-6 rounded-full bg-dsa-red"></div>
               <h3 className="text-xl font-bold">Today</h3>
@@ -133,7 +133,7 @@ export default async function About() {
           </div>
         </div>
 
-        {/* Key Achievements */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-6">What We&apos;ve Accomplished</h2>
 
@@ -159,7 +159,7 @@ export default async function About() {
           </div>
         </div>
 
-        {/* Democratic Socialism */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-6">What is Democratic Socialism?</h2>
 
@@ -215,7 +215,7 @@ export default async function About() {
           </div>
         </div>
 
-        {/* Get Involved */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-6">Get Involved</h2>
 
@@ -294,7 +294,7 @@ export default async function About() {
           </div>
         </div>
 
-        {/* National DSA Link */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-2/3">
@@ -305,7 +305,7 @@ export default async function About() {
                 organization, its history, and its work.
               </p>
               <a
-                href="https://www.dsausa.org/about-us/"
+                href="https:
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-dsa-red hover:underline inline-flex items-center"
@@ -329,7 +329,7 @@ export default async function About() {
           </div>
         </div>
 
-        {/* Contact */}
+        {}
         <div className="bg-dsa-red text-white p-8 rounded-lg text-center">
           <h2 className="text-3xl font-bold mb-4">Have Questions?</h2>
           <p className="text-xl mb-6 max-w-2xl mx-auto">
@@ -348,7 +348,7 @@ export default async function About() {
   );
 }
 
-// Helper function to get ordinal suffix
+
 function getOrdinalSuffix(n: number): string {
   if (n > 3 && n < 21) return 'th';
   switch (n % 10) {

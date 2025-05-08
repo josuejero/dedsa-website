@@ -5,14 +5,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import React from 'react';
 
-// Configure Inter font
+
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 });
 
-// Metadata for the site
+
 export const metadata: Metadata = {
   title: {
     template: '%s | Delaware DSA',

@@ -13,12 +13,12 @@ if( function_exists('acf_add_local_field_group') ) {
         'type'            => 'date_picker',
         'show_in_graphql' => 1,
       ],
-      // … add time, location, virtual link fields similarly …
+      
     ],
     'location' => [[
       ['param'=>'post_type','operator'=>'==','value'=>'event']
     ]]
   ]);
 
-  // Repeat for leadership and contact groups…
+  
 }

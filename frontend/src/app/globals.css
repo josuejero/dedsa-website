@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom base styles */
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -36,13 +36,13 @@
     @apply text-dsa-red hover:underline transition-colors duration-200;
   }
   
-  /* Focus states for accessibility */
+  
   a:focus, button:focus, input:focus, select:focus, textarea:focus {
     @apply outline-none ring-2 ring-dsa-red ring-opacity-50;
   }
 }
 
-/* Custom component classes */
+
 @layer components {
   .btn {
     @apply px-4 py-2 rounded font-medium transition-all duration-200 inline-flex items-center justify-center;
@@ -60,12 +60,12 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  /* Card styling */
+  
   .card {
     @apply bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-lg;
   }
 
-  /* Section styling */
+  
   .section-light {
     @apply py-16 md:py-20 bg-white;
   }
@@ -74,12 +74,12 @@
     @apply py-16 md:py-20 bg-gray-100;
   }
 
-  /* Event list styling */
+  
   .event-item {
     @apply border-l-4 border-dsa-red pl-4 py-2 transition-colors duration-200 hover:bg-red-50;
   }
   
-  /* Animation classes */
+  
   .animation-fade-in {
     animation: fadeIn 0.5s ease-in-out;
   }
@@ -93,7 +93,7 @@
   }
 }
 
-/* Animations */
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -109,7 +109,7 @@
   to { transform: translateX(0); opacity: 1; }
 }
 
-/* Utility classes for animations */
+
 .hover-scale {
   @apply transition-transform duration-300 hover:scale-105;
 }

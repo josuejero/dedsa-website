@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
 import { gql } from '@apollo/client';
 
-// Types for our post data
+
 interface Author {
   id: string;
   name: string;
@@ -40,7 +40,7 @@ export async function generateMetadata(
   { params }: { params: { slug: string } },
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  // Fetch post data
+  
   const { data } = await getClient().query({
     query: GET_POST_BY_SLUG,
     variables: { slug: params.slug },
@@ -48,7 +48,7 @@ export async function generateMetadata(
 
   const post = data?.post;
 
-  // If post not found, return default metadata
+  
   if (!post) {
     return {
       title: 'Post Not Found',
@@ -62,7 +62,7 @@ export async function generateMetadata(
   };
 }
 
-// GraphQL query to fetch a single post by slug
+
 const GET_POST_BY_SLUG = gql`
   query GetPostBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {
@@ -98,7 +98,7 @@ const GET_POST_BY_SLUG = gql`
   }
 `;
 
-// GraphQL query to fetch related posts (posts in the same category)
+
 const GET_RELATED_POSTS = gql`
   query GetRelatedPosts($categoryIds: [ID], $currentPostId: ID!) {
     posts(first: 3, where: { categoryIn: $categoryIds, notIn: [$currentPostId] }) {
@@ -112,7 +112,7 @@ const GET_RELATED_POSTS = gql`
   }
 `;
 
-// GraphQL query to fetch all post slugs for static generation
+
 export async function generateStaticParams() {
   const GET_ALL_POST_SLUGS = gql`
     query GetAllPostSlugs {
@@ -140,21 +140,21 @@ export async function generateStaticParams() {
 
 export default async function PostDetail({ params }: { params: { slug: string } }) {
   try {
-    // Fetch the post data
+    
     const { data } = await getClient().query({
       query: GET_POST_BY_SLUG,
       variables: { slug: params.slug },
     });
 
-    // If no post found, return 404
+    
     if (!data.post) {
       return notFound();
     }
 
-    // Get category IDs for related posts
+    
     const categoryIds = data.post.categories.nodes.map((cat: { id: string }) => cat.id);
 
-    // Fetch related posts if we have categories
+    
     let relatedPosts: any[] = [];
     if (categoryIds.length > 0) {
       const relatedResult = await getClient().query({
@@ -168,7 +168,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
       relatedPosts = relatedResult.data.posts.nodes;
     }
 
-    // For PublishPress Authors compatibility
+    
     const author = data.post.author?.node || {
       id: 'default',
       name: 'Delaware DSA',
@@ -181,7 +181,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
       author,
     };
 
-    // Format the post date
+    
     const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -191,7 +191,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
     return (
       <article className="bg-gray-100 py-12">
         <div className="container-page">
-          {/* Breadcrumbs */}
+          {}
           <nav className="mb-8">
             <ol className="flex text-sm text-gray-600">
               <li>
@@ -211,7 +211,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
           </nav>
 
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            {/* Featured image */}
+            {}
             {post.featuredImage?.node && (
               <div className="w-full h-96">
                 <img
@@ -222,12 +222,12 @@ export default async function PostDetail({ params }: { params: { slug: string } 
               </div>
             )}
 
-            {/* Post header */}
+            {}
             <div className="p-8">
               <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
 
               <div className="flex items-center mb-6">
-                {/* Author avatar */}
+                {}
                 <div className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden">
                   {post.author?.avatar?.url ? (
                     <img
@@ -248,7 +248,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                 </div>
               </div>
 
-              {/* Categories */}
+              {}
               {post.categories.nodes.length > 0 && (
                 <div className="flex flex-wrap mb-8">
                   {post.categories.nodes.map((cat) => (
@@ -263,18 +263,18 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                 </div>
               )}
 
-              {/* Post content */}
+              {}
               <div
                 className="prose prose-lg max-w-none"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
 
-              {/* Social sharing */}
+              {}
               <div className="mt-12 pt-8 border-t">
                 <h3 className="text-lg font-bold mb-4">Share this article</h3>
                 <div className="flex space-x-4">
                   <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                    href={`https:
                       post.title,
                     )}&url=${encodeURIComponent(
                       `${process.env.NEXT_PUBLIC_BASE_URL}/newsletter/${post.slug}`,
@@ -288,7 +288,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                     </svg>
                   </a>
                   <a
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                    href={`https:
                       `${process.env.NEXT_PUBLIC_BASE_URL}/newsletter/${post.slug}`,
                     )}`}
                     target="_blank"
@@ -312,7 +312,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns="http:
                     >
                       <path
                         strokeLinecap="round"
@@ -327,7 +327,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
             </div>
           </div>
 
-          {/* Related posts */}
+          {}
           {relatedPosts.length > 0 && (
             <div className="mt-12">
               <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
@@ -350,7 +350,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
             </div>
           )}
 
-          {/* Back button */}
+          {}
           <div className="mt-8">
             <Link
               href="/newsletter"
@@ -361,7 +361,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="http:
               >
                 <path
                   strokeLinecap="round"

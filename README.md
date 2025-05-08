@@ -1,6 +1,6 @@
 # Delaware DSA Website
 
-A modern website for the Delaware chapter of the Democratic Socialists of America (DSA). 
+Website for Delaware DSA 
 
 ## Technology Stack
 
@@ -8,14 +8,14 @@ A modern website for the Delaware chapter of the Democratic Socialists of Americ
 - WordPress (Headless Mode)
 - WPGraphQL
 - MariaDB
-- Redis (for production caching)
-- PublishPress Authors (for multi-author management)
+- Redis
+- PublishPress Authors
 
 ### Frontend
 - Next.js
 - TypeScript
 - Tailwind CSS
-- Apollo Client (optional for complex data fetching)
+- Apollo Client
 
 ### Infrastructure
 - Local by Flywheel (local development)
@@ -30,6 +30,3 @@ A modern website for the Delaware chapter of the Democratic Socialists of Americ
 - `/docs` - Documentation
 - `/scripts` - Utility scripts
 - `/.github` - GitHub Actions workflow configurations
-
-## Getting Started
-See the [Development Guide](./docs/development-guide.md) for setup instructions.

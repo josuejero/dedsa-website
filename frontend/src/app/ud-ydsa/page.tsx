@@ -45,16 +45,16 @@ export default async function UdYdsa() {
     meetingLocation: 'Morris Library, Room 202, University of Delaware',
     meetingSchedule: 'Every Wednesday at 7:00 PM during the academic year',
     socialMedia: {
-      instagram: 'https://instagram.com/udydsa',
-      twitter: 'https://twitter.com/udydsa',
-      facebook: 'https://facebook.com/udydsa',
+      instagram: 'https:
+      twitter: 'https:
+      facebook: 'https:
     },
   };
 
   return (
     <div className="bg-gray-100 py-12">
       <div className="container-page">
-        {/* Hero Section */}
+        {}
         <div className="bg-dsa-red text-white p-8 md:p-12 rounded-lg mb-12">
           <h1 className="text-4xl font-bold mb-4">University of Delaware YDSA</h1>
           <p className="text-xl">
@@ -62,7 +62,7 @@ export default async function UdYdsa() {
           </p>
         </div>
 
-        {/* Page Content */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <div
             className="prose prose-lg max-w-none"
@@ -70,7 +70,7 @@ export default async function UdYdsa() {
           />
         </div>
 
-        {/* Meeting Information Box */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-6">Get Involved</h2>
 
@@ -202,7 +202,7 @@ export default async function UdYdsa() {
           </div>
         </div>
 
-        {/* Current Campaigns Section */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-6">Current Campaigns</h2>
 
@@ -242,7 +242,7 @@ export default async function UdYdsa() {
           </div>
         </div>
 
-        {/* Leadership Section */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-6">Chapter Leadership</h2>
 
@@ -288,7 +288,7 @@ export default async function UdYdsa() {
           </div>
         </div>
 
-        {/* Upcoming Events Section */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Upcoming Events</h2>
@@ -348,7 +348,7 @@ export default async function UdYdsa() {
           </div>
         </div>
 
-        {/* Call to Action */}
+        {}
         <div className="bg-dsa-red text-white p-8 rounded-lg text-center">
           <h2 className="text-3xl font-bold mb-4">Join UD YDSA Today!</h2>
           <p className="text-xl mb-6 max-w-2xl mx-auto">

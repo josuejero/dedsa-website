@@ -32,7 +32,7 @@ export default async function Join() {
   return (
     <div className="bg-gray-100 py-12">
       <div className="container-page">
-        {/* Hero Section */}
+        {}
         <div className="bg-dsa-red text-white p-8 md:p-12 rounded-lg mb-12">
           <h1 className="text-4xl font-bold mb-4">Join Delaware DSA</h1>
           <p className="text-xl">
@@ -41,7 +41,7 @@ export default async function Join() {
           </p>
         </div>
 
-        {/* Page Content */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <div
             className="prose prose-lg max-w-none"
@@ -49,9 +49,9 @@ export default async function Join() {
           />
         </div>
 
-        {/* Membership Options */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {/* Regular Membership */}
+          {}
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="bg-gray-800 text-white p-6">
               <h2 className="text-2xl font-bold mb-2">DSA Membership</h2>
@@ -151,7 +151,7 @@ export default async function Join() {
                 </li>
               </ul>
               <a
-                href="https://www.dsausa.org/join"
+                href="https:
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full btn btn-primary text-center block"
@@ -161,7 +161,7 @@ export default async function Join() {
             </div>
           </div>
 
-          {/* Dues Waiver */}
+          {}
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="bg-gray-800 text-white p-6">
               <h2 className="text-2xl font-bold mb-2">Dues Waiver Program</h2>
@@ -192,7 +192,7 @@ export default async function Join() {
           </div>
         </div>
 
-        {/* Why Join DSA */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-12">
           <h2 className="text-3xl font-bold mb-6">Why Join DSA?</h2>
 
@@ -262,7 +262,7 @@ export default async function Join() {
           </div>
         </div>
 
-        {/* Member Testimonials */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-12">
           <h2 className="text-3xl font-bold mb-6">What Our Members Say</h2>
 
@@ -287,7 +287,7 @@ export default async function Join() {
           </div>
         </div>
 
-        {/* FAQ Section */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-12">
           <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
 
@@ -333,7 +333,7 @@ export default async function Join() {
           </div>
         </div>
 
-        {/* Call to Action */}
+        {}
         <div className="bg-dsa-red text-white p-8 rounded-lg text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Join the Movement?</h2>
           <p className="text-xl mb-6 max-w-2xl mx-auto">
@@ -341,7 +341,7 @@ export default async function Join() {
             wealthy few. Join Delaware DSA today.
           </p>
           <a
-            href="https://www.dsausa.org/join"
+            href="https:
             target="_blank"
             rel="noopener noreferrer"
             className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3"

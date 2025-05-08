@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-gray-800 leading-relaxed;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl font-bold mb-4 tracking-tight;
+  }
+  
+  h2 {
+    @apply text-3xl font-bold mb-6 tracking-tight;
+  }
+  
+  h3 {
+    @apply text-2xl font-bold mb-4;
+  }
+  
+  h4 {
+    @apply text-xl font-bold mb-2;
+  }
+  
+  p {
+    @apply mb-4;
+  }
+  
+  a {
+    @apply text-dsa-red hover:underline transition-colors duration-200;
+  }
+  
+  /* Focus states for accessibility */
+  a:focus, button:focus, input:focus, select:focus, textarea:focus {
+    @apply outline-none ring-2 ring-dsa-red ring-opacity-50;
+  }
+}
+
+/* Custom component classes */
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded font-medium transition-all duration-200 inline-flex items-center justify-center;
+  }
+
+  .btn-primary {
+    @apply bg-dsa-red text-white hover:bg-red-700 focus:ring-4 focus:ring-red-300;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-dsa-black hover:bg-gray-300 focus:ring-4 focus:ring-gray-200;
+  }
+
+  .container-page {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Card styling */
+  .card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-lg;
+  }
+
+  /* Section styling */
+  .section-light {
+    @apply py-16 md:py-20 bg-white;
+  }
+
+  .section-dark {
+    @apply py-16 md:py-20 bg-gray-100;
+  }
+
+  /* Event list styling */
+  .event-item {
+    @apply border-l-4 border-dsa-red pl-4 py-2 transition-colors duration-200 hover:bg-red-50;
+  }
+  
+  /* Animation classes */
+  .animation-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animation-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  .animation-slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Utility classes for animations */
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-1;
+}

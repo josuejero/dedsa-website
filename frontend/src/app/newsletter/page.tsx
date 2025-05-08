@@ -5,14 +5,14 @@ import { gql } from '@apollo/client';
 import NewsletterCategoryFilter from './NewsletterCategoryFilter';
 import { Metadata } from 'next';
 
-// Define metadata for the page
+
 export const metadata: Metadata = {
   title: 'Newsletter',
   description:
     'Latest news, updates, and articles from the Delaware chapter of the Democratic Socialists of America.',
 };
 
-// GraphQL query to fetch posts and categories
+
 const GET_POSTS_AND_CATEGORIES = gql`
   query GetPostsAndCategories {
     posts(first: 20) {
@@ -48,7 +48,7 @@ const GET_POSTS_AND_CATEGORIES = gql`
   }
 `;
 
-// Types for our posts
+
 interface Post {
   id: string;
   title: string;
@@ -70,16 +70,16 @@ interface Post {
   } | null;
 }
 
-// Main newsletter page component
+
 export default async function Newsletter({
   searchParams,
 }: {
   searchParams: { category?: string };
 }) {
-  // Get the selected category from URL params
+  
   const selectedCategory = searchParams.category || null;
 
-  // Fetch posts and categories using Apollo Client
+  
   const { data } = await getClient().query({
     query: GET_POSTS_AND_CATEGORIES,
   });
@@ -87,7 +87,7 @@ export default async function Newsletter({
   const posts: Post[] = data?.posts?.nodes || [];
   const categories = data?.categories?.nodes || [];
 
-  // Filter posts by selected category
+  
   const filteredPosts = selectedCategory
     ? posts.filter((post) => post.categories.nodes.some((cat) => cat.slug === selectedCategory))
     : posts;
@@ -95,7 +95,7 @@ export default async function Newsletter({
   return (
     <div className="bg-gray-100 py-8">
       <div className="container-page">
-        {/* Page Header */}
+        {}
         <header className="mb-10">
           <h1 className="text-4xl font-bold">Newsletter</h1>
           <p className="text-xl text-gray-600 mt-2">
@@ -104,9 +104,9 @@ export default async function Newsletter({
         </header>
 
         <div className="flex flex-col lg:flex-row">
-          {/* Main Content */}
+          {}
           <main className="lg:w-3/4 lg:pr-8">
-            {/* Newsletter Signup Banner */}
+            {}
             <div className="bg-dsa-red text-white p-6 rounded-lg mb-8">
               <h2 className="text-2xl font-bold mb-2">Stay Updated</h2>
               <p className="mb-4">
@@ -127,7 +127,7 @@ export default async function Newsletter({
               </form>
             </div>
 
-            {/* Post Listing */}
+            {}
             <div className="space-y-8">
               {filteredPosts.length > 0 ? (
                 filteredPosts.map((post) => (
@@ -188,7 +188,7 @@ export default async function Newsletter({
             </div>
           </main>
 
-          {/* Sidebar */}
+          {}
           <aside className="lg:w-1/4 mt-8 lg:mt-0">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-bold mb-4 border-b pb-2">Categories</h3>

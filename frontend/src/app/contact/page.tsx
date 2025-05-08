@@ -27,7 +27,7 @@ export default async function Contact() {
     query: GET_CONTACT_INFO,
   });
 
-  // Default contact info if the query doesn't return results
+  
   const contactInfo = data?.page?.contactInfo || {
     email: 'info@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
     phone: '(302) 555-0123',
@@ -52,7 +52,7 @@ export default async function Contact() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Contact Information */}
+            {}
             <div>
               <h2 className="text-2xl font-bold mb-4">Get In Touch</h2>
 
@@ -138,7 +138,7 @@ export default async function Contact() {
                 <h3 className="text-xl font-bold mb-4">Follow Us</h3>
                 <div className="flex space-x-4">
                   <a
-                    href="https://twitter.com/DelawareDSA"
+                    href="https:
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-700 hover:text-dsa-red"
@@ -150,7 +150,7 @@ export default async function Contact() {
                   </a>
 
                   <a
-                    href="https://facebook.com/DelawareDSA"
+                    href="https:
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-700 hover:text-dsa-red"
@@ -162,7 +162,7 @@ export default async function Contact() {
                   </a>
 
                   <a
-                    href="https://instagram.com/DelawareDSA"
+                    href="https:
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-700 hover:text-dsa-red"
@@ -176,7 +176,7 @@ export default async function Contact() {
               </div>
             </div>
 
-            {/* Contact Form */}
+            {}
             <div>
               <h2 className="text-2xl font-bold mb-4">Send Us a Message</h2>
               <ContactForm />

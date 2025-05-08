@@ -1,12 +1,8 @@
 <?php
-/**
- * Plugin Name: Delaware DSA GraphQL Extensions
- * Description: Custom fields & connections for WPGraphQL
- * Version:     1.0.0
- */
+
 
 add_action('graphql_register_types', function() {
-  // Category → Posts connection
+  
   register_graphql_connection([
     'fromType'     => 'Category',
     'toType'       => 'Post',
@@ -18,7 +14,7 @@ add_action('graphql_register_types', function() {
     }
   ]);
 
-  // PublishPress Authors metadata
+  
   register_graphql_object_type('AuthorMeta', [
     'description' => 'Extra PP Authors data',
     'fields'      => [

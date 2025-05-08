@@ -69,7 +69,7 @@ export default async function Bylaws() {
           </div>
         </div>
 
-        {/* Embedded PDF Viewer */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-4">Bylaws Document</h2>
 
@@ -86,7 +86,7 @@ export default async function Bylaws() {
           </div>
         </div>
 
-        {/* Key Governance Sections */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-6">Key Governance Sections</h2>
 
@@ -137,7 +137,7 @@ export default async function Bylaws() {
           </div>
         </div>
 
-        {/* FAQ Section */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
 
@@ -180,7 +180,7 @@ export default async function Bylaws() {
           </div>
         </div>
 
-        {/* Other Governing Documents */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-6">Other Governing Documents</h2>
 
@@ -234,7 +234,7 @@ export default async function Bylaws() {
             </a>
 
             <a
-              href="https://www.dsausa.org/constitution"
+              href="https:
               target="_blank"
               rel="noopener noreferrer"
               className="border border-gray-200 rounded-lg p-6 hover:bg-gray-50 transition-colors block"

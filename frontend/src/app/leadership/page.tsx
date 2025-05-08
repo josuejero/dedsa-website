@@ -57,7 +57,7 @@ export default async function Leadership() {
     <p>Our elected officers serve two-year terms and are responsible for implementing the decisions and priorities established by our membership.</p>
   `;
 
-  // Default leadership team if query returns no results
+  
   let leadershipTeam: LeadershipRole[] =
     data?.leadership?.nodes?.map((node: any) => ({
       id: node.id,
@@ -122,7 +122,7 @@ export default async function Leadership() {
     ];
   }
 
-  // Sort leadership by order
+  
   leadershipTeam.sort((a, b) => a.order - b.order);
 
   return (

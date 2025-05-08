@@ -2,14 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 
 export default function Footer() {
-  // Social media links
+  
   const socialLinks = [
-    { name: 'Twitter', url: 'https://twitter.com/DelawareDSA', icon: 'twitter' },
-    { name: 'Facebook', url: 'https://facebook.com/DelawareDSA', icon: 'facebook' },
-    { name: 'Instagram', url: 'https://instagram.com/DelawareDSA', icon: 'instagram' },
+    { name: 'Twitter', url: 'https:
+    { name: 'Facebook', url: 'https:
+    { name: 'Instagram', url: 'https:
   ];
 
-  // Footer navigation links
+  
   const footerLinks = [
     {
       section: 'Learn',
@@ -44,7 +44,7 @@ export default function Footer() {
     <footer className="bg-gray-900 text-white" role="contentinfo">
       <div className="container-page py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Organization Info */}
+          {}
           <div>
             <h3 className="text-xl font-bold mb-4">Delaware DSA</h3>
             <p className="text-gray-300 mb-4">
@@ -52,7 +52,7 @@ export default function Footer() {
               system that puts people before profits.
             </p>
 
-            {/* Social Media Links */}
+            {}
             <div className="flex space-x-4">
               {socialLinks.map((link) => (
                 <a
@@ -83,7 +83,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Footer Navigation Links */}
+          {}
           {footerLinks.map((section) => (
             <div key={section.section}>
               <h3 className="text-lg font-semibold mb-4">{section.section}</h3>
@@ -103,7 +103,7 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Copyright and Attribution */}
+        {}
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-400">

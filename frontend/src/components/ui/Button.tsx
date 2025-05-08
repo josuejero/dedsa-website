@@ -21,11 +21,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    // Base classes
+    
     const baseClasses =
       'inline-flex items-center justify-center font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors';
 
-    // Variant classes
+    
     const variantClasses = {
       primary: 'bg-dsa-red text-white hover:bg-red-700 focus:ring-red-500',
       secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-400',
@@ -33,20 +33,20 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-transparent text-dsa-red border border-dsa-red hover:bg-red-50 focus:ring-red-500',
     }[variant];
 
-    // Size classes
+    
     const sizeClasses = {
       sm: 'text-sm px-3 py-1.5',
       md: 'text-base px-4 py-2',
       lg: 'text-lg px-6 py-3',
     }[size];
 
-    // Disabled classes
+    
     const disabledClasses = props.disabled ? 'opacity-50 cursor-not-allowed' : '';
 
-    // Combined classes
+    
     const buttonClasses = `${baseClasses} ${variantClasses} ${sizeClasses} ${disabledClasses} ${className}`;
 
-    // Render as link or button
+    
     if (href) {
       const linkProps = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
       return (

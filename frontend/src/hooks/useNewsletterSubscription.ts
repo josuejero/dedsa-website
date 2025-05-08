@@ -12,7 +12,7 @@ export function useNewsletterSubscription() {
   const subscribe = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate email
+    
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setStatus('error');
       setErrorMessage('Please enter a valid email address.');
@@ -23,18 +23,18 @@ export function useNewsletterSubscription() {
     setErrorMessage('');
 
     try {
-      // In a real implementation, this would call your API
-      // const response = await fetch('/api/newsletter', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email }),
-      // });
+      
+      
+      
+      
+      
+      
 
-      // if (!response.ok) {
-      //   throw new Error('Failed to subscribe');
-      // }
+      
+      
+      
 
-      // Simulate API call
+      
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       setStatus('success');

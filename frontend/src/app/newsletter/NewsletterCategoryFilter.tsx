@@ -23,13 +23,13 @@ export default function NewsletterCategoryFilter({
   const router = useRouter();
   const pathname = usePathname();
 
-  // Function to handle category selection
+  
   const handleCategoryChange = (categorySlug: string | null) => {
-    // If null (All Posts), remove the category parameter
+    
     if (categorySlug === null) {
       router.push(pathname);
     } else {
-      // Otherwise, add the category parameter
+      
       router.push(`${pathname}?category=${categorySlug}`);
     }
   };

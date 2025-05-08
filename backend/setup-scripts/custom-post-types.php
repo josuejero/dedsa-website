@@ -1,5 +1,5 @@
 <?php
-// Register “Events” CPT
+
 add_action('init', function() {
     register_post_type('event', [
         'public'              => true,
@@ -13,7 +13,7 @@ add_action('init', function() {
         'graphql_plural_name' => 'events',
     ]);
 
-// Register “Leadership” CPT
+
     register_post_type('leadership', [
         'public'              => true,
         'label'               => 'Leadership',

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
-// Define types for events
+
 interface Event {
   id: string;
   title: string;
@@ -28,12 +28,12 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
   const pathname = usePathname();
   const [selectedMonthState, setSelectedMonthState] = useState<string>(selectedMonth);
 
-  // Get current date
+  
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
-  // Get unique months from events
+  
   const months: { [key: string]: string } = {};
   events.forEach((event) => {
     const eventDate = new Date(event.meta.eventDate);
@@ -42,12 +42,12 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
     months[monthKey] = monthName;
   });
 
-  // Sort months
+  
   const sortedMonths = Object.entries(months)
     .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
     .map(([key, value]) => ({ key, value }));
 
-  // If no month is selected, default to current or nearest future month
+  
   useEffect(() => {
     if (!selectedMonthState && sortedMonths.length > 0) {
       const currentMonthKey = `${currentYear}-${currentMonth}`;
@@ -55,18 +55,18 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
       const newMonth = futureMonths.length > 0 ? futureMonths[0].key : sortedMonths[0].key;
       setSelectedMonthState(newMonth);
 
-      // Update URL
+      
       router.push(`${pathname}?month=${newMonth}`);
     }
   }, [currentMonth, currentYear, pathname, router, selectedMonthState, sortedMonths]);
 
-  // Handle month selection change
+  
   const handleMonthChange = (month: string) => {
     setSelectedMonthState(month);
     router.push(`${pathname}?month=${month}`);
   };
 
-  // Filter events by selected month
+  
   const filteredEvents = selectedMonthState
     ? events.filter((event) => {
         const eventDate = new Date(event.meta.eventDate);
@@ -75,7 +75,7 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
       })
     : events;
 
-  // Group events by date
+  
   const eventsByDate: { [key: string]: Event[] } = {};
   filteredEvents.forEach((event) => {
     const dateKey = new Date(event.meta.eventDate).toISOString().split('T')[0];
@@ -85,12 +85,12 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
     eventsByDate[dateKey].push(event);
   });
 
-  // Sort dates
+  
   const sortedDates = Object.keys(eventsByDate).sort();
 
   return (
     <>
-      {/* Month selector */}
+      {}
       <div className="mb-8">
         <label htmlFor="month-select" className="block text-lg font-medium mb-2">
           Select Month
@@ -109,12 +109,12 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
         </select>
       </div>
 
-      {/* Events listing */}
+      {}
       <div className="space-y-8">
         {sortedDates.length > 0 ? (
           sortedDates.map((dateKey) => (
             <div key={dateKey} className="bg-white rounded-lg shadow-md overflow-hidden">
-              {/* Date header */}
+              {}
               <div className="bg-dsa-red text-white p-4">
                 <h2 className="text-xl font-bold">
                   {new Date(dateKey).toLocaleDateString('en-US', {
@@ -126,21 +126,21 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
                 </h2>
               </div>
 
-              {/* Events for this date */}
+              {}
               <div className="divide-y">
                 {eventsByDate[dateKey].map((event) => (
                   <div key={event.id} className="p-6">
                     <h3 className="text-2xl font-bold mb-2">{event.title}</h3>
 
                     <div className="flex flex-wrap gap-y-2 text-gray-600 mb-4">
-                      {/* Time */}
+                      {}
                       <div className="w-full sm:w-1/2 flex items-center">
                         <svg
                           className="h-5 w-5 mr-2"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="http:
                         >
                           <path
                             strokeLinecap="round"
@@ -152,14 +152,14 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
                         <span>{event.meta.eventTime || 'Time TBA'}</span>
                       </div>
 
-                      {/* Location */}
+                      {}
                       <div className="w-full sm:w-1/2 flex items-start">
                         <svg
                           className="h-5 w-5 mr-2 mt-0.5"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="http:
                         >
                           <path
                             strokeLinecap="round"
@@ -178,7 +178,7 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
                       </div>
                     </div>
 
-                    {/* Virtual meeting link if available */}
+                    {}
                     {event.meta.eventVirtualLink && (
                       <div className="mb-4">
                         <a
@@ -192,7 +192,7 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns="http:
                           >
                             <path
                               strokeLinecap="round"
@@ -206,7 +206,7 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
                       </div>
                     )}
 
-                    {/* Event description */}
+                    {}
                     <div
                       className="prose max-w-none"
                       dangerouslySetInnerHTML={{ __html: event.content }}

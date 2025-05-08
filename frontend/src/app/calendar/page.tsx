@@ -4,14 +4,14 @@ import { getClient } from '../../lib/apollo-client';
 import { Metadata } from 'next';
 import EventCalendar from './EventCalendar';
 
-// Define metadata for the page
+
 export const metadata: Metadata = {
   title: 'Calendar',
   description:
     'Event calendar for Delaware DSA. Join us for meetings, actions, educational events, and social gatherings.',
 };
 
-// Define types for events
+
 interface Event {
   id: string;
   title: string;
@@ -26,8 +26,8 @@ interface Event {
   };
 }
 
-// GraphQL query to fetch events
-// Note: This assumes you've set up a custom post type for events with ACF fields
+
+
 const GET_EVENTS = gql`
   query GetEvents {
     events(first: 100, where: { orderby: { field: META, metaKey: "eventDate", order: ASC } }) {
@@ -49,12 +49,12 @@ const GET_EVENTS = gql`
 `;
 
 export default async function Calendar({ searchParams }: { searchParams: { month?: string } }) {
-  // Get the selected month from URL params
+  
   const selectedMonth = searchParams.month || '';
 
   try {
-    // Fetch events using Apollo Client
-    // This is a placeholder query that assumes you've set up a custom post type for events
+    
+    
     const { data } = await getClient().query({
       query: GET_EVENTS,
     });
@@ -62,8 +62,8 @@ export default async function Calendar({ searchParams }: { searchParams: { month
     let events: Event[] = (data?.events?.nodes as Event[]) || [];
 
     if (events.length === 0) {
-      // Generate sample events for development purposes
-      // Generate sample events for development purposes
+      
+      
       const today = new Date();
       const futureEvents: Event[] = [];
       for (let i = 0; i < 10; i++) {
@@ -82,7 +82,7 @@ export default async function Calendar({ searchParams }: { searchParams: { month
             eventDate: eventDate.toISOString(),
             eventTime: `${(i % 12) + 1}:00 ${i % 2 === 0 ? 'PM' : 'AM'}`,
             eventLocation: i % 3 === 0 ? 'Virtual' : 'Delaware State University, Dover, DE',
-            eventVirtualLink: i % 3 === 0 ? 'https://zoom.us/j/example' : undefined,
+            eventVirtualLink: i % 3 === 0 ? 'https:
           },
         });
       }
@@ -98,10 +98,10 @@ export default async function Calendar({ searchParams }: { searchParams: { month
             Join us for meetings, actions, educational events, and social gatherings.
           </p>
 
-          {/* Pass events to client component for month filtering and display */}
+          {}
           <EventCalendar events={events} selectedMonth={selectedMonth} />
 
-          {/* Add to Calendar Section */}
+          {}
           <div className="mt-12 bg-white p-8 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4">Subscribe to Our Calendar</h2>
             <p className="mb-6">

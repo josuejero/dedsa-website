@@ -51,7 +51,7 @@ export default async function Committees() {
     <p>We encourage all members to join at least one committee or working group. This is the best way to get involved and make meaningful contributions to our chapter's work.</p>
   `;
 
-  // Default committees if query returns no results
+  
   let committees: Committee[] =
     data?.committees?.nodes?.map((node: any) => ({
       id: node.id,
@@ -207,7 +207,7 @@ export default async function Committees() {
           ))}
         </div>
 
-        {/* Getting Involved Section */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-bold mb-4">How to Get Involved</h2>
 
@@ -234,7 +234,7 @@ export default async function Committees() {
           </div>
         </div>
 
-        {/* Starting a New Committee */}
+        {}
         <div className="bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-4">Starting a New Committee or Working Group</h2>
 

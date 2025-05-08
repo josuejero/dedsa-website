@@ -5,7 +5,7 @@ import { gql } from '@apollo/client';
 import { getClient } from '../lib/apollo-client';
 import NewsletterSignup from '../components/NewsletterSignup';
 
-// Define the GraphQL query to fetch recent posts
+
 const GET_RECENT_POSTS = gql`
   query GetRecentPosts {
     posts(first: 3) {
@@ -31,10 +31,10 @@ const GET_RECENT_POSTS = gql`
   }
 `;
 
-export const revalidate = 3600; // Revalidate this page every hour
+export const revalidate = 3600; 
 
 export default async function Home() {
-  // Fetch data using Apollo Client
+  
   const { data } = await getClient().query({
     query: GET_RECENT_POSTS,
   });
@@ -43,12 +43,12 @@ export default async function Home() {
 
   return (
     <>
-      {/* Hero Section - Enhanced with background gradient, improved spacing, and subtle animation */}
+      {}
       <section className="bg-gradient-to-br from-dsa-red to-red-700 text-white py-20 md:py-28">
         <div className="container-page relative">
-          {/* Abstract geometric shapes for visual interest */}
+          {}
           <div className="absolute top-0 right-0 opacity-10 w-80 h-80">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+            <svg viewBox="0 0 200 200" xmlns="http:
               <path
                 fill="#FFFFFF"
                 d="M45.7,-58.2C58.9,-51.3,69,-37.4,73.9,-22.1C78.8,-6.7,78.5,10.1,72.3,24.5C66.1,38.9,54,50.9,40,58.6C26,66.3,10.1,69.8,-6.4,77.5C-22.9,85.1,-45.7,96.9,-60.1,89.8C-74.5,82.8,-80.4,56.9,-82.2,34.3C-84,11.7,-81.6,-7.5,-75.6,-25.2C-69.7,-42.9,-60.2,-59.1,-46.6,-65.9C-33,-72.8,-15.3,-70.3,0.7,-71.1C16.7,-72,33.5,-76.2,45.7,-58.2Z"
@@ -84,7 +84,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Mission Statement Section - Enhanced with card-like visual treatment and improved typography */}
+      {}
       <section className="py-20 bg-white">
         <div className="container-page">
           <div className="max-w-4xl mx-auto text-center bg-gray-50 p-8 sm:p-12 rounded-xl shadow-sm">
@@ -116,7 +116,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Strategic Priorities Section - Enhanced with better spacing, icons, and hover effects */}
+      {}
       <section className="py-20 bg-gray-100">
         <div className="container-page">
           <h2 className="text-3xl font-bold mb-2 text-center">
@@ -135,7 +135,7 @@ export default async function Home() {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="http:
                   >
                     <path
                       strokeLinecap="round"
@@ -161,7 +161,7 @@ export default async function Home() {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="http:
                   >
                     <path
                       strokeLinecap="round"
@@ -188,7 +188,7 @@ export default async function Home() {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="http:
                   >
                     <path
                       strokeLinecap="round"
@@ -214,7 +214,7 @@ export default async function Home() {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="http:
                   >
                     <path
                       strokeLinecap="round"
@@ -235,7 +235,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Recent News/Blog Section - Enhanced card design with improved visuals and microinteractions */}
+      {}
       <section className="py-20 bg-white">
         <div className="container-page">
           <h2 className="text-3xl font-bold mb-2">Latest Updates</h2>
@@ -278,7 +278,7 @@ export default async function Home() {
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="http:
                         >
                           <path
                             strokeLinecap="round"
@@ -299,7 +299,7 @@ export default async function Home() {
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="http:
                         >
                           <path
                             strokeLinecap="round"
@@ -321,7 +321,7 @@ export default async function Home() {
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
+                              xmlns="http:
                             >
                               <path
                                 strokeLinecap="round"
@@ -348,7 +348,7 @@ export default async function Home() {
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="http:
                         >
                           <path
                             strokeLinecap="round"
@@ -376,14 +376,14 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Get Involved Section - Events and Committees with improved visual hierarchy */}
+      {}
       <section className="py-20 bg-gray-100">
         <div className="container-page">
           <h2 className="text-3xl font-bold mb-2 text-center">Get Involved</h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-12 rounded"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Upcoming Events */}
+            {}
             <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200">
               <div className="flex items-center mb-6">
                 <svg
@@ -391,7 +391,7 @@ export default async function Home() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="http:
                 >
                   <path
                     strokeLinecap="round"
@@ -590,7 +590,7 @@ export default async function Home() {
               </div>
             </div>
 
-            {/* Committees & Working Groups */}
+            {}
             <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200">
               <div className="flex items-center mb-6">
                 <svg
@@ -598,7 +598,7 @@ export default async function Home() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="http:
                 >
                   <path
                     strokeLinecap="round"
@@ -730,13 +730,13 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Membership Stats - Enhanced with visual counters and improved layout */}
+      {}
       <section className="py-16 bg-white">
         <div className="container-page">
           <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-10 rounded-xl shadow-md relative overflow-hidden">
-            {/* Background Pattern */}
+            {}
             <div className="absolute inset-0 opacity-5">
-              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <svg width="100%" height="100%" xmlns="http:
                 <defs>
                   <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
                     <path
@@ -780,11 +780,11 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Call to Action - Enhanced with background pattern and button animation */}
+      {}
       <section className="py-20 bg-gradient-to-br from-dsa-red to-red-700 text-white relative overflow-hidden">
-        {/* Background pattern */}
+        {}
         <div className="absolute inset-0 flex justify-center opacity-10">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <svg width="100%" height="100%" xmlns="http:
             <defs>
               <pattern
                 id="diagonalHatch"
