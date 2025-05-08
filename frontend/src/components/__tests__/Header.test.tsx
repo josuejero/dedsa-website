@@ -3,7 +3,7 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Header from '@/components/Header';
+import Header from '../../components/Header';
 
 // Mock Next.js router
 jest.mock('next/navigation', () => ({

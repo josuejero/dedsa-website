@@ -1,6 +1,7 @@
+import React from 'react';
 import { Metadata } from 'next';
 import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../../lib/apollo-client';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -77,7 +78,7 @@ export default async function Bylaws() {
           </div>
 
           <div className="mt-4 text-center text-gray-600 text-sm">
-            If the document doesn't load properly, you can{' '}
+            If the document doesn&apos;t load properly, you can{' '}
             <a href={bylawsPdf} download className="text-dsa-red hover:underline">
               download the PDF directly
             </a>
@@ -163,8 +164,8 @@ export default async function Bylaws() {
               <h3 className="text-xl font-bold mb-2">When were the bylaws last updated?</h3>
               <p>
                 Our bylaws were last updated on {lastUpdated}. The changes included [description of
-                recent changes or "clarifications to committee structure and updates to the
-                electoral process"].
+                recent changes or &quot;clarifications to committee structure and updates to the
+                electoral process&quot;].
               </p>
             </div>
 
@@ -203,7 +204,7 @@ export default async function Bylaws() {
               </svg>
               <h3 className="text-xl font-bold mb-2">Resolutions</h3>
               <p>
-                Important resolutions passed by our general membership that guide our chapter's
+                Important resolutions passed by our general membership that guide our chapter&apos;s
                 priorities and positions.
               </p>
             </a>

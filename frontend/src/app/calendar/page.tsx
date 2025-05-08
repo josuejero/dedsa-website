@@ -1,5 +1,6 @@
+import React from 'react';
 import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../../lib/apollo-client';
 import { Metadata } from 'next';
 import EventCalendar from './EventCalendar';
 
@@ -58,14 +59,13 @@ export default async function Calendar({ searchParams }: { searchParams: { month
       query: GET_EVENTS,
     });
 
-    // For development, let's generate some sample events if the query doesn't return real data
-    let events = data?.events?.nodes || [];
+    let events: Event[] = (data?.events?.nodes as Event[]) || [];
 
     if (events.length === 0) {
       // Generate sample events for development purposes
+      // Generate sample events for development purposes
       const today = new Date();
-      const futureEvents = [];
-
+      const futureEvents: Event[] = [];
       for (let i = 0; i < 10; i++) {
         const eventDate = new Date(today);
         eventDate.setDate(eventDate.getDate() + i * 3);

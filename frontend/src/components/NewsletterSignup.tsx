@@ -1,6 +1,7 @@
 'use client';
 
-import { useNewsletterSubscription } from '@/hooks/useNewsletterSubscription';
+import React from 'react';
+import { useNewsletterSubscription } from '../hooks/useNewsletterSubscription';
 
 interface NewsletterSignupProps {
   variant?: 'banner' | 'sidebar' | 'footer';

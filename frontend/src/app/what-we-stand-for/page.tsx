@@ -1,6 +1,7 @@
+import React from 'react';
 import Link from 'next/link';
 import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../../lib/apollo-client';
 import { Metadata } from 'next';
 
 // Define metadata for the page

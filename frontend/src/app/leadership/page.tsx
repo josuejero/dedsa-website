@@ -1,6 +1,7 @@
+import React from 'react';
 import { Metadata } from 'next';
 import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../../lib/apollo-client';
 import LeadershipCard from './LeadershipCard';
 
 export const metadata: Metadata = {
@@ -75,7 +76,7 @@ export default async function Leadership() {
         title: 'Chapter Chair',
         name: 'Alex Johnson',
         bio: '<p>Alex has been an active DSA member since 2019 and works to build coalitions across progressive organizations in Delaware.</p>',
-        email: 'chair@delawaredsaexample.org',
+        email: 'chair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         order: 1,
       },
       {
@@ -83,7 +84,7 @@ export default async function Leadership() {
         title: 'Vice Chair',
         name: 'Morgan Smith',
         bio: '<p>Morgan focuses on organizing tenant unions and housing justice initiatives across New Castle County.</p>',
-        email: 'vicechair@delawaredsaexample.org',
+        email: 'vicechair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         order: 2,
       },
       {
@@ -91,7 +92,7 @@ export default async function Leadership() {
         title: 'Secretary',
         name: 'Jamie Williams',
         bio: '<p>Jamie maintains chapter records and communications, ensuring organizational transparency and member involvement.</p>',
-        email: 'secretary@delawaredsaexample.org',
+        email: 'secretary@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         order: 3,
       },
       {
@@ -99,7 +100,7 @@ export default async function Leadership() {
         title: 'Treasurer',
         name: 'Taylor Reed',
         bio: '<p>Taylor oversees chapter finances, budget planning, and ensures compliance with financial regulations.</p>',
-        email: 'treasurer@delawaredsaexample.org',
+        email: 'treasurer@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         order: 4,
       },
       {
@@ -107,7 +108,7 @@ export default async function Leadership() {
         title: 'At-Large Member',
         name: 'Jordan Chen',
         bio: '<p>Jordan leads our Medicare for All campaign and represents healthcare workers within the chapter.</p>',
-        email: 'atlarge1@delawaredsaexample.org',
+        email: 'atlarge1@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         order: 5,
       },
       {
@@ -115,7 +116,7 @@ export default async function Leadership() {
         title: 'At-Large Member',
         name: 'Casey Wilson',
         bio: '<p>Casey coordinates outreach to labor unions and workplace organizing throughout the state.</p>',
-        email: 'atlarge2@delawaredsaexample.org',
+        email: 'atlarge2@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         order: 6,
       },
     ];

@@ -1,6 +1,7 @@
+import React from 'react';
 import Link from 'next/link';
 import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../lib/apollo-client';
 
 // Define the GraphQL query to fetch recent posts
 const GET_RECENT_POSTS = gql`

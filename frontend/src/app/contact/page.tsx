@@ -1,6 +1,7 @@
+import React from 'react';
 import { Metadata } from 'next';
 import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../../lib/apollo-client';
 import ContactForm from './ContactForm';
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ export default async function Contact() {
 
   // Default contact info if the query doesn't return results
   const contactInfo = data?.page?.contactInfo || {
-    email: 'info@delawaredsaexample.org',
+    email: 'info@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
     phone: '(302) 555-0123',
     mailingAddress: 'Delaware DSA\nP.O. Box 12345\nWilmington, DE 19801',
   };

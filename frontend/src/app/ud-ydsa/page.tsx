@@ -1,6 +1,7 @@
+import React from 'react';
 import { Metadata } from 'next';
 import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../../lib/apollo-client';
 import Link from 'next/link';
 
 export const metadata: Metadata = {

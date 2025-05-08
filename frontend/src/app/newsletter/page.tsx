@@ -1,6 +1,7 @@
+import React from 'react';
 import Link from 'next/link';
+import { getClient } from '../../lib/apollo-client';
 import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
 import NewsletterCategoryFilter from './NewsletterCategoryFilter';
 import { Metadata } from 'next';
 

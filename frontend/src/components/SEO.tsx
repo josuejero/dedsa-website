@@ -28,7 +28,10 @@ export function generateMetadata({
   openGraph,
   twitter,
 }: SEOProps): Metadata {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://delawaredsaexample.org';
+  const baseUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+  if (!baseUrl) {
+    throw new Error('NEXT_PUBLIC_WORDPRESS_API_URL is not defined');
+  }
 
   return {
     title,

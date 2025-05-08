@@ -1,8 +1,9 @@
+import React from 'react';
 import Link from 'next/link';
-import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../../../lib/apollo-client';
 import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
+import { gql } from '@apollo/client';
 
 // Types for our post data
 interface Author {
@@ -35,11 +36,9 @@ interface Post {
   } | null;
   author: Author;
 }
-
-// Generate metadata for the post
 export async function generateMetadata(
   { params }: { params: { slug: string } },
-  parent: ResolvingMetadata,
+  _parent: ResolvingMetadata,
 ): Promise<Metadata> {
   // Fetch post data
   const { data } = await getClient().query({
@@ -277,7 +276,9 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                   <a
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                       post.title,
-                    )}&url=${encodeURIComponent(`https://yourdomain.com/newsletter/${post.slug}`)}`}
+                    )}&url=${encodeURIComponent(
+                      `${process.env.NEXT_PUBLIC_BASE_URL}/newsletter/${post.slug}`,
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-blue-400 text-white rounded-full hover:bg-blue-500"
@@ -288,7 +289,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                   </a>
                   <a
                     href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                      `https://yourdomain.com/newsletter/${post.slug}`,
+                      `${process.env.NEXT_PUBLIC_BASE_URL}/newsletter/${post.slug}`,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -302,7 +303,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
                     href={`mailto:?subject=${encodeURIComponent(
                       `Delaware DSA: ${post.title}`,
                     )}&body=${encodeURIComponent(
-                      `Check out this article from Delaware DSA: https://yourdomain.com/newsletter/${post.slug}`,
+                      `Check out this article from Delaware DSA: ${process.env.NEXT_PUBLIC_BASE_URL}/newsletter/${post.slug}`,
                     )}`}
                     className="p-2 bg-gray-400 text-white rounded-full hover:bg-gray-500"
                   >

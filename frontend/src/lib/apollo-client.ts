@@ -10,7 +10,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 // Set the WordPress GraphQL API URL based on environment
 const graphqlUrl = isDevelopment
   ? 'http://delaware-dsa-backend.local/graphql'
-  : process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://your-production-wp-domain.com/graphql';
+  : process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://delaware-dsa-backend.local/graphql';
 
 // Error handling link
 const errorLink = new ApolloLink((operation, forward) => {

@@ -1,7 +1,8 @@
+import React from 'react';
 import { Metadata } from 'next';
-import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../../lib/apollo-client';
 import Link from 'next/link';
+import { gql } from '@apollo/client';
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -66,7 +67,7 @@ export default async function About() {
         {/* Mission Statement */}
         <div className="bg-dsa-red text-white p-8 rounded-lg mb-8">
           <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
-          <p className="text-xl italic">"{aboutInfo.missionStatement}"</p>
+          <p className="text-xl italic">&quot;{aboutInfo.missionStatement}&quot;</p>
         </div>
 
         {/* History Timeline */}
@@ -134,7 +135,7 @@ export default async function About() {
 
         {/* Key Achievements */}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-          <h2 className="text-2xl font-bold mb-6">What We've Accomplished</h2>
+          <h2 className="text-2xl font-bold mb-6">What We&apos;ve Accomplished</h2>
 
           <div className="space-y-4">
             {aboutInfo.achievements.map((achievement: string, index: number) => (
@@ -192,7 +193,7 @@ export default async function About() {
             <p>
               We work towards these goals through grassroots organizing, coalition building,
               electoral engagement, and direct action. Our approach is both pragmatic and
-              visionary—we fight for immediate reforms that improve people's lives today while
+              visionary—we fight for immediate reforms that improve people&apos;s lives today while
               building movements for transformative change.
             </p>
           </div>
@@ -332,7 +333,8 @@ export default async function About() {
         <div className="bg-dsa-red text-white p-8 rounded-lg text-center">
           <h2 className="text-3xl font-bold mb-4">Have Questions?</h2>
           <p className="text-xl mb-6 max-w-2xl mx-auto">
-            We're happy to answer any questions you have about Delaware DSA and how to get involved.
+            We&apos;re happy to answer any questions you have about Delaware DSA and how to get
+            involved.
           </p>
           <Link
             href="/contact"

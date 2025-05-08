@@ -1,6 +1,7 @@
+import React from 'react';
 import { Metadata } from 'next';
 import { gql } from '@apollo/client';
-import { getClient } from '@/lib/apollo-client';
+import { getClient } from '../../lib/apollo-client';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -68,7 +69,7 @@ export default async function Committees() {
         name: 'Mutual Aid',
         description:
           '<p>Our Mutual Aid Committee works to build community resilience through direct support and solidarity. Projects include community fridges, housing assistance, and skill-sharing programs.</p>',
-        contact: 'mutualaid@delawaredsaexample.org',
+        contact: 'mutualaid@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         meetingSchedule: 'First Monday of each month at 7:00 PM',
         members: 12,
       },
@@ -77,7 +78,7 @@ export default async function Committees() {
         name: 'Housing Justice',
         description:
           '<p>The Housing Justice Committee fights for affordable housing, tenant rights, and an end to houselessness. We organize tenant unions, advocate for rent control, and work to build community land trusts.</p>',
-        contact: 'housing@delawaredsaexample.org',
+        contact: 'housing@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         meetingSchedule: 'Every other Wednesday at 6:30 PM',
         members: 15,
       },
@@ -86,7 +87,7 @@ export default async function Committees() {
         name: 'Healthcare',
         description:
           '<p>Our Healthcare Committee advocates for Medicare for All and fights for equitable healthcare access for all Delaware residents. We work with healthcare workers, patients, and community organizations.</p>',
-        contact: 'healthcare@delawaredsaexample.org',
+        contact: 'healthcare@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         meetingSchedule: 'Third Tuesday of each month at 7:00 PM',
         members: 10,
       },
@@ -95,7 +96,7 @@ export default async function Committees() {
         name: 'Labor',
         description:
           '<p>The Labor Committee supports worker organizing, builds connections with local unions, and fights for worker power. We provide solidarity to strikes and organizing campaigns across the state.</p>',
-        contact: 'labor@delawaredsaexample.org',
+        contact: 'labor@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         meetingSchedule: 'Every other Thursday at 6:00 PM',
         members: 14,
       },
@@ -104,7 +105,7 @@ export default async function Committees() {
         name: 'Electoral',
         description:
           '<p>The Electoral Committee develops strategy for engaging with electoral politics. We research candidates, develop endorsement processes, and mobilize for campaigns that advance democratic socialist policies.</p>',
-        contact: 'electoral@delawaredsaexample.org',
+        contact: 'electoral@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         meetingSchedule: 'Second Sunday of each month at 4:00 PM',
         members: 8,
       },
@@ -113,7 +114,7 @@ export default async function Committees() {
         name: 'Communications',
         description:
           "<p>The Communications Committee handles our chapter's public-facing presence, including social media, website, press releases, and the newsletter. We work to amplify our chapter's work and socialist message.</p>",
-        contact: 'communications@delawaredsaexample.org',
+        contact: 'communications@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
         meetingSchedule: 'Weekly on Wednesdays at 7:30 PM',
         members: 9,
       },
