@@ -1,11 +1,10 @@
 // ./frontend/src/app/what-we-stand-for/page.tsx
-import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { getClient } from '../../lib/apollo-client';
-import { Metadata } from 'next';
-import { Position } from './types';
-import { GET_POSITIONS_PAGE } from './queries';
 import PositionCard from './PositionCard';
+import { GET_POSITIONS_PAGE } from './queries';
+import { Position } from './types';
 
 export const metadata: Metadata = {
   title: 'What We Stand For',
@@ -32,11 +31,11 @@ export default async function WhatWeStandFor() {
   `;
 
   let positions =
-    data?.positions?.nodes?.map((node: any) => ({
+    data?.positions?.nodes?.map((node: Position) => ({
       id: node.id,
       title: node.title,
       content: node.content,
-      order: node.menuOrder,
+      order: node.order,
     })) || [];
 
   if (positions.length === 0) {

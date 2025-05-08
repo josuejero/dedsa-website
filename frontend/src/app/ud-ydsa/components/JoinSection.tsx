@@ -1,4 +1,3 @@
-import React from 'react';
 import { SectionProps } from '../types';
 
 export default function JoinSection({ udYdsaInfo }: SectionProps) {
@@ -6,8 +5,8 @@ export default function JoinSection({ udYdsaInfo }: SectionProps) {
     <div className="bg-dsa-red text-white p-8 rounded-lg text-center">
       <h2 className="text-3xl font-bold mb-4">Join UD YDSA Today!</h2>
       <p className="text-xl mb-6 max-w-2xl mx-auto">
-        We're building student power at the University of Delaware. Join us to fight for a more just
-        university and a democratic socialist future.
+        We&apos;re building student power at the University of Delaware. Join us to fight for a more
+        just university and a democratic socialist future.
       </p>
 
       <a

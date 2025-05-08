@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 interface ErrorBoundaryProps {
@@ -10,7 +10,6 @@ interface ErrorBoundaryProps {
 
 export default function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
   useEffect(() => {
-    
     console.error('Unhandled error:', error);
   }, [error]);
 
@@ -39,10 +38,9 @@ export default function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
           <button onClick={reset} className="btn btn-primary">
             Try Again
           </button>
-
-          <a href="/" className="btn btn-secondary">
+          <Link href="/" className="btn btn-secondary">
             Go to Homepage
-          </a>
+          </Link>
         </div>
       </div>
     </div>

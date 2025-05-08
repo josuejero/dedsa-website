@@ -1,10 +1,19 @@
-import React from 'react';
 import { Metadata } from 'next';
-import { getClient } from '../../lib/apollo-client';
 import CommitteeCard from './CommitteeCard';
 import HowToGetInvolved from './HowToGetInvolved';
 import StartNewCommittee from './StartNewCommittee';
-import { Committee, GET_COMMITTEES } from './types';
+import { Committee } from './types';
+
+interface CommitteeNode {
+  id: string;
+  title: string;
+  content: string;
+  committee?: {
+    contactEmail?: string;
+    meetingSchedule?: string;
+    memberCount?: number;
+  };
+}
 
 export const metadata: Metadata = {
   title: 'Committees & Working Groups',
@@ -12,10 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Committees() {
-  const { data } = await getClient().query({
-    query: GET_COMMITTEES,
-  });
-
+  const data: { page?: { content: string }; committees?: { nodes: CommitteeNode[] } } = {};
   const pageContent =
     data?.page?.content ||
     `
@@ -24,7 +30,7 @@ export default async function Committees() {
   `;
 
   let committees: Committee[] =
-    data?.committees?.nodes?.map((node: any) => ({
+    data?.committees?.nodes?.map((node: CommitteeNode) => ({
       id: node.id,
       name: node.title,
       description: node.content,

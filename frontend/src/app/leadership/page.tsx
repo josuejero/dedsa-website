@@ -1,6 +1,5 @@
-import React from 'react';
-import { Metadata } from 'next';
 import { gql } from '@apollo/client';
+import { Metadata } from 'next';
 import { getClient } from '../../lib/apollo-client';
 import LeadershipCard from './LeadershipCard';
 
@@ -17,6 +16,23 @@ interface LeadershipRole {
   email: string;
   imageUrl?: string;
   order: number;
+}
+
+interface LeadershipNode {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  leadership: {
+    role: string;
+    email: string;
+    order: number;
+  };
+  featuredImage?: {
+    node: {
+      sourceUrl: string;
+    };
+  };
 }
 
 const GET_LEADERSHIP = gql`
@@ -41,7 +57,7 @@ const GET_LEADERSHIP = gql`
           }
         }
       }
-    }
+    data?.leadership?.nodes?.map((node: LeadershipNode) => ({
   }
 `;
 
@@ -57,9 +73,8 @@ export default async function Leadership() {
     <p>Our elected officers serve two-year terms and are responsible for implementing the decisions and priorities established by our membership.</p>
   `;
 
-  
   let leadershipTeam: LeadershipRole[] =
-    data?.leadership?.nodes?.map((node: any) => ({
+    data?.leadership?.nodes?.map((node: LeadershipNode) => ({
       id: node.id,
       title: node.leadership.role,
       name: node.title,
@@ -122,7 +137,6 @@ export default async function Leadership() {
     ];
   }
 
-  
   leadershipTeam.sort((a, b) => a.order - b.order);
 
   return (

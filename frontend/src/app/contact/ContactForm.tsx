@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -56,7 +55,7 @@ export default function ContactForm() {
         subject: '',
         message: '',
       });
-    } catch (error) {
+    } catch {
       setFormState({
         isSubmitting: false,
         isSubmitted: false,
@@ -79,7 +78,7 @@ export default function ContactForm() {
         </svg>
         <h3 className="text-lg font-bold mb-2">Thank You!</h3>
         <p className="mb-4">
-          Your message has been sent successfully. We'll get back to you as soon as possible.
+          Your message has been sent successfully. We&apos;ll get back to you as soon as possible.
         </p>
         <button
           onClick={() => setFormState({ ...formState, isSubmitted: false })}

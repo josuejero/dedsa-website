@@ -1,15 +1,12 @@
-import React from 'react';
 import Link from 'next/link';
 
 export default function Footer() {
-  
   const socialLinks = [
-    { name: 'Twitter', url: 'https:
-    { name: 'Facebook', url: 'https:
-    { name: 'Instagram', url: 'https:
+    { name: 'Twitter', url: 'https://twitter.com/delawaredsa', icon: 'twitter' },
+    { name: 'Facebook', url: 'https://www.facebook.com/delawaredsa', icon: 'facebook' },
+    { name: 'Instagram', url: 'https://www.instagram.com/delawaredsa', icon: 'instagram' },
   ];
 
-  
   const footerLinks = [
     {
       section: 'Learn',

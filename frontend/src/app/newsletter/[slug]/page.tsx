@@ -1,19 +1,19 @@
-import React from 'react';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Metadata, ResolvingMetadata } from 'next';
 import { getClient } from '../../../lib/apollo-client';
-import { GET_POST_BY_SLUG, GET_RELATED_POSTS } from './queries';
-import { generateStaticParams } from './staticParams';
-import ArticleHeader from './components/ArticleHeader';
 import ArticleContent from './components/ArticleContent';
 import ArticleFooter from './components/ArticleFooter';
+import ArticleHeader from './components/ArticleHeader';
+import { GET_POST_BY_SLUG, GET_RELATED_POSTS } from './queries';
+import { generateStaticParams } from './staticParams';
 
 export { generateStaticParams };
 
-export async function generateMetadata(
-  { params }: { params: { slug: string } },
-  _parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const { data } = await getClient().query({
     query: GET_POST_BY_SLUG,
     variables: { slug: params.slug },
@@ -47,7 +47,13 @@ export default async function PostDetail({ params }: { params: { slug: string } 
 
     const categoryIds = data.post.categories.nodes.map((cat: { id: string }) => cat.id);
 
-    let relatedPosts: any[] = [];
+    let relatedPosts: {
+      id: string;
+      title: string;
+      slug: string;
+      date: string;
+      excerpt: string;
+    }[] = [];
     if (categoryIds.length > 0) {
       const relatedResult = await getClient().query({
         query: GET_RELATED_POSTS,

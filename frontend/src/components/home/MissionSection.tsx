@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 
 export default function MissionSection() {
@@ -15,13 +14,13 @@ export default function MissionSection() {
           <p className="text-lg mb-6 leading-relaxed">
             Delaware Democratic Socialists of America (DE DSA) is a member-led, democratic
             organization fighting to shift power from corporations to people. In a state known as
-            America's corporate haven, we challenge the status quo by organizing for economic
+            America&apos;s corporate haven, we challenge the status quo by organizing for economic
             justice, racial equity, environmental sustainability, and true democracy.
           </p>
           <p className="text-lg mb-8 leading-relaxed">
             We reject the capitalist economic order that perpetuates systemic oppression, violence,
-            and environmental destruction. We are committed to a "New Delaware Way" rooted in
-            economic democracy, racial justice, gender equity, environmental sustainability,
+            and environmental destruction. We are committed to a &quot;New Delaware Way&quot; rooted
+            in economic democracy, racial justice, gender equity, environmental sustainability,
             international solidarity, and democratic pluralism.
           </p>
           <Link

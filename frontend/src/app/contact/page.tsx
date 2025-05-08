@@ -1,6 +1,5 @@
-import React from 'react';
-import { Metadata } from 'next';
 import { gql } from '@apollo/client';
+import { Metadata } from 'next';
 import { getClient } from '../../lib/apollo-client';
 import ContactForm from './ContactForm';
 
@@ -27,7 +26,6 @@ export default async function Contact() {
     query: GET_CONTACT_INFO,
   });
 
-  
   const contactInfo = data?.page?.contactInfo || {
     email: 'info@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
     phone: '(302) 555-0123',
@@ -138,7 +136,7 @@ export default async function Contact() {
                 <h3 className="text-xl font-bold mb-4">Follow Us</h3>
                 <div className="flex space-x-4">
                   <a
-                    href="https:
+                    href="https://twitter.com/delawaredsa"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-700 hover:text-dsa-red"
@@ -150,7 +148,7 @@ export default async function Contact() {
                   </a>
 
                   <a
-                    href="https:
+                    href="https://facebook.com/delawaredsa"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-700 hover:text-dsa-red"
@@ -162,7 +160,7 @@ export default async function Contact() {
                   </a>
 
                   <a
-                    href="https:
+                    href="https://instagram.com/delawaredsa"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-700 hover:text-dsa-red"

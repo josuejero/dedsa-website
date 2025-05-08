@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function FAQ() {
   return (
     <div className="bg-white p-8 rounded-lg shadow-md mb-12">
@@ -28,18 +26,18 @@ export default function FAQ() {
         <div>
           <h3 className="text-xl font-bold mb-2">Do I have to be a socialist to join?</h3>
           <p>
-            You don't need to identify as a socialist to join DSA. Many members are still exploring
-            their political beliefs. We welcome anyone who shares our commitment to building a more
-            just and equitable society and is interested in learning more about socialist ideas and
-            organizing.
+            You don&apos;t need to identify as a socialist to join DSA. Many members are still
+            exploring their political beliefs. We welcome anyone who shares our commitment to
+            building a more just and equitable society and is interested in learning more about
+            socialist ideas and organizing.
           </p>
         </div>
 
         <div>
           <h3 className="text-xl font-bold mb-2">How does my membership fee get used?</h3>
           <p>
-            Membership dues fund DSA's national organization and local chapters like ours. Funds
-            cover organizing materials, event spaces, political education resources, campaign
+            Membership dues fund DSA&apos;s national organization and local chapters like ours.
+            Funds cover organizing materials, event spaces, political education resources, campaign
             literature, and supporting member attendance at national conventions and trainings.
           </p>
         </div>

@@ -1,9 +1,8 @@
-import React from 'react';
-import { getClient } from '../../lib/apollo-client';
 import { Metadata } from 'next';
-import { GET_POSTS_AND_CATEGORIES } from './queries';
+import { getClient } from '../../lib/apollo-client';
 import NewsletterHeader from './components/NewsletterHeader';
 import NewsletterLayout from './components/NewsletterLayout';
+import { GET_POSTS_AND_CATEGORIES } from './queries';
 import { Post } from './types';
 
 export const metadata: Metadata = {
@@ -28,7 +27,9 @@ export default async function Newsletter({
 
   const filteredPosts = selectedCategory
     ? posts.filter((post: unknown) =>
-        (post as Post).categories.nodes.some((cat: any) => cat.slug === selectedCategory),
+        (post as Post).categories.nodes.some(
+          (cat: { slug: string }) => cat.slug === selectedCategory,
+        ),
       )
     : posts;
 

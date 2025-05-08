@@ -1,4 +1,4 @@
-import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Post } from '../types';
 
@@ -25,13 +25,14 @@ export default function ArticleHeader({ post }: { post: Post }) {
 
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         {post.featuredImage?.node && (
-          <div className="w-full h-96">
-            <img
-              src={post.featuredImage.node.sourceUrl}
-              alt={post.featuredImage.node.altText || post.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <Image
+            src={post.featuredImage.node.sourceUrl}
+            alt={post.featuredImage.node.altText || post.title}
+            className="object-cover"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
+          />
         )}
       </div>
     </>

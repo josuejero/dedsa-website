@@ -1,13 +1,11 @@
 'use client';
 
-import React from 'react';
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'Newsletter', href: '/newsletter' },
@@ -62,7 +60,7 @@ export default function Header() {
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
             <svg
-              xmlns="http:
+              xmlns="http:"
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import MonthSelector from './MonthSelector';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import EventList from './EventList';
+import MonthSelector from './MonthSelector';
 
 interface CalendarEvent {
   id: string;

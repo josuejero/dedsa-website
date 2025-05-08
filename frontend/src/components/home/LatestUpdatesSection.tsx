@@ -1,4 +1,4 @@
-import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 interface Post {
@@ -55,10 +55,12 @@ export default function LatestUpdatesSection({ posts }: LatestUpdatesSectionProp
                 >
                   {post.featuredImage?.node ? (
                     <div className="h-48 overflow-hidden">
-                      <img
+                      <Image
                         src={post.featuredImage.node.sourceUrl}
                         alt={post.featuredImage.node.altText || post.title}
                         className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                        width={400}
+                        height={300}
                       />
                     </div>
                   ) : (

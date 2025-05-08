@@ -1,16 +1,13 @@
-import React from 'react';
 import { gql } from '@apollo/client';
-import { getClient } from '../../lib/apollo-client';
 import { Metadata } from 'next';
+import { getClient } from '../../lib/apollo-client';
 import EventCalendar from './EventCalendar';
-
 
 export const metadata: Metadata = {
   title: 'Calendar',
   description:
     'Event calendar for Delaware DSA. Join us for meetings, actions, educational events, and social gatherings.',
 };
-
 
 interface Event {
   id: string;
@@ -25,8 +22,6 @@ interface Event {
     eventVirtualLink?: string;
   };
 }
-
-
 
 const GET_EVENTS = gql`
   query GetEvents {
@@ -49,12 +44,9 @@ const GET_EVENTS = gql`
 `;
 
 export default async function Calendar({ searchParams }: { searchParams: { month?: string } }) {
-  
   const selectedMonth = searchParams.month || '';
 
   try {
-    
-    
     const { data } = await getClient().query({
       query: GET_EVENTS,
     });
@@ -62,8 +54,6 @@ export default async function Calendar({ searchParams }: { searchParams: { month
     let events: Event[] = (data?.events?.nodes as Event[]) || [];
 
     if (events.length === 0) {
-      
-      
       const today = new Date();
       const futureEvents: Event[] = [];
       for (let i = 0; i < 10; i++) {
@@ -82,7 +72,7 @@ export default async function Calendar({ searchParams }: { searchParams: { month
             eventDate: eventDate.toISOString(),
             eventTime: `${(i % 12) + 1}:00 ${i % 2 === 0 ? 'PM' : 'AM'}`,
             eventLocation: i % 3 === 0 ? 'Virtual' : 'Delaware State University, Dover, DE',
-            eventVirtualLink: i % 3 === 0 ? 'https:
+            eventVirtualLink: i % 3 === 0 ? 'https://example.com' : undefined,
           },
         });
       }

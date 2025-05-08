@@ -1,4 +1,4 @@
-import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Post } from '../types';
 
@@ -16,11 +16,13 @@ export default function ArticleContent({ post }: { post: Post }) {
 
         <div className="flex items-center mb-6">
           <div className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden">
-            {post.author?.avatar?.url ? (
-              <img
+            {post.author?.avatar ? (
+              <Image
                 src={post.author.avatar.url}
                 alt={post.author.name}
                 className="w-full h-full object-cover"
+                width={40}
+                height={40}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-dsa-red text-white font-bold">

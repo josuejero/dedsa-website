@@ -1,10 +1,7 @@
-
-
 import '@testing-library/jest-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
 import Header from '../../components/Header';
-
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -13,40 +10,47 @@ jest.mock('next/navigation', () => ({
   usePathname: () => '/',
 }));
 
-
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
+  const NextLink = ({ children, href }: { children: React.ReactNode; href: string }) => {
     return (
       <a href={href} data-testid="mock-link">
         {children}
       </a>
     );
   };
+  NextLink.displayName = 'NextLink';
+  return NextLink;
 });
 
-
 jest.mock('next/image', () => {
-  return ({ src, alt }: { src: string; alt: string }) => {
-    return <img src={src as string} alt={alt} data-testid="mock-image" />;
+  const NextImage = ({ alt }: { src: string; alt: string }) => {
+    // In tests, we can safely use img as we're not concerned with optimization
+    return (
+      <div
+        data-testid="mock-image"
+        style={{ display: 'inline-block' }}
+        role="img"
+        aria-label={alt}
+      />
+    );
   };
+  NextImage.displayName = 'NextImage';
+  return NextImage;
 });
 
 describe('Header Component', () => {
   it('renders the logo and site name', () => {
     render(<Header />);
 
-    
     const logoContainer = screen.getByRole('link', { name: /delaware dsa/i });
     expect(logoContainer).toBeInTheDocument();
 
-    
     expect(screen.getByText('Delaware DSA')).toBeInTheDocument();
   });
 
   it('renders all navigation items on desktop', () => {
     render(<Header />);
 
-    
     const navItems = [
       'Home',
       'Newsletter',
@@ -59,19 +63,16 @@ describe('Header Component', () => {
       'UD YDSA',
     ];
 
-    
     navItems.forEach((item) => {
       const link = screen.getByRole('link', { name: item });
       expect(link).toBeInTheDocument();
     });
 
-    
     const joinButton = screen.getByRole('link', { name: 'Join Our Chapter' });
     expect(joinButton).toBeInTheDocument();
   });
 
   it('closes mobile menu when a navigation link is clicked', () => {
-    
     window.matchMedia = jest.fn().mockImplementation((query) => ({
       matches: query === '(max-width: 768px)',
       media: query,
@@ -85,25 +86,20 @@ describe('Header Component', () => {
 
     render(<Header />);
 
-    
     const menuButton = screen.getByRole('button', {
       name: /open menu|close menu/i,
     });
     fireEvent.click(menuButton);
 
-    
     expect(screen.getByRole('navigation')).toBeVisible();
 
-    
     const newsletterLink = screen.getByRole('link', { name: 'Newsletter' });
     fireEvent.click(newsletterLink);
 
-    
     expect(screen.queryByRole('navigation', { hidden: true })).not.toBeVisible();
   });
 
   it('applies active state to current page in navigation', () => {
-    
     jest.doMock('next/navigation', () => ({
       useRouter: () => ({
         push: jest.fn(),
@@ -111,32 +107,24 @@ describe('Header Component', () => {
       usePathname: () => '/newsletter',
     }));
 
-    
     render(<Header />);
 
-    
     const newsletterLink = screen.getByRole('link', { name: 'Newsletter' });
 
-    
-    
     expect(newsletterLink.className).toContain('text-dsa-red');
 
-    
     expect(newsletterLink).toHaveStyle({ color: 'var(--dsa-red)' });
   });
 
   it('renders header with correct accessibility attributes', () => {
     render(<Header />);
 
-    
     const header = screen.getByRole('banner');
     expect(header).toBeInTheDocument();
 
-    
     const nav = screen.getByRole('navigation');
     expect(nav).toBeInTheDocument();
 
-    
     const menuButton = screen.getByRole('button', {
       name: /open menu|close menu/i,
     });

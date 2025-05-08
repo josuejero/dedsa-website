@@ -1,21 +1,16 @@
-import { HttpLink, ApolloLink, from } from '@apollo/client';
+import { ApolloLink, from, HttpLink } from '@apollo/client';
 import {
-  registerApolloClient,
   ApolloClient,
   InMemoryCache,
+  registerApolloClient,
 } from '@apollo/client-integration-nextjs';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-
-const graphqlUrl = isDevelopment
-  ? 'http:
-  : process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http:
-
+const graphqlUrl = isDevelopment ? 'http:' : process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http:';
 
 const errorLink = new ApolloLink((operation, forward) => {
   return forward(operation).map((response) => {
-    
     if (response.errors && isDevelopment) {
       console.error('GraphQL Errors:', response.errors);
     }
@@ -23,21 +18,17 @@ const errorLink = new ApolloLink((operation, forward) => {
   });
 });
 
-
 const httpLink = new HttpLink({
   uri: graphqlUrl,
   credentials: 'same-origin',
 });
 
-
 export const { getClient } = registerApolloClient(() => {
   return new ApolloClient({
     cache: new InMemoryCache({
       typePolicies: {
-        
         Query: {
           fields: {
-            
             posts: {
               keyArgs: ['where'],
               merge(existing = { nodes: [] }, incoming) {
@@ -64,7 +55,7 @@ export const { getClient } = registerApolloClient(() => {
     defaultOptions: {
       query: {
         errorPolicy: 'all',
-        
+
         fetchPolicy: typeof window === 'undefined' ? 'network-only' : 'cache-first',
       },
       watchQuery: {
@@ -74,7 +65,6 @@ export const { getClient } = registerApolloClient(() => {
     },
   });
 });
-
 
 export function useApolloClient() {
   return getClient();

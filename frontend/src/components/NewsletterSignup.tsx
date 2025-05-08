@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useNewsletterSubscription } from '../hooks/useNewsletterSubscription';
 
 interface NewsletterSignupProps {
@@ -17,7 +16,6 @@ export default function NewsletterSignup({
   const { email, setEmail, subscribe, isSubmitting, isSuccess, isError, errorMessage, reset } =
     useNewsletterSubscription();
 
-  
   const containerClasses = {
     banner: 'bg-dsa-red text-white p-6 rounded-lg',
     sidebar: 'bg-white p-6 rounded-lg shadow-md',
@@ -39,7 +37,6 @@ export default function NewsletterSignup({
     footer: 'w-full sm:w-2/3 p-2 text-black rounded-l focus:outline-none',
   }[variant];
 
-  
   if (isSuccess) {
     return (
       <div className={containerClasses}>
@@ -53,7 +50,7 @@ export default function NewsletterSignup({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
           </svg>
           <h2 className="text-xl font-bold mb-2">Thank You!</h2>
-          <p className="mb-4">You've been successfully subscribed to our newsletter.</p>
+          <p className="mb-4">You&apos;ve been successfully subscribed to our newsletter.</p>
           <button
             onClick={reset}
             className={variant === 'sidebar' ? buttonClasses : 'underline hover:no-underline'}
@@ -87,7 +84,7 @@ export default function NewsletterSignup({
             <span className="flex items-center justify-center">
               <svg
                 className="animate-spin -ml-1 mr-2 h-4 w-4"
-                xmlns="http:
+                xmlns="http:"
                 fill="none"
                 viewBox="0 0 24 24"
               >

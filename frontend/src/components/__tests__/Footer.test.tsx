@@ -1,24 +1,23 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
 import Footer from '../Footer';
 
-
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
+  const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => {
     return (
       <a href={href} data-testid="mock-link">
         {children}
       </a>
     );
   };
+  MockLink.displayName = 'MockLink';
+  return MockLink;
 });
 
 describe('Footer Component', () => {
   beforeEach(() => {
-    
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2025);
 
-    
     render(<Footer />);
   });
 
@@ -27,23 +26,18 @@ describe('Footer Component', () => {
   });
 
   it('renders the organization information', () => {
-    
     expect(screen.getByText('Delaware DSA')).toBeInTheDocument();
 
-    
     expect(screen.getByText(/Member-run, democratic socialist organization/i)).toBeInTheDocument();
   });
 
   it('renders all social media links', () => {
-    
     const socialLinks = screen.getAllByRole('link', {
       name: /(Twitter|Facebook|Instagram)/i,
     });
 
-    
     expect(socialLinks.length).toBeGreaterThanOrEqual(3);
 
-    
     const twitterLink = screen.getByRole('link', { name: /Twitter/i });
     expect(twitterLink).toHaveAttribute('href', expect.stringContaining('twitter.com'));
 
@@ -55,17 +49,14 @@ describe('Footer Component', () => {
   });
 
   it('renders all navigation sections', () => {
-    
     expect(screen.getByText('Learn')).toBeInTheDocument();
     expect(screen.getByText('Get Involved')).toBeInTheDocument();
     expect(screen.getByText('Resources')).toBeInTheDocument();
   });
 
   it('renders all navigation links in Learn section', () => {
-    
     const learnSection = screen.getByText('Learn').closest('div');
 
-    
     expect(learnSection).toContainElement(screen.getByRole('link', { name: 'About Us' }));
     expect(learnSection).toContainElement(screen.getByRole('link', { name: 'What We Stand For' }));
     expect(learnSection).toContainElement(screen.getByRole('link', { name: 'Leadership' }));
@@ -73,10 +64,8 @@ describe('Footer Component', () => {
   });
 
   it('renders all navigation links in Get Involved section', () => {
-    
     const getInvolvedSection = screen.getByText('Get Involved').closest('div');
 
-    
     expect(getInvolvedSection).toContainElement(screen.getByRole('link', { name: 'Join DSA' }));
     expect(getInvolvedSection).toContainElement(screen.getByRole('link', { name: 'Committees' }));
     expect(getInvolvedSection).toContainElement(screen.getByRole('link', { name: 'Events' }));
@@ -84,10 +73,8 @@ describe('Footer Component', () => {
   });
 
   it('renders all navigation links in Resources section', () => {
-    
     const resourcesSection = screen.getByText('Resources').closest('div');
 
-    
     expect(resourcesSection).toContainElement(
       screen.getByRole('link', { name: 'Membership Handbook' }),
     );
@@ -97,38 +84,31 @@ describe('Footer Component', () => {
   });
 
   it('renders the copyright information with current year', () => {
-    
     expect(screen.getByText('© 2025 Delaware DSA. All rights reserved.')).toBeInTheDocument();
   });
 
   it('renders the privacy policy link', () => {
-    
     const privacyLink = screen.getByRole('link', { name: 'Privacy Policy' });
     expect(privacyLink).toBeInTheDocument();
     expect(privacyLink).toHaveAttribute('href', '/privacy-policy');
   });
 
   it('renders with proper semantic HTML structure', () => {
-    
     const footerElement = screen.getByRole('contentinfo');
     expect(footerElement).toBeInTheDocument();
 
-    
     const headings = screen.getAllByRole('heading', { level: 3 });
-    expect(headings.length).toBeGreaterThanOrEqual(4); 
+    expect(headings.length).toBeGreaterThanOrEqual(4);
   });
 
   it('applies the correct CSS classes for styling', () => {
-    
     const footer = screen.getByRole('contentinfo');
     expect(footer).toHaveClass('bg-gray-900');
     expect(footer).toHaveClass('text-white');
 
-    
     const container = footer.querySelector('.container-page');
     expect(container).toBeInTheDocument();
 
-    
     const grid = container!.querySelector('.grid');
     expect(grid).toHaveClass('grid');
     expect(grid).toHaveClass('grid-cols-1');
@@ -136,12 +116,10 @@ describe('Footer Component', () => {
   });
 
   it('renders external links with proper attributes', () => {
-    
     const socialLinks = screen.getAllByRole('link', {
       name: /(Twitter|Facebook|Instagram)/i,
     });
 
-    
     socialLinks.forEach((link) => {
       expect(link).toHaveAttribute('target', '_blank');
       expect(link).toHaveAttribute('rel', 'noopener noreferrer');
@@ -149,7 +127,6 @@ describe('Footer Component', () => {
   });
 
   it('renders responsive layout classes', () => {
-    
     const copyrightSection = screen
       .getByText('© 2025 Delaware DSA. All rights reserved.')
       .closest('div');
@@ -157,7 +134,6 @@ describe('Footer Component', () => {
     expect(copyrightSection).toHaveClass('flex-col');
     expect(copyrightSection).toHaveClass('md:flex-row');
 
-    
     const privacyPolicy = screen.getByText('Privacy Policy').closest('p');
     expect(privacyPolicy).toHaveClass('mt-2');
     expect(privacyPolicy).toHaveClass('md:mt-0');

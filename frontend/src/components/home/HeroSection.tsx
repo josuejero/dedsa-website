@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 
 export default function HeroSection() {
@@ -20,7 +19,7 @@ export default function HeroSection() {
             Delaware DSA
           </h1>
           <p className="text-xl mb-8 leading-relaxed">
-            We're building a democratic-socialist Delaware where production and resources are
+            We&apos;re building a democratic-socialist Delaware where production and resources are
             controlled by the people, not private profit. Join us in creating a state that works for
             the many, not the few.
           </p>
