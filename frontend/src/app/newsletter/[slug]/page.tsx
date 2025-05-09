@@ -11,14 +11,13 @@ export { generateStaticParams };
 
 type Params = { slug: string };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Params; // metadata stays with plain Params
-}): Promise<Metadata> {
+// Fix: Update to use Promise<Params>
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { slug } = await params; // Await to extract slug
+
   const { data } = await getClient().query({
     query: GET_POST_BY_SLUG,
-    variables: { slug: params.slug },
+    variables: { slug },
   });
 
   if (!data.post) {

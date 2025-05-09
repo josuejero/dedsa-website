@@ -14,9 +14,11 @@ export const metadata: Metadata = {
 export default async function Newsletter({
   searchParams,
 }: {
-  searchParams: { category?: string };
+  searchParams: Promise<{ category?: string }>;
 }) {
-  const selectedCategory = searchParams.category || null;
+  // Await the searchParams Promise to get the actual value
+  const params = await searchParams;
+  const selectedCategory = params.category || null;
 
   const { data } = await getClient().query({
     query: GET_POSTS_AND_CATEGORIES,
