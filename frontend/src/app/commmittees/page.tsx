@@ -47,7 +47,7 @@ export default async function Committees() {
         name: 'Mutual Aid',
         description:
           '<p>Our Mutual Aid Committee works to build community resilience through direct support and solidarity. Projects include community fridges, housing assistance, and skill-sharing programs.</p>',
-        contact: 'mutualaid@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
+        contact: `mutualaid@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
         meetingSchedule: 'First Monday of each month at 7:00 PM',
         members: 12,
       },

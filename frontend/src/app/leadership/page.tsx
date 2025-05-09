@@ -91,7 +91,7 @@ export default async function Leadership() {
         title: 'Chapter Chair',
         name: 'Alex Johnson',
         bio: '<p>Alex has been an active DSA member since 2019 and works to build coalitions across progressive organizations in Delaware.</p>',
-        email: 'chair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
+        email: `chair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
         order: 1,
       },
       {
@@ -99,7 +99,7 @@ export default async function Leadership() {
         title: 'Vice Chair',
         name: 'Morgan Smith',
         bio: '<p>Morgan focuses on organizing tenant unions and housing justice initiatives across New Castle County.</p>',
-        email: 'vicechair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
+        email: `vicechair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
         order: 2,
       },
       {
@@ -107,7 +107,7 @@ export default async function Leadership() {
         title: 'Secretary',
         name: 'Jamie Williams',
         bio: '<p>Jamie maintains chapter records and communications, ensuring organizational transparency and member involvement.</p>',
-        email: 'secretary@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
+        email: `secretary@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
         order: 3,
       },
       {
@@ -115,7 +115,7 @@ export default async function Leadership() {
         title: 'Treasurer',
         name: 'Taylor Reed',
         bio: '<p>Taylor oversees chapter finances, budget planning, and ensures compliance with financial regulations.</p>',
-        email: 'treasurer@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
+        email: `treasurer@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
         order: 4,
       },
       {
@@ -123,7 +123,7 @@ export default async function Leadership() {
         title: 'At-Large Member',
         name: 'Jordan Chen',
         bio: '<p>Jordan leads our Medicare for All campaign and represents healthcare workers within the chapter.</p>',
-        email: 'atlarge1@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
+        email: `atlarge1@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
         order: 5,
       },
       {
@@ -131,7 +131,7 @@ export default async function Leadership() {
         title: 'At-Large Member',
         name: 'Casey Wilson',
         bio: '<p>Casey coordinates outreach to labor unions and workplace organizing throughout the state.</p>',
-        email: 'atlarge2@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
+        email: `atlarge2@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
         order: 6,
       },
     ];

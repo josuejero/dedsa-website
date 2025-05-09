@@ -27,7 +27,7 @@ export default async function Contact() {
   });
 
   const contactInfo = data?.page?.contactInfo || {
-    email: 'info@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}',
+    email: `info@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
     phone: '(302) 555-0123',
     mailingAddress: 'Delaware DSA\nP.O. Box 12345\nWilmington, DE 19801',
   };
