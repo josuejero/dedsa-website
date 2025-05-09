@@ -1,13 +1,12 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import ContactForm from '../../app/contact/ContactForm';
 
 // Mock fetch API
 global.fetch = jest.fn(() =>
   Promise.resolve({
     ok: true,
-    json: () => Promise.resolve({ success: true }),
-  }),
+    json: () => Promise.resolve({ success: true })
+  })
 ) as jest.Mock;
 
 describe('ContactForm Component: Submission', () => {

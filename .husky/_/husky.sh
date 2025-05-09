@@ -1,4 +1,4 @@
-
+#!/usr/bin/env sh
 if [ -z "$husky_skip_init" ]; then
   debug () {
     if [ "$HUSKY_DEBUG" = "1" ]; then
@@ -6,8 +6,7 @@ if [ -z "$husky_skip_init" ]; then
     fi
   }
 
-  hook_name="$(basename -- "$0")"
-  readonly hook_name
+  readonly hook_name="$(basename -- "$0")"
   debug "starting $hook_name..."
 
   if [ "$HUSKY" = "0" ]; then
@@ -17,7 +16,6 @@ if [ -z "$husky_skip_init" ]; then
 
   if [ -f ~/.huskyrc ]; then
     debug "sourcing ~/.huskyrc"
-    # shellcheck source=/dev/null
     . ~/.huskyrc
   fi
 

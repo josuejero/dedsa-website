@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 
 export default function GetInvolved() {
@@ -42,7 +41,12 @@ export default function GetInvolved() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={option.icon} />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d={option.icon}
+              />
             </svg>
             <h3 className="text-xl font-bold mb-2">{option.title}</h3>
             <p className="mb-4">{option.description}</p>

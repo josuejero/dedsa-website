@@ -1,21 +1,20 @@
-import React from 'react';
-import { Metadata } from 'next';
 import { gql } from '@apollo/client';
+import { Metadata } from 'next';
 import { getClient } from '../../lib/apollo-client';
 import { UdYdsaInfo } from './types';
 
 // Component imports
-import HeroSection from './components/HeroSection';
-import MeetingInfoSection from './components/MeetingInfoSection';
 import CampaignsSection from './components/CampaignsSection';
-import LeadershipSection from './components/LeadershipSection';
 import EventsSection from './components/EventsSection';
+import HeroSection from './components/HeroSection';
 import JoinSection from './components/JoinSection';
+import LeadershipSection from './components/LeadershipSection';
+import MeetingInfoSection from './components/MeetingInfoSection';
 
 export const metadata: Metadata = {
   title: 'UD YDSA',
   description:
-    'University of Delaware Young Democratic Socialists of America - Student chapter of DSA at UD.',
+    'University of Delaware Young Democratic Socialists of America - Student chapter of DSA at UD.'
 };
 
 const GET_UD_YDSA_PAGE = gql`
@@ -38,7 +37,7 @@ const GET_UD_YDSA_PAGE = gql`
 
 export default async function UdYdsa() {
   const { data } = await getClient().query({
-    query: GET_UD_YDSA_PAGE,
+    query: GET_UD_YDSA_PAGE
   });
 
   const pageContent =
@@ -55,8 +54,8 @@ export default async function UdYdsa() {
     socialMedia: {
       instagram: 'https://instagram.com',
       twitter: 'https://twitter.com',
-      facebook: 'https://facebook.com',
-    },
+      facebook: 'https://facebook.com'
+    }
   };
 
   return (

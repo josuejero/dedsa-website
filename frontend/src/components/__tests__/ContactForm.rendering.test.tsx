@@ -1,4 +1,5 @@
-import React from 'react';
+import { expect } from '@jest/globals';
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import ContactForm from '../../app/contact/ContactForm';
 
