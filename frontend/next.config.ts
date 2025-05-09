@@ -1,5 +1,4 @@
 import type { NextConfig } from 'next';
-import type { Configuration as WebpackConfig } from 'webpack';
 
 const nextConfig: NextConfig = {
   // Enable React strict mode for better development experience
@@ -63,7 +62,7 @@ const nextConfig: NextConfig = {
     // Remove console logs in production
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  webpack(config: WebpackConfig): WebpackConfig {
+  webpack(config) {
     if (config.module && config.module.rules) {
       config.module.rules.push({
         test: /\.svg$/,
@@ -74,4 +73,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

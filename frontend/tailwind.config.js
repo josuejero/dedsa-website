@@ -1,14 +1,16 @@
+/** @type {import('tailwindcss').Config} */
+import lineClamp from '@tailwindcss/line-clamp';
+import typography from '@tailwindcss/typography';
 
-module.exports = {
-  content: ['./src*.{js,ts,jsx,tsx,mdx}'],
+const tailwindConfig = {
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
-      
       colors: {
-        'dsa-red': '#ec1f27', 
-        'dsa-black': '#231f20', 
-        'dsa-red-light': '#f4686d', 
-        'dsa-red-dark': '#c81920', 
+        'dsa-red': '#ec1f27',
+        'dsa-black': '#231f20',
+        'dsa-red-light': '#f4686d',
+        'dsa-red-dark': '#c81920',
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
@@ -84,5 +86,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/line-clamp')],
+  plugins: [typography, lineClamp],
 };
+
+export default tailwindConfig;

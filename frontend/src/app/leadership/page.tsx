@@ -35,6 +35,7 @@ interface LeadershipNode {
   };
 }
 
+// frontend/src/app/leadership/page.tsx
 const GET_LEADERSHIP = gql`
   query GetLeadership {
     page(id: "leadership", idType: URI) {
@@ -57,7 +58,7 @@ const GET_LEADERSHIP = gql`
           }
         }
       }
-    data?.leadership?.nodes?.map((node: LeadershipNode) => ({
+    }
   }
 `;
 
