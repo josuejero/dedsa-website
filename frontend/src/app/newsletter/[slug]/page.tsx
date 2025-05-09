@@ -9,19 +9,19 @@ import { generateStaticParams } from './staticParams';
 
 export { generateStaticParams };
 
+type Params = { slug: string };
+
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Params; // metadata stays with plain Params
 }): Promise<Metadata> {
   const { data } = await getClient().query({
     query: GET_POST_BY_SLUG,
     variables: { slug: params.slug },
   });
 
-  const post = data?.post;
-
-  if (!post) {
+  if (!data.post) {
     return {
       title: 'Post Not Found',
       description: 'The requested post could not be found.',
@@ -29,31 +29,29 @@ export async function generateMetadata({
   }
 
   return {
-    title: post.title,
-    description: `${post.title} - Delaware DSA Newsletter article`,
+    title: data.post.title,
+    description: `${data.post.title} - Delaware DSA Newsletter article`,
   };
 }
 
-export default async function PostDetail({ params }: { params: { slug: string } }) {
+export default async function PostDetail({
+  params,
+}: {
+  params: Promise<Params>; // ← Now a Promise
+}) {
+  const { slug } = await params; // ← Await to extract slug
+
   try {
     const { data } = await getClient().query({
       query: GET_POST_BY_SLUG,
-      variables: { slug: params.slug },
+      variables: { slug },
     });
 
-    if (!data.post) {
-      return notFound();
-    }
+    if (!data.post) return notFound();
 
     const categoryIds = data.post.categories.nodes.map((cat: { id: string }) => cat.id);
+    let relatedPosts = [];
 
-    let relatedPosts: {
-      id: string;
-      title: string;
-      slug: string;
-      date: string;
-      excerpt: string;
-    }[] = [];
     if (categoryIds.length > 0) {
       const relatedResult = await getClient().query({
         query: GET_RELATED_POSTS,
@@ -62,7 +60,6 @@ export default async function PostDetail({ params }: { params: { slug: string } 
           currentPostId: data.post.id,
         },
       });
-
       relatedPosts = relatedResult.data.posts.nodes;
     }
 
@@ -73,10 +70,7 @@ export default async function PostDetail({ params }: { params: { slug: string } 
       avatar: null,
     };
 
-    const post = {
-      ...data.post,
-      author,
-    };
+    const post = { ...data.post, author };
 
     return (
       <article className="bg-gray-100 py-12">

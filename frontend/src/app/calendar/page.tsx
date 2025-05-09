@@ -9,6 +9,11 @@ export const metadata: Metadata = {
     'Event calendar for Delaware DSA. Join us for meetings, actions, educational events, and social gatherings.',
 };
 
+interface CalendarProps {
+  params: Promise<Record<never, never>>;
+  searchParams: Promise<{ month?: string }>;
+}
+
 interface Event {
   id: string;
   title: string;
@@ -43,8 +48,11 @@ const GET_EVENTS = gql`
   }
 `;
 
-export default async function Calendar({ searchParams }: { searchParams: { month?: string } }) {
-  const selectedMonth = searchParams.month || '';
+export default async function Calendar({ params, searchParams }: CalendarProps) {
+  await params;
+  const { month } = await searchParams;
+
+  const selectedMonth = month || '';
 
   try {
     const { data } = await getClient().query({
