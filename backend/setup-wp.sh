@@ -1,7 +1,7 @@
 
 
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 
 echo "Setting up WordPress for Delaware DSA..."
 

@@ -11,9 +11,9 @@ export { generateStaticParams };
 
 type Params = { slug: string };
 
-// Fix: Update to use Promise<Params>
-export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
-  const { slug } = await params; // Await to extract slug
+// Fixed: Remove Promise wrapper from params
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { slug } = params; // No need to await params
 
   const { data } = await getClient().query({
     query: GET_POST_BY_SLUG,
@@ -33,12 +33,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   };
 }
 
-export default async function PostDetail({
-  params,
-}: {
-  params: Promise<Params>; // ← Now a Promise
-}) {
-  const { slug } = await params; // ← Await to extract slug
+// Fixed: Remove Promise wrapper from params
+export default async function PostDetail({ params }: { params: Params }) {
+  const { slug } = params; // No need to await params
 
   try {
     const { data } = await getClient().query({

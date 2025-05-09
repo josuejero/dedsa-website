@@ -11,14 +11,14 @@ export const metadata: Metadata = {
     'Latest news, updates, and articles from the Delaware chapter of the Democratic Socialists of America.',
 };
 
+// Fixed: Remove Promise wrapper from searchParams
 export default async function Newsletter({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: { category?: string };
 }) {
-  // Await the searchParams Promise to get the actual value
-  const params = await searchParams;
-  const selectedCategory = params.category || null;
+  // No need to await searchParams anymore
+  const selectedCategory = searchParams.category || null;
 
   const { data } = await getClient().query({
     query: GET_POSTS_AND_CATEGORIES,
