@@ -7,7 +7,9 @@ import {
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-const graphqlUrl = isDevelopment ? 'http:' : process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http:';
+const graphqlUrl = isDevelopment
+  ? 'http://delaware-dsa-backend.local/graphql'
+  : process.env.NEXT_PUBLIC_WORDPRESS_API_URL || '/graphql';
 
 const errorLink = new ApolloLink((operation, forward) => {
   return forward(operation).map((response) => {
