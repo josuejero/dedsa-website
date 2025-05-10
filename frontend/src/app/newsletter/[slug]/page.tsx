@@ -1,3 +1,5 @@
+// src/app/newsletter/[slug]/page.tsx
+
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getClient } from '../../../lib/apollo-client';
@@ -7,19 +9,22 @@ import ArticleHeader from './components/ArticleHeader';
 import { GET_POST_BY_SLUG, GET_RELATED_POSTS } from './queries';
 import { generateStaticParams } from './staticParams';
 
-// Define types
-interface PageProps {
-  params: { slug: string } | Promise<{ slug: string }>;
+interface PageParams {
+  slug: string;
 }
 
 export { generateStaticParams };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const resolvedParams = await Promise.resolve(params);
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<PageParams>;
+}): Promise<Metadata> {
+  const { slug } = await params;
   try {
     const { data } = await getClient().query({
       query: GET_POST_BY_SLUG,
-      variables: { slug: resolvedParams.slug }
+      variables: { slug }
     });
 
     if (!data.post) {
@@ -42,19 +47,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function Page({ params }: PageProps) {
-  const resolvedParams = await Promise.resolve(params);
+export default async function Page({ params }: { params: Promise<PageParams> }) {
+  const { slug } = await params;
+
   try {
     const { data } = await getClient().query({
       query: GET_POST_BY_SLUG,
-      variables: { slug: resolvedParams.slug }
+      variables: { slug }
     });
 
-    if (!data.post) return notFound();
+    if (!data.post) {
+      return notFound();
+    }
 
     const categoryIds = data.post.categories.nodes.map((cat: { id: string }) => cat.id);
-    let relatedPosts = [];
 
+    let relatedPosts: (typeof data.post)[] = [];
     if (categoryIds.length > 0) {
       const relatedResult = await getClient().query({
         query: GET_RELATED_POSTS,

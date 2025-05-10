@@ -2,46 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   html {
     scroll-behavior: smooth;
+    @apply antialiased;
   }
-  
+
   body {
     @apply text-gray-800 leading-relaxed;
   }
-  
-  h1 {
-    @apply text-4xl md:text-5xl font-bold mb-4 tracking-tight;
-  }
-  
-  h2 {
-    @apply text-3xl font-bold mb-6 tracking-tight;
-  }
-  
-  h3 {
-    @apply text-2xl font-bold mb-4;
-  }
-  
+
+  h1,
+  h2,
+  h3,
   h4 {
-    @apply text-xl font-bold mb-2;
+    @apply tracking-tight font-bold;
   }
-  
+
+  h1 {
+    @apply text-4xl md:text-5xl mb-4;
+  }
+  h2 {
+    @apply text-3xl mb-6;
+  }
+  h3 {
+    @apply text-2xl mb-4;
+  }
+  h4 {
+    @apply text-xl mb-2;
+  }
+
   p {
     @apply mb-4;
   }
-  
+
   a {
-    @apply text-dsa-red hover:underline transition-colors duration-200;
+    @apply text-dsa-red transition-colors duration-200;
+    &:hover {
+      @apply underline;
+    }
   }
-  
-  
-  a:focus, button:focus, input:focus, select:focus, textarea:focus {
+
+  :focus {
     @apply outline-none ring-2 ring-dsa-red ring-opacity-50;
   }
 }
-
 
 @layer components {
   .btn {
@@ -60,60 +65,62 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  
   .card {
-    @apply bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-lg;
+    @apply bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-shadow duration-300 hover:shadow-lg;
   }
 
-  
-  .section-light {
-    @apply py-16 md:py-20 bg-white;
+  .section {
+    @apply py-16 md:py-20;
+    &-light {
+      @apply bg-white;
+    }
+    &-dark {
+      @apply bg-gray-100;
+    }
   }
+}
 
-  .section-dark {
-    @apply py-16 md:py-20 bg-gray-100;
-  }
-
-  
-  .event-item {
-    @apply border-l-4 border-dsa-red pl-4 py-2 transition-colors duration-200 hover:bg-red-50;
-  }
-  
-  
+@layer utilities {
   .animation-fade-in {
     animation: fadeIn 0.5s ease-in-out;
   }
-  
+
   .animation-slide-up {
     animation: slideUp 0.5s ease-out;
   }
-  
+
   .animation-slide-in-right {
     animation: slideInRight 0.5s ease-out;
   }
 }
 
-
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideInRight {
-  from { transform: translateX(20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-
-.hover-scale {
-  @apply transition-transform duration-300 hover:scale-105;
-}
-
-.hover-lift {
-  @apply transition-transform duration-300 hover:-translate-y-1;
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

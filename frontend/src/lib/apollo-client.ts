@@ -1,28 +1,57 @@
-import { ApolloLink, from, HttpLink } from '@apollo/client';
+import { HttpLink } from '@apollo/client';
 import {
   ApolloClient,
   InMemoryCache,
-  registerApolloClient,
+  registerApolloClient
 } from '@apollo/client-integration-nextjs';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
+const isBrowser = typeof window !== 'undefined';
+const isServerBuild = !isBrowser && process.env.NODE_ENV === 'production';
 
-const graphqlUrl = isDevelopment
-  ? 'http://delaware-dsa-backend.local/graphql'
-  : process.env.NEXT_PUBLIC_WORDPRESS_API_URL || '/graphql';
+type OperationType = {
+  operationName: 'posts' | 'page' | 'positions' | 'leadership';
+};
 
-const errorLink = new ApolloLink((operation, forward) => {
-  return forward(operation).map((response) => {
-    if (response.errors && isDevelopment) {
-      console.error('GraphQL Errors:', response.errors);
+// During build time, return structured dummy data
+const buildTimeFetch = async (operation: OperationType) => {
+  const defaultData = {
+    posts: { nodes: [] },
+    page: { title: '', content: '', slug: '' },
+    positions: { nodes: [] },
+    leadership: { nodes: [] }
+  };
+
+  return new Response(
+    JSON.stringify({
+      data: defaultData[operation.operationName] || {}
+    }),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
     }
-    return response;
+  );
+};
+
+const customFetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+  if (isServerBuild) {
+    const operation = JSON.parse(init?.body as string);
+    return buildTimeFetch(operation);
+  }
+
+  return fetch(input, {
+    ...init,
+    headers: {
+      ...init?.headers,
+      'Content-Type': 'application/json'
+    }
   });
-});
+};
 
 const httpLink = new HttpLink({
-  uri: graphqlUrl,
+  uri: isDevelopment ? 'http://delaware-dsa-backend.local/graphql' : '/api/graphql',
   credentials: 'same-origin',
+  fetch: customFetch
 });
 
 export const { getClient } = registerApolloClient(() => {
@@ -32,42 +61,35 @@ export const { getClient } = registerApolloClient(() => {
         Query: {
           fields: {
             posts: {
-              keyArgs: ['where'],
-              merge(existing = { nodes: [] }, incoming) {
-                return {
-                  ...incoming,
-                  nodes: [...existing.nodes, ...incoming.nodes],
-                };
-              },
+              merge(_existing = { nodes: [] }, incoming) {
+                return incoming || { nodes: [] };
+              }
             },
-            events: {
-              keyArgs: ['where'],
-              merge(existing = { nodes: [] }, incoming) {
-                return {
-                  ...incoming,
-                  nodes: [...existing.nodes, ...incoming.nodes],
-                };
-              },
+            page: {
+              merge(existing, incoming) {
+                return incoming || {};
+              }
             },
-          },
-        },
-      },
+            positions: {
+              merge(existing = { nodes: [] }, incoming) {
+                return incoming || { nodes: [] };
+              }
+            },
+            leadership: {
+              merge(existing = { nodes: [] }, incoming) {
+                return incoming || { nodes: [] };
+              }
+            }
+          }
+        }
+      }
     }),
-    link: from([errorLink, httpLink]),
+    link: httpLink,
     defaultOptions: {
       query: {
-        errorPolicy: 'all',
-
-        fetchPolicy: typeof window === 'undefined' ? 'network-only' : 'cache-first',
-      },
-      watchQuery: {
-        errorPolicy: 'all',
-        fetchPolicy: 'cache-and-network',
-      },
-    },
+        fetchPolicy: isServerBuild ? 'network-only' : 'cache-first',
+        errorPolicy: 'all'
+      }
+    }
   });
 });
-
-export function useApolloClient() {
-  return getClient();
-}
