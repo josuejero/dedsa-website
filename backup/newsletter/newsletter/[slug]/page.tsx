@@ -7,19 +7,17 @@ import ArticleHeader from './components/ArticleHeader';
 import { GET_POST_BY_SLUG, GET_RELATED_POSTS } from './queries';
 import { generateStaticParams } from './staticParams';
 
-// Define types
-interface PageProps {
-  params: { slug: string } | Promise<{ slug: string }>;
-}
-
 export { generateStaticParams };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const resolvedParams = await Promise.resolve(params);
+type PageParams = {
+  slug: string;
+};
+
+export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
   try {
     const { data } = await getClient().query({
       query: GET_POST_BY_SLUG,
-      variables: { slug: resolvedParams.slug }
+      variables: { slug: params.slug }
     });
 
     if (!data.post) {
@@ -36,18 +34,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   } catch (error) {
     console.error('Error generating metadata:', error);
     return {
-      title: 'Delaware DSA Newsletter',
-      description: 'Latest news from Delaware DSA'
+      title: 'Error Loading Post',
+      description: 'There was an error loading this post'
     };
   }
 }
 
-export default async function Page({ params }: PageProps) {
-  const resolvedParams = await Promise.resolve(params);
+export default async function Page({ params }: { params: PageParams }) {
   try {
     const { data } = await getClient().query({
       query: GET_POST_BY_SLUG,
-      variables: { slug: resolvedParams.slug }
+      variables: { slug: params.slug }
     });
 
     if (!data.post) return notFound();

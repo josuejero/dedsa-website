@@ -1,40 +1,22 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { Post } from '../types';
 
 export default function ArticleHeader({ post }: { post: Post }) {
   return (
-    <>
-      <nav className="mb-8">
-        <ol className="flex text-sm text-gray-600">
-          <li>
-            <Link href="/" className="hover:text-dsa-red">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-          </li>
-          <li>
-            <Link href="/newsletter" className="hover:text-dsa-red">
-              Newsletter
-            </Link>
-            <span className="mx-2">/</span>
-          </li>
-          <li className="text-gray-900 font-medium truncate">{post.title}</li>
-        </ol>
+    <div className="mb-8">
+      <nav className="mb-4">
+        <Link href="/newsletter" className="text-dsa-red hover:underline">
+          ← Back to Newsletter
+        </Link>
       </nav>
-
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        {post.featuredImage?.node && (
-          <Image
-            src={post.featuredImage.node.sourceUrl}
-            alt={post.featuredImage.node.altText || post.title}
-            className="object-cover"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
-          />
-        )}
+      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+      <div className="text-gray-600">
+        {new Date(post.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
       </div>
-    </>
+    </div>
   );
 }

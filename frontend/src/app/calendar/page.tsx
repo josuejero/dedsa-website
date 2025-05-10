@@ -6,7 +6,7 @@ import EventCalendar from './EventCalendar';
 export const metadata: Metadata = {
   title: 'Calendar',
   description:
-    'Event calendar for Delaware DSA. Join us for meetings, actions, educational events, and social gatherings.',
+    'Event calendar for Delaware DSA. Join us for meetings, actions, educational events, and social gatherings.'
 };
 
 interface CalendarProps {
@@ -56,7 +56,7 @@ export default async function Calendar({ params, searchParams }: CalendarProps) 
 
   try {
     const { data } = await getClient().query({
-      query: GET_EVENTS,
+      query: GET_EVENTS
     });
 
     let events: Event[] = (data?.events?.nodes as Event[]) || [];
@@ -80,8 +80,8 @@ export default async function Calendar({ params, searchParams }: CalendarProps) 
             eventDate: eventDate.toISOString(),
             eventTime: `${(i % 12) + 1}:00 ${i % 2 === 0 ? 'PM' : 'AM'}`,
             eventLocation: i % 3 === 0 ? 'Virtual' : 'Delaware State University, Dover, DE',
-            eventVirtualLink: i % 3 === 0 ? 'https://example.com' : undefined,
-          },
+            eventVirtualLink: i % 3 === 0 ? 'https://example.com' : undefined
+          }
         });
       }
 

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { SectionProps } from '../types';
 
-const HeroSection: FC<SectionProps> = ({ udYdsaInfo }) => {
+const HeroSection: FC<SectionProps> = () => {
   return (
     <div className="text-center mb-12">
       <h1 className="text-4xl font-bold mb-4">UD Young Democratic Socialists of America</h1>

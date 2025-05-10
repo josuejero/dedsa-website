@@ -11,26 +11,26 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'delawardsa.org',
         port: '',
-        pathname: '/**',
+        pathname: '/**'
       },
       {
         protocol: 'http',
         hostname: 'delaware-dsa-backend.local',
         port: '',
-        pathname: '/**',
+        pathname: '/**'
       },
       {
         protocol: 'https',
         hostname: 'example.com',
         port: '',
-        pathname: '/**',
-      },
+        pathname: '/**'
+      }
     ],
     // Serve AVIF/WebP for modern browsers to reduce payload size
     formats: ['image/avif', 'image/webp'],
     // Device and static image size breakpoints (defaults match Next.js recommendations) :contentReference[oaicite:13]{index=13}
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
   },
 
   // Example redirect: /blog/:slug → /newsletter/:slug
@@ -39,8 +39,8 @@ const nextConfig: NextConfig = {
       {
         source: '/blog/:slug',
         destination: '/newsletter/:slug',
-        permanent: true,
-      },
+        permanent: true
+      }
     ];
   },
 
@@ -56,7 +56,7 @@ const nextConfig: NextConfig = {
           // Enforce HTTPS for two years + subdomains + preload
           {
             key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload',
+            value: 'max-age=63072000; includeSubDomains; preload'
           },
           // Basic CSP: only self scripts/styles, images from allowed host
           {
@@ -66,24 +66,24 @@ const nextConfig: NextConfig = {
               "script-src 'self'",
               "style-src 'self'",
               "img-src 'self' https://delawardsa.org",
-              "object-src 'none'",
-            ].join('; '),
+              "object-src 'none'"
+            ].join('; ')
           },
           // Cache static assets for one year immutable
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-        ],
-      },
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }
+        ]
+      }
     ];
   },
 
   // Expose only public env vars to the client
   env: {
-    NEXT_PUBLIC_EMAIL_DOMAIN: 'delawardsa.org',
+    NEXT_PUBLIC_EMAIL_DOMAIN: 'delawardsa.org'
   },
 
   // Strip console.* calls in production builds
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === 'production'
   },
 
   // App Router is enabled by default in Next.js 14+
@@ -94,8 +94,8 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://api.example.com/:path*',
-      },
+        destination: 'https://api.example.com/:path*'
+      }
     ];
   },
 
@@ -104,10 +104,10 @@ const nextConfig: NextConfig = {
     config.module.rules.push({
       test: /\.svg$/,
       issuer: { and: [/\.(js|ts)x?$/] },
-      use: ['@svgr/webpack'],
+      use: ['@svgr/webpack']
     });
     return config;
-  },
+  }
 };
 
 // Optional: integrate bundle analyzer (uncomment to enable)
