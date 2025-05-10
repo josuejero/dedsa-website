@@ -1,15 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-dsa-red: #ec1f27;
+  --color-primary: var(--color-dsa-red);
+  --rounded-lg: 0.5rem;
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+@import '@tailwindcss/typography';
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    @apply antialiased;
   }
 
   body {
-    @apply text-gray-800 leading-relaxed;
+    @apply antialiased text-gray-800 leading-relaxed;
   }
 
   h1,
@@ -38,9 +44,9 @@
 
   a {
     @apply text-dsa-red transition-colors duration-200;
-    &:hover {
-      @apply underline;
-    }
+  }
+  a:hover {
+    @apply underline;
   }
 
   :focus {
@@ -50,11 +56,19 @@
 
 @layer components {
   .btn {
-    @apply px-4 py-2 rounded font-medium transition-all duration-200 inline-flex items-center justify-center;
+    @apply inline-flex items-center justify-center px-4 py-2 rounded font-medium transition-all duration-200;
   }
 
   .btn-primary {
-    @apply bg-dsa-red text-white hover:bg-red-700 focus:ring-4 focus:ring-red-300;
+    background-color: var(--color-dsa-red);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--rounded-lg);
+    font-weight: 500;
+    transition: background-color 200ms;
+  }
+  .btn-primary:hover {
+    background-color: #d41920;
   }
 
   .btn-secondary {
@@ -71,12 +85,12 @@
 
   .section {
     @apply py-16 md:py-20;
-    &-light {
-      @apply bg-white;
-    }
-    &-dark {
-      @apply bg-gray-100;
-    }
+  }
+  .section-light {
+    @apply bg-white;
+  }
+  .section-dark {
+    @apply bg-gray-100;
   }
 }
 

@@ -1,3 +1,6 @@
+// =============================================
+// File: frontend/src/components/OptimizedImage.tsx
+// =============================================
 import { IMAGE_SIZES } from '@/constants';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -18,21 +21,22 @@ export function OptimizedImage({
   priority = false
 }: OptimizedImageProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const dimensions = IMAGE_SIZES[size];
+  const { width, height } = IMAGE_SIZES[size];
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden ${className}`.trim()}>
       <Image
         src={src}
         alt={alt}
-        width={dimensions.width}
-        height={dimensions.height}
-        className={`
-          duration-700 ease-in-out
-          ${isLoading ? 'scale-110 blur-lg' : 'scale-100 blur-0'}
-        `}
-        onLoadingComplete={() => setIsLoading(false)}
+        width={width}
+        height={height}
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         priority={priority}
+        loading={priority ? 'eager' : 'lazy'}
+        className={`duration-700 ease-in-out ${
+          isLoading ? 'scale-110 blur-lg' : 'scale-100 blur-0'
+        }`}
+        onLoadingComplete={() => setIsLoading(false)}
       />
       {isLoading && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
     </div>

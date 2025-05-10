@@ -13,6 +13,7 @@ const wpGraphQLEndpoint =
   process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
   (isDevelopment ? 'http://delaware-dsa-backend.local/graphql' : '/api/graphql');
 
+// Mock link for development/testing
 const mockLink = new ApolloLink((operation) => {
   const operationName = operation.operationName ?? 'unknown';
   let mockData: Record<string, unknown> = {};
@@ -62,24 +63,45 @@ const mockLink = new ApolloLink((operation) => {
   });
 });
 
+// Configure the cache with type policies for better normalization and merging
+const cache = new InMemoryCache({
+  typePolicies: {
+    Post: {
+      keyFields: ['id'],
+      fields: {
+        date: {
+          merge: true
+        }
+      }
+    },
+    Page: {
+      keyFields: ['slug']
+    }
+  }
+});
+
+// Error link logs GraphQL errors and can be extended to report to monitoring services
 const errorLink = new ApolloLink((operation, forward) => {
   return forward(operation).map((response) => {
-    if (response.errors && isDevelopment) {
+    if (response.errors) {
       console.error('GraphQL Errors:', response.errors);
+      // TODO: send errors to an external monitoring service if desired
     }
     return response;
   });
 });
 
+// HTTP link for actual GraphQL endpoint
 const httpLink = new HttpLink({
   uri: wpGraphQLEndpoint,
   credentials: 'same-origin'
 });
 
+// Register the Apollo Client with Next.js integration
 export const { getClient } = registerApolloClient(() => {
   return new ApolloClient<NormalizedCacheObject>({
-    link: ApolloLink.from([mockLink, errorLink, httpLink]),
-    cache: new InMemoryCache(),
+    link: ApolloLink.from(isDevelopment ? [mockLink, errorLink, httpLink] : [errorLink, httpLink]),
+    cache,
     defaultOptions: {
       query: {
         fetchPolicy: 'cache-first',
