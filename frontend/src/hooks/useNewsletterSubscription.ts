@@ -12,7 +12,6 @@ export function useNewsletterSubscription() {
   const subscribe = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setStatus('error');
       setErrorMessage('Please enter a valid email address.');
@@ -23,18 +22,6 @@ export function useNewsletterSubscription() {
     setErrorMessage('');
 
     try {
-      
-      
-      
-      
-      
-      
-
-      
-      
-      
-
-      
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       setStatus('success');
@@ -58,6 +45,6 @@ export function useNewsletterSubscription() {
     reset: () => {
       setStatus('idle');
       setErrorMessage('');
-    },
+    }
   };
 }

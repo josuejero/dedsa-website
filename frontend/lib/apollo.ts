@@ -15,16 +15,43 @@ type OperationType = {
 
 // During build time, return structured dummy data
 const buildTimeFetch = async (operation: OperationType) => {
-  const defaultData = {
-    posts: { nodes: [] },
-    page: { title: '', content: '', slug: '' },
-    positions: { nodes: [] },
-    leadership: { nodes: [] }
+  // Enhanced dummy data structure
+  const dummyData = {
+    posts: {
+      nodes: [
+        {
+          title: 'Placeholder Post',
+          content: 'Content will be loaded at runtime',
+          slug: 'placeholder'
+        }
+      ]
+    },
+    page: {
+      title: 'Placeholder Page',
+      content: 'Content will be loaded at runtime',
+      slug: 'placeholder'
+    },
+    positions: {
+      nodes: [
+        {
+          title: 'Placeholder Position',
+          description: 'Position details will be loaded at runtime'
+        }
+      ]
+    },
+    leadership: {
+      nodes: [
+        {
+          name: 'Placeholder Leader',
+          role: 'Role will be loaded at runtime'
+        }
+      ]
+    }
   };
 
   return new Response(
     JSON.stringify({
-      data: defaultData[operation.operationName] || {}
+      data: dummyData[operation.operationName] || {}
     }),
     {
       status: 200,
@@ -48,12 +75,20 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit) => {
   });
 };
 
+// Fallback URI if environment variables are not set
+const getGraphQLUri = () => {
+  if (isServerBuild) return '/graphql';
+  if (isDevelopment) return 'http://delaware-dsa-backend.local/graphql';
+  return '/api/graphql';
+};
+
 const httpLink = new HttpLink({
-  uri: isDevelopment ? 'http://delaware-dsa-backend.local/graphql' : '/api/graphql',
+  uri: getGraphQLUri(),
   credentials: 'same-origin',
   fetch: customFetch
 });
 
+// Rest of the code remains the same...
 export const { getClient } = registerApolloClient(() => {
   return new ApolloClient({
     cache: new InMemoryCache({
@@ -61,26 +96,22 @@ export const { getClient } = registerApolloClient(() => {
         Query: {
           fields: {
             posts: {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              merge(_existing = { nodes: [] }, incoming) {
+              merge(_, incoming) {
                 return incoming || { nodes: [] };
               }
             },
             page: {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              merge(_existing, incoming) {
+              merge(_, incoming) {
                 return incoming || {};
               }
             },
             positions: {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              merge(_existing = { nodes: [] }, incoming) {
+              merge(_, incoming) {
                 return incoming || { nodes: [] };
               }
             },
             leadership: {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              merge(_existing = { nodes: [] }, incoming) {
+              merge(_, incoming) {
                 return incoming || { nodes: [] };
               }
             }

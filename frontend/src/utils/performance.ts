@@ -5,6 +5,15 @@ interface LayoutShift extends PerformanceEntry {
   hadRecentInput: boolean;
 }
 
+interface LargestContentfulPaint extends PerformanceEntry {
+  renderTime: number;
+  loadTime: number;
+  size: number;
+  id: string;
+  url: string;
+  element?: Element;
+}
+
 interface PerformanceMetric {
   name: MetricName;
   value: number;

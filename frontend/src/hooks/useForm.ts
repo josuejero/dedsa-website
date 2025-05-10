@@ -7,7 +7,7 @@ interface UseFormProps<T> {
   onSubmit: (values: T) => void | Promise<void>;
 }
 
-export function useForm<T extends Record<string, any>>({
+export function useForm<T extends Record<string, unknown>>({
   initialValues,
   validate,
   onSubmit
