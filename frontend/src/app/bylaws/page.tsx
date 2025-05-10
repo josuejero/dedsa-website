@@ -1,31 +1,44 @@
-import React from 'react';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getClient } from '../../lib/apollo-client';
-import { GET_BYLAWS_PAGE } from './queries';
 import BylawsDocument from './BylawsDocument';
-import KeyGovernanceSections from './KeyGovernanceSections';
 import FrequentlyAskedQuestions from './FrequentlyAskedQuestions';
+import KeyGovernanceSections from './KeyGovernanceSections';
 import OtherDocuments from './OtherDocuments';
+import { GET_BYLAWS_PAGE } from './queries';
 
 export const metadata: Metadata = {
   title: 'Bylaws',
-  description: 'Delaware DSA chapter bylaws and governance documents.',
+  description: 'Delaware DSA chapter bylaws and governance documents.'
 };
 
 export default async function Bylaws() {
-  const { data } = await getClient().query({
-    query: GET_BYLAWS_PAGE,
-  });
+  let result;
+  try {
+    result = await getClient().query({
+      query: GET_BYLAWS_PAGE
+    });
+    console.log('Bylaws query raw result:', result);
+  } catch (err) {
+    console.error('Apollo query failed:', err);
+    result = {};
+  }
+
+  const page = result?.data?.page;
+  if (!page) {
+    console.error('Bylaws page data not found');
+    notFound();
+  }
 
   const pageContent =
-    data?.page?.content ||
+    page.content ||
     `
     <p>The Delaware DSA chapter bylaws outline our governance structure, decision-making processes, and operational procedures. These bylaws were democratically approved by our membership and can only be amended through a vote of the general membership.</p>
     <p>Our bylaws reflect our commitment to democratic governance, transparency, and member-led organizing. They establish the roles and responsibilities of elected officers, committees, and the general membership.</p>
-    `;
+  `;
 
-  const bylawsPdf = data?.page?.bylaws?.pdfUrl || '/documents/delaware-dsa-bylaws.pdf';
-  const lastUpdated = data?.page?.bylaws?.lastUpdated || 'January 15, 2024';
+  const bylawsPdf = page.bylaws?.pdfUrl || '/documents/delaware-dsa-bylaws.pdf';
+  const lastUpdated = page.bylaws?.lastUpdated || 'January 15, 2024';
 
   return (
     <div className="bg-gray-100 py-12">

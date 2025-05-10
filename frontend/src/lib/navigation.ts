@@ -40,6 +40,6 @@ export function useAppNavigation() {
     searchParams,
     getQueryParams,
     createUrlWithParams,
-    navigateWithParams,
+    navigateWithParams
   };
 }

@@ -1,149 +1,67 @@
-import { ApolloLink, from, HttpLink } from '@apollo/client';
 import {
   ApolloClient,
+  ApolloLink,
+  HttpLink,
   InMemoryCache,
-  registerApolloClient
-} from '@apollo/client-integration-nextjs';
+  NormalizedCacheObject
+} from '@apollo/client';
+import { registerApolloClient } from '@apollo/client-integration-nextjs';
+import { Observable } from 'zen-observable-ts';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
-const isBrowser = typeof window !== 'undefined';
-const isServerBuild = !isBrowser && process.env.NODE_ENV === 'production';
+const wpGraphQLEndpoint =
+  process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
+  (isDevelopment ? 'http://delaware-dsa-backend.local/graphql' : '/api/graphql');
 
-type OperationType = {
-  operationName?: string;
-  query?: { definitions?: Array<{ name?: { value?: string } }> };
-};
-
-// During build time, return structured dummy data
-// Server-side build time operation handling
-const buildTimeFetch = async (operation: {
-  operationName?: string;
-  query?: { definitions?: Array<{ name?: { value?: string } }> };
-}) => {
-  const operationName =
-    operation?.operationName || operation?.query?.definitions?.[0]?.name?.value || 'unknown';
-
-  let mockData = {};
+const mockLink = new ApolloLink((operation) => {
+  const operationName = operation.operationName ?? 'unknown';
+  let mockData: Record<string, unknown> = {};
 
   switch (operationName) {
-    case 'GetRecentPosts':
-    case 'posts':
+    case 'GET_JOIN_PAGE':
       mockData = {
-        posts: {
-          nodes: [
-            {
-              id: 'post-1',
-              title: 'Placeholder Post',
-              content: 'Content will be loaded at runtime',
-              excerpt: 'Excerpt text',
-              slug: 'placeholder',
-              date: new Date().toISOString(),
-              categories: { nodes: [] },
-              featuredImage: { node: { sourceUrl: '', altText: '' } },
-              author: {
-                node: { name: 'Author', slug: 'author', id: 'author-1', avatar: { url: null } }
-              }
-            }
-          ]
+        page: {
+          content: `<p>Join us in building a more just and democratic society! Delaware DSA is a chapter of the Democratic Socialists of America, the largest socialist organization in the United States.</p>
+          <p>By becoming a member, you'll be part of a growing movement fighting for economic justice, healthcare for all, housing as a human right, and genuine democracy in our workplaces and communities.</p>`,
+          title: 'Join DSA',
+          slug: 'join'
         }
       };
       break;
-    case 'GetPostBySlug':
+    case 'GetPositionsPage':
       mockData = {
-        post: {
-          id: 'post-1',
-          title: 'Placeholder Post',
-          content: 'Content will be loaded at runtime',
-          date: new Date().toISOString(),
-          slug: 'placeholder',
-          categories: { nodes: [] },
-          featuredImage: { node: { sourceUrl: '', altText: '' } },
-          author: {
-            node: { name: 'Author', slug: 'author', id: 'author-1', avatar: { url: null } }
-          }
-        }
-      };
-      break;
-    case 'GetEvents':
-    case 'events':
-      mockData = {
-        events: {
+        page: {
+          content:
+            '<p>Our positions and values guide our work for social, economic, and environmental justice.</p>'
+        },
+        positions: {
           nodes: [
             {
-              id: 'event-1',
-              title: 'Placeholder Event',
-              excerpt: 'Event excerpt',
-              content: 'Event content',
-              date: new Date().toISOString(),
-              meta: {
-                eventDate: new Date().toISOString(),
-                eventTime: '12:00 PM',
-                eventLocation: 'Delaware',
-                eventVirtualLink: null
-              }
-            }
-          ]
-        }
-      };
-      break;
-    case 'GetLeadership':
-    case 'leadership':
-      mockData = {
-        leadership: {
-          nodes: [
+              id: 'position-1',
+              title: 'Economic Justice',
+              content: 'We believe in economic democracy and justice for all.',
+              menuOrder: 1
+            },
             {
-              id: 'leader-1',
-              title: 'Placeholder Leader',
-              content: 'Bio will be loaded at runtime',
-              leadership: {
-                role: 'Role',
-                email: 'placeholder@example.com',
-                order: 1
-              },
-              featuredImage: { node: { sourceUrl: '', altText: '' } }
+              id: 'position-2',
+              title: 'Healthcare',
+              content: 'We fight for universal healthcare as a human right.',
+              menuOrder: 2
             }
           ]
         }
       };
       break;
     default:
-      mockData = { nodes: [] };
+      return null;
   }
 
-  return new Response(JSON.stringify({ data: mockData }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' }
+  return new Observable((observer) => {
+    observer.next({ data: mockData });
+    observer.complete();
   });
-};
+});
 
-const customFetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-  if (isServerBuild) {
-    try {
-      const operation = init?.body ? JSON.parse(init.body as string) : {};
-      return buildTimeFetch(operation);
-    } catch (error) {
-      console.error('Error parsing operation:', error);
-      return buildTimeFetch({} as OperationType);
-    }
-  }
-
-  return fetch(input, {
-    ...init,
-    headers: {
-      ...init?.headers,
-      'Content-Type': 'application/json'
-    }
-  });
-};
-
-const getGraphQLUri = () => {
-  if (isServerBuild) return '/graphql';
-  if (isDevelopment)
-    return process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://delaware-dsa-backend.local/graphql';
-  return '/api/graphql';
-};
-
-// Error handling link
 const errorLink = new ApolloLink((operation, forward) => {
   return forward(operation).map((response) => {
     if (response.errors && isDevelopment) {
@@ -154,69 +72,22 @@ const errorLink = new ApolloLink((operation, forward) => {
 });
 
 const httpLink = new HttpLink({
-  uri: getGraphQLUri(),
-  credentials: 'same-origin',
-  fetch: customFetch
+  uri: wpGraphQLEndpoint,
+  credentials: 'same-origin'
 });
 
 export const { getClient } = registerApolloClient(() => {
-  return new ApolloClient({
-    cache: new InMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            posts: {
-              keyArgs: ['where'],
-              merge(existing = { nodes: [] }, incoming) {
-                return {
-                  ...incoming,
-                  nodes: [...existing.nodes, ...incoming.nodes]
-                };
-              }
-            },
-            page: {
-              merge(_, incoming) {
-                return incoming || {};
-              }
-            },
-            positions: {
-              merge(existing = { nodes: [] }, incoming) {
-                return {
-                  ...incoming,
-                  nodes: [...existing.nodes, ...incoming.nodes]
-                };
-              }
-            },
-            leadership: {
-              merge(existing = { nodes: [] }, incoming) {
-                return {
-                  ...incoming,
-                  nodes: [...existing.nodes, ...incoming.nodes]
-                };
-              }
-            },
-            events: {
-              keyArgs: ['where'],
-              merge(existing = { nodes: [] }, incoming) {
-                return {
-                  ...incoming,
-                  nodes: [...existing.nodes, ...incoming.nodes]
-                };
-              }
-            }
-          }
-        }
-      }
-    }),
-    link: from([errorLink, httpLink]),
+  return new ApolloClient<NormalizedCacheObject>({
+    link: ApolloLink.from([mockLink, errorLink, httpLink]),
+    cache: new InMemoryCache(),
     defaultOptions: {
       query: {
-        fetchPolicy: isServerBuild ? 'network-only' : 'cache-first',
+        fetchPolicy: 'cache-first',
         errorPolicy: 'all'
       },
       watchQuery: {
-        errorPolicy: 'all',
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache-and-network',
+        errorPolicy: 'all'
       }
     }
   });

@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getClient } from '../../lib/apollo-client';
 import { UdYdsaInfo } from './types';
 
@@ -36,18 +37,32 @@ const GET_UD_YDSA_PAGE = gql`
 `;
 
 export default async function UdYdsa() {
-  const { data } = await getClient().query({
-    query: GET_UD_YDSA_PAGE
-  });
+  let result;
+  try {
+    result = await getClient().query({
+      query: GET_UD_YDSA_PAGE,
+      errorPolicy: 'all'
+    });
+  } catch (err) {
+    console.error('Apollo query failed:', err);
+    result = {};
+  }
+
+  const data = result?.data;
+
+  // Render 404 if page doesn't exist
+  if (!data?.page) {
+    notFound();
+  }
 
   const pageContent =
-    data?.page?.content ||
+    data.page.content ||
     `
     <p>The University of Delaware Young Democratic Socialists of America (UD YDSA) is the student chapter of DSA at the University of Delaware. We organize students to build student power and fight for democratic socialist values on campus and beyond.</p>
     <p>As a chapter of YDSA, we work to make our university more democratic and to be a force for progressive change in the broader community. We collaborate closely with Delaware DSA on campaigns and events.</p>
-    `;
+  `;
 
-  const udYdsaInfo: UdYdsaInfo = data?.page?.udYdsa || {
+  const udYdsaInfo: UdYdsaInfo = data.page.udYdsa || {
     contactEmail: 'udydsa@example.org',
     meetingLocation: 'Morris Library, Room 202, University of Delaware',
     meetingSchedule: 'Every Wednesday at 7:00 PM during the academic year',

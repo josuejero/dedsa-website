@@ -103,7 +103,7 @@ export default function LatestUpdatesSection({ posts }: LatestUpdatesSectionProp
                       {new Date(post.date).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
-                        day: 'numeric',
+                        day: 'numeric'
                       })}
                       {post.author?.node?.name && (
                         <>

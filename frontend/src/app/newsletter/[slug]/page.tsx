@@ -3,10 +3,10 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getClient } from '../../../lib/apollo-client';
+import { GET_POST_BY_SLUG, GET_RELATED_POSTS } from '../../../lib/graphql/queries';
 import ArticleContent from './components/ArticleContent';
 import ArticleFooter from './components/ArticleFooter';
 import ArticleHeader from './components/ArticleHeader';
-import { GET_POST_BY_SLUG, GET_RELATED_POSTS } from './queries';
 import { generateStaticParams } from './staticParams';
 
 interface PageParams {

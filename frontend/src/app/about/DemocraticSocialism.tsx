@@ -1,51 +1,36 @@
-import Link from 'next/link';
-
 export default function DemocraticSocialism() {
-  return (
-    <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-      <h2 className="text-2xl font-bold mb-6">What is Democratic Socialism?</h2>
+  const principles = [
+    {
+      title: 'Economic Democracy',
+      description:
+        'We believe the economy should be democratically owned and controlled to meet human needs.'
+    },
+    {
+      title: 'Social Justice',
+      description: 'We fight for racial, gender, and economic justice for all people.'
+    },
+    {
+      title: "Workers' Rights",
+      description:
+        'We support workers organizing for better wages, benefits, and working conditions.'
+    },
+    {
+      title: 'Healthcare',
+      description: 'We advocate for a universal, single-payer healthcare system.'
+    }
+  ];
 
-      <div className="prose prose-lg max-w-none">
-        <p>
-          Democratic socialism is a political philosophy that advocates for a democratic political
-          system alongside a socially owned economy. We believe that both the economy and society
-          should be run democratically to meet human needs, not to make profits for a few.
-        </p>
-        <p>Democratic socialists envision a society where:</p>
-        <ul>
-          <li>
-            <strong>Economic rights are human rights.</strong> This includes the right to
-            healthcare, housing, education, and dignified work.
-          </li>
-          <li>
-            <strong>Democracy extends beyond the ballot box.</strong> Working people should have a
-            say in economic decisions that affect their lives, including in their workplaces.
-          </li>
-          <li>
-            <strong>Resources and power are distributed equitably.</strong> Wealth and resources
-            should benefit the many, not the few.
-          </li>
-          <li>
-            <strong>Marginalized communities have equal access to rights and resources.</strong> We
-            fight against all forms of oppression, including racism, sexism, homophobia, and
-            xenophobia.
-          </li>
-        </ul>
-        <p>
-          We work towards these goals through grassroots organizing, coalition building, electoral
-          engagement, and direct action. Our approach is both pragmatic and visionary—we fight for
-          immediate reforms that improve people&apos;s lives today while building movements for
-          transformative change.
-        </p>
+  return (
+    <section className="bg-white p-8 rounded-lg shadow-md mb-8">
+      <h2 className="text-3xl font-bold mb-6">What is Democratic Socialism?</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {principles.map((principle, index) => (
+          <div key={index} className="bg-gray-50 p-6 rounded-lg">
+            <h3 className="text-xl font-bold mb-2 text-dsa-red">{principle.title}</h3>
+            <p className="text-gray-700">{principle.description}</p>
+          </div>
+        ))}
       </div>
-      <div className="mt-6">
-        <Link href="/what-we-stand-for" className="text-dsa-red hover:underline flex items-center">
-          Learn more about what we stand for
-          <svg className="h-5 w-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </Link>
-      </div>
-    </div>
+    </section>
   );
 }

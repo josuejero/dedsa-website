@@ -1,11 +1,12 @@
 import { gql } from '@apollo/client';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getClient } from '../../lib/apollo-client';
 import LeadershipCard from './LeadershipCard';
 
 export const metadata: Metadata = {
   title: 'Leadership & Structure',
-  description: 'Learn about the leadership and organizational structure of Delaware DSA.',
+  description: 'Learn about the leadership and organizational structure of Delaware DSA.'
 };
 
 interface LeadershipRole {
@@ -63,9 +64,23 @@ const GET_LEADERSHIP = gql`
 `;
 
 export default async function Leadership() {
-  const { data } = await getClient().query({
-    query: GET_LEADERSHIP,
-  });
+  let result;
+  try {
+    result = await getClient().query({
+      query: GET_LEADERSHIP,
+      errorPolicy: 'all'
+    });
+  } catch (err) {
+    console.error('Apollo query failed:', err);
+    result = {};
+  }
+
+  const data = result?.data;
+
+  // Render 404 if page doesn't exist
+  if (!data?.page && !data?.leadership) {
+    notFound();
+  }
 
   const pageContent =
     data?.page?.content ||
@@ -82,7 +97,7 @@ export default async function Leadership() {
       bio: node.content,
       email: node.leadership.email,
       imageUrl: node.featuredImage?.node?.sourceUrl,
-      order: node.leadership.order,
+      order: node.leadership.order
     })) || [];
 
   if (leadershipTeam.length === 0) {
@@ -93,7 +108,7 @@ export default async function Leadership() {
         name: 'Alex Johnson',
         bio: '<p>Alex has been an active DSA member since 2019 and works to build coalitions across progressive organizations in Delaware.</p>',
         email: `chair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
-        order: 1,
+        order: 1
       },
       {
         id: 'vice-chair',
@@ -101,7 +116,7 @@ export default async function Leadership() {
         name: 'Morgan Smith',
         bio: '<p>Morgan focuses on organizing tenant unions and housing justice initiatives across New Castle County.</p>',
         email: `vicechair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
-        order: 2,
+        order: 2
       },
       {
         id: 'secretary',
@@ -109,7 +124,7 @@ export default async function Leadership() {
         name: 'Jamie Williams',
         bio: '<p>Jamie maintains chapter records and communications, ensuring organizational transparency and member involvement.</p>',
         email: `secretary@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
-        order: 3,
+        order: 3
       },
       {
         id: 'treasurer',
@@ -117,7 +132,7 @@ export default async function Leadership() {
         name: 'Taylor Reed',
         bio: '<p>Taylor oversees chapter finances, budget planning, and ensures compliance with financial regulations.</p>',
         email: `treasurer@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
-        order: 4,
+        order: 4
       },
       {
         id: 'at-large-1',
@@ -125,7 +140,7 @@ export default async function Leadership() {
         name: 'Jordan Chen',
         bio: '<p>Jordan leads our Medicare for All campaign and represents healthcare workers within the chapter.</p>',
         email: `atlarge1@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
-        order: 5,
+        order: 5
       },
       {
         id: 'at-large-2',
@@ -133,8 +148,8 @@ export default async function Leadership() {
         name: 'Casey Wilson',
         bio: '<p>Casey coordinates outreach to labor unions and workplace organizing throughout the state.</p>',
         email: `atlarge2@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`, // Changed to backticks
-        order: 6,
-      },
+        order: 6
+      }
     ];
   }
 

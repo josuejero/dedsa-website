@@ -5,7 +5,7 @@ import ContactForm from './ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact Us',
-  description: 'Get in touch with Delaware DSA. Contact information and online form.',
+  description: 'Get in touch with Delaware DSA. Contact information and online form.'
 };
 
 const GET_CONTACT_INFO = gql`
@@ -22,18 +22,25 @@ const GET_CONTACT_INFO = gql`
 `;
 
 export default async function Contact() {
-  const { data } = await getClient().query({
-    query: GET_CONTACT_INFO,
-  });
+  let result;
+  try {
+    result = await getClient().query({
+      query: GET_CONTACT_INFO
+    });
+  } catch (err) {
+    console.error('Apollo query failed:', err);
+    result = {};
+  }
+  const data = result?.data ?? {};
 
-  const contactInfo = data?.page?.contactInfo || {
+  const contactInfo = data.page?.contactInfo ?? {
     email: `info@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
     phone: '(302) 555-0123',
-    mailingAddress: 'Delaware DSA\nP.O. Box 12345\nWilmington, DE 19801',
+    mailingAddress: 'Delaware DSA\nP.O. Box 12345\nWilmington, DE 19801'
   };
 
   const pageContent =
-    data?.page?.content ||
+    data.page?.content ??
     `
     <p>Delaware DSA welcomes your questions, comments, and involvement. Please use the form below to get in touch, or contact us directly using the information provided.</p>
   `;

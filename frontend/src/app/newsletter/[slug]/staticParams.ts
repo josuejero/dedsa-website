@@ -1,5 +1,5 @@
 import { getClient } from '../../../lib/apollo-client';
-import { GET_ALL_POST_SLUGS } from './queries';
+import { GET_ALL_POST_SLUGS } from '../../../lib/graphql/queries';
 
 export async function generateStaticParams() {
   try {

@@ -1,24 +1,23 @@
-import React from 'react';
-
 export default function NationalInfo() {
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-      <div className="flex flex-col md:flex-row items-center">
-        <div className="md:w-2/3">
-          <h2 className="text-2xl font-bold mb-4">About the National DSA</h2>
-          <p className="mb-4">
-            Delaware DSA is a chapter of the Democratic Socialists of America, the largest socialist
-            organization in the United States. Learn more about the national organization, its
-            history, and its work.
-          </p>
+    <section className="bg-white p-8 rounded-lg shadow-md mb-8">
+      <h2 className="text-3xl font-bold mb-6">DSA National</h2>
+      <div className="prose prose-lg">
+        <p>
+          Delaware DSA is a chapter of the Democratic Socialists of America (DSA), the largest
+          socialist organization in the United States. DSA members are building progressive
+          movements for social change while establishing an openly democratic socialist presence in
+          American communities and politics.
+        </p>
+        <div className="mt-6">
           <a
             href="https://www.dsausa.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-dsa-red hover:underline inline-flex items-center"
+            className="inline-flex items-center text-dsa-red hover:underline"
           >
-            Visit the DSA National Website
-            <svg className="h-5 w-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            Visit DSA National
+            <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -28,12 +27,7 @@ export default function NationalInfo() {
             </svg>
           </a>
         </div>
-        <div className="md:w-1/3 mt-6 md:mt-0 md:pl-8 flex justify-center">
-          <div className="w-32 h-32 bg-dsa-red rounded-full flex items-center justify-center text-white font-bold text-2xl">
-            DSA
-          </div>
-        </div>
       </div>
-    </div>
+    </section>
   );
 }
