@@ -10,56 +10,110 @@ const isBrowser = typeof window !== 'undefined';
 const isServerBuild = !isBrowser && process.env.NODE_ENV === 'production';
 
 type OperationType = {
-  operationName: 'posts' | 'page' | 'positions' | 'leadership' | 'events';
+  operationName?: string;
+  query?: { definitions?: Array<{ name?: { value?: string } }> };
 };
 
 // During build time, return structured dummy data
-const buildTimeFetch = async (operation: OperationType) => {
-  const dummyData = {
-    posts: {
-      nodes: [
-        {
+// Server-side build time operation handling
+const buildTimeFetch = async (operation: {
+  operationName?: string;
+  query?: { definitions?: Array<{ name?: { value?: string } }> };
+}) => {
+  const operationName =
+    operation?.operationName || operation?.query?.definitions?.[0]?.name?.value || 'unknown';
+
+  let mockData = {};
+
+  switch (operationName) {
+    case 'GetRecentPosts':
+    case 'posts':
+      mockData = {
+        posts: {
+          nodes: [
+            {
+              id: 'post-1',
+              title: 'Placeholder Post',
+              content: 'Content will be loaded at runtime',
+              excerpt: 'Excerpt text',
+              slug: 'placeholder',
+              date: new Date().toISOString(),
+              categories: { nodes: [] },
+              featuredImage: { node: { sourceUrl: '', altText: '' } },
+              author: {
+                node: { name: 'Author', slug: 'author', id: 'author-1', avatar: { url: null } }
+              }
+            }
+          ]
+        }
+      };
+      break;
+    case 'GetPostBySlug':
+      mockData = {
+        post: {
+          id: 'post-1',
           title: 'Placeholder Post',
           content: 'Content will be loaded at runtime',
-          slug: 'placeholder'
+          date: new Date().toISOString(),
+          slug: 'placeholder',
+          categories: { nodes: [] },
+          featuredImage: { node: { sourceUrl: '', altText: '' } },
+          author: {
+            node: { name: 'Author', slug: 'author', id: 'author-1', avatar: { url: null } }
+          }
         }
-      ]
-    },
-    page: {
-      title: 'Placeholder Page',
-      content: 'Content will be loaded at runtime',
-      slug: 'placeholder'
-    },
-    positions: {
-      nodes: [
-        {
-          title: 'Placeholder Position',
-          description: 'Position details will be loaded at runtime'
+      };
+      break;
+    case 'GetEvents':
+    case 'events':
+      mockData = {
+        events: {
+          nodes: [
+            {
+              id: 'event-1',
+              title: 'Placeholder Event',
+              excerpt: 'Event excerpt',
+              content: 'Event content',
+              date: new Date().toISOString(),
+              meta: {
+                eventDate: new Date().toISOString(),
+                eventTime: '12:00 PM',
+                eventLocation: 'Delaware',
+                eventVirtualLink: null
+              }
+            }
+          ]
         }
-      ]
-    },
-    leadership: {
-      nodes: [
-        {
-          name: 'Placeholder Leader',
-          role: 'Role will be loaded at runtime'
+      };
+      break;
+    case 'GetLeadership':
+    case 'leadership':
+      mockData = {
+        leadership: {
+          nodes: [
+            {
+              id: 'leader-1',
+              title: 'Placeholder Leader',
+              content: 'Bio will be loaded at runtime',
+              leadership: {
+                role: 'Role',
+                email: 'placeholder@example.com',
+                order: 1
+              },
+              featuredImage: { node: { sourceUrl: '', altText: '' } }
+            }
+          ]
         }
-      ]
-    },
-    events: {
-      nodes: []
-    }
-  };
+      };
+      break;
+    default:
+      mockData = { nodes: [] };
+  }
 
-  return new Response(
-    JSON.stringify({
-      data: dummyData[operation.operationName] || {}
-    }),
-    {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    }
-  );
+  return new Response(JSON.stringify({ data: mockData }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' }
+  });
 };
 
 const customFetch = async (input: RequestInfo | URL, init?: RequestInit) => {

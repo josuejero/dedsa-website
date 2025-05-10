@@ -7,11 +7,17 @@ export async function generateStaticParams() {
       query: GET_ALL_POST_SLUGS
     });
 
+    // Make sure we have valid slug data
+    if (!data?.posts?.nodes || !Array.isArray(data.posts.nodes)) {
+      return [{ slug: 'placeholder' }];
+    }
+
     return data.posts.nodes.map((post: { slug: string }) => ({
-      slug: post.slug
+      slug: post.slug || 'placeholder'
     }));
   } catch (error) {
     console.error('Error generating static params:', error);
-    return [];
+    // Return a fallback to prevent build failure
+    return [{ slug: 'placeholder' }];
   }
 }

@@ -6,26 +6,26 @@ export interface Post {
   slug: string;
   excerpt?: string;
   featuredImage?: {
-    node: {
+    node?: {
       sourceUrl: string;
       altText?: string;
     };
-  };
+  } | null;
   author?: {
-    node: {
+    node?: {
       name: string;
       avatar?: {
         url: string;
-      };
+      } | null;
     };
-  };
+  } | null;
   categories?: {
-    nodes: {
+    nodes: Array<{
       id: string;
       name: string;
       slug: string;
-    }[];
-  };
+    }>;
+  } | null;
 }
 
 export interface Leadership {
