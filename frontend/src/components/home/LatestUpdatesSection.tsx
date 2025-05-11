@@ -1,28 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface Post {
-  id: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  slug: string;
-  featuredImage?: {
-    node?: {
-      sourceUrl: string;
-      altText: string;
-    };
-  };
-  author?: {
-    node?: {
-      name: string;
-    };
-  };
-}
-
-interface LatestUpdatesSectionProps {
-  posts: Post[];
-}
+import { LatestUpdatesSectionProps } from '../types';
 
 export default function LatestUpdatesSection({
   posts,

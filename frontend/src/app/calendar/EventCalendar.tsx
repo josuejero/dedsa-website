@@ -4,25 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import EventList from './EventList';
 import MonthSelector from './MonthSelector';
-
-interface CalendarEvent {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  meta: {
-    eventDate: string;
-    eventTime: string;
-    eventLocation: string;
-    eventVirtualLink?: string;
-  };
-}
-
-interface EventCalendarProps {
-  events: CalendarEvent[];
-  selectedMonth: string;
-}
+import { CalendarEvent, EventCalendarProps } from './types';
 
 export default function EventCalendar({
   events,

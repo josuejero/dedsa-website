@@ -1,34 +1,22 @@
-type MetricName = 'FCP' | 'LCP' | 'CLS' | 'FID' | 'TTFB';
-
-interface LayoutShift extends PerformanceEntry {
-  value: number;
-  hadRecentInput: boolean;
-}
-
-interface LargestContentfulPaint extends PerformanceEntry {
-  renderTime: number;
-  loadTime: number;
-  size: number;
-  id: string;
-  url: string;
-  element?: Element;
-}
-
-interface PerformanceMetric {
-  name: MetricName;
-  value: number;
-  rating: 'good' | 'needs-improvement' | 'poor';
-}
+import {
+  LargestContentfulPaint,
+  LayoutShift,
+  MetricName,
+  PerformanceMetric,
+} from './types';
 
 const thresholds = {
   FCP: [1800, 3000],
   LCP: [2500, 4000],
   CLS: [0.1, 0.25],
   FID: [100, 300],
-  TTFB: [800, 1800]
+  TTFB: [800, 1800],
 };
 
-function getRating(name: MetricName, value: number): PerformanceMetric['rating'] {
+function getRating(
+  name: MetricName,
+  value: number
+): PerformanceMetric['rating'] {
   const [good, poor] = thresholds[name];
   if (value <= good) return 'good';
   if (value <= poor) return 'needs-improvement';
@@ -45,7 +33,7 @@ export function measureCLS(): Promise<PerformanceMetric> {
         resolve({
           name: 'CLS',
           value: entry.value,
-          rating: getRating('CLS', entry.value)
+          rating: getRating('CLS', entry.value),
         });
       }
     });
@@ -56,14 +44,16 @@ export function measureCLS(): Promise<PerformanceMetric> {
 export function measureLCP(): Promise<PerformanceMetric> {
   return new Promise((resolve) => {
     const observer = new PerformanceObserver((list) => {
-      const entries = list.getEntriesByType('largest-contentful-paint') as LargestContentfulPaint[];
+      const entries = list.getEntriesByType(
+        'largest-contentful-paint'
+      ) as LargestContentfulPaint[];
       const entry = entries.pop();
       if (entry) {
         observer.disconnect();
         resolve({
           name: 'LCP',
           value: entry.startTime,
-          rating: getRating('LCP', entry.startTime)
+          rating: getRating('LCP', entry.startTime),
         });
       }
     });
@@ -74,7 +64,9 @@ export function measureLCP(): Promise<PerformanceMetric> {
 export function measureFID(): Promise<PerformanceMetric> {
   return new Promise((resolve) => {
     const observer = new PerformanceObserver((list) => {
-      const entries = list.getEntriesByType('first-input') as PerformanceEventTiming[];
+      const entries = list.getEntriesByType(
+        'first-input'
+      ) as PerformanceEventTiming[];
       const entry = entries.pop();
       if (entry) {
         observer.disconnect();
@@ -82,7 +74,7 @@ export function measureFID(): Promise<PerformanceMetric> {
         resolve({
           name: 'FID',
           value: delay,
-          rating: getRating('FID', delay)
+          rating: getRating('FID', delay),
         });
       }
     });
@@ -96,7 +88,11 @@ export async function gatherMetrics(): Promise<PerformanceMetric[]> {
   const metrics: PerformanceMetric[] = [];
 
   try {
-    const [cls, lcp, fid] = await Promise.all([measureCLS(), measureLCP(), measureFID()]);
+    const [cls, lcp, fid] = await Promise.all([
+      measureCLS(),
+      measureLCP(),
+      measureFID(),
+    ]);
 
     metrics.push(cls, lcp, fid);
 

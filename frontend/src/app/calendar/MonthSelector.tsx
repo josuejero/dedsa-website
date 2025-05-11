@@ -1,15 +1,6 @@
 'use client';
 
-interface Month {
-  key: string;
-  value: string;
-}
-
-interface MonthSelectorProps {
-  months: Month[];
-  selectedMonth: string;
-  onMonthChange: (month: string) => void;
-}
+import { MonthSelectorProps } from './types';
 
 export default function MonthSelector({
   months,

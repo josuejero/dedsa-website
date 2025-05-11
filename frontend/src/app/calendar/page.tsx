@@ -1,40 +1,5 @@
-import { ApolloError, gql } from '@apollo/client';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import ErrorDisplay from '../../components/errors/ErrorDisplay';
-import { getClient } from '../../lib/apollo-client';
-import EventCalendar from './EventCalendar';
-
-export const metadata: Metadata = {
-  title: 'Calendar',
-  description:
-    'Event calendar for Delaware DSA. Join us for meetings, actions, educational events, and social gatherings.',
-};
-
-interface CalendarProps {
-  params: Promise<Record<never, never>>;
-  searchParams: Promise<{ month?: string }>;
-}
-
-interface Event {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  meta: {
-    eventDate: string;
-    eventTime: string;
-    eventLocation: string;
-    eventVirtualLink?: string;
-  };
-}
-
-interface EventsData {
-  events?: {
-    nodes: Event[];
-  };
-}
+import { gql } from '@apollo/client';
+import { CalendarProps, EventsData } from './types';
 
 const GET_EVENTS = gql`
   query GetEvents {

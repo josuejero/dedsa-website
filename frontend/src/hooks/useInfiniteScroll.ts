@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-interface UseInfiniteScrollProps {
-  threshold?: number;
-  onLoadMore: () => Promise<void>;
-}
+import { UseInfiniteScrollProps } from './types';
 
-export function useInfiniteScroll({ threshold = 100, onLoadMore }: UseInfiniteScrollProps) {
+export function useInfiniteScroll({
+  threshold = 100,
+  onLoadMore,
+}: UseInfiniteScrollProps) {
   const [isLoading, setIsLoading] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const targetRef = useRef<HTMLDivElement>(null);
@@ -27,7 +27,7 @@ export function useInfiniteScroll({ threshold = 100, onLoadMore }: UseInfiniteSc
 
   useEffect(() => {
     const options = {
-      rootMargin: `${threshold}px`
+      rootMargin: `${threshold}px`,
     };
 
     observerRef.current = new IntersectionObserver(handleObserver, options);
@@ -45,6 +45,6 @@ export function useInfiniteScroll({ threshold = 100, onLoadMore }: UseInfiniteSc
 
   return {
     targetRef,
-    isLoading
+    isLoading,
   };
 }

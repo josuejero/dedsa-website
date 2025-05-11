@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-type SubscriptionStatus = 'idle' | 'submitting' | 'success' | 'error';
+import { SubscriptionStatus } from './types';
 
 export function useNewsletterSubscription() {
   const [email, setEmail] = useState('');
@@ -45,6 +45,6 @@ export function useNewsletterSubscription() {
     reset: () => {
       setStatus('idle');
       setErrorMessage('');
-    }
+    },
   };
 }

@@ -1,13 +1,6 @@
 import Link from 'next/link';
 
-export interface ErrorDisplayProps {
-  title?: string;
-  message?: string;
-  error?: Error | unknown;
-  showDetails?: boolean;
-  actionLabel?: string;
-  actionHref?: string;
-}
+import { ErrorDisplayProps } from '../types';
 
 export default function ErrorDisplay({
   title = 'Something went wrong',

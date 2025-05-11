@@ -2,19 +2,23 @@
 
 import { useNewsletterSubscription } from '../hooks/useNewsletterSubscription';
 
-interface NewsletterSignupProps {
-  variant?: 'banner' | 'sidebar' | 'footer';
-  title?: string;
-  description?: string;
-}
+import { NewsletterSignupProps } from './types';
 
 export default function NewsletterSignup({
   variant = 'banner',
   title = 'Stay Updated',
   description = 'Subscribe to our newsletter to receive the latest updates, events, and actions.',
 }: NewsletterSignupProps) {
-  const { email, setEmail, subscribe, isSubmitting, isSuccess, isError, errorMessage, reset } =
-    useNewsletterSubscription();
+  const {
+    email,
+    setEmail,
+    subscribe,
+    isSubmitting,
+    isSuccess,
+    isError,
+    errorMessage,
+    reset,
+  } = useNewsletterSubscription();
 
   const containerClasses = {
     banner: 'bg-dsa-red text-white p-6 rounded-lg',
@@ -25,7 +29,8 @@ export default function NewsletterSignup({
   const buttonClasses = {
     banner:
       'mt-2 sm:mt-0 w-full sm:w-1/3 bg-white text-dsa-red font-bold p-2 rounded-r hover:bg-gray-100',
-    sidebar: 'mt-2 w-full bg-dsa-red text-white font-bold p-2 rounded hover:bg-red-700',
+    sidebar:
+      'mt-2 w-full bg-dsa-red text-white font-bold p-2 rounded hover:bg-red-700',
     footer:
       'mt-2 sm:mt-0 w-full sm:w-1/3 bg-dsa-red text-white font-bold p-2 rounded-r hover:bg-red-700',
   }[variant];
@@ -47,13 +52,24 @@ export default function NewsletterSignup({
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 13l4 4L19 7"
+            />
           </svg>
           <h2 className="text-xl font-bold mb-2">Thank You!</h2>
-          <p className="mb-4">You&apos;ve been successfully subscribed to our newsletter.</p>
+          <p className="mb-4">
+            You&apos;ve been successfully subscribed to our newsletter.
+          </p>
           <button
             onClick={reset}
-            className={variant === 'sidebar' ? buttonClasses : 'underline hover:no-underline'}
+            className={
+              variant === 'sidebar'
+                ? buttonClasses
+                : 'underline hover:no-underline'
+            }
           >
             Subscribe another email
           </button>
@@ -68,7 +84,11 @@ export default function NewsletterSignup({
       <p className="mb-4">{description}</p>
 
       <form onSubmit={subscribe} className="flex flex-col sm:flex-row">
-        {isError && <div className="mb-4 p-2 bg-red-100 text-red-800 rounded">{errorMessage}</div>}
+        {isError && (
+          <div className="mb-4 p-2 bg-red-100 text-red-800 rounded">
+            {errorMessage}
+          </div>
+        )}
 
         <input
           type="email"

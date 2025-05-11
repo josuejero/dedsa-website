@@ -1,13 +1,10 @@
-interface LoadingProps {
-  size?: 'small' | 'medium' | 'large';
-  className?: string;
-}
+import { LoadingProps } from './types';
 
 export function Loading({ size = 'medium', className = '' }: LoadingProps) {
   const sizeClasses = {
     small: 'w-4 h-4',
     medium: 'w-8 h-8',
-    large: 'w-12 h-12'
+    large: 'w-12 h-12',
   };
 
   return (

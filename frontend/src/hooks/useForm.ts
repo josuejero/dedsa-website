@@ -1,23 +1,20 @@
-import { ValidationResult } from '@/utils/validation';
 import { ChangeEvent, useCallback, useState } from 'react';
 
-interface UseFormProps<T> {
-  initialValues: T;
-  validate?: (values: T) => ValidationResult;
-  onSubmit: (values: T) => void | Promise<void>;
-}
+import { UseFormProps } from './types';
 
 export function useForm<T extends Record<string, unknown>>({
   initialValues,
   validate,
-  onSubmit
+  onSubmit,
 }: UseFormProps<T>) {
   const [values, setValues] = useState<T>(initialValues);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    (
+      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
       const { name, value } = e.target;
       setValues((prev) => ({ ...prev, [name]: value }));
       // Clear error when field is modified
@@ -74,6 +71,6 @@ export function useForm<T extends Record<string, unknown>>({
     handleSubmit,
     reset,
     setValues,
-    setErrors
+    setErrors,
   };
 }

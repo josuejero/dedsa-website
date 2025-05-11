@@ -17,15 +17,16 @@ export const validateRequired = (value: string): boolean => {
   return value.trim().length > 0;
 };
 
-export const validateLength = (value: string, min: number, max: number): boolean => {
+export const validateLength = (
+  value: string,
+  min: number,
+  max: number
+): boolean => {
   const length = value.trim().length;
   return length >= min && length <= max;
 };
 
-export interface ValidationResult {
-  isValid: boolean;
-  errors: Record<string, string>;
-}
+import { ValidationResult } from './types';
 
 export const validateForm = (
   data: Record<string, string>,
@@ -46,6 +47,6 @@ export const validateForm = (
 
   return {
     isValid: Object.keys(errors).length === 0,
-    errors
+    errors,
   };
 };

@@ -1,20 +1,6 @@
 import { ApolloError } from '@apollo/client';
 
-export enum ErrorType {
-  NETWORK = 'NETWORK',
-  AUTHENTICATION = 'AUTHENTICATION',
-  AUTHORIZATION = 'AUTHORIZATION',
-  NOT_FOUND = 'NOT_FOUND',
-  VALIDATION = 'VALIDATION',
-  SERVER = 'SERVER',
-  UNKNOWN = 'UNKNOWN',
-}
-
-export interface FormattedError {
-  type: ErrorType;
-  message: string;
-  originalError?: unknown;
-}
+import { ErrorType, FormattedError } from '../types';
 
 export function formatGraphQLError(error: unknown): FormattedError {
   if (error instanceof ApolloError) {

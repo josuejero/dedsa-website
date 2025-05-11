@@ -1,22 +1,6 @@
 'use client';
 
-interface CalendarEvent {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  meta: {
-    eventDate: string;
-    eventTime: string;
-    eventLocation: string;
-    eventVirtualLink?: string;
-  };
-}
-
-interface EventListProps {
-  eventsByDate: { [key: string]: CalendarEvent[] };
-}
+import { EventListProps } from './types';
 
 export default function EventList({ eventsByDate }: EventListProps) {
   const sortedDates = Object.keys(eventsByDate).sort();
@@ -25,7 +9,10 @@ export default function EventList({ eventsByDate }: EventListProps) {
     <div className="space-y-8">
       {sortedDates.length > 0 ? (
         sortedDates.map((dateKey) => (
-          <div key={dateKey} className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div
+            key={dateKey}
+            className="bg-white rounded-lg shadow-md overflow-hidden"
+          >
             {/* Date header */}
             <div className="bg-dsa-red text-white p-4">
               <h2 className="text-xl font-bold">
@@ -130,8 +117,12 @@ export default function EventList({ eventsByDate }: EventListProps) {
         ))
       ) : (
         <div className="bg-white p-8 rounded-lg text-center">
-          <p className="text-xl text-gray-600">No events scheduled for this month.</p>
-          <p className="text-gray-500 mt-2">Please check back later or select a different month.</p>
+          <p className="text-xl text-gray-600">
+            No events scheduled for this month.
+          </p>
+          <p className="text-gray-500 mt-2">
+            Please check back later or select a different month.
+          </p>
         </div>
       )}
     </div>
