@@ -1,6 +1,8 @@
 // src/app/what-we-stand-for/page.tsx
+import { ApolloError } from '@apollo/client';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import ErrorDisplay from '../../components/errors/ErrorDisplay';
 import { getClient } from '../../lib/apollo-client';
 import PositionCard from './PositionCard';
 import { GET_POSITIONS_PAGE } from './queries';
@@ -26,17 +28,42 @@ export default async function WhatWeStandFor() {
       query: GET_POSITIONS_PAGE,
     });
     data = result.data;
+
+    // Check if we got valid data
+    if (!data.page && !data.positions) {
+      throw new Error('Failed to load page content');
+    }
   } catch (error) {
     console.error('Error loading positions page:', error);
+
+    // Different error handling based on error type
+    if (error instanceof ApolloError) {
+      if (error.networkError) {
+        return (
+          <ErrorDisplay
+            title="Network Error"
+            message="We're having trouble connecting to our servers. Please check your internet connection and try again."
+            error={error}
+          />
+        );
+      } else if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+        return (
+          <ErrorDisplay
+            title="Data Error"
+            message="There was a problem with the data. Our team has been notified."
+            error={error.graphQLErrors[0]}
+            showDetails={process.env.NODE_ENV === 'development'}
+          />
+        );
+      }
+    }
+
+    // Generic error fallback
     return (
-      <div className="py-12">
-        <div className="container-page bg-white p-8 rounded-lg shadow-md text-center">
-          <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
-          <p className="mb-6">
-            We’re having trouble loading this page. Please try again later.
-          </p>
-        </div>
-      </div>
+      <ErrorDisplay
+        error={error}
+        showDetails={process.env.NODE_ENV === 'development'}
+      />
     );
   }
 

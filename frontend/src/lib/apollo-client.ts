@@ -1,12 +1,12 @@
 import {
   ApolloClient,
-  ApolloLink,
   HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
+  from,
 } from '@apollo/client';
 import { registerApolloClient } from '@apollo/client-integration-nextjs';
-import { Observable } from 'zen-observable-ts';
+import { onError } from '@apollo/client/link/error';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 const wpGraphQLEndpoint =
@@ -14,56 +14,6 @@ const wpGraphQLEndpoint =
   (isDevelopment
     ? 'http://delaware-dsa-backend.local/graphql'
     : '/api/graphql');
-
-// Mock link for development/testing
-const mockLink = new ApolloLink((operation) => {
-  const operationName = operation.operationName ?? 'unknown';
-  let mockData: Record<string, unknown> = {};
-
-  switch (operationName) {
-    case 'GET_JOIN_PAGE':
-      mockData = {
-        page: {
-          content: `<p>Join us in building a more just and democratic society! Delaware DSA is a chapter of the Democratic Socialists of America, the largest socialist organization in the United States.</p>
-          <p>By becoming a member, you'll be part of a growing movement fighting for economic justice, healthcare for all, housing as a human right, and genuine democracy in our workplaces and communities.</p>`,
-          title: 'Join DSA',
-          slug: 'join',
-        },
-      };
-      break;
-    case 'GetPositionsPage':
-      mockData = {
-        page: {
-          content:
-            '<p>Our positions and values guide our work for social, economic, and environmental justice.</p>',
-        },
-        positions: {
-          nodes: [
-            {
-              id: 'position-1',
-              title: 'Economic Justice',
-              content: 'We believe in economic democracy and justice for all.',
-              menuOrder: 1,
-            },
-            {
-              id: 'position-2',
-              title: 'Healthcare',
-              content: 'We fight for universal healthcare as a human right.',
-              menuOrder: 2,
-            },
-          ],
-        },
-      };
-      break;
-    default:
-      return null;
-  }
-
-  return new Observable((observer) => {
-    observer.next({ data: mockData });
-    observer.complete();
-  });
-});
 
 // Configure the cache with type policies for better normalization and merging
 const cache = new InMemoryCache({
@@ -82,16 +32,33 @@ const cache = new InMemoryCache({
   },
 });
 
-// Error link logs GraphQL errors and can be extended to report to monitoring services
-const errorLink = new ApolloLink((operation, forward) => {
-  return forward(operation).map((response) => {
-    if (response.errors) {
-      console.error('GraphQL Errors:', response.errors);
-      // TODO: send errors to an external monitoring service if desired
+// Enhanced error handling link
+const errorLink = onError(
+  ({ graphQLErrors, networkError, operation, forward }) => {
+    if (graphQLErrors) {
+      for (const err of graphQLErrors) {
+        console.error(
+          `[GraphQL error]: Message: ${err.message}, Location: ${err.locations}, Path: ${err.path}`,
+          operation.operationName
+        );
+
+        // You could implement custom handling based on error types
+        if (err.extensions?.code === 'UNAUTHENTICATED') {
+          // Handle authentication errors
+          console.error('Authentication error - please log in again');
+        }
+      }
     }
-    return response;
-  });
-});
+
+    if (networkError) {
+      console.error(`[Network error]: ${networkError.message}`);
+      // You could implement retry logic here
+      // return fromPromise(
+      //   new Promise(resolve => setTimeout(() => resolve(), 1000))
+      // ).flatMap(() => forward(operation));
+    }
+  }
+);
 
 // HTTP link for actual GraphQL endpoint
 const httpLink = new HttpLink({
@@ -102,9 +69,7 @@ const httpLink = new HttpLink({
 // Register the Apollo Client with Next.js integration
 export const { getClient } = registerApolloClient(() => {
   return new ApolloClient<NormalizedCacheObject>({
-    link: ApolloLink.from(
-      isDevelopment ? [mockLink, errorLink, httpLink] : [errorLink, httpLink]
-    ),
+    link: from([errorLink, httpLink]),
     cache,
     defaultOptions: {
       query: {
