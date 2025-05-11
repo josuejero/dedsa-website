@@ -7,12 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'dsa-red': '#ec1f27'
-      }
+        'dsa-red': '#ec1f27',
+      },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/line-clamp'),
-  ],
-}
+  plugins: [require('@tailwindcss/typography')],
+};

@@ -8,9 +8,13 @@ import { gql } from '@apollo/client';
 export const GET_POSITIONS_PAGE = gql`
   query GetPositionsPage {
     page(id: "what-we-stand-for", idType: URI) {
+      id
       content
     }
-    positions(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+    positions(
+      first: 100
+      where: { orderby: { field: MENU_ORDER, order: ASC } }
+    ) {
       nodes {
         id
         title

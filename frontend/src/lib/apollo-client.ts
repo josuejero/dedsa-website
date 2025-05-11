@@ -27,7 +27,27 @@ const cache = new InMemoryCache({
       },
     },
     Page: {
-      keyFields: ['slug'],
+      // Don't use keyFields at all for Page
+      // This allows Apollo to handle pages without specific identifiers
+      merge: true, // Enable merging
+      fields: {
+        content: {
+          merge(existing, incoming) {
+            return incoming || existing;
+          },
+        },
+      },
+    },
+    Query: {
+      fields: {
+        page: {
+          // Custom read function for the page field on Query
+          read(_, { args, toReference }) {
+            // Handle missing data gracefully
+            return null; // Allow query to proceed even if cache misses
+          },
+        },
+      },
     },
   },
 });

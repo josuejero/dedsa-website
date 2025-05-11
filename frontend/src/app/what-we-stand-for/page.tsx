@@ -16,23 +16,18 @@ export const metadata: Metadata = {
 
 export default async function WhatWeStandFor() {
   let data: {
-    page?: { content: string };
+    page?: { id?: string; content: string };
     positions?: { nodes: Position[] };
-  };
+  } = { page: { content: '' }, positions: { nodes: [] } }; // Default values
 
   try {
     const result = await getClient().query<{
-      page: { content: string };
+      page: { id: string; content: string };
       positions: { nodes: Position[] };
     }>({
       query: GET_POSITIONS_PAGE,
     });
     data = result.data;
-
-    // Check if we got valid data
-    if (!data.page && !data.positions) {
-      throw new Error('Failed to load page content');
-    }
   } catch (error) {
     console.error('Error loading positions page:', error);
 
