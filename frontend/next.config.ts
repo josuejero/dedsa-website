@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'delawardsa.org',
-        pathname: '/**'
+        pathname: '/**',
       },
       {
         protocol: process.env.NODE_ENV === 'development' ? 'http' : 'https',
@@ -19,21 +19,21 @@ const nextConfig: NextConfig = {
           process.env.NODE_ENV === 'development'
             ? 'delaware-dsa-backend.local'
             : process.env.WORDPRESS_HOST || 'delawardsa.org',
-        pathname: '/**'
-      }
+        pathname: '/**',
+      },
     ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24 * 7 // 7 days
+    minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
   },
 
   redirects: async () => [
     {
       source: '/blog/:slug',
       destination: '/newsletter/:slug',
-      permanent: true
-    }
+      permanent: true,
+    },
   ],
 
   headers: async () => [
@@ -45,7 +45,7 @@ const nextConfig: NextConfig = {
         { key: 'X-XSS-Protection', value: '1; mode=block' },
         {
           key: 'Strict-Transport-Security',
-          value: 'max-age=63072000; includeSubDomains; preload'
+          value: 'max-age=63072000; includeSubDomains; preload',
         },
         {
           key: 'Content-Security-Policy',
@@ -59,33 +59,34 @@ const nextConfig: NextConfig = {
             "base-uri 'self'",
             "form-action 'self'",
             "frame-ancestors 'none'",
-            'block-all-mixed-content'
-          ].join('; ')
+            'block-all-mixed-content',
+          ].join('; '),
         },
         {
           key: 'Permissions-Policy',
-          value: 'camera=(), microphone=(), geolocation=()'
-        }
-      ]
+          value: 'camera=(), microphone=(), geolocation=()',
+        },
+      ],
     },
     {
       source: '/static/(.*)',
       headers: [
         {
           key: 'Cache-Control',
-          value: 'public, max-age=31536000, immutable'
-        }
-      ]
-    }
+          value: 'public, max-age=31536000, immutable',
+        },
+      ],
+    },
   ],
 
   env: {
-    NEXT_PUBLIC_EMAIL_DOMAIN: process.env.NEXT_PUBLIC_EMAIL_DOMAIN || 'delawardsa.org'
+    NEXT_PUBLIC_EMAIL_DOMAIN:
+      process.env.NEXT_PUBLIC_EMAIL_DOMAIN || 'delawardsa.org',
   },
 
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production'
-  }
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
 };
 
 export default withBundleAnalyzer({ enabled: analyzeBuild })(nextConfig);

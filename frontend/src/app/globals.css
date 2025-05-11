@@ -1,12 +1,6 @@
 @tailwind base;
-@plugin '@tailwindcss/typography';
-
-@theme {
-  --color-dsa-red: #ec1f27;
-  --color-primary: var(--color-dsa-red);
-  --rounded-lg: 0.5rem;
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-}
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   html {
@@ -53,28 +47,17 @@
   }
 }
 
-@tailwind components;
-@tailwind utilities;
-
 @layer components {
   .btn {
     @apply inline-flex items-center justify-center px-4 py-2 rounded font-medium transition-all duration-200;
   }
 
   .btn-primary {
-    background-color: var(--color-dsa-red);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: var(--rounded-lg);
-    font-weight: 500;
-    transition: background-color 200ms;
-  }
-  .btn-primary:hover {
-    background-color: #d41920;
+    @apply bg-dsa-red text-white hover:bg-red-700 rounded-lg font-medium transition-colors duration-200;
   }
 
   .btn-secondary {
-    @apply bg-gray-200 text-dsa-black hover:bg-gray-300 focus:ring-4 focus:ring-gray-200;
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-4 focus:ring-gray-200;
   }
 
   .container-page {
