@@ -94,7 +94,7 @@ export const { getClient } = registerApolloClient(() => {
     defaultOptions: {
       query: {
         fetchPolicy: 'cache-first',
-        errorPolicy: 'all',
+        errorPolicy: 'all', // This allows components to render with partial data even if there are errors
       },
       watchQuery: {
         fetchPolicy: 'cache-and-network',
