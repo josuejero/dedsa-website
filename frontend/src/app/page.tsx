@@ -15,7 +15,7 @@ export const revalidate = 3600; // Revalidate once per hour
 export default async function Home() {
   try {
     const { data } = await getClient().query({
-      query: GET_RECENT_POSTS
+      query: GET_RECENT_POSTS,
     });
 
     const posts = data?.posts?.nodes || [];
@@ -39,7 +39,9 @@ export default async function Home() {
         <MissionSection />
         <StrategicPrioritiesSection />
         <div className="container mx-auto px-4 py-8">
-          <p className="text-red-600">Error loading latest updates. Please try again later.</p>
+          <p className="text-red-600">
+            Error loading latest updates. Please try again later.
+          </p>
         </div>
         <GetInvolvedSection />
         <ChapterStatsSection />

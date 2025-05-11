@@ -1,4 +1,4 @@
-// ./frontend/src/app/what-we-stand-for/page.tsx
+// src/app/what-we-stand-for/page.tsx
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getClient } from '../../lib/apollo-client';
@@ -13,50 +13,35 @@ export const metadata: Metadata = {
 };
 
 export default async function WhatWeStandFor() {
-  const { data } = await getClient().query({
-    query: GET_POSITIONS_PAGE,
-  });
+  let data: {
+    page?: { content: string };
+    positions?: { nodes: Position[] };
+  };
 
-  const pageContent =
-    data?.page?.content ||
-    `
-    <p>
-      As democratic socialists, we believe that both the economy and society should be run
-      democratically to meet human needs, not to make profits for a few. We are committed
-      to fighting for justice and equity in Delaware and beyond.
-    </p>
-    <p>
-      Below are some of the key issues we're fighting for in Delaware:
-    </p>
-  `;
-
-  let positions =
-    data?.positions?.nodes?.map((node: Position) => ({
-      id: node.id,
-      title: node.title,
-      content: node.content,
-      order: node.order,
-    })) || [];
-
-  if (positions.length === 0) {
-    positions = [
-      {
-        id: 'healthcare',
-        title: 'Medicare for All',
-        content: `
-          <p>We believe healthcare is a right, not a privilege. We fight for a universal, single-payer healthcare system that provides comprehensive care to all.</p>
-          <p>In Delaware, we're advocating for:</p>
-          <ul>
-            <li>Expanded Medicaid coverage</li>
-            <li>Caps on prescription drug prices</li>
-            <li>Protection of reproductive healthcare access</li>
-          </ul>
-        `,
-        order: 1,
-      },
-      // Additional fallback positions would be here
-    ];
+  try {
+    const result = await getClient().query<{
+      page: { content: string };
+      positions: { nodes: Position[] };
+    }>({
+      query: GET_POSITIONS_PAGE,
+    });
+    data = result.data;
+  } catch (error) {
+    console.error('Error loading positions page:', error);
+    return (
+      <div className="py-12">
+        <div className="container-page bg-white p-8 rounded-lg shadow-md text-center">
+          <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
+          <p className="mb-6">
+            We’re having trouble loading this page. Please try again later.
+          </p>
+        </div>
+      </div>
+    );
   }
+
+  const pageContent = data.page?.content ?? '';
+  const positions = data.positions?.nodes ?? [];
 
   return (
     <div className="bg-gray-100 py-12">
@@ -65,33 +50,46 @@ export default async function WhatWeStandFor() {
         <div className="bg-dsa-red text-white p-8 md:p-12 rounded-lg mb-12">
           <h1 className="text-4xl font-bold mb-4">What We Stand For</h1>
           <p className="text-xl">
-            The Delaware DSA is committed to building a more just and equitable society. We believe
-            in democratic socialism—a system where ordinary people have a real voice in our
-            workplaces, communities, and government.
+            The Delaware DSA is committed to building a more just and equitable
+            society. We believe in democratic socialism—a system where ordinary
+            people have a real voice in our workplaces, communities, and
+            government.
           </p>
         </div>
 
         {/* Main Content */}
         <div className="bg-white p-8 rounded-lg shadow-md mb-12">
-          <div
-            className="prose prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: pageContent }}
-          />
+          {pageContent ? (
+            <div
+              className="prose prose-lg max-w-none"
+              dangerouslySetInnerHTML={{ __html: pageContent }}
+            />
+          ) : (
+            <p className="text-center text-gray-500">
+              Content is not available.
+            </p>
+          )}
         </div>
 
         {/* Positions Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {positions.map((position: Position) => (
-            <PositionCard key={position.id} position={position} />
-          ))}
-        </div>
+        {positions.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {positions.map((position) => (
+              <PositionCard key={position.id} position={position} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-gray-500 mb-12">
+            No positions to display at this time.
+          </p>
+        )}
 
         {/* CTA Section */}
-        <div className="mt-12 text-center bg-white p-8 rounded-lg shadow-md">
+        <div className="text-center bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold mb-4">Join Our Movement</h2>
           <p className="text-xl mb-6 max-w-2xl mx-auto">
-            If you share our vision for a more just, democratic, and sustainable future, we invite
-            you to join Delaware DSA today.
+            If you share our vision for a more just, democratic, and sustainable
+            future, we invite you to join Delaware DSA today.
           </p>
           <Link href="/join" className="btn btn-primary text-lg px-8 py-3">
             Become A Member
