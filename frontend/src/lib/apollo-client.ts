@@ -42,6 +42,7 @@ const cache = new InMemoryCache({
       fields: {
         page: {
           // Custom read function for the page field on Query
+          // eslint-disable-next-line no-empty-pattern
           read({}) {
             // Handle missing data gracefully
             return null; // Allow query to proceed even if cache misses
