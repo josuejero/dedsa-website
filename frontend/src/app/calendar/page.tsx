@@ -1,5 +1,9 @@
-import { gql } from '@apollo/client';
-import { CalendarProps, EventsData } from './types';
+import { ApolloError, gql } from '@apollo/client';
+import Link from 'next/link';
+import ErrorDisplay from '../../components/errors/ErrorDisplay';
+import { getClient } from '../../lib/apollo-client';
+import EventCalendar from './EventCalendar';
+import { CalendarEvent, CalendarProps, EventsData } from './types';
 
 const GET_EVENTS = gql`
   query GetEvents {
@@ -32,7 +36,7 @@ export default async function Calendar({
   const { month } = await searchParams;
 
   const selectedMonth = month || '';
-  let events: Event[] = [];
+  let events: CalendarEvent[] = [];
 
   try {
     const { data } = await getClient().query<EventsData>({
@@ -44,7 +48,7 @@ export default async function Calendar({
     // If no real events, create sample data
     if (events.length === 0) {
       const today = new Date();
-      const futureEvents: Event[] = [];
+      const futureEvents: CalendarEvent[] = [];
 
       for (let i = 0; i < 10; i++) {
         const eventDate = new Date(today);
