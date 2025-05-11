@@ -91,12 +91,14 @@ export default async function About() {
             />
           </div>
 
-          <AboutHero missionStatement={aboutInfo.missionStatement} />
+          <AboutHero
+            missionStatement={aboutInfo.missionStatement ?? undefined}
+          />
           <Timeline
-            foundingYear={aboutInfo.foundingYear}
+            foundingYear={aboutInfo.foundingYear ?? undefined}
             yearsActive={yearsActive}
           />
-          <Achievements achievements={aboutInfo.achievements} />
+          <Achievements achievements={aboutInfo.achievements ?? undefined} />
           <DemocraticSocialism />
           <GetInvolved />
           <NationalInfo />
