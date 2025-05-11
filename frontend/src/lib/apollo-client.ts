@@ -42,7 +42,7 @@ const cache = new InMemoryCache({
       fields: {
         page: {
           // Custom read function for the page field on Query
-          read(_, { args, toReference }) {
+          read({}) {
             // Handle missing data gracefully
             return null; // Allow query to proceed even if cache misses
           },
@@ -53,32 +53,30 @@ const cache = new InMemoryCache({
 });
 
 // Enhanced error handling link
-const errorLink = onError(
-  ({ graphQLErrors, networkError, operation, forward }) => {
-    if (graphQLErrors) {
-      for (const err of graphQLErrors) {
-        console.error(
-          `[GraphQL error]: Message: ${err.message}, Location: ${err.locations}, Path: ${err.path}`,
-          operation.operationName
-        );
+const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
+  if (graphQLErrors) {
+    for (const err of graphQLErrors) {
+      console.error(
+        `[GraphQL error]: Message: ${err.message}, Location: ${err.locations}, Path: ${err.path}`,
+        operation.operationName
+      );
 
-        // You could implement custom handling based on error types
-        if (err.extensions?.code === 'UNAUTHENTICATED') {
-          // Handle authentication errors
-          console.error('Authentication error - please log in again');
-        }
+      // You could implement custom handling based on error types
+      if (err.extensions?.code === 'UNAUTHENTICATED') {
+        // Handle authentication errors
+        console.error('Authentication error - please log in again');
       }
     }
-
-    if (networkError) {
-      console.error(`[Network error]: ${networkError.message}`);
-      // You could implement retry logic here
-      // return fromPromise(
-      //   new Promise(resolve => setTimeout(() => resolve(), 1000))
-      // ).flatMap(() => forward(operation));
-    }
   }
-);
+
+  if (networkError) {
+    console.error(`[Network error]: ${networkError.message}`);
+    // You could implement retry logic here
+    // return fromPromise(
+    //   new Promise(resolve => setTimeout(() => resolve(), 1000))
+    // ).flatMap(() => forward(operation));
+  }
+});
 
 // HTTP link for actual GraphQL endpoint
 const httpLink = new HttpLink({

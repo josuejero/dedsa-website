@@ -24,7 +24,9 @@ interface LatestUpdatesSectionProps {
   posts: Post[];
 }
 
-export default function LatestUpdatesSection({ posts }: LatestUpdatesSectionProps) {
+export default function LatestUpdatesSection({
+  posts,
+}: LatestUpdatesSectionProps) {
   return (
     <section className="py-20 bg-white">
       <div className="container-page">
@@ -103,7 +105,7 @@ export default function LatestUpdatesSection({ posts }: LatestUpdatesSectionProp
                       {new Date(post.date).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
-                        day: 'numeric'
+                        day: 'numeric',
                       })}
                       {post.author?.node?.name && (
                         <>

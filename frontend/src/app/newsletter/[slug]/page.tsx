@@ -1,13 +1,18 @@
 // src/app/newsletter/[slug]/page.tsx
-
+import { ApolloError } from '@apollo/client';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import ErrorDisplay from '../../../components/errors/ErrorDisplay';
 import { getClient } from '../../../lib/apollo-client';
-import { GET_POST_BY_SLUG, GET_RELATED_POSTS } from '../../../lib/graphql/queries';
+import {
+  GET_POST_BY_SLUG,
+  GET_RELATED_POSTS,
+} from '../../../lib/graphql/queries';
 import ArticleContent from './components/ArticleContent';
 import ArticleFooter from './components/ArticleFooter';
 import ArticleHeader from './components/ArticleHeader';
 import { generateStaticParams } from './staticParams';
+import { Author, Post, RelatedPost } from './types';
 
 interface PageParams {
   slug: string;
@@ -15,73 +20,98 @@ interface PageParams {
 
 export { generateStaticParams };
 
+interface PostData {
+  post?: Post | null;
+}
+
+interface RelatedPostsData {
+  posts?: {
+    nodes: RelatedPost[];
+  };
+}
+
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: Promise<PageParams>;
 }): Promise<Metadata> {
   const { slug } = await params;
   try {
-    const { data } = await getClient().query({
+    const { data } = await getClient().query<PostData>({
       query: GET_POST_BY_SLUG,
-      variables: { slug }
+      variables: { slug },
     });
 
     if (!data.post) {
       return {
         title: 'Post Not Found',
-        description: 'The requested post could not be found.'
+        description: 'The requested post could not be found.',
       };
     }
 
     return {
       title: data.post.title,
-      description: `${data.post.title} - Delaware DSA Newsletter article`
+      description: `${data.post.title} - Delaware DSA Newsletter article`,
     };
   } catch (error) {
     console.error('Error generating metadata:', error);
     return {
       title: 'Delaware DSA Newsletter',
-      description: 'Latest news from Delaware DSA'
+      description: 'Latest news from Delaware DSA',
     };
   }
 }
 
-export default async function Page({ params }: { params: Promise<PageParams> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<PageParams>;
+}) {
   const { slug } = await params;
+  let post: Post | null = null;
+  let relatedPosts: RelatedPost[] = [];
 
   try {
-    const { data } = await getClient().query({
+    // Fetch the post
+    const { data } = await getClient().query<PostData>({
       query: GET_POST_BY_SLUG,
-      variables: { slug }
+      variables: { slug },
     });
 
     if (!data.post) {
       return notFound();
     }
 
-    const categoryIds = data.post.categories.nodes.map((cat: { id: string }) => cat.id);
+    post = data.post;
 
-    let relatedPosts: (typeof data.post)[] = [];
+    // Only fetch related posts if we have categories
+    const categoryIds = post.categories?.nodes?.map((cat) => cat.id) || [];
+
     if (categoryIds.length > 0) {
-      const relatedResult = await getClient().query({
-        query: GET_RELATED_POSTS,
-        variables: {
-          categoryIds,
-          currentPostId: data.post.id
-        }
-      });
-      relatedPosts = relatedResult.data.posts.nodes;
+      try {
+        const relatedResult = await getClient().query<RelatedPostsData>({
+          query: GET_RELATED_POSTS,
+          variables: {
+            categoryIds,
+            currentPostId: post.id,
+          },
+        });
+        relatedPosts = relatedResult.data?.posts?.nodes || [];
+      } catch (relatedError) {
+        console.error('Error fetching related posts:', relatedError);
+      }
     }
 
-    const author = data.post.author?.node || {
+    // Ensure post has author information (use author directly, not author.node)
+    const author: Author = post.author ?? {
       id: 'default',
       name: 'Delaware DSA',
       slug: 'delaware-dsa',
-      avatar: null
+      avatar: null,
     };
 
-    const post = { ...data.post, author };
+    // Merge the author back onto post
+    post = { ...post, author };
 
     return (
       <article className="bg-gray-100 py-12">
@@ -94,6 +124,28 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
     );
   } catch (error) {
     console.error('Error fetching post:', error);
+
+    if (error instanceof ApolloError) {
+      if (error.networkError) {
+        return (
+          <ErrorDisplay
+            title="Network Error"
+            message="We're having trouble connecting to our servers. Please check your internet connection and try again."
+            error={error}
+          />
+        );
+      } else if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+        return (
+          <ErrorDisplay
+            title="Data Error"
+            message="There was a problem with the data. Our team has been notified."
+            error={error.graphQLErrors[0]}
+            showDetails={process.env.NODE_ENV === 'development'}
+          />
+        );
+      }
+    }
+
     return notFound();
   }
 }

@@ -24,10 +24,14 @@ interface EventCalendarProps {
   selectedMonth: string;
 }
 
-export default function EventCalendar({ events, selectedMonth }: EventCalendarProps) {
+export default function EventCalendar({
+  events,
+  selectedMonth,
+}: EventCalendarProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [selectedMonthState, setSelectedMonthState] = useState<string>(selectedMonth);
+  const [selectedMonthState, setSelectedMonthState] =
+    useState<string>(selectedMonth);
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -38,7 +42,10 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
   events.forEach((calendarEvent) => {
     const eventDate = new Date(calendarEvent.meta.eventDate);
     const monthKey = `${eventDate.getFullYear()}-${eventDate.getMonth()}`;
-    const monthName = eventDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+    const monthName = eventDate.toLocaleString('default', {
+      month: 'long',
+      year: 'numeric',
+    });
     months[monthKey] = monthName;
   });
 
@@ -51,12 +58,20 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
     if (!selectedMonthState && sortedMonths.length > 0) {
       const currentMonthKey = `${currentYear}-${currentMonth}`;
       const futureMonths = sortedMonths.filter((m) => m.key >= currentMonthKey);
-      const newMonth = futureMonths.length > 0 ? futureMonths[0].key : sortedMonths[0].key;
+      const newMonth =
+        futureMonths.length > 0 ? futureMonths[0].key : sortedMonths[0].key;
       setSelectedMonthState(newMonth);
 
       router.push(`${pathname}?month=${newMonth}`);
     }
-  }, [currentMonth, currentYear, pathname, router, selectedMonthState, sortedMonths]);
+  }, [
+    currentMonth,
+    currentYear,
+    pathname,
+    router,
+    selectedMonthState,
+    sortedMonths,
+  ]);
 
   // Handle month change
   const handleMonthChange = (month: string) => {
@@ -76,7 +91,9 @@ export default function EventCalendar({ events, selectedMonth }: EventCalendarPr
   // Group events by date
   const eventsByDate: { [key: string]: CalendarEvent[] } = {};
   filteredEvents.forEach((calendarEvent) => {
-    const dateKey = new Date(calendarEvent.meta.eventDate).toISOString().split('T')[0];
+    const dateKey = new Date(calendarEvent.meta.eventDate)
+      .toISOString()
+      .split('T')[0];
     if (!eventsByDate[dateKey]) {
       eventsByDate[dateKey] = [];
     }
