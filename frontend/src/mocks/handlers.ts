@@ -29,18 +29,18 @@ export const handlers: Handler[] = [
         {
           title: 'Placeholder Post',
           content: 'Content will be loaded at runtime',
-          slug: 'placeholder'
-        }
-      ]
-    }
+          slug: 'placeholder',
+        },
+      ],
+    },
   },
   {
     operationName: 'page',
     data: {
       title: 'Placeholder Page',
       content: 'Content will be loaded at runtime',
-      slug: 'placeholder'
-    }
+      slug: 'placeholder',
+    },
   },
   {
     operationName: 'positions',
@@ -48,10 +48,10 @@ export const handlers: Handler[] = [
       nodes: [
         {
           title: 'Placeholder Position',
-          description: 'Position details will be loaded at runtime'
-        }
-      ]
-    }
+          description: 'Position details will be loaded at runtime',
+        },
+      ],
+    },
   },
   {
     operationName: 'leadership',
@@ -59,9 +59,9 @@ export const handlers: Handler[] = [
       nodes: [
         {
           name: 'Placeholder Leader',
-          role: 'Role will be loaded at runtime'
-        }
-      ]
-    }
-  }
+          role: 'Role will be loaded at runtime',
+        },
+      ],
+    },
+  },
 ];
