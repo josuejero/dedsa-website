@@ -1,6 +1,4 @@
 import { Metadata } from 'next';
-import { useUiString } from '../../hooks/content/useUiString';
-
 
 const SEO_DEFAULTS = {
   siteName: 'Delaware DSA',
@@ -11,8 +9,8 @@ const SEO_DEFAULTS = {
     url: '/og-default.jpg',
     width: 1200,
     height: 630,
-    alt: 'Delaware DSA'
-  }
+    alt: 'Delaware DSA',
+  },
 };
 
 interface OpenGraphImage {
@@ -43,7 +41,7 @@ export function generateMetadata({
   description,
   canonical,
   openGraph,
-  twitter
+  twitter,
 }: SEOProps): Metadata {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   if (!baseUrl) {
@@ -56,7 +54,7 @@ export function generateMetadata({
     metadataBase: new URL(baseUrl),
     alternates: canonical
       ? {
-          canonical: canonical
+          canonical: canonical,
         }
       : undefined,
     openGraph: {
@@ -66,12 +64,12 @@ export function generateMetadata({
       siteName: SEO_DEFAULTS.siteName,
       locale: SEO_DEFAULTS.locale,
       type: SEO_DEFAULTS.type,
-      images: openGraph?.images || [SEO_DEFAULTS.defaultImage]
+      images: openGraph?.images || [SEO_DEFAULTS.defaultImage],
     },
     twitter: {
       card: twitter?.card || 'summary_large_image',
       site: twitter?.site || SEO_DEFAULTS.twitterHandle,
-      creator: twitter?.creator
-    }
+      creator: twitter?.creator,
+    },
   };
 }

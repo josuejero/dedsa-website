@@ -7,7 +7,12 @@ export default function NotFound() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-lg w-full text-center">
         <div className="text-dsa-red mb-4">
-          <svg className="h-16 w-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="h-16 w-16 mx-auto"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

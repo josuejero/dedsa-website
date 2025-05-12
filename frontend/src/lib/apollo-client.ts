@@ -5,9 +5,12 @@ import {
   NormalizedCacheObject,
   from,
 } from '@apollo/client';
-import { registerApolloClient } from '@apollo/client-integration-nextjs';
 import { onError } from '@apollo/client/link/error';
 
+// Determine if we're on the server
+const isServer = typeof window === 'undefined';
+
+// Define the GraphQL endpoint
 const isDevelopment = process.env.NODE_ENV === 'development';
 const wpGraphQLEndpoint =
   process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
@@ -15,8 +18,8 @@ const wpGraphQLEndpoint =
     ? 'http://delaware-dsa-backend.local/graphql'
     : '/api/graphql');
 
-// Configure the cache with type policies for better normalization and merging
-const cache = new InMemoryCache({
+// Configure the cache with type policies
+const cacheConfig = {
   typePolicies: {
     Post: {
       keyFields: ['id'],
@@ -27,12 +30,10 @@ const cache = new InMemoryCache({
       },
     },
     Page: {
-      // Don't use keyFields at all for Page
-      // This allows Apollo to handle pages without specific identifiers
-      merge: true, // Enable merging
+      merge: true,
       fields: {
         content: {
-          merge(existing, incoming) {
+          merge(existing: string | undefined, incoming: string) {
             return incoming || existing;
           },
         },
@@ -41,17 +42,14 @@ const cache = new InMemoryCache({
     Query: {
       fields: {
         page: {
-          // Custom read function for the page field on Query
-          // eslint-disable-next-line no-empty-pattern
-          read({}) {
-            // Handle missing data gracefully
-            return null; // Allow query to proceed even if cache misses
+          read() {
+            return null;
           },
         },
       },
     },
   },
-});
+};
 
 // Enhanced error handling link
 const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
@@ -61,44 +59,45 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
         `[GraphQL error]: Message: ${err.message}, Location: ${err.locations}, Path: ${err.path}`,
         operation.operationName
       );
-
-      // You could implement custom handling based on error types
-      if (err.extensions?.code === 'UNAUTHENTICATED') {
-        // Handle authentication errors
-        console.error('Authentication error - please log in again');
-      }
     }
   }
 
   if (networkError) {
     console.error(`[Network error]: ${networkError.message}`);
-    // You could implement retry logic here
-    // return fromPromise(
-    //   new Promise(resolve => setTimeout(() => resolve(), 1000))
-    // ).flatMap(() => forward(operation));
   }
 });
 
-// HTTP link for actual GraphQL endpoint
-const httpLink = new HttpLink({
-  uri: wpGraphQLEndpoint,
-  credentials: 'same-origin',
-});
+// Create a client with appropriate settings for server/client
+let clientInstance: ApolloClient<NormalizedCacheObject> | null = null;
 
-// Register the Apollo Client with Next.js integration
-export const { getClient } = registerApolloClient(() => {
-  return new ApolloClient<NormalizedCacheObject>({
-    link: from([errorLink, httpLink]),
-    cache,
-    defaultOptions: {
-      query: {
-        fetchPolicy: 'cache-first',
-        errorPolicy: 'all', // This allows components to render with partial data even if there are errors
+export function getClient() {
+  // For SSR, always create a new client
+  if (isServer || !clientInstance) {
+    // Create appropriate link based on environment
+    const httpLink = new HttpLink({
+      uri: wpGraphQLEndpoint,
+      credentials: 'same-origin',
+    });
+
+    clientInstance = new ApolloClient({
+      ssrMode: isServer,
+      link: from([errorLink, httpLink]),
+      cache: new InMemoryCache(cacheConfig),
+      defaultOptions: {
+        query: {
+          fetchPolicy: isServer ? 'network-only' : 'cache-first',
+          errorPolicy: 'all',
+        },
+        watchQuery: {
+          fetchPolicy: 'cache-and-network',
+          errorPolicy: 'all',
+        },
       },
-      watchQuery: {
-        fetchPolicy: 'cache-and-network',
-        errorPolicy: 'all',
-      },
-    },
-  });
-});
+    });
+  }
+
+  return clientInstance;
+}
+
+// Add this if you need to support the previous function name
+export const createApolloClient = getClient;
