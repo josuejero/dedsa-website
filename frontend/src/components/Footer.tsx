@@ -1,38 +1,87 @@
 import Link from 'next/link';
+import { useUiString } from '../../hooks/content/useUiString';
 
 export default function Footer() {
   const socialLinks = [
-    { name: 'Twitter', url: 'https://twitter.com/delawaredsa', icon: 'twitter' },
-    { name: 'Facebook', url: 'https://www.facebook.com/delawaredsa', icon: 'facebook' },
-    { name: 'Instagram', url: 'https://www.instagram.com/delawaredsa', icon: 'instagram' },
+    { 
+      name: useUiString('footer_social_twitter', 'Twitter'), 
+      url: 'https://twitter.com/delawaredsa', 
+      icon: 'twitter' 
+    },
+    { 
+      name: useUiString('footer_social_facebook', 'Facebook'), 
+      url: 'https://www.facebook.com/delawaredsa', 
+      icon: 'facebook' 
+    },
+    { 
+      name: useUiString('footer_social_instagram', 'Instagram'), 
+      url: 'https://www.instagram.com/delawaredsa', 
+      icon: 'instagram' 
+    },
   ];
 
   const footerLinks = [
     {
-      section: 'Learn',
+      section: useUiString('footer_section_learn', 'Learn'),
       links: [
-        { name: 'About Us', href: '/about' },
-        { name: 'What We Stand For', href: '/what-we-stand-for' },
-        { name: 'Leadership', href: '/leadership' },
-        { name: 'Bylaws', href: '/bylaws' },
+        { 
+          name: useUiString('footer_about_us', 'About Us'), 
+          href: '/about' 
+        },
+        { 
+          name: useUiString('footer_what_we_stand_for', 'What We Stand For'), 
+          href: '/what-we-stand-for' 
+        },
+        { 
+          name: useUiString('footer_leadership', 'Leadership'), 
+          href: '/leadership' 
+        },
+        { 
+          name: useUiString('footer_bylaws', 'Bylaws'), 
+          href: '/bylaws' 
+        },
       ],
     },
     {
-      section: 'Get Involved',
+      section: useUiString('footer_section_get_involved', 'Get Involved'),
       links: [
-        { name: 'Join DSA', href: '/join' },
-        { name: 'Committees', href: '/committees' },
-        { name: 'Events', href: '/calendar' },
-        { name: 'Newsletter', href: '/newsletter' },
+        { 
+          name: useUiString('footer_join_dsa', 'Join DSA'), 
+          href: '/join' 
+        },
+        { 
+          name: useUiString('footer_committees', 'Committees'), 
+          href: '/committees' 
+        },
+        { 
+          name: useUiString('footer_events', 'Events'), 
+          href: '/calendar' 
+        },
+        { 
+          name: useUiString('footer_newsletter', 'Newsletter'), 
+          href: '/newsletter' 
+        },
       ],
     },
     {
-      section: 'Resources',
+      section: useUiString('footer_section_resources', 'Resources'),
       links: [
-        { name: 'Membership Handbook', href: '/handbook' },
-        { name: 'Voting Guide', href: '/voting-guide' },
-        { name: 'UD YDSA', href: '/ud-ydsa' },
-        { name: 'Contact', href: '/contact' },
+        { 
+          name: useUiString('footer_membership_handbook', 'Membership Handbook'), 
+          href: '/handbook' 
+        },
+        { 
+          name: useUiString('footer_voting_guide', 'Voting Guide'), 
+          href: '/voting-guide' 
+        },
+        { 
+          name: useUiString('footer_ud_ydsa', 'UD YDSA'), 
+          href: '/ud-ydsa' 
+        },
+        { 
+          name: useUiString('footer_contact', 'Contact'), 
+          href: '/contact' 
+        },
       ],
     },
   ];
@@ -43,16 +92,20 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {}
           <div>
-            <h3 className="text-xl font-bold mb-4">Delaware DSA</h3>
+            <h3 className="text-xl font-bold mb-4">
+              {useUiString('footer_organization_name', 'Delaware DSA')}
+            </h3>
             <p className="text-gray-300 mb-4">
-              Member-run, democratic socialist organization fighting for a political and economic
-              system that puts people before profits.
+              {useUiString(
+                'footer_organization_description',
+                'Member-run, democratic socialist organization fighting for a political and economic system that puts people before profits.'
+              )}
             </p>
 
             {}
             <div className="flex space-x-4">
               {socialLinks.map((link) => (
-                <a
+                
                   key={link.name}
                   href={link.url}
                   target="_blank"
@@ -104,11 +157,11 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} Delaware DSA. All rights reserved.
+              © {new Date().getFullYear()} {useUiString('footer_copyright', 'Delaware DSA. All rights reserved.')}
             </p>
             <p className="mt-2 md:mt-0">
               <Link href="/privacy-policy" className="text-gray-400 hover:text-white">
-                Privacy Policy
+                {useUiString('footer_privacy_policy', 'Privacy Policy')}
               </Link>
             </p>
           </div>

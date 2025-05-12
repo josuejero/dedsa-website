@@ -1,17 +1,16 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import React from 'react';
-
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import './globals.css';
+import { Providers } from './providers';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 });
-
 
 export const metadata: Metadata = {
   title: {
@@ -30,9 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <Providers>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

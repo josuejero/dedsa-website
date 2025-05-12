@@ -1,4 +1,6 @@
 import { Metadata } from 'next';
+import { useUiString } from '../../hooks/content/useUiString';
+
 
 const SEO_DEFAULTS = {
   siteName: 'Delaware DSA',
