@@ -52,11 +52,11 @@ export default function LatestUpdatesSection({
         variants={containerVariants}
       >
         <motion.div className="mb-12 text-center" variants={itemVariants}>
-          <h2 className="text-3xl md:text-5xl font-bold mb-2">
+          <h2 className="text-3xl md:text-5xl font-bold mb-2 text-heading">
             LATEST FROM THE DELAWARE ROSE GARDEN
           </h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-secondary max-w-2xl mx-auto">
             News and updates from our chapter
           </p>
         </motion.div>
@@ -123,7 +123,7 @@ export default function LatestUpdatesSection({
                   )}
                   <div className="p-6">
                     <motion.h3
-                      className="text-xl font-bold mb-2 line-clamp-2 group-hover:text-dsa-red transition-colors"
+                      className="text-xl font-bold mb-2 line-clamp-2 text-card-title group-hover:text-dsa-red transition-colors"
                       whileHover={{ x: 5 }}
                       transition={{
                         type: 'spring',
@@ -133,7 +133,7 @@ export default function LatestUpdatesSection({
                     >
                       {post.title}
                     </motion.h3>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm mb-3 flex items-center">
+                    <p className="text-muted text-sm mb-3 flex items-center">
                       <svg
                         className="w-4 h-4 mr-1"
                         fill="none"
@@ -173,7 +173,7 @@ export default function LatestUpdatesSection({
                       )}
                     </p>
                     <div
-                      className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3 overflow-hidden"
+                      className="text-card-body mb-4 line-clamp-3 overflow-hidden"
                       dangerouslySetInnerHTML={{ __html: post.excerpt }}
                     />
                     <motion.div
@@ -182,7 +182,7 @@ export default function LatestUpdatesSection({
                     >
                       <Link
                         href={`/newsletter/${post.slug}`}
-                        className="inline-flex items-center text-dsa-red font-medium hover:underline group"
+                        className="inline-flex items-center text-link font-medium hover:underline group"
                       >
                         Read more
                         <svg

@@ -81,7 +81,7 @@ export default function ChapterStatsSection() {
       <div className="container-page">
         <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 p-10 rounded-xl shadow-md relative overflow-hidden">
           <div className="relative z-10">
-            <h3 className="text-2xl font-bold mb-8 text-center">
+            <h3 className="text-2xl font-bold mb-8 text-center text-heading">
               Our Chapter at a Glance
             </h3>
 
@@ -108,7 +108,9 @@ export default function ChapterStatsSection() {
                       `0${stat.prefix}`
                     )}
                   </h4>
-                  <p className="text-sm font-medium">{stat.label}</p>
+                  <p className="text-sm font-medium text-secondary">
+                    {stat.label}
+                  </p>
                 </div>
               ))}
             </div>

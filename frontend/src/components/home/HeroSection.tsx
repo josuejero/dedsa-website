@@ -115,7 +115,7 @@ export default function HeroSection() {
             animate={inView ? 'visible' : 'hidden'}
           >
             <motion.h1
-              className="text-4xl md:text-7xl font-bold mb-6 tracking-tight text-white relative inline-block"
+              className="text-4xl md:text-7xl font-bold mb-6 tracking-tight text-on-accent relative inline-block"
               variants={itemVariants}
             >
               <span className="relative z-10">BUILDING DEMOCRATIC POWER</span>
@@ -128,20 +128,20 @@ export default function HeroSection() {
             </motion.h1>
 
             <motion.div variants={itemVariants}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-on-accent">
                 Delaware DSA
               </h2>
             </motion.div>
 
             <motion.p
-              className="text-xl mb-2 text-white opacity-90"
+              className="text-xl mb-2 text-on-accent opacity-90"
               variants={itemVariants}
             >
               Organizing for a democratic socialist Delaware since 2021
             </motion.p>
 
             <motion.p
-              className="text-xl mb-8 leading-relaxed text-white"
+              className="text-xl mb-8 leading-relaxed text-on-accent"
               variants={itemVariants}
             >
               We're building a movement to challenge corporate control of
@@ -162,7 +162,7 @@ export default function HeroSection() {
 
               <Link
                 href="/calendar"
-                className="btn border-2 border-white text-white hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
+                className="btn border-2 border-white text-on-accent hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
               >
                 ATTEND AN EVENT
               </Link>

@@ -47,7 +47,7 @@ export default function MissionSection() {
               transition={{ duration: 0.8 }}
             >
               <motion.h2
-                className="text-4xl font-bold mb-6 relative"
+                className="text-4xl font-bold mb-6 relative text-heading"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -72,7 +72,7 @@ export default function MissionSection() {
               </motion.h2>
 
               <motion.p
-                className="text-lg mb-6 leading-relaxed"
+                className="text-lg mb-6 leading-relaxed text-primary"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -86,7 +86,7 @@ export default function MissionSection() {
               </motion.p>
 
               <motion.p
-                className="text-lg mb-8 leading-relaxed"
+                className="text-lg mb-8 leading-relaxed text-primary"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

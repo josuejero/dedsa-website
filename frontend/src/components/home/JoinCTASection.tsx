@@ -48,7 +48,7 @@ export default function JoinCTASection() {
   return (
     <motion.section
       ref={ref}
-      className="py-20 bg-gradient-animated text-white relative overflow-hidden"
+      className="py-20 bg-gradient-animated text-on-accent relative overflow-hidden"
       initial="hidden"
       animate={controls}
       variants={containerVariants}
@@ -82,13 +82,13 @@ export default function JoinCTASection() {
 
       <div className="container-page text-center relative z-10">
         <motion.h2
-          className="text-4xl md:text-5xl font-bold mb-4"
+          className="text-4xl md:text-5xl font-bold mb-4 text-on-accent"
           variants={itemVariants}
         >
           JOIN THE MOVEMENT
         </motion.h2>
         <motion.p
-          className="text-xl mb-8 max-w-2xl mx-auto"
+          className="text-xl mb-8 max-w-2xl mx-auto text-on-accent"
           variants={itemVariants}
         >
           The corporate interests controlling Delaware aren't giving up power

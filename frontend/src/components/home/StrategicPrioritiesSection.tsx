@@ -55,7 +55,7 @@ export default function StrategicPrioritiesSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-20 bg-gray-100 relative overflow-hidden"
+      className="py-20 bg-gray-100 dark:bg-gray-900 relative overflow-hidden"
     >
       {/* Background with dot pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -88,12 +88,12 @@ export default function StrategicPrioritiesSection() {
 
       <div className="container-page relative z-10">
         <motion.h2
-          className="text-3xl md:text-5xl font-bold mb-2 text-center"
+          className="text-3xl md:text-5xl font-bold mb-2 text-center text-heading"
           style={{ fontVariationSettings: `'wght' ${fontWeight.get()}` }}
         >
           {displayText}
         </motion.h2>
-        <p className="text-center mb-12 text-lg text-gray-600">
+        <p className="text-center mb-12 text-lg text-secondary">
           At our 2025 Convention, our members democratically adopted these four
           priorities to guide our organizing work in Delaware:
         </p>
@@ -140,12 +140,12 @@ export default function StrategicPrioritiesSection() {
                     />
                   </svg>
                 </motion.div>
-                <h3 className="text-xl font-bold group-hover:text-dsa-red transition-colors duration-300">
+                <h3 className="text-xl font-bold text-card-title group-hover:text-dsa-red transition-colors duration-300">
                   {p.title}
                 </h3>
               </div>
 
-              <p className="pl-12 relative z-10 transform translate-y-0 opacity-100 group-hover:translate-y-0 transition-all duration-300">
+              <p className="pl-12 relative z-10 text-card-body transform translate-y-0 opacity-100 group-hover:translate-y-0 transition-all duration-300">
                 {p.desc}
               </p>
             </motion.div>
@@ -161,7 +161,7 @@ export default function StrategicPrioritiesSection() {
         >
           <a
             href="/what-we-stand-for"
-            className="inline-flex items-center text-dsa-red hover:underline font-medium group"
+            className="inline-flex items-center text-link hover:underline font-medium group"
           >
             <span>Learn more about our priorities</span>
             <motion.svg

@@ -49,15 +49,15 @@ export default function Header() {
                 isScrolled ? 'scale-90' : 'scale-100'
               }`}
             >
-              <span className="text-white font-bold">DSA</span>
+              <span className="text-on-accent font-bold">DSA</span>
             </div>
             <span
               className={`text-xl font-bold ${
                 isScrolled
-                  ? 'text-gray-900'
+                  ? 'text-heading'
                   : isHomePage
-                    ? 'text-white'
-                    : 'text-gray-900'
+                    ? 'text-on-accent'
+                    : 'text-heading'
               }`}
             >
               Delaware DSA
@@ -71,10 +71,10 @@ export default function Header() {
                 href={item.href}
                 className={`font-medium hover:text-dsa-red hover:no-underline transition-colors ${
                   isScrolled
-                    ? 'text-gray-700 dark:text-gray-300'
+                    ? 'text-nav'
                     : isHomePage
-                      ? 'text-white'
-                      : 'text-gray-700 dark:text-gray-300'
+                      ? 'text-on-accent'
+                      : 'text-nav'
                 }`}
               >
                 {item.name}
@@ -107,10 +107,10 @@ export default function Header() {
               xmlns="http://www.w3.org/2000/svg"
               className={`h-6 w-6 ${
                 isScrolled
-                  ? 'text-gray-700'
+                  ? 'text-heading'
                   : isHomePage
-                    ? 'text-white'
-                    : 'text-gray-700'
+                    ? 'text-on-accent'
+                    : 'text-heading'
               }`}
               fill="none"
               viewBox="0 0 24 24"
@@ -142,7 +142,7 @@ export default function Header() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
+                    className="block px-2 py-1 text-nav hover:bg-gray-100 rounded"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
@@ -152,7 +152,7 @@ export default function Header() {
               <li>
                 <Link
                   href="/join"
-                  className="block px-2 py-1 mt-2 text-white bg-dsa-red hover:bg-red-700 rounded"
+                  className="block px-2 py-1 mt-2 text-on-accent bg-dsa-red hover:bg-red-700 rounded"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Join Our Chapter
