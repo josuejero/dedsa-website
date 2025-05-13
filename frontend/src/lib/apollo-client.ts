@@ -17,7 +17,8 @@ const isServer = typeof window === 'undefined';
 const isBuildTime = isServer && process.env.NODE_ENV === 'production';
 
 // Always use mock during build time in production or when explicitly requested
-const useMockData = isBuildTime || process.env.NODE_ENV === 'development';
+const useMockData =
+  isBuildTime || process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'true';
 
 // API endpoint
 const wpGraphQLEndpoint =
@@ -104,6 +105,7 @@ function createMockResponseForOperation(operation: Operation) {
           nodes: [
             defaultPost,
             { ...defaultPost, id: 'mock-2', title: 'Mock Post 2' },
+            { ...defaultPost, id: 'mock-3', title: 'Mock Post 3' },
           ],
         },
       };
@@ -119,6 +121,12 @@ function createMockResponseForOperation(operation: Operation) {
               title: 'Position',
               content: '<p>Description</p>',
               menuOrder: 1,
+            },
+            {
+              id: 'pos-2',
+              title: 'Position 2',
+              content: '<p>Another description</p>',
+              menuOrder: 2,
             },
           ],
         },
@@ -174,6 +182,16 @@ function createMockResponseForOperation(operation: Operation) {
                 order: 1,
               },
             },
+            {
+              id: 'leader-2',
+              title: 'Mock Leader 2',
+              content: '<p>Mock bio 2</p>',
+              leadership: {
+                role: 'Mock Role 2',
+                email: 'mock2@example.org',
+                order: 2,
+              },
+            },
           ],
         },
       };
@@ -217,6 +235,21 @@ function createMockResponseForOperation(operation: Operation) {
                 eventVirtualLink: 'https://example.com',
               },
             },
+            {
+              id: 'event-2',
+              title: 'Mock Event 2',
+              excerpt: '<p>Mock excerpt 2</p>',
+              content: '<p>Mock content 2</p>',
+              date: new Date().toISOString(),
+              meta: {
+                eventDate: new Date(
+                  new Date().setDate(new Date().getDate() + 7)
+                ).toISOString(),
+                eventTime: '2:00 PM',
+                eventLocation: 'Another Mock Location',
+                eventVirtualLink: null,
+              },
+            },
           ],
         },
       };
@@ -247,6 +280,25 @@ const mockLink = new ApolloLink((operation) => {
 let clientInstance: ApolloClient<NormalizedCacheObject> | null = null;
 
 export function getClient() {
+  const skipApollo = process.env.NEXT_PUBLIC_SKIP_APOLLO_SSR === 'true';
+
+  if (skipApollo) {
+    console.log(
+      'Skipping Apollo Client initialization as requested via env var'
+    );
+    return new ApolloClient({
+      ssrMode: isServer,
+      link: mockLink,
+      cache: new InMemoryCache(),
+      defaultOptions: {
+        query: {
+          errorPolicy: 'all',
+          fetchPolicy: 'cache-only',
+        },
+      },
+    });
+  }
+
   if (isServer || !clientInstance) {
     try {
       // Set up HTTP link for real API requests
@@ -286,7 +338,10 @@ export function getClient() {
         link: mockLink,
         cache: new InMemoryCache(),
         defaultOptions: {
-          query: { errorPolicy: 'all' },
+          query: {
+            errorPolicy: 'all',
+            fetchPolicy: 'cache-only',
+          },
         },
       });
     }

@@ -5,23 +5,24 @@ import { ApolloProvider } from '@apollo/client';
 import { ReactNode, useEffect, useState } from 'react';
 import { createApolloClient } from '../lib/apollo-client';
 
-// Check if we're in the not-found page to skip Apollo
-const isBuildTime =
-  typeof window === 'undefined' && process.env.NODE_ENV === 'production';
-const skipApollo =
-  process.env.NEXT_PUBLIC_SKIP_APOLLO_SSR === 'true' || isBuildTime;
+// Force skip Apollo in development if env var is set
+const skipApollo = process.env.NEXT_PUBLIC_SKIP_APOLLO_SSR === 'true';
 
 export function Providers({ children }: { children: ReactNode }) {
   // This ensures hydration matching by delaying client-side rendering
   const [mounted, setMounted] = useState(false);
 
-  // Skip Apollo initialization if needed
+  // Skip Apollo initialization completely if needed
   const [client] = useState(() => {
+    if (skipApollo) {
+      console.log('Skipping Apollo Client initialization as requested');
+      return null;
+    }
+
     try {
       return createApolloClient();
     } catch (e) {
       console.error('Failed to create Apollo client:', e);
-      // Return a minimal client if creation fails
       return null;
     }
   });
@@ -30,7 +31,7 @@ export function Providers({ children }: { children: ReactNode }) {
     setMounted(true);
   }, []);
 
-  // If we're in a not-found page or during build, skip Apollo entirely
+  // If Apollo is skipped or failed to initialize, render without the provider
   if (skipApollo || !client) {
     return <>{children}</>;
   }
