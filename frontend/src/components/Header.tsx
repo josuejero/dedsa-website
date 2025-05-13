@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import ThemeToggle from './theme/ThemeToggle';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -67,7 +68,8 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
             <Link
               href="/join"
               className={`btn ${

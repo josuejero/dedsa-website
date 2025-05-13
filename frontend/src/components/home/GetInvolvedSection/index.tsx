@@ -1,24 +1,76 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import CommitteesCard from './CommitteesCard';
 import UpcomingEventsCard from './UpcomingEventsCard';
 
 export default function GetInvolvedSection() {
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: 'beforeChildren',
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
   return (
-    <section className="py-20 bg-gray-100">
-      <div className="container-page">
-        <div className="text-center mb-12">
+    <section className="py-20 bg-gray-100 relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#ec1f27">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <circle
+                key={i}
+                r="2"
+                cx={Math.random() * 1024}
+                cy={Math.random() * 1024}
+              />
+            ))}
+          </g>
+        </svg>
+      </div>
+
+      <motion.div
+        className="container-page relative z-10"
+        ref={ref}
+        initial="hidden"
+        animate={inView ? 'visible' : 'hidden'}
+        variants={sectionVariants}
+      >
+        <motion.div className="text-center mb-12" variants={itemVariants}>
           <h2 className="text-3xl font-bold mb-2">Get Involved</h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Join our campaigns, attend events, and become part of our democratic
             community
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <UpcomingEventsCard />
-          <CommitteesCard />
+          <motion.div variants={itemVariants}>
+            <UpcomingEventsCard />
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <CommitteesCard />
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

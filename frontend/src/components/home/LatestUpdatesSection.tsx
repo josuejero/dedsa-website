@@ -1,25 +1,70 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useInView } from 'react-intersection-observer';
 
 import { LatestUpdatesSectionProps } from '../types';
 
 export default function LatestUpdatesSection({
   posts,
 }: LatestUpdatesSectionProps) {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: 'beforeChildren',
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 50,
+        damping: 10,
+      },
+    },
+  };
+
   return (
-    <section className="py-20 bg-white">
-      <div className="container-page">
-        <div className="mb-12 text-center">
+    <section className="py-20 bg-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-72 h-72 bg-red-50 rounded-full -translate-y-1/2 translate-x-1/3 opacity-50"></div>
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-red-50 rounded-full translate-y-1/3 -translate-x-1/4 opacity-50"></div>
+
+      <motion.div
+        className="container-page relative z-10"
+        ref={ref}
+        initial="hidden"
+        animate={inView ? 'visible' : 'hidden'}
+        variants={containerVariants}
+      >
+        <motion.div className="mb-12 text-center" variants={itemVariants}>
           <h2 className="text-3xl font-bold mb-2">Latest Updates</h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Stay informed about our campaigns, events, and actions
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-8" data-testid="latest-updates-section">
           {posts.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 bg-gray-50 rounded-xl">
+            <motion.div
+              className="flex flex-col items-center justify-center py-12 bg-gray-50 rounded-xl"
+              variants={itemVariants}
+            >
               <div className="animate-pulse flex space-x-4">
                 <div className="rounded-full bg-gray-200 h-12 w-12"></div>
                 <div className="flex-1 space-y-4 py-1">
@@ -31,14 +76,15 @@ export default function LatestUpdatesSection({
                 </div>
               </div>
               <p className="text-gray-500 mt-4">Loading recent posts...</p>
-            </div>
+            </motion.div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {posts.map((post, index) => (
-                <article
+                <motion.article
                   key={post.id}
                   className="group bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  variants={itemVariants}
+                  custom={index}
                 >
                   {post.featuredImage?.node ? (
                     <div className="h-48 overflow-hidden">
@@ -68,9 +114,17 @@ export default function LatestUpdatesSection({
                     </div>
                   )}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 line-clamp-2 group-hover:text-dsa-red transition-colors">
+                    <motion.h3
+                      className="text-xl font-bold mb-2 line-clamp-2 group-hover:text-dsa-red transition-colors"
+                      whileHover={{ x: 5 }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 300,
+                        damping: 10,
+                      }}
+                    >
                       {post.title}
-                    </h3>
+                    </motion.h3>
                     <p className="text-gray-500 text-sm mb-3 flex items-center">
                       <svg
                         className="w-4 h-4 mr-1"
@@ -114,41 +168,51 @@ export default function LatestUpdatesSection({
                       className="text-gray-700 mb-4 line-clamp-3 overflow-hidden"
                       dangerouslySetInnerHTML={{ __html: post.excerpt }}
                     />
-                    <Link
-                      href={`/newsletter/${post.slug}`}
-                      className="inline-flex items-center text-dsa-red font-medium hover:underline group"
+                    <motion.div
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      Read more
-                      <svg
-                        className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                      <Link
+                        href={`/newsletter/${post.slug}`}
+                        className="inline-flex items-center text-dsa-red font-medium hover:underline group"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        />
-                      </svg>
-                    </Link>
+                        Read more
+                        <svg
+                          className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                          />
+                        </svg>
+                      </Link>
+                    </motion.div>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
           )}
         </div>
 
-        <div className="mt-12 text-center">
+        <motion.div
+          className="mt-12 text-center"
+          variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
           <Link
             href="/newsletter"
             className="btn btn-primary shadow-lg hover:shadow-xl transform hover:translate-y-px transition-all px-8 py-3 text-lg"
           >
             View All Updates
           </Link>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

@@ -1,10 +1,86 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+import Blob from '../ui/Blob';
+import ConfettiButton from '../ui/Confetti';
 
 export default function HeroSection() {
+  const [isClient, setIsClient] = useState(false);
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+
+  // Ensure hydration mismatch prevention
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Get user's city based on geolocation if available
+  const [city, setCity] = useState('Delaware');
+
+  useEffect(() => {
+    // Simulate geolocation with New Castle as default
+    // In a real application, you would use the browser's geolocation API
+    // or a third-party service to get the user's location
+    setTimeout(() => {
+      setCity('New Castle');
+    }, 1000);
+  }, []);
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
   return (
     <section className="relative min-h-screen flex items-center py-20 md:py-28 overflow-hidden">
       {/* Background with animated gradient */}
       <div className="absolute inset-0 bg-gradient-animated z-0"></div>
+
+      {/* Organic shapes */}
+      {isClient && (
+        <>
+          <Blob
+            color="rgba(236, 31, 39, 0.15)"
+            className="top-[10%] right-[10%] z-10"
+            size="300px"
+          />
+          <Blob
+            color="rgba(236, 31, 39, 0.1)"
+            className="bottom-[20%] left-[5%] z-10"
+            size="400px"
+          />
+          <motion.div
+            className="absolute top-[30%] right-[30%] rotate-12 z-10 w-20 h-20 bg-white opacity-5 rounded"
+            animate={{
+              rotate: [12, -12, 12],
+              y: [0, 20, 0],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+        </>
+      )}
 
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-20 z-10">
@@ -19,34 +95,68 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="container-page relative z-20">
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white animation-fade-in-up">
-            Delaware DSA
-          </h1>
-          <p className="text-xl mb-2 text-white opacity-90">
-            Progressive activism since 2021
-          </p>
-          <p className="text-xl mb-8 leading-relaxed text-white">
-            We&apos;re building a democratic-socialist Delaware where production
-            and resources are controlled by the people, not private profit. Join
-            us in creating a state that works for the many, not the few.
-          </p>
-          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            <Link
-              href="/join"
-              className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse"
+      <div className="container-page relative z-20" ref={ref}>
+        {isClient && (
+          <motion.div
+            className="max-w-3xl"
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+          >
+            <motion.h1
+              className="text-4xl md:text-7xl font-bold mb-6 tracking-tight text-white relative inline-block"
+              variants={itemVariants}
             >
-              Join Our Chapter
-            </Link>
-            <Link
-              href="/newsletter"
-              className="btn border-2 border-white text-white hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
+              <span className="relative z-10">SOLIDARITY</span>
+              <motion.span
+                className="absolute -bottom-2 left-0 h-4 bg-dsa-red z-0"
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                transition={{ delay: 1, duration: 0.8 }}
+              />
+            </motion.h1>
+
+            <motion.div variants={itemVariants}>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white">
+                Delaware DSA
+              </h2>
+            </motion.div>
+
+            <motion.p
+              className="text-xl mb-2 text-white opacity-90"
+              variants={itemVariants}
             >
-              Subscribe to Newsletter
-            </Link>
-          </div>
-        </div>
+              Progressive activism since 2021
+            </motion.p>
+
+            <motion.p
+              className="text-xl mb-8 leading-relaxed text-white"
+              variants={itemVariants}
+            >
+              We&apos;re building a democratic-socialist {city} where production
+              and resources are controlled by the people, not private profit.
+              Join us in creating a state that works for the many, not the few.
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+              variants={itemVariants}
+            >
+              <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
+                <Link href="/join" className="block">
+                  Join Our Chapter
+                </Link>
+              </ConfettiButton>
+
+              <Link
+                href="/newsletter"
+                className="btn border-2 border-white text-white hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
+              >
+                Subscribe to Newsletter
+              </Link>
+            </motion.div>
+          </motion.div>
+        )}
       </div>
     </section>
   );

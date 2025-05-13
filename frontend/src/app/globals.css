@@ -208,3 +208,97 @@
     animation: gradientMove 15s ease infinite;
   }
 }
+
+/* Blob animation */
+@keyframes morphBlob {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+/* Advanced animations */
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@layer utilities {
+  .animate-morphBlob {
+    animation: morphBlob 10s ease-in-out infinite alternate;
+  }
+
+  .animate-draw {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2s ease-in-out forwards;
+  }
+
+  .animate-fadeScale {
+    animation: fadeScale 0.7s ease-out forwards;
+  }
+
+  .animate-type {
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    animation: typewriter 2.5s steps(40, end) forwards;
+  }
+
+  .backdrop-blur {
+    backdrop-filter: blur(8px);
+  }
+
+  /* Variable font classes */
+  .font-weight-variable {
+    font-variation-settings: 'wght' var(--font-weight, 400);
+  }
+
+  /* Organic shape base */
+  .blob-shape {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+
+  /* Dark mode support */
+  .dark-mode {
+    @apply bg-gray-900 text-white;
+  }
+
+  .dark-mode .card {
+    @apply bg-gray-800 border-gray-700;
+  }
+
+  .dark-mode h1,
+  .dark-mode h2,
+  .dark-mode h3,
+  .dark-mode h4 {
+    @apply text-white;
+  }
+}

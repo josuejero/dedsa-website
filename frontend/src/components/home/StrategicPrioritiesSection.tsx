@@ -1,3 +1,10 @@
+'use client';
+
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import { useTypewriterEffect } from '../../utils/animations';
+import Blob from '../ui/Blob';
+
 const PRIORITIES = [
   {
     title: 'Defending Communities from ICE',
@@ -26,27 +33,81 @@ const PRIORITIES = [
 ];
 
 export default function StrategicPrioritiesSection() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  // Variable font weight based on scroll
+  const fontWeight = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [400, 600, 800]
+  );
+
+  // Typewriter effect for the section title
+  const { displayText } = useTypewriterEffect(
+    'Strategic Priorities for 2025-2026',
+    30
+  );
+
   return (
-    <section className="py-20 bg-gray-100">
-      <div className="container-page">
-        <h2 className="text-3xl font-bold mb-2 text-center">
-          Strategic Priorities for 2025-2026
-        </h2>
+    <section
+      ref={sectionRef}
+      className="py-20 bg-gray-100 relative overflow-hidden"
+    >
+      {/* Background blobs */}
+      <Blob
+        color="rgba(236, 31, 39, 0.05)"
+        className="top-[10%] left-[5%]"
+        size="500px"
+      />
+      <Blob
+        color="rgba(236, 31, 39, 0.03)"
+        className="bottom-[5%] right-[5%]"
+        size="400px"
+      />
+
+      <div className="container-page relative z-10">
+        <motion.h2
+          className="text-3xl font-bold mb-2 text-center"
+          style={{ fontVariationSettings: `'wght' ${fontWeight.get()}` }}
+        >
+          {displayText}
+        </motion.h2>
         <p className="text-center mb-12 text-lg text-gray-600">
           As democratically approved at our April 6, 2025 Convention:
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {PRIORITIES.map((p, index) => (
-            <div
+            <motion.div
               key={p.title}
               className="group bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-500 border-l-4 border-dsa-red overflow-hidden relative"
-              style={{ animationDelay: `${index * 150}ms` }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{
+                y: -5,
+                transition: { duration: 0.2 },
+              }}
             >
-              <div className="absolute -right-20 -bottom-20 w-40 h-40 bg-red-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"></div>
+              <motion.div
+                className="absolute -right-20 -bottom-20 w-40 h-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
+                style={{
+                  background:
+                    'radial-gradient(circle, rgba(236,31,39,0.1) 0%, rgba(255,255,255,0) 70%)',
+                }}
+              />
 
               <div className="flex items-start mb-4 relative z-10">
-                <div className="p-3 bg-red-50 rounded-full mr-4 group-hover:bg-red-100 transition-colors duration-300">
+                <motion.div
+                  className="p-3 bg-red-50 rounded-full mr-4 group-hover:bg-red-100 transition-colors duration-300"
+                  whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                  transition={{ duration: 0.5 }}
+                >
                   <svg
                     className="w-6 h-6 text-dsa-red group-hover:scale-110 transition-transform duration-300"
                     fill="none"
@@ -60,7 +121,7 @@ export default function StrategicPrioritiesSection() {
                       d={p.iconPath}
                     />
                   </svg>
-                </div>
+                </motion.div>
                 <h3 className="text-xl font-bold group-hover:text-dsa-red transition-colors duration-300">
                   {p.title}
                 </h3>
@@ -69,21 +130,34 @@ export default function StrategicPrioritiesSection() {
               <p className="pl-12 relative z-10 transform translate-y-0 opacity-100 group-hover:translate-y-0 transition-all duration-300">
                 {p.desc}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
           <a
             href="/what-we-stand-for"
-            className="inline-flex items-center text-dsa-red hover:underline font-medium"
+            className="inline-flex items-center text-dsa-red hover:underline font-medium group"
           >
             <span>Learn more about our priorities</span>
-            <svg
+            <motion.svg
               className="ml-2 w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              animate={{ x: [0, 5, 0] }}
+              transition={{
+                repeat: Infinity,
+                repeatType: 'loop',
+                duration: 1.5,
+                repeatDelay: 1,
+              }}
             >
               <path
                 strokeLinecap="round"
@@ -91,9 +165,9 @@ export default function StrategicPrioritiesSection() {
                 strokeWidth="2"
                 d="M14 5l7 7m0 0l-7 7m7-7H3"
               ></path>
-            </svg>
+            </motion.svg>
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
