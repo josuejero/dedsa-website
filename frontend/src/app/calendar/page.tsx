@@ -1,10 +1,10 @@
-import { ApolloError, gql } from '@apollo/client';
-import Link from 'next/link';
+import { gql } from '@apollo/client';
+import { Metadata } from 'next';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
-import { getClient } from '../../lib/apollo-client';
 import EventCalendar from './EventCalendar';
 import { CalendarEvent, CalendarProps, EventsData } from './types';
 
+// GraphQL query defined in this file
 const GET_EVENTS = gql`
   query GetEvents {
     events(
@@ -28,39 +28,56 @@ const GET_EVENTS = gql`
   }
 `;
 
-export default async function Calendar({
-  params,
-  searchParams,
-}: CalendarProps) {
-  await params;
-  const { month } = await searchParams;
+export const metadata: Metadata = {
+  title: 'Events Calendar',
+  description:
+    'Join Delaware DSA for meetings, actions, educational events, and social gatherings.',
+};
 
+// ISR: Revalidate this page every 5 minutes
+export const revalidate = 300;
+
+export default async function CalendarPage({ searchParams }: CalendarProps) {
+  const endpoint =
+    process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
+    'http://delaware-dsa-backend.local/graphql';
+
+  // Await searchParams to extract month
+  const { month } = await searchParams;
   const selectedMonth = month || '';
   let events: CalendarEvent[] = [];
 
   try {
-    const { data } = await getClient().query<EventsData>({
-      query: GET_EVENTS,
+    // Extract the raw GraphQL string from the tagged document
+    const query = GET_EVENTS.loc?.source.body;
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'force-cache',
+      body: JSON.stringify({ query }),
     });
 
-    events = data?.events?.nodes || [];
+    if (!res.ok) {
+      throw new Error(`Network response was not ok: ${res.status}`);
+    }
 
-    // If no real events, create sample data
+    const json = await res.json();
+    const data = (json.data ?? {}) as EventsData;
+    events = data.events?.nodes || [];
+
+    // If no events, generate sample placeholders
     if (events.length === 0) {
       const today = new Date();
-      const futureEvents: CalendarEvent[] = [];
-
-      for (let i = 0; i < 10; i++) {
+      events = Array.from({ length: 10 }, (_, i) => {
         const eventDate = new Date(today);
-        eventDate.setDate(eventDate.getDate() + i * 3);
-
-        futureEvents.push({
+        eventDate.setDate(today.getDate() + i * 3);
+        return {
           id: `sample-${i}`,
           title: `Sample Event ${i + 1}`,
           excerpt: `This is a sample event ${i + 1}.`,
           content: `<p>This is a sample event description for event ${
             i + 1
-          }. In a real implementation, this would be replaced with actual event data from WordPress.</p>`,
+          }.</p>`,
           date: today.toISOString(),
           meta: {
             eventDate: eventDate.toISOString(),
@@ -69,10 +86,8 @@ export default async function Calendar({
               i % 3 === 0 ? 'Virtual' : 'Delaware State University, Dover, DE',
             eventVirtualLink: i % 3 === 0 ? 'https://example.com' : undefined,
           },
-        });
-      }
-
-      events = futureEvents;
+        };
+      });
     }
 
     return (
@@ -84,10 +99,8 @@ export default async function Calendar({
             gatherings.
           </p>
 
-          {/* Main calendar component */}
           <EventCalendar events={events} selectedMonth={selectedMonth} />
 
-          {/* Calendar subscription */}
           <div className="mt-12 bg-white p-8 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4">
               Subscribe to Our Calendar
@@ -114,69 +127,18 @@ export default async function Calendar({
         </div>
       </div>
     );
-  } catch (error) {
-    console.error('Error fetching events:', error);
+  } catch (err: unknown) {
+    console.error('Calendar fetch error:', err);
+    const errorMessage = err instanceof Error ? err.message : String(err);
 
-    // Different error handling based on error type
-    if (error instanceof ApolloError) {
-      if (error.networkError) {
-        return (
-          <ErrorDisplay
-            title="Network Error"
-            message="We're having trouble connecting to our calendar server. Please check your internet connection and try again."
-            error={error}
-            actionLabel="Return to Home"
-            actionHref="/"
-          />
-        );
-      } else if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-        return (
-          <ErrorDisplay
-            title="Calendar Data Error"
-            message="There was a problem with the calendar data. Our team has been notified."
-            error={error.graphQLErrors[0]}
-            showDetails={process.env.NODE_ENV === 'development'}
-            actionLabel="Return to Home"
-            actionHref="/"
-          />
-        );
-      }
-    }
-
-    // Fallback to a simplified calendar page with error message
     return (
-      <div className="bg-gray-100 py-12">
-        <div className="container-page">
-          <h1 className="text-4xl font-bold mb-4">Events Calendar</h1>
-          <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-            <div className="text-red-600 mb-4">
-              <svg
-                className="h-12 w-12 mx-auto mb-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
-              <h2 className="text-2xl font-bold mb-2">
-                Unable to Load Calendar
-              </h2>
-              <p>
-                We&apos;re experiencing technical difficulties loading our
-                events. Please try again later.
-              </p>
-            </div>
-            <Link href="/" className="btn btn-primary">
-              Return to Home
-            </Link>
-          </div>
-        </div>
-      </div>
+      <ErrorDisplay
+        title="Unable to Load Calendar"
+        message="We’re experiencing technical difficulties loading events. Please try again later."
+        error={errorMessage}
+        actionLabel="Return to Home"
+        actionHref="/"
+      />
     );
   }
 }

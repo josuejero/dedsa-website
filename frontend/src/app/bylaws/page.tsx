@@ -1,8 +1,6 @@
-import { ApolloError } from '@apollo/client';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
-import { getClient } from '../../lib/apollo-client';
 import BylawsDocument from './BylawsDocument';
 import FrequentlyAskedQuestions from './FrequentlyAskedQuestions';
 import KeyGovernanceSections from './KeyGovernanceSections';
@@ -24,22 +22,37 @@ interface BylawsPageData {
   } | null;
 }
 
-export default async function Bylaws() {
-  let data: BylawsPageData = { page: null };
+// Revalidate every 5 minutes (optional)
+export const revalidate = 300;
+
+export default async function BylawsPage() {
+  const endpoint =
+    process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
+    'http://delaware-dsa-backend.local/graphql';
 
   try {
-    const result = await getClient().query<BylawsPageData>({
-      query: GET_BYLAWS_PAGE,
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      // Use Next.js cache during prerender
+      cache: 'force-cache',
+      body: JSON.stringify({ query: GET_BYLAWS_PAGE }),
     });
-    data = result.data;
 
-    // Render 404 if page doesn't exist
-    if (!data?.page) {
+    if (!res.ok) {
+      throw new Error(`Network response was not ok: ${res.status}`);
+    }
+
+    const json = await res.json();
+    const data = (json.data ?? {}) as BylawsPageData;
+
+    // If there's no page data, render 404
+    if (!data.page) {
       return notFound();
     }
 
     const pageContent =
-      data.page.content ||
+      data.page.content ??
       `
       <p>The Delaware DSA chapter bylaws outline our governance structure, decision-making processes, and operational procedures. These bylaws were democratically approved by our membership and can only be amended through a vote of the general membership.</p>
       <p>Our bylaws reflect our commitment to democratic governance, transparency, and member-led organizing. They establish the roles and responsibilities of elected officers, committees, and the general membership.</p>
@@ -101,42 +114,14 @@ export default async function Bylaws() {
         </div>
       </div>
     );
-  } catch (error) {
-    console.error('Bylaws query error:', error);
-
-    // Different error handling based on error type
-    if (error instanceof ApolloError) {
-      if (error.networkError) {
-        return (
-          <ErrorDisplay
-            title="Network Error"
-            message="We're having trouble connecting to our servers. Please check your internet connection and try again."
-            error={error}
-            actionLabel="Return to Home"
-            actionHref="/"
-          />
-        );
-      } else if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-        return (
-          <ErrorDisplay
-            title="Data Error"
-            message="There was a problem loading the bylaws data. Our team has been notified."
-            error={error.graphQLErrors[0]}
-            showDetails={process.env.NODE_ENV === 'development'}
-            actionLabel="Return to Home"
-            actionHref="/"
-          />
-        );
-      }
-    }
-
-    // Generic error fallback
+  } catch (err: unknown) {
+    console.error('Bylaws fetch error:', err);
+    const errorMessage = err instanceof Error ? err.message : String(err);
     return (
       <ErrorDisplay
         title="Error Loading Bylaws"
         message="We're having trouble loading this page. Please try again later."
-        error={error}
-        showDetails={process.env.NODE_ENV === 'development'}
+        error={errorMessage}
         actionLabel="Return to Home"
         actionHref="/"
       />
