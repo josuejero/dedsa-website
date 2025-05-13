@@ -1,13 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navItems = [
-    { name: 'Home', href: '/' },
     { name: 'Newsletter', href: '/newsletter' },
     { name: 'What We Stand For', href: '/what-we-stand-for' },
     { name: 'Calendar', href: '/calendar' },
@@ -19,49 +29,65 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-white shadow-md">
-      <div className="container-page py-4">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-white bg-opacity-95 backdrop-blur-sm shadow-md py-2'
+          : 'bg-transparent py-4'
+      }`}
+    >
+      <div className="container-page">
         <div className="flex items-center justify-between">
-          {}
-          <div className="flex items-center space-x-2">
-            <Link href="/" className="flex items-center space-x-2">
-              {}
-              <div className="w-10 h-10 bg-dsa-red rounded-full flex items-center justify-center">
-                <span className="text-white font-bold">DSA</span>
-              </div>
-              <span className="text-xl font-bold">Delaware DSA</span>
-            </Link>
-          </div>
+          <Link href="/" className="flex items-center space-x-2">
+            <div
+              className={`w-10 h-10 bg-dsa-red rounded-full flex items-center justify-center transition-all ${
+                isScrolled ? 'scale-90' : 'scale-100'
+              }`}
+            >
+              <span className="text-white font-bold">DSA</span>
+            </div>
+            <span
+              className={`text-xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}
+            >
+              Delaware DSA
+            </span>
+          </Link>
 
-          {}
           <nav className="hidden md:flex space-x-6">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-dsa-red hover:no-underline font-medium"
+                className={`font-medium hover:text-dsa-red hover:no-underline transition-colors ${
+                  isScrolled ? 'text-gray-700' : 'text-white'
+                }`}
               >
                 {item.name}
               </Link>
             ))}
           </nav>
 
-          {}
           <div className="hidden md:block">
-            <Link href="/join" className="btn btn-primary">
+            <Link
+              href="/join"
+              className={`btn ${
+                isScrolled
+                  ? 'btn-primary'
+                  : 'bg-white text-dsa-red hover:bg-gray-100'
+              }`}
+            >
               Join Our Chapter
             </Link>
           </div>
 
-          {}
           <button
             className="md:hidden text-gray-500"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
             <svg
-              xmlns="http:"
-              className="h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              className={`h-6 w-6 ${isScrolled ? 'text-gray-700' : 'text-white'}`}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -85,10 +111,9 @@ export default function Header() {
           </button>
         </div>
 
-        {}
         {isMenuOpen && (
-          <nav className="mt-4 pb-2 md:hidden">
-            <ul className="flex flex-col space-y-2">
+          <nav className="mt-4 pb-2 md:hidden bg-white rounded-lg shadow-lg">
+            <ul className="flex flex-col space-y-2 p-4">
               {navItems.map((item) => (
                 <li key={item.name}>
                   <Link

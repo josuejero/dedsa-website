@@ -9,8 +9,13 @@ export default function LatestUpdatesSection({
   return (
     <section className="py-20 bg-white">
       <div className="container-page">
-        <h2 className="text-3xl font-bold mb-2">Latest Updates</h2>
-        <div className="w-20 h-1 bg-dsa-red mb-10 rounded"></div>
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold mb-2">Latest Updates</h2>
+          <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Stay informed about our campaigns, events, and actions
+          </p>
+        </div>
 
         <div className="space-y-8" data-testid="latest-updates-section">
           {posts.length === 0 ? (
@@ -29,17 +34,18 @@ export default function LatestUpdatesSection({
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {posts.map((post) => (
+              {posts.map((post, index) => (
                 <article
                   key={post.id}
-                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                  className="group bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2"
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {post.featuredImage?.node ? (
                     <div className="h-48 overflow-hidden">
                       <Image
                         src={post.featuredImage.node.sourceUrl}
                         alt={post.featuredImage.node.altText || post.title}
-                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                         width={400}
                         height={300}
                       />
@@ -51,7 +57,6 @@ export default function LatestUpdatesSection({
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           strokeLinecap="round"
@@ -63,7 +68,7 @@ export default function LatestUpdatesSection({
                     </div>
                   )}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 line-clamp-2 hover:text-dsa-red transition-colors">
+                    <h3 className="text-xl font-bold mb-2 line-clamp-2 group-hover:text-dsa-red transition-colors">
                       {post.title}
                     </h3>
                     <p className="text-gray-500 text-sm mb-3 flex items-center">
@@ -72,7 +77,6 @@ export default function LatestUpdatesSection({
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           strokeLinecap="round"
@@ -94,7 +98,6 @@ export default function LatestUpdatesSection({
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               strokeLinecap="round"
@@ -108,7 +111,7 @@ export default function LatestUpdatesSection({
                       )}
                     </p>
                     <div
-                      className="text-gray-700 mb-4 line-clamp-3"
+                      className="text-gray-700 mb-4 line-clamp-3 overflow-hidden"
                       dangerouslySetInnerHTML={{ __html: post.excerpt }}
                     />
                     <Link
@@ -121,7 +124,6 @@ export default function LatestUpdatesSection({
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           strokeLinecap="round"
@@ -138,10 +140,10 @@ export default function LatestUpdatesSection({
           )}
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-12 text-center">
           <Link
             href="/newsletter"
-            className="btn btn-primary shadow-md hover:shadow-lg transform hover:translate-y-px transition-all"
+            className="btn btn-primary shadow-lg hover:shadow-xl transform hover:translate-y-px transition-all px-8 py-3 text-lg"
           >
             View All Updates
           </Link>

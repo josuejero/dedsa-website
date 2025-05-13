@@ -123,3 +123,88 @@
     opacity: 1;
   }
 }
+
+/* Animation keyframes */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes countUp {
+  from {
+    content: '0';
+  }
+  to {
+    content: attr(data-target);
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@layer utilities {
+  .animation-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animation-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .animation-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .transition-transform-slow {
+    transition: transform 0.4s ease-out;
+  }
+
+  .hover-scale {
+    @apply hover:scale-105 transition-transform-slow;
+  }
+
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-dsa-red to-red-600;
+  }
+
+  .bg-gradient-animated {
+    background: linear-gradient(-45deg, #ec1f27, #f87171, #ef4444, #dc2626);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+  }
+}

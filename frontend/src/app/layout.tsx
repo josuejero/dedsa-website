@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="flex flex-col min-h-screen">
+      <body className="flex flex-col min-h-screen pt-16">
         <Providers>
           <Header />
           <main className="flex-grow">{children}</main>

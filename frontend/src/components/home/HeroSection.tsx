@@ -2,8 +2,12 @@ import Link from 'next/link';
 
 export default function HeroSection() {
   return (
-    <section className="bg-gradient-to-br from-dsa-red to-red-700 text-white py-20 md:py-28">
-      <div className="container-page relative">
+    <section className="relative min-h-screen flex items-center py-20 md:py-28 overflow-hidden">
+      {/* Background with animated gradient */}
+      <div className="absolute inset-0 bg-gradient-animated z-0"></div>
+
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-20 z-10">
         <div className="absolute top-0 right-0 opacity-10 w-80 h-80">
           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -13,20 +17,25 @@ export default function HeroSection() {
             />
           </svg>
         </div>
+      </div>
 
-        <div className="max-w-3xl relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight animation-slide-up">
+      <div className="container-page relative z-20">
+        <div className="max-w-3xl">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white animation-fade-in-up">
             Delaware DSA
           </h1>
-          <p className="text-xl mb-8 leading-relaxed">
-            We&apos;re building a democratic-socialist Delaware where production and resources are
-            controlled by the people, not private profit. Join us in creating a state that works for
-            the many, not the few.
+          <p className="text-xl mb-2 text-white opacity-90">
+            Progressive activism since 2021
+          </p>
+          <p className="text-xl mb-8 leading-relaxed text-white">
+            We&apos;re building a democratic-socialist Delaware where production
+            and resources are controlled by the people, not private profit. Join
+            us in creating a state that works for the many, not the few.
           </p>
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
             <Link
               href="/join"
-              className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50"
+              className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse"
             >
               Join Our Chapter
             </Link>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const PRIORITIES = [
   {
     title: 'Defending Communities from ICE',
@@ -31,25 +29,29 @@ export default function StrategicPrioritiesSection() {
   return (
     <section className="py-20 bg-gray-100">
       <div className="container-page">
-        <h2 className="text-3xl font-bold mb-2 text-center">Strategic Priorities for 2025-2026</h2>
+        <h2 className="text-3xl font-bold mb-2 text-center">
+          Strategic Priorities for 2025-2026
+        </h2>
         <p className="text-center mb-12 text-lg text-gray-600">
           As democratically approved at our April 6, 2025 Convention:
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {PRIORITIES.map((p) => (
+          {PRIORITIES.map((p, index) => (
             <div
               key={p.title}
-              className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border-l-4 border-dsa-red"
+              className="group bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-500 border-l-4 border-dsa-red overflow-hidden relative"
+              style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="flex items-start mb-4">
-                <div className="p-2 bg-red-100 rounded-full mr-4">
+              <div className="absolute -right-20 -bottom-20 w-40 h-40 bg-red-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"></div>
+
+              <div className="flex items-start mb-4 relative z-10">
+                <div className="p-3 bg-red-50 rounded-full mr-4 group-hover:bg-red-100 transition-colors duration-300">
                   <svg
-                    className="w-6 h-6 text-dsa-red"
+                    className="w-6 h-6 text-dsa-red group-hover:scale-110 transition-transform duration-300"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       strokeLinecap="round"
@@ -59,11 +61,38 @@ export default function StrategicPrioritiesSection() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold">{p.title}</h3>
+                <h3 className="text-xl font-bold group-hover:text-dsa-red transition-colors duration-300">
+                  {p.title}
+                </h3>
               </div>
-              <p className="pl-12">{p.desc}</p>
+
+              <p className="pl-12 relative z-10 transform translate-y-0 opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                {p.desc}
+              </p>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <a
+            href="/what-we-stand-for"
+            className="inline-flex items-center text-dsa-red hover:underline font-medium"
+          >
+            <span>Learn more about our priorities</span>
+            <svg
+              className="ml-2 w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              ></path>
+            </svg>
+          </a>
         </div>
       </div>
     </section>
