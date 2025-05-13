@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { ThemeProvider } from '../components/theme/ThemeProvider';
 import './globals.css';
 import { Providers } from './providers';
 
@@ -29,13 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="flex flex-col min-h-screen pt-16">
+      <body className="flex flex-col min-h-screen">
         <Providers>
-          <ThemeProvider>
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </ThemeProvider>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>

@@ -11,19 +11,9 @@ export default function HeroSection() {
   const [isClient, setIsClient] = useState(false);
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
-  // Ensure hydration mismatch prevention
+  // Prevent hydration mismatch
   useEffect(() => {
     setIsClient(true);
-  }, []);
-
-  // Get user's city based on geolocation if available
-  const [city, setCity] = useState('Delaware');
-
-  useEffect(() => {
-    // Simulate geolocation with New Castle as default
-    setTimeout(() => {
-      setCity('New Castle');
-    }, 1000);
   }, []);
 
   // Animation variants
@@ -31,10 +21,7 @@ export default function HeroSection() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
     },
   };
 
@@ -48,11 +35,11 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center py-20 md:py-28 overflow-hidden">
-      {/* Background with animated gradient */}
-      <div className="absolute inset-0 bg-gradient-animated z-0"></div>
+    <section className="relative min-h-screen flex items-center pt-0 pb-20 md:pb-28 overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-animated z-0" />
 
-      {/* Diagonal line pattern overlay */}
+      {/* Diagonal hatch overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-20 z-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -78,7 +65,7 @@ export default function HeroSection() {
         </svg>
       </div>
 
-      {/* Organic shapes */}
+      {/* Organic blob shapes */}
       {isClient && (
         <>
           <Blob
@@ -93,10 +80,7 @@ export default function HeroSection() {
           />
           <motion.div
             className="absolute top-[30%] right-[30%] rotate-12 z-10 w-20 h-20 bg-white opacity-5 rounded"
-            animate={{
-              rotate: [12, -12, 12],
-              y: [0, 20, 0],
-            }}
+            animate={{ rotate: [12, -12, 12], y: [0, 20, 0] }}
             transition={{
               duration: 10,
               repeat: Infinity,
@@ -106,7 +90,10 @@ export default function HeroSection() {
         </>
       )}
 
-      <div className="container-page relative z-20" ref={ref}>
+      <div
+        className="container-page relative z-20 mt-20 md:mt-16 pt-20"
+        ref={ref}
+      >
         {isClient && (
           <motion.div
             className="max-w-3xl"
@@ -144,9 +131,13 @@ export default function HeroSection() {
               className="text-xl mb-8 leading-relaxed text-on-accent"
               variants={itemVariants}
             >
-              We're building a movement to challenge corporate control of
-              Delaware's economy and politics. Together, we're fighting for
+              We&apos;re building a movement to challenge corporate control of
+              <br />
+              Delaware&apos;s economy and politics. Together, we&apos;re
+              fighting for
+              <br />
               housing justice, international solidarity, immigrant rights, and a
+              <br />
               Delaware that puts people before profits.
             </motion.p>
 

@@ -1,197 +1,102 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import ConfettiButton from '../ui/Confetti';
 
-export default function MissionSection() {
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
+export default function JoinCTASection() {
+  const controls = useAnimation();
+  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
 
-  // Create parallax effect
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0, 1, 1, 0]);
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    }
+  }, [controls, inView]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
+  const linePatternVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 0.1, transition: { duration: 2 } },
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-20 relative bg-white dark:bg-gray-800 overflow-hidden"
+    <motion.section
+      ref={ref}
+      className="py-20 bg-gradient-animated text-on-accent relative overflow-hidden"
+      initial="hidden"
+      animate={controls}
+      variants={containerVariants}
     >
-      {/* Background decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-[10%] left-[5%] w-32 h-32 rounded-full bg-red-50 dark:bg-red-900/20"
-          style={{ y, opacity }}
-        />
-        <motion.div
-          className="absolute bottom-[10%] right-[10%] w-64 h-64 rounded-full bg-red-50"
-          style={{
-            y: useTransform(scrollYProgress, [0, 1], [100, 0]),
-            opacity,
-          }}
-        />
-      </div>
-
-      <div className="container-page">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-center md:space-x-12">
-            {/* Text content */}
-            <motion.div
-              className="md:w-1/2 mb-8 md:mb-0"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+      <motion.div
+        className="absolute inset-0 flex justify-center"
+        variants={linePatternVariants}
+      >
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern
+              id="diagonalHatch"
+              width="10"
+              height="10"
+              patternUnits="userSpaceOnUse"
+              patternTransform="rotate(45)"
             >
-              <motion.h2
-                className="text-4xl font-bold mb-6 relative text-heading"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <motion.div
-                  className="relative inline-block"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: 'auto' }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <span>Our Mission</span>
-                  <motion.span
-                    className="absolute bottom-0 left-0 w-full h-1 bg-dsa-red rounded"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: '100%' }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                  />
-                </motion.div>
-              </motion.h2>
+              <line
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="10"
+                stroke="white"
+                strokeWidth="1"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#diagonalHatch)" />
+        </svg>
+      </motion.div>
 
-              <motion.p
-                className="text-lg mb-6 leading-relaxed text-primary"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                Delaware DSA is building a democratic-socialist movement where
-                production and resources are controlled by the people, not
-                private profit. We reject the capitalist economic order,
-                systemic oppression, and violence that characterizes our
-                society.
-              </motion.p>
-
-              <motion.p
-                className="text-lg mb-8 leading-relaxed text-primary"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                We're committed to a 'New Delaware Way' rooted in equitable
-                wealth, gender and racial justice, and freedom from poverty and
-                exploitation. Our chapter welcomes plural left tendencies,
-                supports independent mass organizations, and stands firmly
-                against imperialism.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-              >
-                <Link
-                  href="/what-we-stand-for"
-                  className="btn btn-primary shadow-md hover:shadow-lg transition-all duration-300 hover-scale"
-                >
-                  What We Stand For
-                </Link>
-              </motion.div>
-            </motion.div>
-
-            {/* Image collage with rounded corners - uses framer motion for animation */}
-            <motion.div
-              className="md:w-1/2 relative h-80 md:h-96"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              {/* Replace these with actual event/member photos */}
-              <motion.div
-                className="absolute top-0 left-0 w-3/5 h-3/5 bg-gray-50 rounded-lg overflow-hidden shadow-lg"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-              >
-                <div className="w-full h-full">
-                  {/* Replace placeholder with actual image */}
-                  <img
-                    src="/images/home/dsa-event-1.jpg"
-                    alt="Delaware DSA community event"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      // Fallback if image doesn't exist
-                      e.currentTarget.src =
-                        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='sans-serif' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23666'%3EEvent Photo%3C/text%3E%3C/svg%3E";
-                    }}
-                  />
-                </div>
-              </motion.div>
-              <motion.div
-                className="absolute top-1/4 right-0 w-2/5 h-2/5 bg-gray-50 rounded-lg overflow-hidden shadow-lg z-10"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-              >
-                <div className="w-full h-full">
-                  {/* Replace placeholder with actual image */}
-                  <img
-                    src="/images/home/dsa-event-2.jpg"
-                    alt="Delaware DSA members organizing"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      // Fallback if image doesn't exist
-                      e.currentTarget.src =
-                        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='sans-serif' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23666'%3EEvent Photo%3C/text%3E%3C/svg%3E";
-                    }}
-                  />
-                </div>
-              </motion.div>
-              <motion.div
-                className="absolute bottom-0 right-1/4 w-1/2 h-1/2 bg-gray-50 rounded-lg overflow-hidden shadow-lg z-20"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-              >
-                <div className="w-full h-full">
-                  {/* Replace placeholder with actual image */}
-                  <img
-                    src="/images/home/dsa-event-3.jpg"
-                    alt="Delaware DSA rally"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      // Fallback if image doesn't exist
-                      e.currentTarget.src =
-                        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='sans-serif' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23666'%3EEvent Photo%3C/text%3E%3C/svg%3E";
-                    }}
-                  />
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
+      <div className="container-page text-center relative z-10">
+        <motion.h2
+          className="text-4xl md:text-5xl font-bold mb-4 text-on-accent"
+          variants={itemVariants}
+        >
+          JOIN THE MOVEMENT
+        </motion.h2>
+        <motion.p
+          className="text-xl mb-8 max-w-2xl mx-auto text-on-accent"
+          variants={itemVariants}
+        >
+          The corporate interests controlling Delaware aren&apos;t giving up
+          power without a fight. We need you to help build a democratic
+          socialist alternative that works for all Delawareans, not just the
+          wealthy few.
+        </motion.p>
+        <motion.div variants={itemVariants}>
+          <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
+            <Link href="/join" className="block">
+              JOIN DELAWARE DSA TODAY
+            </Link>
+          </ConfettiButton>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

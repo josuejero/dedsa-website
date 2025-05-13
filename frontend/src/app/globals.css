@@ -21,29 +21,12 @@
     --card-text: theme('colors.gray.600');
   }
 
-  /* Dark mode tokens (toggle via .dark-mode on <html> or prefer-color-scheme) */
-  .dark-mode {
-    --text-primary: theme('colors.gray.200');
-    --text-secondary: theme('colors.gray.300');
-    --text-muted: theme('colors.gray.400');
-    --heading-text: var(--on-accent);
-    --link-text: theme('colors.dsa-red');
-    --nav-text: theme('colors.gray.300');
-    --card-title: var(--on-accent);
-    --card-text: theme('colors.gray.300');
-  }
-
-  /* Optional: auto dark-mode via media query */
-  /* @media (prefers-color-scheme: dark) {
-    :root { @apply .dark-mode; }
-  } */
-
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply antialiased text-primary leading-relaxed bg-white dark:bg-gray-900;
+    @apply antialiased text-primary leading-relaxed bg-white;
   }
 
   /* Heading styles */
@@ -122,8 +105,7 @@
     @apply bg-dsa-red text-on-accent hover:bg-red-700 rounded-lg;
   }
   .btn-secondary {
-    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-4 focus:ring-gray-200
-            dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600;
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-4 focus:ring-gray-200;
   }
 
   /* Layout helpers */
@@ -135,15 +117,15 @@
     @apply py-16 md:py-20;
   }
   .section-light {
-    @apply bg-white dark:bg-gray-800;
+    @apply bg-white;
   }
   .section-dark {
-    @apply bg-gray-100 dark:bg-gray-900;
+    @apply bg-gray-100;
   }
 
   .card {
     @apply bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden
-            transition-shadow duration-300 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700;
+            transition-shadow duration-300 hover:shadow-lg;
   }
 }
 
@@ -294,9 +276,3 @@
     width: 100%;
   }
 }
-
-/* Optional count-up styling */
-/* @keyframes countUp {
-  from { content: '0'; }
-  to   { content: attr(data-target); }
-} */

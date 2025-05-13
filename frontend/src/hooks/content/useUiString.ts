@@ -6,62 +6,76 @@ import {
   GET_UI_STRINGS_BY_COMPONENT,
 } from '../../lib/graphql/queries/content/strings';
 
-// Check if Apollo is being skipped
-const isApolloSkipped = process.env.NEXT_PUBLIC_SKIP_APOLLO_SSR === 'true';
+/** Shape of the single‐string query response */
+// interface UiStringQueryData {
+//   uiStringByKey?: {
+//     stringData?: {
+//       stringValue?: string;
+//     };
+//   };
+// }
+// /** Variables for the single‐string query */
+// interface UiStringQueryVars {
+//   key: string;
+// }
 
-// Hook to get a single UI string
-export function useUiString(key: string, fallback: string = '') {
-  // If Apollo is skipped, just return the fallback value
-  if (isApolloSkipped) {
-    return fallback;
-  }
-
-  // Otherwise, use the original implementation
-  try {
-    const { data, loading, error } = useQuery(GET_UI_STRING, {
-      variables: { key },
-    });
-
-    if (loading || error) {
-      return fallback;
-    }
-
-    return data?.uiStringByKey?.stringData?.stringValue || fallback;
-  } catch (e) {
-    console.error(`Error in useUiString for key ${key}:`, e);
-    return fallback;
-  }
+/** Shape of the multi‐string query response */
+interface UiStringsByComponentQueryData {
+  uiStringsByComponent: Array<{
+    stringData: {
+      stringKey: string;
+      stringValue: string;
+    };
+  }>;
+}
+/** Variables for the multi‐string query */
+interface UiStringsByComponentQueryVars {
+  componentId: string;
 }
 
-// Hook to get all strings for a component
-export function useUiStringsByComponent(componentId: string) {
-  // If Apollo is skipped, just return an empty object
-  if (isApolloSkipped) {
+// Honor the SKIP flag in environment
+const isApolloSkipped = process.env.NEXT_PUBLIC_SKIP_APOLLO_SSR === 'true';
+
+/**
+ * Fetch a single UI string by key.
+ * Returns `fallback` if SSR is skipped, loading, or on error.
+ */
+export function useUiString(key: string, fallback = ''): string {
+  const { data, loading, error } = useQuery(GET_UI_STRING, {
+    variables: { key },
+  });
+
+  if (loading || error) {
+    return fallback;
+  }
+
+  return data?.uiStringByKey?.stringData?.stringValue ?? fallback;
+}
+
+/**
+ * Fetch all UI strings for a component, returning a key→value map.
+ * Returns empty object if SSR is skipped, loading, or on error.
+ */
+export function useUiStringsByComponent(
+  componentId: string
+): Record<string, string> {
+  const { data, loading, error } = useQuery<
+    UiStringsByComponentQueryData,
+    UiStringsByComponentQueryVars
+  >(GET_UI_STRINGS_BY_COMPONENT, {
+    variables: { componentId },
+    skip: isApolloSkipped,
+  });
+
+  if (isApolloSkipped || loading || error || !data) {
     return {};
   }
 
-  try {
-    const { data, loading, error } = useQuery(GET_UI_STRINGS_BY_COMPONENT, {
-      variables: { componentId },
-    });
-
-    if (loading || error) {
-      return {};
-    }
-
-    const strings: Record<string, string> = {};
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?.uiStringsByComponent?.forEach((item: any) => {
-      const { stringKey, stringValue } = item.stringData;
-      strings[stringKey] = stringValue;
-    });
-
-    return strings;
-  } catch (e) {
-    console.error(
-      `Error in useUiStringsByComponent for componentId ${componentId}:`,
-      e
-    );
-    return {};
-  }
+  return data.uiStringsByComponent.reduce<Record<string, string>>(
+    (acc, { stringData }) => {
+      acc[stringData.stringKey] = stringData.stringValue;
+      return acc;
+    },
+    {}
+  );
 }
