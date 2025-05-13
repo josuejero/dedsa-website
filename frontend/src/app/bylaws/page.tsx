@@ -5,6 +5,7 @@ import BylawsDocument from './BylawsDocument';
 import FrequentlyAskedQuestions from './FrequentlyAskedQuestions';
 import KeyGovernanceSections from './KeyGovernanceSections';
 import OtherDocuments from './OtherDocuments';
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Bylaws',

@@ -13,6 +13,7 @@ import HeroSection from './components/HeroSection';
 import JoinSection from './components/JoinSection';
 import LeadershipSection from './components/LeadershipSection';
 import MeetingInfoSection from './components/MeetingInfoSection';
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'UD YDSA',

@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
 import EventCalendar from './EventCalendar';
 import { CalendarEvent, CalendarProps, EventsData } from './types';
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Events Calendar',

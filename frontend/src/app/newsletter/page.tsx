@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Newsletter',

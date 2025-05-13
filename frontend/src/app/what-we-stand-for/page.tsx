@@ -7,6 +7,7 @@ import { getClient } from '../../lib/apollo-client';
 import PositionCard from './PositionCard';
 import { GET_POSITIONS_PAGE } from './queries';
 import { Position } from './types';
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'What We Stand For',

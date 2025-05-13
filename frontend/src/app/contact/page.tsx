@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
 import ContactForm from './ContactForm';
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Contact Us',

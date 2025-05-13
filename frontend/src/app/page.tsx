@@ -2,6 +2,7 @@ import { ApolloError } from '@apollo/client';
 import ErrorDisplay from '../components/errors/ErrorDisplay';
 import { getClient } from '../lib/apollo-client';
 import { GET_RECENT_POSTS } from '../lib/graphql/queries';
+export const dynamic = 'force-dynamic';
 
 // Import component sections
 import ChapterStatsSection from '../components/home/ChapterStatsSection';

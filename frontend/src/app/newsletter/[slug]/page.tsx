@@ -13,6 +13,7 @@ import ArticleFooter from './components/ArticleFooter';
 import ArticleHeader from './components/ArticleHeader';
 import { generateStaticParams } from './staticParams';
 import { Author, Post, RelatedPost } from './types';
+export const dynamic = 'force-dynamic';
 
 interface PageParams {
   slug: string;
