@@ -80,7 +80,8 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_EMAIL_DOMAIN:
       process.env.NEXT_PUBLIC_EMAIL_DOMAIN || 'delawardsa.org',
-    NEXT_PUBLIC_SKIP_APOLLO_SSR: 'true',
+    NEXT_PUBLIC_SKIP_APOLLO_SSR:
+      process.env.NEXT_PUBLIC_SKIP_APOLLO_SSR ?? 'false',
   },
 
   compiler: {
