@@ -286,13 +286,9 @@
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
 
-  /* Dark mode support */
+  /* Enhanced dark mode support */
   .dark-mode {
-    @apply bg-gray-900 text-white;
-  }
-
-  .dark-mode .card {
-    @apply bg-gray-800 border-gray-700;
+    @apply bg-gray-900 text-gray-100;
   }
 
   .dark-mode h1,
@@ -300,5 +296,57 @@
   .dark-mode h3,
   .dark-mode h4 {
     @apply text-white;
+  }
+
+  .dark-mode p {
+    @apply text-gray-300;
+  }
+
+  /* Background colors for sections */
+  .dark-mode .section-light {
+    @apply bg-gray-800;
+  }
+
+  .dark-mode .section-dark {
+    @apply bg-gray-900;
+  }
+
+  /* Card styles */
+  .dark-mode .card {
+    @apply bg-gray-800 border-gray-700 text-white;
+  }
+
+  .dark-mode .btn-secondary {
+    @apply bg-gray-700 text-white hover:bg-gray-600;
+  }
+
+  /* Section backgrounds */
+  .dark-mode .bg-white {
+    @apply bg-gray-800;
+  }
+
+  .dark-mode .bg-gray-100 {
+    @apply bg-gray-900;
+  }
+
+  .dark-mode .bg-gray-50 {
+    @apply bg-gray-800;
+  }
+
+  /* Section text */
+  .dark-mode .text-gray-800 {
+    @apply text-gray-200;
+  }
+
+  .dark-mode .text-gray-700 {
+    @apply text-gray-300;
+  }
+
+  .dark-mode .text-gray-600 {
+    @apply text-gray-400;
+  }
+
+  .dark-mode .text-gray-500 {
+    @apply text-gray-400;
   }
 }

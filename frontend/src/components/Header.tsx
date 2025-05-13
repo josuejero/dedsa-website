@@ -37,7 +37,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white bg-opacity-95 backdrop-blur-sm shadow-md py-2'
+          ? 'bg-white dark:bg-gray-800 bg-opacity-95 backdrop-blur-sm shadow-md py-2'
           : 'bg-transparent py-4'
       }`}
     >
@@ -71,10 +71,10 @@ export default function Header() {
                 href={item.href}
                 className={`font-medium hover:text-dsa-red hover:no-underline transition-colors ${
                   isScrolled
-                    ? 'text-gray-700'
+                    ? 'text-gray-700 dark:text-gray-300'
                     : isHomePage
                       ? 'text-white'
-                      : 'text-gray-700'
+                      : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
                 {item.name}
