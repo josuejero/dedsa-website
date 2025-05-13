@@ -6,13 +6,14 @@ const analyzeBuild = process.env.ANALYZE === 'true';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  // Exclude specific routes from output file tracing
+  outputFileTracingExcludes: {
+    '/_not-found': [],
+  },
+
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'delawardsa.org',
-        pathname: '/**',
-      },
+      { protocol: 'https', hostname: 'delawardsa.org', pathname: '/**' },
       {
         protocol: process.env.NODE_ENV === 'development' ? 'http' : 'https',
         hostname:
@@ -71,10 +72,7 @@ const nextConfig: NextConfig = {
     {
       source: '/static/(.*)',
       headers: [
-        {
-          key: 'Cache-Control',
-          value: 'public, max-age=31536000, immutable',
-        },
+        { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
       ],
     },
   ],
@@ -82,6 +80,7 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_EMAIL_DOMAIN:
       process.env.NEXT_PUBLIC_EMAIL_DOMAIN || 'delawardsa.org',
+    NEXT_PUBLIC_SKIP_APOLLO_SSR: 'true',
   },
 
   compiler: {

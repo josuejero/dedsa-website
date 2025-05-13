@@ -1,16 +1,17 @@
-import { ApolloError, gql } from '@apollo/client';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
-import { getClient } from '../../lib/apollo-client';
 
 export const metadata: Metadata = {
   title: 'Newsletter',
   description: 'Latest updates from Delaware DSA',
 };
 
-// Simple query to get recent posts
-const GET_RECENT_POSTS = gql`
+// ISR: Revalidate this page every 5 minutes
+export const revalidate = 300;
+
+// GraphQL query string
+const GET_RECENT_POSTS = `
   query GetRecentPosts {
     posts(first: 10) {
       nodes {
@@ -24,7 +25,6 @@ const GET_RECENT_POSTS = gql`
   }
 `;
 
-// Add interface for Post type
 interface Post {
   id: string;
   title: string;
@@ -34,57 +34,43 @@ interface Post {
 }
 
 interface QueryData {
-  posts?: {
-    nodes: Post[];
-  };
+  posts?: { nodes: Post[] };
 }
 
 export default async function NewsletterPage() {
-  let data: QueryData = { posts: { nodes: [] } }; // Default empty data
+  const endpoint =
+    process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
+    'http://delaware-dsa-backend.local/graphql';
+  let posts: Post[] = [];
 
   try {
-    const result = await getClient().query<QueryData>({
-      query: GET_RECENT_POSTS,
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'force-cache',
+      body: JSON.stringify({ query: GET_RECENT_POSTS }),
     });
-    data = result.data;
-  } catch (error) {
-    console.error('Error fetching posts:', error);
 
-    // Different error handling based on error type
-    if (error instanceof ApolloError) {
-      if (error.networkError) {
-        return (
-          <ErrorDisplay
-            title="Network Error"
-            message="We're having trouble connecting to our servers. Please check your internet connection and try again."
-            error={error}
-          />
-        );
-      } else if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-        return (
-          <ErrorDisplay
-            title="Data Error"
-            message="There was a problem with the data. Our team has been notified."
-            error={error.graphQLErrors[0]}
-            showDetails={process.env.NODE_ENV === 'development'}
-          />
-        );
-      }
+    if (!res.ok) {
+      throw new Error(`Network response not ok: ${res.status}`);
     }
 
-    // Generic error fallback
+    const json = await res.json();
+    const data = (json.data ?? {}) as QueryData;
+    posts = data.posts?.nodes ?? [];
+  } catch (err: unknown) {
+    console.error('Error fetching posts:', err);
+    const errorMessage = err instanceof Error ? err.message : String(err);
     return (
       <ErrorDisplay
-        error={error}
-        showDetails={process.env.NODE_ENV === 'development'}
+        title="Error Loading Newsletter"
+        message="We're having trouble loading the newsletter. Please try again later."
+        error={errorMessage}
         actionLabel="Return to Home"
         actionHref="/"
       />
     );
   }
-
-  // Use optional chaining and nullish coalescing for safe data access
-  const posts = data?.posts?.nodes ?? [];
 
   return (
     <div className="bg-gray-100 py-12">
@@ -93,7 +79,7 @@ export default async function NewsletterPage() {
 
         {posts.length > 0 ? (
           <div className="space-y-8">
-            {posts.map((post: Post) => (
+            {posts.map((post) => (
               <div key={post.id} className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-2xl font-bold mb-2">
                   <Link

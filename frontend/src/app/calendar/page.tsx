@@ -1,11 +1,20 @@
-import { gql } from '@apollo/client';
+// src/app/calendar/page.tsx
 import { Metadata } from 'next';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
 import EventCalendar from './EventCalendar';
 import { CalendarEvent, CalendarProps, EventsData } from './types';
 
-// GraphQL query defined in this file
-const GET_EVENTS = gql`
+export const metadata: Metadata = {
+  title: 'Events Calendar',
+  description:
+    'Join Delaware DSA for meetings, actions, educational events, and social gatherings.',
+};
+
+// ISR: Revalidate this page every 5 minutes
+export const revalidate = 300;
+
+// Inline GraphQL query string (no `gql` tag)
+const GET_EVENTS_QUERY = `
   query GetEvents {
     events(
       first: 100
@@ -28,33 +37,21 @@ const GET_EVENTS = gql`
   }
 `;
 
-export const metadata: Metadata = {
-  title: 'Events Calendar',
-  description:
-    'Join Delaware DSA for meetings, actions, educational events, and social gatherings.',
-};
-
-// ISR: Revalidate this page every 5 minutes
-export const revalidate = 300;
-
 export default async function CalendarPage({ searchParams }: CalendarProps) {
   const endpoint =
     process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
     'http://delaware-dsa-backend.local/graphql';
 
-  // Await searchParams to extract month
   const { month } = await searchParams;
   const selectedMonth = month || '';
   let events: CalendarEvent[] = [];
 
   try {
-    // Extract the raw GraphQL string from the tagged document
-    const query = GET_EVENTS.loc?.source.body;
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       cache: 'force-cache',
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query: GET_EVENTS_QUERY }),
     });
 
     if (!res.ok) {
@@ -65,7 +62,7 @@ export default async function CalendarPage({ searchParams }: CalendarProps) {
     const data = (json.data ?? {}) as EventsData;
     events = data.events?.nodes || [];
 
-    // If no events, generate sample placeholders
+    // Fallback: generate sample events if none exist
     if (events.length === 0) {
       const today = new Date();
       events = Array.from({ length: 10 }, (_, i) => {

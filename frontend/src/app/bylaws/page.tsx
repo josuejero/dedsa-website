@@ -5,12 +5,27 @@ import BylawsDocument from './BylawsDocument';
 import FrequentlyAskedQuestions from './FrequentlyAskedQuestions';
 import KeyGovernanceSections from './KeyGovernanceSections';
 import OtherDocuments from './OtherDocuments';
-import { GET_BYLAWS_PAGE } from './queries';
 
 export const metadata: Metadata = {
   title: 'Bylaws',
   description: 'Delaware DSA chapter bylaws and governance documents.',
 };
+
+// ISR: Revalidate this page every 5 minutes
+export const revalidate = 300;
+
+// GraphQL query string
+const GET_BYLAWS_PAGE = `
+  query GetBylawsPage {
+    page(id: "bylaws", idType: URI) {
+      content
+      bylaws {
+        pdfUrl
+        lastUpdated
+      }
+    }
+  }
+`;
 
 interface BylawsPageData {
   page?: {
@@ -22,9 +37,6 @@ interface BylawsPageData {
   } | null;
 }
 
-// Revalidate every 5 minutes (optional)
-export const revalidate = 300;
-
 export default async function BylawsPage() {
   const endpoint =
     process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
@@ -34,7 +46,6 @@ export default async function BylawsPage() {
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      // Use Next.js cache during prerender
       cache: 'force-cache',
       body: JSON.stringify({ query: GET_BYLAWS_PAGE }),
     });
@@ -117,6 +128,7 @@ export default async function BylawsPage() {
   } catch (err: unknown) {
     console.error('Bylaws fetch error:', err);
     const errorMessage = err instanceof Error ? err.message : String(err);
+
     return (
       <ErrorDisplay
         title="Error Loading Bylaws"

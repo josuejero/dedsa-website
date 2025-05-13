@@ -1,6 +1,7 @@
-'use client';
-
 import Link from 'next/link';
+
+// src/app/not-found.tsx
+export const dynamic = 'force-dynamic';
 
 export default function NotFound() {
   return (
@@ -29,6 +30,7 @@ export default function NotFound() {
         </p>
 
         <div className="flex justify-center">
+          {/* use link component */}
           <Link href="/" className="btn btn-primary">
             Go to Homepage
           </Link>

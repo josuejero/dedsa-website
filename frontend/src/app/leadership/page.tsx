@@ -1,8 +1,6 @@
-import { ApolloError, gql } from '@apollo/client';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
-import { getClient } from '../../lib/apollo-client';
 import LeadershipCard from './LeadershipCard';
 
 export const metadata: Metadata = {
@@ -11,44 +9,11 @@ export const metadata: Metadata = {
     'Learn about the leadership and organizational structure of Delaware DSA.',
 };
 
-interface LeadershipRole {
-  id: string;
-  title: string;
-  name: string;
-  bio: string;
-  email: string;
-  imageUrl?: string;
-  order: number;
-}
+// ISR: revalidate every 5 minutes
+export const revalidate = 300;
 
-interface LeadershipNode {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  leadership: {
-    role: string;
-    email: string;
-    order: number;
-  };
-  featuredImage?: {
-    node: {
-      sourceUrl: string;
-    };
-  };
-}
-
-interface LeadershipPageData {
-  page?: {
-    content?: string | null;
-  } | null;
-  leadership?: {
-    nodes: LeadershipNode[];
-  } | null;
-}
-
-// frontend/src/app/leadership/page.tsx
-const GET_LEADERSHIP = gql`
+// Inline GraphQL query string
+const GET_LEADERSHIP = `
   query GetLeadership {
     page(id: "leadership", idType: URI) {
       content
@@ -60,7 +25,6 @@ const GET_LEADERSHIP = gql`
       nodes {
         id
         title
-        excerpt
         content
         leadership {
           role
@@ -77,38 +41,66 @@ const GET_LEADERSHIP = gql`
   }
 `;
 
-export default async function Leadership() {
-  let data: LeadershipPageData = { page: null };
+interface LeadershipRole {
+  id: string;
+  title: string;
+  name: string;
+  bio: string;
+  email: string;
+  imageUrl?: string;
+  order: number;
+}
+
+interface LeadershipPageData {
+  page?: { content?: string | null } | null;
+  leadership?: {
+    nodes: Array<{
+      id: string;
+      title: string;
+      content: string;
+      leadership: { role: string; email: string; order: number };
+      featuredImage?: { node: { sourceUrl: string } };
+    }>;
+  };
+}
+
+export default async function LeadershipPage() {
+  const endpoint =
+    process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
+    'http://delaware-dsa-backend.local/graphql';
 
   try {
-    const result = await getClient().query<LeadershipPageData>({
-      query: GET_LEADERSHIP,
-      errorPolicy: 'all',
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'force-cache',
+      body: JSON.stringify({ query: GET_LEADERSHIP }),
     });
-    data = result.data;
+    if (!res.ok) throw new Error(`Network response was not ok: ${res.status}`);
 
-    // Render 404 if neither page nor leadership data exists
-    if (!data?.page && !data?.leadership) {
-      return notFound();
-    }
+    const json = await res.json();
+    const data = (json.data ?? {}) as LeadershipPageData;
+
+    // 404 if neither page nor leadership data
+    if (!data.page && !data.leadership) return notFound();
 
     const pageContent =
-      data?.page?.content ||
+      data.page?.content ??
       `
       <p>Delaware DSA is a member-led organization with a democratically elected leadership team. Our chapter is structured to ensure accountability, transparency, and member involvement at every level.</p>
       <p>Our elected officers serve two-year terms and are responsible for implementing the decisions and priorities established by our membership.</p>
     `;
 
     let leadershipTeam: LeadershipRole[] =
-      data?.leadership?.nodes?.map((node: LeadershipNode) => ({
+      data.leadership?.nodes.map((node) => ({
         id: node.id,
         title: node.leadership.role,
         name: node.title,
         bio: node.content,
         email: node.leadership.email,
-        imageUrl: node.featuredImage?.node?.sourceUrl,
+        imageUrl: node.featuredImage?.node.sourceUrl,
         order: node.leadership.order,
-      })) || [];
+      })) ?? [];
 
     if (leadershipTeam.length === 0) {
       leadershipTeam = [
@@ -118,6 +110,7 @@ export default async function Leadership() {
           name: 'Alex Johnson',
           bio: '<p>Alex has been an active DSA member since 2019 and works to build coalitions across progressive organizations in Delaware.</p>',
           email: `chair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
+          imageUrl: undefined,
           order: 1,
         },
         {
@@ -126,6 +119,7 @@ export default async function Leadership() {
           name: 'Morgan Smith',
           bio: '<p>Morgan focuses on organizing tenant unions and housing justice initiatives across New Castle County.</p>',
           email: `vicechair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
+          imageUrl: undefined,
           order: 2,
         },
         {
@@ -134,6 +128,7 @@ export default async function Leadership() {
           name: 'Jamie Williams',
           bio: '<p>Jamie maintains chapter records and communications, ensuring organizational transparency and member involvement.</p>',
           email: `secretary@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
+          imageUrl: undefined,
           order: 3,
         },
         {
@@ -142,6 +137,7 @@ export default async function Leadership() {
           name: 'Taylor Reed',
           bio: '<p>Taylor oversees chapter finances, budget planning, and ensures compliance with financial regulations.</p>',
           email: `treasurer@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
+          imageUrl: undefined,
           order: 4,
         },
         {
@@ -150,6 +146,7 @@ export default async function Leadership() {
           name: 'Jordan Chen',
           bio: '<p>Jordan leads our Medicare for All campaign and represents healthcare workers within the chapter.</p>',
           email: `atlarge1@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
+          imageUrl: undefined,
           order: 5,
         },
         {
@@ -158,6 +155,7 @@ export default async function Leadership() {
           name: 'Casey Wilson',
           bio: '<p>Casey coordinates outreach to labor unions and workplace organizing throughout the state.</p>',
           email: `atlarge2@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
+          imageUrl: undefined,
           order: 6,
         },
       ];
@@ -169,16 +167,13 @@ export default async function Leadership() {
       <div className="bg-gray-100 py-12">
         <div className="container-page">
           <h1 className="text-4xl font-bold mb-4">Leadership & Structure</h1>
-
           <div className="bg-white p-8 rounded-lg shadow-md mb-8">
             <div
               className="prose prose-lg max-w-none"
               dangerouslySetInnerHTML={{ __html: pageContent }}
             />
           </div>
-
           <h2 className="text-3xl font-bold mb-6">Chapter Leadership</h2>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {leadershipTeam.map((leader) => (
               <LeadershipCard
@@ -191,14 +186,11 @@ export default async function Leadership() {
               />
             ))}
           </div>
-
           <div className="mt-12 bg-white p-8 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4">Chapter Structure</h2>
-
             <p className="mb-4">
               Our chapter operates with the following organizational structure:
             </p>
-
             <ul className="list-disc pl-6 space-y-2 mb-6">
               <li>
                 <strong>General Membership:</strong> All dues-paying members
@@ -213,13 +205,11 @@ export default async function Leadership() {
                 campaigns and chapter operations
               </li>
             </ul>
-
             <p className="mb-4">
               We hold general membership meetings monthly and steering committee
               meetings bi-weekly. All meetings are open to members, and meeting
               minutes are made available to ensure transparency.
             </p>
-
             <div className="mt-6">
               <a
                 href="/bylaws"
@@ -245,42 +235,14 @@ export default async function Leadership() {
         </div>
       </div>
     );
-  } catch (error) {
-    console.error('Error loading leadership page:', error);
-
-    // Different error handling based on error type
-    if (error instanceof ApolloError) {
-      if (error.networkError) {
-        return (
-          <ErrorDisplay
-            title="Network Error"
-            message="We're having trouble connecting to our servers. Please check your internet connection and try again."
-            error={error}
-            actionLabel="Return to Home"
-            actionHref="/"
-          />
-        );
-      } else if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-        return (
-          <ErrorDisplay
-            title="Data Error"
-            message="There was a problem loading the leadership data. Our team has been notified."
-            error={error.graphQLErrors[0]}
-            showDetails={process.env.NODE_ENV === 'development'}
-            actionLabel="Return to Home"
-            actionHref="/"
-          />
-        );
-      }
-    }
-
-    // Generic error fallback
+  } catch (err: unknown) {
+    console.error('Error loading leadership page:', err);
+    const errorMessage = err instanceof Error ? err.message : String(err);
     return (
       <ErrorDisplay
         title="Error Loading Leadership Page"
         message="We're having trouble loading this page. Please try again later."
-        error={error}
-        showDetails={process.env.NODE_ENV === 'development'}
+        error={errorMessage}
         actionLabel="Return to Home"
         actionHref="/"
       />
