@@ -6,24 +6,25 @@ import { Event } from './types';
 const EVENTS: Event[] = [
   {
     title: 'Newark Community Rent Meeting',
-    date: 'Tuesday, April 23, 2025 • 6:00–8:00 PM',
-    location: 'St. Thomas Episcopal Parish (276 S. College Ave, Newark)',
-  },
-  {
-    title: 'New Member Orientation',
-    date: 'Thursday, April 18, 2025 • 7:00–8:30 PM',
-    location: 'Virtual via Zoom',
-    isVirtual: true,
-  },
-  {
-    title: 'Queer Socialists Movie Night',
-    date: 'Friday, April 26, 2025 • 7:00–10:00 PM',
-    location: 'Private residence in Wilmington (address with RSVP)',
+    date: 'May 23, 2025 • 6:00–8:00 PM',
+    location: 'St. Thomas Episcopal Parish',
   },
   {
     title: 'Solidarity Fair',
-    date: 'Sunday, June 22, 2025 • 4:00–7:00 PM',
-    location: 'Ellendale Fire Hall (302 Main St, Ellendale)',
+    date: 'June 22, 2025 • 4:00–7:00 PM',
+    location: 'Ellendale Fire Hall',
+  },
+  {
+    title: 'New Member Orientation',
+    date: 'June 8, 2025 • 2:00–3:30 PM',
+    location: 'Route 9 Library & Virtual',
+    isVirtual: true,
+  },
+  {
+    title: 'Housing Justice Working Group',
+    date: 'May 19, 2025 • 7:00–8:30 PM',
+    location: 'Virtual',
+    isVirtual: true,
   },
 ];
 
@@ -72,7 +73,7 @@ export default function UpcomingEventsCard() {
               d="M19 9l-7 7-7-7"
             />
           </svg>
-          View Calendar
+          VIEW ALL EVENTS
         </Link>
       </div>
     </div>

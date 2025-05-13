@@ -118,7 +118,7 @@ export default function HeroSection() {
               className="text-4xl md:text-7xl font-bold mb-6 tracking-tight text-white relative inline-block"
               variants={itemVariants}
             >
-              <span className="relative z-10">SOLIDARITY</span>
+              <span className="relative z-10">BUILDING DEMOCRATIC POWER</span>
               <motion.span
                 className="absolute -bottom-2 left-0 h-4 bg-dsa-red z-0"
                 initial={{ width: 0 }}
@@ -137,16 +137,17 @@ export default function HeroSection() {
               className="text-xl mb-2 text-white opacity-90"
               variants={itemVariants}
             >
-              Progressive activism since 2021
+              Organizing for a democratic socialist Delaware since 2021
             </motion.p>
 
             <motion.p
               className="text-xl mb-8 leading-relaxed text-white"
               variants={itemVariants}
             >
-              We&apos;re building a democratic-socialist {city} where production
-              and resources are controlled by the people, not private profit.
-              Join us in creating a state that works for the many, not the few.
+              We're building a movement to challenge corporate control of
+              Delaware's economy and politics. Together, we're fighting for
+              housing justice, international solidarity, immigrant rights, and a
+              Delaware that puts people before profits.
             </motion.p>
 
             <motion.div
@@ -155,15 +156,15 @@ export default function HeroSection() {
             >
               <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
                 <Link href="/join" className="block">
-                  Join Our Chapter
+                  JOIN OUR CHAPTER
                 </Link>
               </ConfettiButton>
 
               <Link
-                href="/newsletter"
+                href="/calendar"
                 className="btn border-2 border-white text-white hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
               >
-                Subscribe to Newsletter
+                ATTEND AN EVENT
               </Link>
             </motion.div>
           </motion.div>

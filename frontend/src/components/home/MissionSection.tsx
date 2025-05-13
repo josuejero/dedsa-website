@@ -78,12 +78,11 @@ export default function MissionSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                Delaware Democratic Socialists of America (DE DSA) is a
-                member-led, democratic organization fighting to shift power from
-                corporations to people. In a state known as America&apos;s
-                corporate haven, we challenge the status quo by organizing for
-                economic justice, racial equity, environmental sustainability,
-                and true democracy.
+                Delaware DSA is building a democratic-socialist movement where
+                production and resources are controlled by the people, not
+                private profit. We reject the capitalist economic order,
+                systemic oppression, and violence that characterizes our
+                society.
               </motion.p>
 
               <motion.p
@@ -93,14 +92,12 @@ export default function MissionSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
-                We reject the capitalist economic order that perpetuates
-                systemic oppression, violence, and environmental destruction. We
-                are committed to a &quot;New Delaware Way&quot; rooted in
-                economic democracy, racial justice, gender equity, environmental
-                sustainability, international solidarity, and democratic
-                pluralism.
+                We're committed to a 'New Delaware Way' rooted in equitable
+                wealth, gender and racial justice, and freedom from poverty and
+                exploitation. Our chapter welcomes plural left tendencies,
+                supports independent mass organizations, and stands firmly
+                against imperialism.
               </motion.p>
-
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

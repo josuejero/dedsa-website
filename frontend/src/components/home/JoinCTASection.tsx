@@ -85,19 +85,22 @@ export default function JoinCTASection() {
           className="text-4xl md:text-5xl font-bold mb-4"
           variants={itemVariants}
         >
-          Join the Movement
+          JOIN THE MOVEMENT
         </motion.h2>
         <motion.p
           className="text-xl mb-8 max-w-2xl mx-auto"
           variants={itemVariants}
         >
-          Together, we can build a better Delaware where people come before
-          profits. Become a member today!
+          The corporate interests controlling Delaware aren't giving up power
+          without a fight. We need you to help build a democratic socialist
+          alternative that works for all Delawareans, not just the wealthy few.
+          Whether you have years of organizing experience or this is your first
+          step into activism, there's a place for you in Delaware DSA.
         </motion.p>
         <motion.div variants={itemVariants}>
           <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
             <Link href="/join" className="block">
-              Join Delaware DSA
+              JOIN DELAWARE DSA TODAY
             </Link>
           </ConfettiButton>
         </motion.div>

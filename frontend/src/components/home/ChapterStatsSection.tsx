@@ -25,33 +25,32 @@ export default function ChapterStatsSection() {
     {
       key: 'members',
       value: 220,
-      label: 'Dues-paying members',
+      label: 'Chapter Members',
       prefix: '',
       color: '#ec1f27',
     },
     {
-      key: 'growth',
-      value: 15,
-      label: 'Growth since January',
-      prefix: '%',
-      color: '#ef4444',
-    },
-    {
       key: 'groups',
-      value: 10,
-      label: 'Active groups',
-      prefix: '',
-      color: '#f87171',
+      value: 11,
+      label: 'Working Groups & Committees',
+      prefix: '+',
+      color: '#ef4444',
     },
     {
       key: 'counties',
       value: 3,
-      label: 'Delaware counties',
+      label: 'Counties Organized',
       prefix: '',
+      color: '#f87171',
+    },
+    {
+      key: 'active',
+      value: 9,
+      label: 'Active Membership Rate',
+      prefix: '%',
       color: '#fca5a5',
     },
   ];
-
   return (
     <section ref={ref} className="py-16 bg-white relative overflow-hidden">
       {/* Background grid pattern */}

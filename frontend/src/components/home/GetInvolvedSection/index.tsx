@@ -54,11 +54,10 @@ export default function GetInvolvedSection() {
         variants={sectionVariants}
       >
         <motion.div className="text-center mb-12" variants={itemVariants}>
-          <h2 className="text-3xl md:text-5xl font-bold mb-2">Get Involved</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-2">GET INVOLVED</h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Join our campaigns, attend events, and become part of our democratic
-            community
+            Join us in building socialist power across Delaware
           </p>
         </motion.div>
 

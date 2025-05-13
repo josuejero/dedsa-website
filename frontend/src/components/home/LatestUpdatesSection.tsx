@@ -53,11 +53,11 @@ export default function LatestUpdatesSection({
       >
         <motion.div className="mb-12 text-center" variants={itemVariants}>
           <h2 className="text-3xl md:text-5xl font-bold mb-2">
-            Latest Updates
+            LATEST FROM THE DELAWARE ROSE GARDEN
           </h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Stay informed about our campaigns, events, and actions
+            News and updates from our chapter
           </p>
         </motion.div>
 
@@ -217,7 +217,7 @@ export default function LatestUpdatesSection({
             href="/newsletter"
             className="btn btn-primary shadow-lg hover:shadow-xl transform hover:translate-y-px transition-all px-8 py-3 text-lg"
           >
-            View All Updates
+            READ ALL UPDATES
           </Link>
         </motion.div>
       </motion.div>

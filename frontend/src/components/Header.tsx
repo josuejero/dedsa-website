@@ -1,12 +1,14 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ThemeToggle from './theme/ThemeToggle';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   // Handle scroll effect
   useEffect(() => {
@@ -29,6 +31,8 @@ export default function Header() {
     { name: 'UD YDSA', href: '/ud-ydsa' },
   ];
 
+  const isHomePage = pathname === '/';
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -48,7 +52,13 @@ export default function Header() {
               <span className="text-white font-bold">DSA</span>
             </div>
             <span
-              className={`text-xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}
+              className={`text-xl font-bold ${
+                isScrolled
+                  ? 'text-gray-900'
+                  : isHomePage
+                    ? 'text-white'
+                    : 'text-gray-900'
+              }`}
             >
               Delaware DSA
             </span>
@@ -60,7 +70,11 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 className={`font-medium hover:text-dsa-red hover:no-underline transition-colors ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
+                  isScrolled
+                    ? 'text-gray-700'
+                    : isHomePage
+                      ? 'text-white'
+                      : 'text-gray-700'
                 }`}
               >
                 {item.name}
@@ -75,7 +89,9 @@ export default function Header() {
               className={`btn ${
                 isScrolled
                   ? 'btn-primary'
-                  : 'bg-white text-dsa-red hover:bg-gray-100'
+                  : isHomePage
+                    ? 'bg-white text-dsa-red hover:bg-gray-100'
+                    : 'btn-primary'
               }`}
             >
               Join Our Chapter
@@ -89,7 +105,13 @@ export default function Header() {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className={`h-6 w-6 ${isScrolled ? 'text-gray-700' : 'text-white'}`}
+              className={`h-6 w-6 ${
+                isScrolled
+                  ? 'text-gray-700'
+                  : isHomePage
+                    ? 'text-white'
+                    : 'text-gray-700'
+              }`}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
