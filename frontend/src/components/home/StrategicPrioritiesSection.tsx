@@ -57,6 +57,23 @@ export default function StrategicPrioritiesSection() {
       ref={sectionRef}
       className="py-20 bg-gray-100 relative overflow-hidden"
     >
+      {/* Background with dot pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern
+              id="smallDot"
+              width="20"
+              height="20"
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx="2" cy="2" r="1" fill="currentColor" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#smallDot)" />
+        </svg>
+      </div>
+
       {/* Background blobs */}
       <Blob
         color="rgba(236, 31, 39, 0.05)"
@@ -71,7 +88,7 @@ export default function StrategicPrioritiesSection() {
 
       <div className="container-page relative z-10">
         <motion.h2
-          className="text-3xl font-bold mb-2 text-center"
+          className="text-3xl md:text-5xl font-bold mb-2 text-center"
           style={{ fontVariationSettings: `'wght' ${fontWeight.get()}` }}
         >
           {displayText}

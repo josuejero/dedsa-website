@@ -52,7 +52,9 @@ export default function LatestUpdatesSection({
         variants={containerVariants}
       >
         <motion.div className="mb-12 text-center" variants={itemVariants}>
-          <h2 className="text-3xl font-bold mb-2">Latest Updates</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-2">
+            Latest Updates
+          </h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Stay informed about our campaigns, events, and actions
@@ -62,20 +64,26 @@ export default function LatestUpdatesSection({
         <div className="space-y-8" data-testid="latest-updates-section">
           {posts.length === 0 ? (
             <motion.div
-              className="flex flex-col items-center justify-center py-12 bg-gray-50 rounded-xl"
+              className="grid grid-cols-1 md:grid-cols-3 gap-8"
               variants={itemVariants}
             >
-              <div className="animate-pulse flex space-x-4">
-                <div className="rounded-full bg-gray-200 h-12 w-12"></div>
-                <div className="flex-1 space-y-4 py-1">
-                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                  <div className="space-y-2">
-                    <div className="h-4 bg-gray-200 rounded"></div>
-                    <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="animate-pulse flex flex-col border border-gray-200 rounded-xl overflow-hidden"
+                >
+                  <div className="h-48 bg-gray-200"></div>
+                  <div className="p-6 space-y-4">
+                    <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                    <div className="space-y-2">
+                      <div className="h-4 bg-gray-200 rounded"></div>
+                      <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                    </div>
+                    <div className="h-4 bg-gray-200 rounded w-1/4"></div>
                   </div>
                 </div>
-              </div>
-              <p className="text-gray-500 mt-4">Loading recent posts...</p>
+              ))}
             </motion.div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -21,8 +21,6 @@ export default function HeroSection() {
 
   useEffect(() => {
     // Simulate geolocation with New Castle as default
-    // In a real application, you would use the browser's geolocation API
-    // or a third-party service to get the user's location
     setTimeout(() => {
       setCity('New Castle');
     }, 1000);
@@ -54,6 +52,32 @@ export default function HeroSection() {
       {/* Background with animated gradient */}
       <div className="absolute inset-0 bg-gradient-animated z-0"></div>
 
+      {/* Diagonal line pattern overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-20 z-10">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern
+              id="diagonalHatch"
+              width="10"
+              height="10"
+              patternUnits="userSpaceOnUse"
+              patternTransform="rotate(45)"
+            >
+              <line
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="10"
+                stroke="white"
+                strokeWidth="1"
+                strokeOpacity="0.2"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#diagonalHatch)" />
+        </svg>
+      </div>
+
       {/* Organic shapes */}
       {isClient && (
         <>
@@ -81,19 +105,6 @@ export default function HeroSection() {
           />
         </>
       )}
-
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-20 z-10">
-        <div className="absolute top-0 right-0 opacity-10 w-80 h-80">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path
-              fill="#FFFFFF"
-              d="M45.7,-58.2C58.9,-51.3,69,-37.4,73.9,-22.1C78.8,-6.7,78.5,10.1,72.3,24.5C66.1,38.9,54,50.9,40,58.6C26,66.3,10.1,69.8,-6.4,77.5C-22.9,85.1,-45.7,96.9,-60.1,89.8C-74.5,82.8,-80.4,56.9,-82.2,34.3C-84,11.7,-81.6,-7.5,-75.6,-25.2C-69.7,-42.9,-60.2,-59.1,-46.6,-65.9C-33,-72.8,-15.3,-70.3,0.7,-71.1C16.7,-72,33.5,-76.2,45.7,-58.2Z"
-              transform="translate(100 100)"
-            />
-          </svg>
-        </div>
-      </div>
 
       <div className="container-page relative z-20" ref={ref}>
         {isClient && (

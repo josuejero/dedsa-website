@@ -124,6 +124,7 @@ export default function MissionSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
+              {/* Replace these with actual event/member photos */}
               <motion.div
                 className="absolute top-0 left-0 w-3/5 h-3/5 bg-gray-50 rounded-lg overflow-hidden shadow-lg"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -132,11 +133,18 @@ export default function MissionSection() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
-                <div className="w-full h-full bg-gray-300">
-                  {/* Placeholder for image 1 */}
-                  <div className="flex items-center justify-center h-full text-gray-400">
-                    Image 1
-                  </div>
+                <div className="w-full h-full">
+                  {/* Replace placeholder with actual image */}
+                  <img
+                    src="/images/home/dsa-event-1.jpg"
+                    alt="Delaware DSA community event"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback if image doesn't exist
+                      e.currentTarget.src =
+                        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='sans-serif' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23666'%3EEvent Photo%3C/text%3E%3C/svg%3E";
+                    }}
+                  />
                 </div>
               </motion.div>
               <motion.div
@@ -147,11 +155,18 @@ export default function MissionSection() {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
-                <div className="w-full h-full bg-gray-300">
-                  {/* Placeholder for image 2 */}
-                  <div className="flex items-center justify-center h-full text-gray-400">
-                    Image 2
-                  </div>
+                <div className="w-full h-full">
+                  {/* Replace placeholder with actual image */}
+                  <img
+                    src="/images/home/dsa-event-2.jpg"
+                    alt="Delaware DSA members organizing"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback if image doesn't exist
+                      e.currentTarget.src =
+                        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='sans-serif' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23666'%3EEvent Photo%3C/text%3E%3C/svg%3E";
+                    }}
+                  />
                 </div>
               </motion.div>
               <motion.div
@@ -162,11 +177,18 @@ export default function MissionSection() {
                 transition={{ duration: 0.6, delay: 0.6 }}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
-                <div className="w-full h-full bg-gray-300">
-                  {/* Placeholder for image 3 */}
-                  <div className="flex items-center justify-center h-full text-gray-400">
-                    Image 3
-                  </div>
+                <div className="w-full h-full">
+                  {/* Replace placeholder with actual image */}
+                  <img
+                    src="/images/home/dsa-event-3.jpg"
+                    alt="Delaware DSA rally"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback if image doesn't exist
+                      e.currentTarget.src =
+                        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='sans-serif' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23666'%3EEvent Photo%3C/text%3E%3C/svg%3E";
+                    }}
+                  />
                 </div>
               </motion.div>
             </motion.div>
