@@ -1,18 +1,17 @@
 import commonContent from '@/content/common';
 import componentContent from '@/content/components';
 import pageContent from '@/content/pages';
-import { CommonContent } from '@/types/content';
 
 // Define supported locales
 export type Locale = 'en' | 'es';
 
 // Store content by locale
-const contentByLocale: Record
+const contentByLocale: Record<
   Locale,
   {
     components: typeof componentContent;
     pages: typeof pageContent;
-    common: CommonContent;
+    common: typeof commonContent;
   }
 > = {
   en: {
@@ -23,7 +22,7 @@ const contentByLocale: Record
   es: {
     components: {}, // Spanish content would go here
     pages: {},
-    common: commonContent, // Using English content as fallback
+    common: commonContent,
   },
 };
 
@@ -62,52 +61,101 @@ export function t(path: string, locale: Locale = currentLocale): string {
 
   try {
     const [section, ...keyParts] = parts;
-    const keyPath = keyParts.join('.');
+    const localContent = contentByLocale[locale] || contentByLocale.en;
 
     if (section === 'components') {
       const [componentName, ...componentParts] = keyParts;
-      const componentKeyPath = componentParts.join('.');
-      const componentContent = contentByLocale[locale]?.components[componentName as keyof typeof componentContent];
+      const componentKey = componentParts.join('.');
+
+      // Use type assertion with string index - avoid optional chaining with 'in'
+      const componentObj = componentName as string;
+      const componentsObj = localContent.components;
+
+      // Check if the component exists
+      let component: unknown;
+      if (componentObj in componentsObj) {
+        // Safely access the component
+        component = (componentsObj as Record<string, unknown>)[componentObj];
+      }
 
       // Navigate through nested keys
-      if (componentKeyPath && componentContent) {
-        let result: Record<string, unknown> = componentContent;
-        for (const k of componentKeyPath.split('.')) {
-          if (typeof result !== 'object' || result === null || !(k in result)) return path;
+      if (componentKey && component) {
+        let result: Record<string, unknown> = component as Record<
+          string,
+          unknown
+        >;
+        for (const k of componentKey.split('.')) {
+          if (typeof result !== 'object' || result === null || !(k in result))
+            return path;
           result = result[k] as Record<string, unknown>;
         }
         return String(result);
       }
     } else if (section === 'pages') {
       const [pageName, ...pageParts] = keyParts;
-      const pageKeyPath = pageParts.join('.');
-      const pageContent = contentByLocale[locale]?.pages[pageName as keyof typeof pageContent]?.content;
+      const pageKey = pageParts.join('.');
+
+      // Use string index directly to avoid shadowing imported pageContent
+      const pageObj = pageName as string;
+      const pagesObj = localContent.pages;
+
+      // Safely access page content
+      let pageContentData: unknown;
+      if (pageObj in pagesObj) {
+        const page = (pagesObj as Record<string, { content?: unknown }>)[
+          pageObj
+        ];
+        pageContentData = page?.content;
+      }
 
       // Navigate through nested keys
-      if (pageKeyPath && pageContent) {
-        let result: Record<string, unknown> = pageContent;
-        for (const k of pageKeyPath.split('.')) {
-          if (typeof result !== 'object' || result === null || !(k in result)) return path;
+      if (pageKey && pageContentData) {
+        let result: Record<string, unknown> = pageContentData as Record<
+          string,
+          unknown
+        >;
+        for (const k of pageKey.split('.')) {
+          if (typeof result !== 'object' || result === null || !(k in result))
+            return path;
           result = result[k] as Record<string, unknown>;
         }
         return String(result);
       }
     } else if (section === 'common') {
-      const firstKey = keyParts[0] as keyof CommonContent;
-      if (!firstKey || !(firstKey in (contentByLocale[locale]?.common || {}))) {
+      // Use a separate variable name to avoid confusion
+      const commonKey = keyParts[0] as string;
+      const commonObj = localContent.common;
+
+      // Safe check if the common key exists
+      const isValidKey = commonKey in commonObj;
+
+      if (!commonKey || !isValidKey) {
         return path;
       }
-      
-      let content = contentByLocale[locale]?.common[firstKey] as Record<string, unknown>;
+
+      // Use type assertion to access the content safely
+      const contentValue = (commonObj as unknown as Record<string, unknown>)[
+        commonKey
+      ];
 
       // Navigate through nested keys
-      if (content && keyParts.length > 1) {
-        let result = content;
+      if (
+        contentValue &&
+        typeof contentValue === 'object' &&
+        keyParts.length > 1
+      ) {
+        let result: Record<string, unknown> = contentValue as Record<
+          string,
+          unknown
+        >;
         for (const k of keyParts.slice(1).join('.').split('.')) {
-          if (typeof result !== 'object' || result === null || !(k in result)) return path;
+          if (typeof result !== 'object' || result === null || !(k in result))
+            return path;
           result = result[k] as Record<string, unknown>;
         }
         return String(result);
+      } else if (contentValue) {
+        return String(contentValue);
       }
     }
 
