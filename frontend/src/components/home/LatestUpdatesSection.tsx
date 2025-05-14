@@ -40,7 +40,7 @@ export default function LatestUpdatesSection({
   };
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
+    <section className="py-20 bg-white dark:bg-gray-800 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-72 h-72 bg-red-50 rounded-full -translate-y-1/2 translate-x-1/3 opacity-50"></div>
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-red-50 rounded-full translate-y-1/3 -translate-x-1/4 opacity-50"></div>
 
@@ -90,7 +90,7 @@ export default function LatestUpdatesSection({
               {posts.map((post, index) => (
                 <motion.article
                   key={post.id}
-                  className="group bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2"
+                  className="group bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2"
                   variants={itemVariants}
                   custom={index}
                 >

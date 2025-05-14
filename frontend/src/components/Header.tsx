@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import ThemeToggle from './theme/ThemeToggle';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,7 +37,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white bg-opacity-95 backdrop-blur-sm shadow-md py-2'
+          ? 'bg-white dark:bg-gray-800 bg-opacity-95 backdrop-blur-sm shadow-md py-2'
           : 'bg-transparent py-4'
       }`}
     >
@@ -82,6 +83,7 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
             <Link
               href="/join"
               className={`btn ${

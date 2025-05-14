@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 // Helper for scrolling animations
 export function useScrollAnimation(threshold = 0.2) {
   const [isVisible, setIsVisible] = useState(false);
