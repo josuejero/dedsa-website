@@ -1,21 +1,12 @@
 import componentContent from '@/content/components';
 import pageContent from '@/content/pages';
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import { ContentItem } from '@/types/content';
-=======
 import { CommonContent, ContentItem } from '@/types/content';
 import commonContent from '/content/common';
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 73395ad (update)
-=======
->>>>>>> parent of 73395ad (update)
-=======
->>>>>>> parent of 73395ad (update)
-=======
+
+
 import { CommonContent, ContentItem } from '@/types/content';
->>>>>>> parent of db8fd55 (update)
 
 // Utility to get content by component name and key
 export function getComponentContent<T = ContentItem>(
@@ -79,27 +70,18 @@ export function getCommonContent<T = ContentItem>(
     return {} as T;
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   if (key && typeof content === 'object' && key in content) {
-=======
   if (key && key in content) {
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 73395ad (update)
-=======
->>>>>>> parent of 73395ad (update)
-=======
->>>>>>> parent of 73395ad (update)
+
+
     return content[key] as unknown as T;
-=======
   if (
     key &&
     typeof content === 'object' &&
     key in (content as Record<string, unknown>)
   ) {
     return (content as Record<string, unknown>)[key] as unknown as T;
->>>>>>> parent of db8fd55 (update)
   }
 
   return content as unknown as T;

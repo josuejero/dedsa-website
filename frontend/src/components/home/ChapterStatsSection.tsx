@@ -137,7 +137,7 @@ function CountUp({
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    let start = 0;
+    const start = 0;
     const increment = end / 50;
     const startTime = Date.now();
     const updateDuration = duration * 1000;
