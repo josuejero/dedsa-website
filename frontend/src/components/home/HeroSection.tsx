@@ -16,16 +16,6 @@ export default function HeroSection() {
     setIsClient(true);
   }, []);
 
-  // Get user's city based on geolocation if available
-  const [city, setCity] = useState('Delaware');
-
-  useEffect(() => {
-    // Simulate geolocation with New Castle as default
-    setTimeout(() => {
-      setCity('New Castle');
-    }, 1000);
-  }, []);
-
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -46,6 +36,8 @@ export default function HeroSection() {
       transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
+
+  // Default content object to handle undefined content
 
   return (
     <section className="relative min-h-screen flex items-center py-20 md:py-28 overflow-hidden">
@@ -118,17 +110,8 @@ export default function HeroSection() {
               className="text-4xl md:text-7xl font-bold mb-6 tracking-tight text-on-accent relative inline-block"
               variants={itemVariants}
             >
-              <span className="relative z-10">
-                {content.heading || 'BUILDING DEMOCRATIC POWER'}
-              </span>
-              <span className="relative z-10">{content.heading}</span>
-              <span className="relative z-10">{content.heading}</span>
-              <span className="relative z-10">{content.heading}</span>
-
               <span className="relative z-10">BUILDING DEMOCRATIC POWER</span>
-              <span className="relative z-10">
-                {content?.heading || 'BUILDING DEMOCRATIC POWER'}
-              </span>
+
               <motion.span
                 className="absolute -bottom-2 left-0 h-4 bg-dsa-red z-0"
                 initial={{ width: 0 }}
@@ -139,12 +122,7 @@ export default function HeroSection() {
 
             <motion.div variants={itemVariants}>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-on-accent">
-                {content.subheading || 'Delaware DSA'}
-                {content.subheading}
-                {content.subheading}
-                {content.subheading}
                 Delaware DSA
-                {content?.subheading || 'Delaware DSA'}
               </h2>
             </motion.div>
 
@@ -152,36 +130,20 @@ export default function HeroSection() {
               className="text-xl mb-2 text-on-accent opacity-90"
               variants={itemVariants}
             >
-              {content.tagline ||
-                'Organizing for a democratic socialist Delaware since 2021'}
-              {content.tagline}
-              {content.tagline}
-              {content.tagline}
               Organizing for a democratic socialist Delaware since 2021
-              {content?.tagline ||
-                'Organizing for a democratic socialist Delaware since 2021'}
             </motion.p>
 
             <motion.p
               className="text-xl mb-8 leading-relaxed text-on-accent"
               variants={itemVariants}
             >
-              {content.description ||
-                "We're building a movement to challenge corporate control of Delaware's economy and politics."}
-              {content.description}
-              {content.description}
-              {content.description}
               We&apos;re building a movement to challenge corporate control of
               <br />
               Delaware&apos;s economy and politics. Together, we&apos;re
               fighting for
               <br />
-              We're building a movement to challenge corporate control of
-              Delaware's economy and politics. Together, we're fighting for
               housing justice, international solidarity, immigrant rights, and a
               Delaware that puts people before profits.
-              {content?.description ||
-                "We're building a movement to challenge corporate control of Delaware's economy and politics."}
             </motion.p>
 
             <motion.div
@@ -190,12 +152,7 @@ export default function HeroSection() {
             >
               <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
                 <Link href="/join" className="block">
-                  {content.cta?.join || 'JOIN OUR CHAPTER'}
-                  {content.cta.join}
-                  {content.cta.join}
-                  {content.cta.join}
                   JOIN OUR CHAPTER
-                  {content?.cta?.join || 'JOIN OUR CHAPTER'}
                 </Link>
               </ConfettiButton>
 
@@ -203,12 +160,7 @@ export default function HeroSection() {
                 href="/calendar"
                 className="btn border-2 border-white text-on-accent hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
               >
-                {content.cta?.events || 'ATTEND AN EVENT'}
-                {content.cta.events}
-                {content.cta.events}
-                {content.cta.events}
                 ATTEND AN EVENT
-                {content?.cta?.events || 'ATTEND AN EVENT'}
               </Link>
             </motion.div>
           </motion.div>

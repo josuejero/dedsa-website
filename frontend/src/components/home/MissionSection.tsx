@@ -92,11 +92,11 @@ export default function MissionSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
-                We're committed to a 'New Delaware Way' rooted in equitable
-                wealth, gender and racial justice, and freedom from poverty and
-                exploitation. Our chapter welcomes plural left tendencies,
-                supports independent mass organizations, and stands firmly
-                against imperialism.
+                We&apos;re committed to a &apos;New Delaware Way&apos; rooted in
+                equitable wealth, gender and racial justice, and freedom from
+                poverty and exploitation. Our chapter welcomes plural left
+                tendencies, supports independent mass organizations, and stands
+                firmly against imperialism.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -131,8 +131,7 @@ export default function MissionSection() {
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
                 <div className="w-full h-full">
-                  {/* Replace placeholder with actual image */}
-                  <img
+                  <motion.img
                     src="/images/home/dsa-event-1.jpg"
                     alt="Delaware DSA community event"
                     className="w-full h-full object-cover"
@@ -153,8 +152,7 @@ export default function MissionSection() {
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
                 <div className="w-full h-full">
-                  {/* Replace placeholder with actual image */}
-                  <img
+                  <motion.img
                     src="/images/home/dsa-event-2.jpg"
                     alt="Delaware DSA members organizing"
                     className="w-full h-full object-cover"
@@ -175,8 +173,7 @@ export default function MissionSection() {
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
                 <div className="w-full h-full">
-                  {/* Replace placeholder with actual image */}
-                  <img
+                  <motion.img
                     src="/images/home/dsa-event-3.jpg"
                     alt="Delaware DSA rally"
                     className="w-full h-full object-cover"

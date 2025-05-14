@@ -91,11 +91,11 @@ export default function JoinCTASection() {
           className="text-xl mb-8 max-w-2xl mx-auto text-on-accent"
           variants={itemVariants}
         >
-          The corporate interests controlling Delaware aren't giving up power
+          The corporate interests controlling Delaware aren&apos;t giving up power
           without a fight. We need you to help build a democratic socialist
           alternative that works for all Delawareans, not just the wealthy few.
           Whether you have years of organizing experience or this is your first
-          step into activism, there's a place for you in Delaware DSA.
+          step into activism, there&apos;s a place for you in Delaware DSA.
         </motion.p>
         <motion.div variants={itemVariants}>
           <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
