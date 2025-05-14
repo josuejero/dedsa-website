@@ -1,7 +1,7 @@
+import commonContent from '@/content/common';
 import componentContent from '@/content/components';
 import pageContent from '@/content/pages';
 import { CommonContent, ContentItem } from '@/types/content';
-import commonContent from '/content/common';
 
 // Utility to get content by component name and key
 export function getComponentContent<T = ContentItem>(
@@ -65,7 +65,7 @@ export function getCommonContent<T = ContentItem>(
   }
 
   if (key && key in content) {
-    return content[key] as unknown as T;
+    return (content as any)[key] as T;
   }
 
   return content as unknown as T;

@@ -1,17 +1,18 @@
 import commonContent from '@/content/common';
 import componentContent from '@/content/components';
 import pageContent from '@/content/pages';
+import { CommonContent } from '@/types/content';
 
 // Define supported locales
 export type Locale = 'en' | 'es';
 
 // Store content by locale
-const contentByLocale: Record<
+const contentByLocale: Record
   Locale,
   {
     components: typeof componentContent;
     pages: typeof pageContent;
-    common: typeof commonContent;
+    common: CommonContent;
   }
 > = {
   en: {
@@ -22,7 +23,7 @@ const contentByLocale: Record<
   es: {
     components: {}, // Spanish content would go here
     pages: {},
-    common: {},
+    common: commonContent, // Using English content as fallback
   },
 };
 
@@ -61,46 +62,50 @@ export function t(path: string, locale: Locale = currentLocale): string {
 
   try {
     const [section, ...keyParts] = parts;
-    const key = keyParts.join('.');
+    const keyPath = keyParts.join('.');
 
-    let content;
     if (section === 'components') {
       const [componentName, ...componentParts] = keyParts;
-      const componentKey = componentParts.join('.');
-      content = contentByLocale[locale]?.components[componentName];
+      const componentKeyPath = componentParts.join('.');
+      const componentContent = contentByLocale[locale]?.components[componentName as keyof typeof componentContent];
 
       // Navigate through nested keys
-      if (componentKey && content) {
-        let result = content;
-        for (const k of componentKey.split('.')) {
-          if (result[k] === undefined) return path;
-          result = result[k] as any;
+      if (componentKeyPath && componentContent) {
+        let result: Record<string, unknown> = componentContent;
+        for (const k of componentKeyPath.split('.')) {
+          if (typeof result !== 'object' || result === null || !(k in result)) return path;
+          result = result[k] as Record<string, unknown>;
         }
         return String(result);
       }
     } else if (section === 'pages') {
       const [pageName, ...pageParts] = keyParts;
-      const pageKey = pageParts.join('.');
-      content = contentByLocale[locale]?.pages[pageName]?.content;
+      const pageKeyPath = pageParts.join('.');
+      const pageContent = contentByLocale[locale]?.pages[pageName as keyof typeof pageContent]?.content;
 
       // Navigate through nested keys
-      if (pageKey && content) {
-        let result = content;
-        for (const k of pageKey.split('.')) {
-          if (result[k] === undefined) return path;
-          result = result[k] as any;
+      if (pageKeyPath && pageContent) {
+        let result: Record<string, unknown> = pageContent;
+        for (const k of pageKeyPath.split('.')) {
+          if (typeof result !== 'object' || result === null || !(k in result)) return path;
+          result = result[k] as Record<string, unknown>;
         }
         return String(result);
       }
     } else if (section === 'common') {
-      content = contentByLocale[locale]?.common[keyParts[0]] as any;
+      const firstKey = keyParts[0] as keyof CommonContent;
+      if (!firstKey || !(firstKey in (contentByLocale[locale]?.common || {}))) {
+        return path;
+      }
+      
+      let content = contentByLocale[locale]?.common[firstKey] as Record<string, unknown>;
 
       // Navigate through nested keys
       if (content && keyParts.length > 1) {
         let result = content;
         for (const k of keyParts.slice(1).join('.').split('.')) {
-          if (result[k] === undefined) return path;
-          result = result[k] as any;
+          if (typeof result !== 'object' || result === null || !(k in result)) return path;
+          result = result[k] as Record<string, unknown>;
         }
         return String(result);
       }
