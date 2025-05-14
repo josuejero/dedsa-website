@@ -1,6 +1,5 @@
 'use client';
 
-import { useComponentContent } from '@/utils/content';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -9,7 +8,6 @@ import Blob from '../ui/Blob';
 import ConfettiButton from '../ui/Confetti';
 
 export default function HeroSection() {
-  const content = useComponentContent('heroSection');
   const [isClient, setIsClient] = useState(false);
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
@@ -110,6 +108,7 @@ export default function HeroSection() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
               <span className="relative z-10">
                 {content.heading || 'BUILDING DEMOCRATIC POWER'}
               </span>
@@ -122,6 +121,9 @@ export default function HeroSection() {
 =======
               <span className="relative z-10">{content.heading}</span>
 >>>>>>> parent of 73395ad (update)
+=======
+              <span className="relative z-10">BUILDING DEMOCRATIC POWER</span>
+>>>>>>> parent of 88205ce (update)
               <motion.span
                 className="absolute -bottom-2 left-0 h-4 bg-dsa-red z-0"
                 initial={{ width: 0 }}
@@ -135,6 +137,7 @@ export default function HeroSection() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 {content.subheading || 'Delaware DSA'}
 =======
                 {content.subheading}
@@ -145,6 +148,9 @@ export default function HeroSection() {
 =======
                 {content.subheading}
 >>>>>>> parent of 73395ad (update)
+=======
+                Delaware DSA
+>>>>>>> parent of 88205ce (update)
               </h2>
             </motion.div>
 
@@ -152,6 +158,7 @@ export default function HeroSection() {
               className="text-xl mb-2 text-on-accent opacity-90"
               variants={itemVariants}
             >
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -166,12 +173,16 @@ export default function HeroSection() {
 =======
               {content.tagline}
 >>>>>>> parent of 73395ad (update)
+=======
+              Organizing for a democratic socialist Delaware since 2021
+>>>>>>> parent of 88205ce (update)
             </motion.p>
 
             <motion.p
               className="text-xl mb-8 leading-relaxed text-on-accent"
               variants={itemVariants}
             >
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -186,6 +197,16 @@ export default function HeroSection() {
 =======
               {content.description}
 >>>>>>> parent of 73395ad (update)
+=======
+              We&apos;re building a movement to challenge corporate control of
+              <br />
+              Delaware&apos;s economy and politics. Together, we&apos;re
+              fighting for
+              <br />
+              housing justice, international solidarity, immigrant rights, and a
+              <br />
+              Delaware that puts people before profits.
+>>>>>>> parent of 88205ce (update)
             </motion.p>
 
             <motion.div
@@ -194,6 +215,7 @@ export default function HeroSection() {
             >
               <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
                 <Link href="/join" className="block">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -207,6 +229,9 @@ export default function HeroSection() {
 =======
                   {content.cta.join}
 >>>>>>> parent of 73395ad (update)
+=======
+                  JOIN OUR CHAPTER
+>>>>>>> parent of 88205ce (update)
                 </Link>
               </ConfettiButton>
 
@@ -214,6 +239,7 @@ export default function HeroSection() {
                 href="/calendar"
                 className="btn border-2 border-white text-on-accent hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
               >
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -227,6 +253,9 @@ export default function HeroSection() {
 =======
                 {content.cta.events}
 >>>>>>> parent of 73395ad (update)
+=======
+                ATTEND AN EVENT
+>>>>>>> parent of 88205ce (update)
               </Link>
             </motion.div>
           </motion.div>

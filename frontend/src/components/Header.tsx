@@ -1,18 +1,11 @@
 'use client';
 
-import { useCommonContent, useComponentContent } from '@/utils/content';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function Header() {
-  const content = useComponentContent('header');
-  const navItems = useCommonContent('navigation', 'items') as Array<{
-    name: string;
-    href: string;
-  }>;
-
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -26,6 +19,17 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navItems = [
+    { name: 'Newsletter', href: '/newsletter' },
+    { name: 'What We Stand For', href: '/what-we-stand-for' },
+    { name: 'Calendar', href: '/calendar' },
+    { name: 'Leadership & Structure', href: '/leadership' },
+    { name: 'Committees & Working Groups', href: '/committees' },
+    { name: 'Bylaws', href: '/bylaws' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'UD YDSA', href: '/ud-ydsa' },
+  ];
 
   const isHomePage = pathname === '/';
 
@@ -45,7 +49,7 @@ export default function Header() {
             >
               <Image
                 src="/de-dsa-logo.png"
-                alt={content.logo.alt}
+                alt="Delaware DSA Logo"
                 width={40}
                 height={40}
                 className="rounded-full"
@@ -60,7 +64,7 @@ export default function Header() {
                     : 'text-heading'
               }`}
             >
-              {content.logo.text}
+              Delaware DSA
             </span>
           </Link>
 
@@ -94,7 +98,7 @@ export default function Header() {
                       : 'btn-primary'
                 }`}
               >
-                {content.joinCTA}
+                Join Our Chapter
               </Link>
             </div>
           </div>
@@ -102,11 +106,7 @@ export default function Header() {
           <button
             className="md:hidden text-gray-500"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={
-              isMenuOpen
-                ? content.mobileMenu.closeAriaLabel
-                : content.mobileMenu.openAriaLabel
-            }
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +160,7 @@ export default function Header() {
                   className="block px-2 py-1 mt-2 text-on-accent bg-dsa-red hover:bg-red-700 rounded"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {content.joinCTA}
+                  Join Our Chapter
                 </Link>
               </li>
             </ul>
