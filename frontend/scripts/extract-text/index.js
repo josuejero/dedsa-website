@@ -6,12 +6,12 @@ const generate = require('@babel/generator').default;
 
 // Directories to scan for TSX files
 const DIRS_TO_SCAN = [
-  path.join(__dirname, '../../frontend/src/components'),
-  path.join(__dirname, '../../frontend/src/app'),
+  path.join(__dirname, '../../src/components'),
+  path.join(__dirname, '../../src/app'),
 ];
 
 // Output directory for content files
-const CONTENT_DIR = path.join(__dirname, '../../frontend/src/content');
+const CONTENT_DIR = path.join(__dirname, '../../src/content');
 
 // Function to extract text from a component file
 async function extractTextFromComponent(filePath) {

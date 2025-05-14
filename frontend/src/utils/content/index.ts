@@ -1,7 +1,7 @@
 import commonContent from '@/content/common';
 import componentContent from '@/content/components';
 import pageContent from '@/content/pages';
-import { CommonContent, ContentItem } from '@/types/content';
+import { ContentItem } from '@/types/content';
 
 // Utility to get content by component name and key
 export function getComponentContent<T = ContentItem>(
@@ -13,16 +13,15 @@ export function getComponentContent<T = ContentItem>(
   }
 
   // Get component content object
-  const content =
-    componentContent[componentName as keyof typeof componentContent];
+  const content = componentContent[componentName];
   if (!content) {
     console.warn(`No content found for component: ${componentName}`);
     return {} as T;
   }
 
   // Return specific key or entire component content
-  if (key && typeof content === 'object' && key in content) {
-    return content[key as keyof typeof content] as unknown as T;
+  if (key && key in content) {
+    return content[key] as unknown as T;
   }
 
   return content as unknown as T;
@@ -37,14 +36,14 @@ export function getPageContent<T = ContentItem>(
     throw new Error('Page name is required');
   }
 
-  const content = pageContent[pageName as keyof typeof pageContent];
+  const content = pageContent[pageName];
   if (!content) {
     console.warn(`No content found for page: ${pageName}`);
     return {} as T;
   }
 
-  if (key && typeof content.content === 'object' && key in content.content) {
-    return content.content[key as keyof typeof content.content] as unknown as T;
+  if (key && key in content.content) {
+    return content.content[key] as unknown as T;
   }
 
   return content.content as unknown as T;
@@ -52,7 +51,7 @@ export function getPageContent<T = ContentItem>(
 
 // Utility to get common content
 export function getCommonContent<T = ContentItem>(
-  section: keyof CommonContent,
+  section: keyof typeof commonContent,
   key?: string
 ): T {
   if (!section) {
@@ -65,12 +64,8 @@ export function getCommonContent<T = ContentItem>(
     return {} as T;
   }
 
-  if (
-    key &&
-    typeof content === 'object' &&
-    key in (content as Record<string, unknown>)
-  ) {
-    return (content as Record<string, unknown>)[key] as unknown as T;
+  if (key && typeof content === 'object' && key in content) {
+    return content[key] as unknown as T;
   }
 
   return content as unknown as T;
@@ -85,7 +80,7 @@ export function getPageMeta(pageName: string): {
     throw new Error('Page name is required');
   }
 
-  const content = pageContent[pageName as keyof typeof pageContent];
+  const content = pageContent[pageName];
   if (!content || !content.meta) {
     return {};
   }
@@ -111,7 +106,7 @@ export function usePageContent<T = ContentItem>(
 
 // Create React hook for common content
 export function useCommonContent<T = ContentItem>(
-  section: keyof CommonContent,
+  section: keyof typeof commonContent,
   key?: string
 ): T {
   return getCommonContent<T>(section, key);

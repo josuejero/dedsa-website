@@ -1,21 +1,16 @@
 import { ComponentContent } from '@/types/content';
-import footer from './footer';
-import getInvolvedSection from './getInvolvedSection';
-import header from './header';
-import heroSection from './heroSection';
-import joinCTASection from './joinCTASection';
-import latestUpdatesSection from './latestUpdatesSection';
-import strategicPrioritiesSection from './strategicPrioritiesSection';
 
-const componentContent: ComponentContent = {
-  heroSection,
-  strategicPrioritiesSection,
-  joinCTASection,
-  latestUpdatesSection,
-  getInvolvedSection,
-  header,
-  footer,
-  // Add more component content as needed
-};
+// Import all component content files
+// Replace these with your actual component filenames
+const components = require.context('./', false, /\.ts$/);
+const componentFiles = components.keys().filter((key) => key !== './index.ts');
+
+const componentContent: ComponentContent = {};
+
+// Dynamically load all component files
+componentFiles.forEach((key) => {
+  const componentName = key.replace(/\.\/(.*)\.ts$/, '$1');
+  componentContent[componentName] = components(key).default;
+});
 
 export default componentContent;
