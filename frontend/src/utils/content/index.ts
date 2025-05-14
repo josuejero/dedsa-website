@@ -5,6 +5,9 @@ import { ContentItem } from '@/types/content';
 =======
 import { CommonContent, ContentItem } from '@/types/content';
 import commonContent from '/content/common';
+<<<<<<< HEAD
+>>>>>>> parent of 73395ad (update)
+=======
 >>>>>>> parent of 73395ad (update)
 
 // Utility to get content by component name and key
@@ -72,6 +75,9 @@ export function getCommonContent<T = ContentItem>(
   if (key && typeof content === 'object' && key in content) {
 =======
   if (key && key in content) {
+<<<<<<< HEAD
+>>>>>>> parent of 73395ad (update)
+=======
 >>>>>>> parent of 73395ad (update)
     return content[key] as unknown as T;
   }
