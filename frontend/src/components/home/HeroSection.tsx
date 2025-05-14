@@ -107,9 +107,13 @@ export default function HeroSection() {
               className="text-4xl md:text-7xl font-bold mb-6 tracking-tight text-on-accent relative inline-block"
               variants={itemVariants}
             >
+<<<<<<< HEAD
               <span className="relative z-10">
                 {content.heading || 'BUILDING DEMOCRATIC POWER'}
               </span>
+=======
+              <span className="relative z-10">{content.heading}</span>
+>>>>>>> parent of 73395ad (update)
               <motion.span
                 className="absolute -bottom-2 left-0 h-4 bg-dsa-red z-0"
                 initial={{ width: 0 }}
@@ -120,7 +124,11 @@ export default function HeroSection() {
 
             <motion.div variants={itemVariants}>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-on-accent">
+<<<<<<< HEAD
                 {content.subheading || 'Delaware DSA'}
+=======
+                {content.subheading}
+>>>>>>> parent of 73395ad (update)
               </h2>
             </motion.div>
 
@@ -128,16 +136,24 @@ export default function HeroSection() {
               className="text-xl mb-2 text-on-accent opacity-90"
               variants={itemVariants}
             >
+<<<<<<< HEAD
               {content.tagline ||
                 'Organizing for a democratic socialist Delaware since 2021'}
+=======
+              {content.tagline}
+>>>>>>> parent of 73395ad (update)
             </motion.p>
 
             <motion.p
               className="text-xl mb-8 leading-relaxed text-on-accent"
               variants={itemVariants}
             >
+<<<<<<< HEAD
               {content.description ||
                 "We're building a movement to challenge corporate control of Delaware's economy and politics."}
+=======
+              {content.description}
+>>>>>>> parent of 73395ad (update)
             </motion.p>
 
             <motion.div
@@ -146,7 +162,11 @@ export default function HeroSection() {
             >
               <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
                 <Link href="/join" className="block">
+<<<<<<< HEAD
                   {content.cta?.join || 'JOIN OUR CHAPTER'}
+=======
+                  {content.cta.join}
+>>>>>>> parent of 73395ad (update)
                 </Link>
               </ConfettiButton>
 
@@ -154,7 +174,11 @@ export default function HeroSection() {
                 href="/calendar"
                 className="btn border-2 border-white text-on-accent hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
               >
+<<<<<<< HEAD
                 {content.cta?.events || 'ATTEND AN EVENT'}
+=======
+                {content.cta.events}
+>>>>>>> parent of 73395ad (update)
               </Link>
             </motion.div>
           </motion.div>

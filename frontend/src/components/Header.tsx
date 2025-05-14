@@ -7,11 +7,11 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function Header() {
-  const content = useComponentContent<HeaderContent>('header');
-  const navItems = useCommonContent<Array<{
+  const content = useComponentContent('header');
+  const navItems = useCommonContent('navigation', 'items') as Array<{
     name: string;
     href: string;
-  }>>('navigation', 'items');
+  }>;
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,7 +45,7 @@ export default function Header() {
             >
               <Image
                 src="/de-dsa-logo.png"
-                alt={content?.logo?.alt || 'Delaware DSA Logo'}
+                alt={content.logo.alt}
                 width={40}
                 height={40}
                 className="rounded-full"
@@ -60,13 +60,13 @@ export default function Header() {
                     : 'text-heading'
               }`}
             >
-              {content?.logo?.text || 'Delaware DSA'}
+              {content.logo.text}
             </span>
           </Link>
 
           <div className="hidden md:flex items-center justify-center flex-grow">
             <nav className="flex items-center">
-              {navItems?.map((item) => (
+              {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
@@ -94,7 +94,7 @@ export default function Header() {
                       : 'btn-primary'
                 }`}
               >
-                {content?.joinCTA || 'Join Our Chapter'}
+                {content.joinCTA}
               </Link>
             </div>
           </div>
@@ -104,8 +104,8 @@ export default function Header() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={
               isMenuOpen
-                ? content?.mobileMenu?.closeAriaLabel || 'Close menu'
-                : content?.mobileMenu?.openAriaLabel || 'Open menu'
+                ? content.mobileMenu.closeAriaLabel
+                : content.mobileMenu.openAriaLabel
             }
           >
             <svg
@@ -143,7 +143,7 @@ export default function Header() {
         {isMenuOpen && (
           <nav className="mt-4 pb-2 md:hidden bg-white rounded-lg shadow-lg">
             <ul className="flex flex-col space-y-2 p-4">
-              {navItems?.map((item) => (
+              {navItems.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -160,7 +160,7 @@ export default function Header() {
                   className="block px-2 py-1 mt-2 text-on-accent bg-dsa-red hover:bg-red-700 rounded"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {content?.joinCTA || 'Join Our Chapter'}
+                  {content.joinCTA}
                 </Link>
               </li>
             </ul>
