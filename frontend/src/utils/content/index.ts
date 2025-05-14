@@ -6,6 +6,9 @@ import { ContentItem } from '@/types/content';
 import { CommonContent, ContentItem } from '@/types/content';
 import commonContent from '/content/common';
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 73395ad (update)
+=======
 >>>>>>> parent of 73395ad (update)
 =======
 >>>>>>> parent of 73395ad (update)
@@ -76,6 +79,9 @@ export function getCommonContent<T = ContentItem>(
 =======
   if (key && key in content) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 73395ad (update)
+=======
 >>>>>>> parent of 73395ad (update)
 =======
 >>>>>>> parent of 73395ad (update)
