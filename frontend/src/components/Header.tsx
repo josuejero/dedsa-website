@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -45,15 +44,11 @@ export default function Header() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <div
-              className={`transition-all ${isScrolled ? 'scale-90' : 'scale-100'}`}
+              className={`w-10 h-10 bg-dsa-red rounded-full flex items-center justify-center transition-all ${
+                isScrolled ? 'scale-90' : 'scale-100'
+              }`}
             >
-              <Image
-                src="/de-dsa-logo.png"
-                alt="Delaware DSA Logo"
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
+              <span className="text-on-accent font-bold">DSA</span>
             </div>
             <span
               className={`text-xl font-bold ${
@@ -68,39 +63,37 @@ export default function Header() {
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center justify-center flex-grow">
-            <nav className="flex items-center">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`font-medium hover:text-dsa-red hover:no-underline transition-colors px-3 py-2 mx-1 text-center ${
-                    isScrolled
-                      ? 'text-nav'
-                      : isHomePage
-                        ? 'text-on-accent'
-                        : 'text-nav'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="ml-6">
+          <nav className="hidden md:flex space-x-6">
+            {navItems.map((item) => (
               <Link
-                href="/join"
-                className={`btn text-center ${
+                key={item.name}
+                href={item.href}
+                className={`font-medium hover:text-dsa-red hover:no-underline transition-colors ${
                   isScrolled
-                    ? 'btn-primary'
+                    ? 'text-nav'
                     : isHomePage
-                      ? 'bg-white text-dsa-red hover:bg-gray-100'
-                      : 'btn-primary'
+                      ? 'text-on-accent'
+                      : 'text-nav'
                 }`}
               >
-                Join Our Chapter
+                {item.name}
               </Link>
-            </div>
+            ))}
+          </nav>
+
+          <div className="hidden md:flex items-center space-x-4">
+            <Link
+              href="/join"
+              className={`btn ${
+                isScrolled
+                  ? 'btn-primary'
+                  : isHomePage
+                    ? 'bg-white text-dsa-red hover:bg-gray-100'
+                    : 'btn-primary'
+              }`}
+            >
+              Join Our Chapter
+            </Link>
           </div>
 
           <button
