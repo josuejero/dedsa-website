@@ -1,22 +1,25 @@
 'use client';
 
-import eventCalendarContent from '../../content/calendar/eventCalendar.json';
-import { EventCalendarContent } from '../../types/content/calendar';
+import GenericCard from '../../components/shared/GenericCard';
 import { EventListProps } from './types';
-
-// Type assertion for imported JSON
-const typedContent = eventCalendarContent as EventCalendarContent;
 
 export default function EventList({ eventsByDate }: EventListProps) {
   const sortedDates = Object.keys(eventsByDate).sort();
+
+  // Event calendar content
+  const content = {
+    noEventsMessage: 'No events scheduled for this month.',
+    checkBackMessage: 'Please check back later or select a different month.',
+  };
 
   return (
     <div className="space-y-8">
       {sortedDates.length > 0 ? (
         sortedDates.map((dateKey) => (
-          <div
+          <GenericCard
             key={dateKey}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
+            hasShadow={true}
+            className="overflow-hidden p-0"
           >
             {/* Date header */}
             <div className="bg-dsa-red text-white p-4">
@@ -118,15 +121,13 @@ export default function EventList({ eventsByDate }: EventListProps) {
                 </div>
               ))}
             </div>
-          </div>
+          </GenericCard>
         ))
       ) : (
-        <div className="bg-white p-8 rounded-lg text-center">
-          <p className="text-xl text-gray-600">
-            {typedContent.noEventsMessage}
-          </p>
-          <p className="text-gray-500 mt-2">{typedContent.checkBackMessage}</p>
-        </div>
+        <GenericCard className="text-center p-8">
+          <p className="text-xl text-gray-600">{content.noEventsMessage}</p>
+          <p className="text-gray-500 mt-2">{content.checkBackMessage}</p>
+        </GenericCard>
       )}
     </div>
   );

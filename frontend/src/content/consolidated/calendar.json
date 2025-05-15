@@ -1,0 +1,20 @@
+{
+  "page": {
+    "title": "Events Calendar",
+    "subtitle": "Join us for meetings, actions, educational events, and social gatherings.",
+    "errorTitle": "Unable to Load Calendar",
+    "errorMessage": "We're experiencing technical difficulties loading events. Please try again later.",
+    "errorActionLabel": "Return to Home",
+    "subscribeTitle": "Subscribe to Our Calendar",
+    "subscribeText": "Stay up-to-date with all Delaware DSA events by subscribing to our calendar.",
+    "googleCalendarButtonText": "Google Calendar",
+    "iCalOutlookButtonText": "iCal / Outlook"
+  },
+  "eventCalendar": {
+    "noEventsMessage": "No events scheduled for this month.",
+    "checkBackMessage": "Please check back later or select a different month."
+  },
+  "monthSelector": {
+    "label": "Select Month"
+  }
+}
