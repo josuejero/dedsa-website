@@ -1,23 +1,58 @@
-import democraticSocialismContent from '../../content/about/democraticSocialism.json';
-import { DemocraticSocialismContent } from '../../types/content/about';
+'use client';
 
-// Type assertion for imported JSON
-const typedContent = democraticSocialismContent as DemocraticSocialismContent;
+import { useEffect, useState } from 'react';
+import GenericCard from '../../components/shared/GenericCard';
+import GenericSection from '../../components/shared/GenericSection';
+
+// Using consolidated content
+interface Principle {
+  title: string;
+  description: string;
+}
+
+interface DemocraticSocialismContent {
+  title: string;
+  principles: Principle[];
+}
 
 export default function DemocraticSocialism() {
+  const [content, setContent] = useState<DemocraticSocialismContent | null>(
+    null
+  );
+
+  useEffect(() => {
+    // Load from consolidated content
+    const loadData = async () => {
+      try {
+        const data = await import('../../content/consolidated/about.json');
+        setContent(data.democraticSocialism as DemocraticSocialismContent);
+      } catch (err) {
+        console.error('Failed to load democratic socialism content:', err);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  if (!content) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <section className="bg-white p-8 rounded-lg shadow-md mb-8">
-      <h2 className="text-3xl font-bold mb-6">{typedContent.title}</h2>
+    <GenericSection heading={content.title} background="white" className="mb-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {typedContent.principles.map((principle, index) => (
-          <div key={index} className="bg-gray-50 p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-2 text-dsa-red">
-              {principle.title}
-            </h3>
+        {content.principles.map((principle, index) => (
+          <GenericCard
+            key={index}
+            title={principle.title}
+            hasShadow={true}
+            isHoverable={true}
+            hasBorder={true}
+          >
             <p className="text-gray-700">{principle.description}</p>
-          </div>
+          </GenericCard>
         ))}
       </div>
-    </section>
+    </GenericSection>
   );
 }

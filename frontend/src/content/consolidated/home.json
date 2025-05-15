@@ -1,0 +1,162 @@
+{
+  "chapterStatsSection": {
+    "heading": "Our Chapter at a Glance",
+    "stats": [
+      {
+        "key": "members",
+        "value": 220,
+        "label": "Chapter Members",
+        "prefix": "",
+        "color": "#ec1f27"
+      },
+      {
+        "key": "groups",
+        "value": 11,
+        "label": "Working Groups & Committees",
+        "prefix": "+",
+        "color": "#ef4444"
+      },
+      {
+        "key": "counties",
+        "value": 3,
+        "label": "Counties Organized",
+        "prefix": "",
+        "color": "#f87171"
+      },
+      {
+        "key": "active",
+        "value": 9,
+        "label": "Active Membership Rate",
+        "prefix": "%",
+        "color": "#fca5a5"
+      }
+    ]
+  },
+  "committeesCard": {
+    "heading": "Committees & Working Groups",
+    "buttonText": "FIND YOUR COMMITTEE",
+    "buttonHref": "/committees",
+    "committees": [
+      {
+        "title": "Housing Justice Working Group",
+        "description": "Fight for tenant rights and affordable housing across Delaware.",
+        "icon": "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+      },
+      {
+        "title": "International Solidarity Working Group",
+        "description": "Organize for global justice and anti-imperialism.",
+        "icon": "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      },
+      {
+        "title": "Mutual Aid Working Group",
+        "description": "Build community care and support networks.",
+        "icon": "M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
+      },
+      {
+        "title": "Communications Committee",
+        "description": "Help amplify our message and campaigns.",
+        "icon": "M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      }
+    ]
+  },
+  "getInvolvedSection": {
+    "heading": "GET INVOLVED",
+    "subheading": "Join us in building socialist power across Delaware"
+  },
+  "heroSection": {
+    "mainHeading": "BUILDING DEMOCRATIC POWER",
+    "subHeading": "Delaware DSA",
+    "tagline": "Organizing for a democratic socialist Delaware since 2021",
+    "description": "We're building a movement to challenge corporate control of Delaware's economy and politics. Together, we're fighting for housing justice, international solidarity, immigrant rights, and a Delaware that puts people before profits.",
+    "buttons": {
+      "primary": {
+        "text": "JOIN OUR CHAPTER",
+        "href": "/join"
+      },
+      "secondary": {
+        "text": "ATTEND AN EVENT",
+        "href": "/calendar"
+      }
+    }
+  },
+  "joinCTASection": {
+    "heading": "JOIN THE MOVEMENT",
+    "description": "The corporate interests controlling Delaware aren't giving up power without a fight. We need you to help build a democratic socialist alternative that works for all Delawareans, not just the wealthy few. Whether you have years of organizing experience or this is your first step into activism, there's a place for you in Delaware DSA.",
+    "buttonText": "JOIN DELAWARE DSA TODAY",
+    "buttonHref": "/join"
+  },
+  "latestUpdatesSection": {
+    "heading": "LATEST FROM THE DELAWARE ROSE GARDEN",
+    "subtitle": "News and updates from our chapter",
+    "buttonText": "READ ALL UPDATES",
+    "buttonHref": "/newsletter"
+  },
+  "missionSection": {
+    "heading": "Our Mission",
+    "paragraphs": [
+      "Delaware DSA is building a democratic-socialist movement where production and resources are controlled by the people, not private profit. We reject the capitalist economic order, systemic oppression, and violence that characterizes our society.",
+      "We're committed to a 'New Delaware Way' rooted in equitable wealth, gender and racial justice, and freedom from poverty and exploitation. Our chapter welcomes plural left tendencies, supports independent mass organizations, and stands firmly against imperialism."
+    ],
+    "button": {
+      "text": "What We Stand For",
+      "href": "/what-we-stand-for"
+    }
+  },
+  "strategicPrioritiesSection": {
+    "heading": "Chapter Priorities for 2025",
+    "subtitle": "At our 2025 Convention, our members democratically adopted these four priorities to guide our organizing work in Delaware:",
+    "linkText": "Learn more about our priorities",
+    "linkHref": "/what-we-stand-for",
+    "priorities": [
+      {
+        "title": "Defending Communities from ICE",
+        "description": "Working alongside migrants' rights organizations to protect communities from ICE authoritarianism and create sanctuary policies throughout the state.",
+        "iconPath": "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+      },
+      {
+        "title": "Delaware Against Apartheid",
+        "description": "Building coalitions to decrease economic support for the state of Israel through targeted campaigns like 'No Appetite 4 Apartheid' and establishing apartheid-free zones.",
+        "iconPath": "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      },
+      {
+        "title": "Housing Justice & Rent Stabilization",
+        "description": "Fighting for tenant protections, promoting affordable housing policies, and organizing renters through our H.O.M.E.S. Campaign.",
+        "iconPath": "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+      },
+      {
+        "title": "Making Delaware a Trans Refuge State",
+        "description": "Working to transform Delaware from a state that 'doesn't persecute' to one that actively supports and protects transgender people through model legislation.",
+        "iconPath": "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+      }
+    ]
+  },
+  "upcomingEventsCard": {
+    "heading": "Upcoming Events",
+    "buttonText": "VIEW ALL EVENTS",
+    "buttonHref": "/calendar",
+    "events": [
+      {
+        "title": "Newark Community Rent Meeting",
+        "date": "May 23, 2025 • 6:00–8:00 PM",
+        "location": "St. Thomas Episcopal Parish"
+      },
+      {
+        "title": "Solidarity Fair",
+        "date": "June 22, 2025 • 4:00–7:00 PM",
+        "location": "Ellendale Fire Hall"
+      },
+      {
+        "title": "New Member Orientation",
+        "date": "June 8, 2025 • 2:00–3:30 PM",
+        "location": "Route 9 Library & Virtual",
+        "isVirtual": true
+      },
+      {
+        "title": "Housing Justice Working Group",
+        "date": "May 19, 2025 • 7:00–8:30 PM",
+        "location": "Virtual",
+        "isVirtual": true
+      }
+    ]
+  }
+}

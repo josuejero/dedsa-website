@@ -1,3 +1,4 @@
+import GenericSection from '../../components/shared/GenericSection';
 import aboutHeroContent from '../../content/about/aboutHero.json';
 import { AboutHeroContent } from '../../types/content/about';
 
@@ -12,9 +13,12 @@ export default function AboutHero({
   missionStatement = typedContent.defaultMissionStatement,
 }: AboutHeroProps) {
   return (
-    <section className="bg-dsa-red text-white p-8 rounded-lg shadow-md mb-8">
-      <h2 className="text-3xl font-bold mb-4">{typedContent.title}</h2>
+    <GenericSection
+      heading={typedContent.title}
+      background="primary"
+      className="mb-8"
+    >
       <p className="text-xl leading-relaxed">{missionStatement}</p>
-    </section>
+    </GenericSection>
   );
 }

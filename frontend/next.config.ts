@@ -1,7 +1,9 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import type { NextConfig } from 'next';
 
-const analyzeBuild = process.env.ANALYZE === 'true';
+const withAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -89,4 +91,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withBundleAnalyzer({ enabled: analyzeBuild })(nextConfig);
+export default withAnalyzer(nextConfig);
