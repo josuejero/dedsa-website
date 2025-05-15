@@ -3,6 +3,11 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { useRef } from 'react';
+import missionContent from '../../content/home/missionSection.json';
+import { MissionSectionContent } from '../../types/content/home';
+
+// Type assertion for the imported JSON
+const typedMissionContent = missionContent as MissionSectionContent;
 
 export default function MissionSection() {
   const sectionRef = useRef(null);
@@ -60,7 +65,7 @@ export default function MissionSection() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8 }}
                 >
-                  <span>Our Mission</span>
+                  <span>{typedMissionContent.heading}</span>
                   <motion.span
                     className="absolute bottom-0 left-0 w-full h-1 bg-dsa-red rounded"
                     initial={{ width: 0 }}
@@ -71,33 +76,19 @@ export default function MissionSection() {
                 </motion.div>
               </motion.h2>
 
-              <motion.p
-                className="text-lg mb-6 leading-relaxed text-primary"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                Delaware DSA is building a democratic-socialist movement where
-                production and resources are controlled by the people, not
-                private profit. We reject the capitalist economic order,
-                systemic oppression, and violence that characterizes our
-                society.
-              </motion.p>
+              {typedMissionContent.paragraphs.map((paragraph, index) => (
+                <motion.p
+                  key={index}
+                  className="text-lg mb-6 leading-relaxed text-primary"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                >
+                  {paragraph}
+                </motion.p>
+              ))}
 
-              <motion.p
-                className="text-lg mb-8 leading-relaxed text-primary"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                We&apos;re committed to a &apos;New Delaware Way&apos; rooted in
-                equitable wealth, gender and racial justice, and freedom from
-                poverty and exploitation. Our chapter welcomes plural left
-                tendencies, supports independent mass organizations, and stands
-                firmly against imperialism.
-              </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -105,10 +96,10 @@ export default function MissionSection() {
                 transition={{ duration: 0.5, delay: 0.5 }}
               >
                 <Link
-                  href="/what-we-stand-for"
+                  href={typedMissionContent.button.href}
                   className="btn btn-primary shadow-md hover:shadow-lg transition-all duration-300 hover-scale"
                 >
-                  What We Stand For
+                  {typedMissionContent.button.text}
                 </Link>
               </motion.div>
             </motion.div>

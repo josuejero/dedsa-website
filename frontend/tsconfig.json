@@ -27,7 +27,15 @@
     "baseUrl": ".",
     "types": ["node"]
   },
-  "include": ["*.config.ts", "*.ts", "src/**/*", ".next/types/**/*.ts", "src", "setupTests.ts"],
+  "include": [
+    "*.config.ts",
+    "*.ts",
+    "src/**/*",
+    ".next/types/**/*.ts",
+    "src",
+    "setupTests.ts",
+    "src/**/*.json"
+  ],
   "references": [],
   "exclude": ["node_modules"]
 }

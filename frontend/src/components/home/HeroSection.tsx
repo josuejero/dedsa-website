@@ -2,10 +2,14 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import heroContent from '../../content/home/heroSection.json';
+import { HeroSectionContent } from '../../types/content/home';
 import Blob from '../ui/Blob';
 import ConfettiButton from '../ui/Confetti';
+
+const typedHeroContent = heroContent as HeroSectionContent;
 
 export default function HeroSection() {
   const [isClient, setIsClient] = useState(false);
@@ -36,8 +40,6 @@ export default function HeroSection() {
       transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
-
-  // Default content object to handle undefined content
 
   return (
     <section className="relative min-h-screen flex items-center py-20 md:py-28 overflow-hidden">
@@ -110,7 +112,9 @@ export default function HeroSection() {
               className="text-4xl md:text-7xl font-bold mb-6 tracking-tight text-on-accent relative inline-block"
               variants={itemVariants}
             >
-              <span className="relative z-10">BUILDING DEMOCRATIC POWER</span>
+              <span className="relative z-10">
+                {typedHeroContent.mainHeading}
+              </span>
 
               <motion.span
                 className="absolute -bottom-2 left-0 h-4 bg-dsa-red z-0"
@@ -122,7 +126,7 @@ export default function HeroSection() {
 
             <motion.div variants={itemVariants}>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-on-accent">
-                Delaware DSA
+                {typedHeroContent.subHeading}
               </h2>
             </motion.div>
 
@@ -130,20 +134,22 @@ export default function HeroSection() {
               className="text-xl mb-2 text-on-accent opacity-90"
               variants={itemVariants}
             >
-              Organizing for a democratic socialist Delaware since 2021
+              {typedHeroContent.tagline}
             </motion.p>
 
             <motion.p
               className="text-xl mb-8 leading-relaxed text-on-accent"
               variants={itemVariants}
             >
-              We&apos;re building a movement to challenge corporate control of
-              <br />
-              Delaware&apos;s economy and politics. Together, we&apos;re
-              fighting for
-              <br />
-              housing justice, international solidarity, immigrant rights, and a
-              Delaware that puts people before profits.
+              {typedHeroContent.description.split('.').map(
+                (sentence: string, index: React.Key | null | undefined) =>
+                  sentence.trim() && (
+                    <React.Fragment key={index}>
+                      {sentence.trim()}.
+                      <br />
+                    </React.Fragment>
+                  )
+              )}
             </motion.p>
 
             <motion.div
@@ -151,16 +157,19 @@ export default function HeroSection() {
               variants={itemVariants}
             >
               <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
-                <Link href="/join" className="block">
-                  JOIN OUR CHAPTER
+                <Link
+                  href={typedHeroContent.buttons.primary.href}
+                  className="block"
+                >
+                  {typedHeroContent.buttons.primary.text}
                 </Link>
               </ConfettiButton>
 
               <Link
-                href="/calendar"
+                href={typedHeroContent.buttons.secondary.href}
                 className="btn border-2 border-white text-on-accent hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
               >
-                ATTEND AN EVENT
+                {typedHeroContent.buttons.secondary.text}
               </Link>
             </motion.div>
           </motion.div>

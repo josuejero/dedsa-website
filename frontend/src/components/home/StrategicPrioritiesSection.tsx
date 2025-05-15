@@ -2,35 +2,14 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import prioritiesContent from '../../content/home/strategicPrioritiesSection.json';
+import { StrategicPrioritiesSectionContent } from '../../types/content/home';
 import { useTypewriterEffect } from '../../utils/animations';
 import Blob from '../ui/Blob';
 
-const PRIORITIES = [
-  {
-    title: 'Defending Communities from ICE',
-    desc: "Working alongside migrants' rights organizations to protect communities from ICE authoritarianism and create sanctuary policies throughout the state.",
-    iconPath:
-      'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
-  },
-  {
-    title: 'Delaware Against Apartheid',
-    desc: "Building coalitions to decrease economic support for the state of Israel through targeted campaigns like 'No Appetite 4 Apartheid' and establishing apartheid-free zones.",
-    iconPath:
-      'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-  },
-  {
-    title: 'Housing Justice & Rent Stabilization',
-    desc: 'Fighting for tenant protections, promoting affordable housing policies, and organizing renters through our H.O.M.E.S. Campaign.',
-    iconPath:
-      'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
-  },
-  {
-    title: 'Making Delaware a Trans Refuge State',
-    desc: "Working to transform Delaware from a state that 'doesn't persecute' to one that actively supports and protects transgender people through model legislation.",
-    iconPath:
-      'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z',
-  },
-];
+// Type assertion for the imported JSON
+const typedPrioritiesContent =
+  prioritiesContent as StrategicPrioritiesSectionContent;
 
 export default function StrategicPrioritiesSection() {
   const sectionRef = useRef(null);
@@ -48,7 +27,7 @@ export default function StrategicPrioritiesSection() {
 
   // Typewriter effect for the section title
   const { displayText } = useTypewriterEffect(
-    'Chapter Priorities for 2025',
+    typedPrioritiesContent.heading,
     30
   );
 
@@ -94,12 +73,11 @@ export default function StrategicPrioritiesSection() {
           {displayText}
         </motion.h2>
         <p className="text-center mb-12 text-lg text-secondary">
-          At our 2025 Convention, our members democratically adopted these four
-          priorities to guide our organizing work in Delaware:
+          {typedPrioritiesContent.subtitle}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {PRIORITIES.map((p, index) => (
+          {typedPrioritiesContent.priorities.map((p, index) => (
             <motion.div
               key={p.title}
               className="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-500 border-l-4 border-dsa-red overflow-hidden relative"
@@ -146,7 +124,7 @@ export default function StrategicPrioritiesSection() {
               </div>
 
               <p className="pl-12 relative z-10 text-card-body transform translate-y-0 opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                {p.desc}
+                {p.description}
               </p>
             </motion.div>
           ))}
@@ -160,10 +138,10 @@ export default function StrategicPrioritiesSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <a
-            href="/what-we-stand-for"
+            href={typedPrioritiesContent.linkHref}
             className="inline-flex items-center text-link hover:underline font-medium group"
           >
-            <span>Learn more about our priorities</span>
+            <span>{typedPrioritiesContent.linkText}</span>
             <motion.svg
               className="ml-2 w-5 h-5"
               fill="none"
