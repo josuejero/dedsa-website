@@ -3,16 +3,22 @@ import { ApolloError } from '@apollo/client';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ErrorDisplay from '../../../components/errors/ErrorDisplay';
+import newsletterPageContent from '../../../content/newsletter/page.json';
 import { getClient } from '../../../lib/apollo-client';
 import {
   GET_POST_BY_SLUG,
   GET_RELATED_POSTS,
 } from '../../../lib/graphql/queries';
+import { NewsletterPageContent } from '../../../types/content/newsletter';
 import ArticleContent from './components/ArticleContent';
 import ArticleFooter from './components/ArticleFooter';
 import ArticleHeader from './components/ArticleHeader';
 import { generateStaticParams } from './staticParams';
 import { Author, Post, RelatedPost } from './types';
+
+// Type assertion for imported JSON
+const typedContent = newsletterPageContent as NewsletterPageContent;
+
 export const dynamic = 'force-dynamic';
 
 interface PageParams {
@@ -130,18 +136,22 @@ export default async function Page({
       if (error.networkError) {
         return (
           <ErrorDisplay
-            title="Network Error"
-            message="We're having trouble connecting to our servers. Please check your internet connection and try again."
+            title={typedContent.errorTitle}
+            message={typedContent.errorMessage}
             error={error}
+            actionLabel={typedContent.errorActionLabel}
+            actionHref="/"
           />
         );
       } else if (error.graphQLErrors && error.graphQLErrors.length > 0) {
         return (
           <ErrorDisplay
-            title="Data Error"
-            message="There was a problem with the data. Our team has been notified."
+            title={typedContent.errorTitle}
+            message={typedContent.errorMessage}
             error={error.graphQLErrors[0]}
             showDetails={process.env.NODE_ENV === 'development'}
+            actionLabel={typedContent.errorActionLabel}
+            actionHref="/"
           />
         );
       }

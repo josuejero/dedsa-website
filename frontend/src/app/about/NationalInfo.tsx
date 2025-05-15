@@ -1,23 +1,29 @@
+import nationalInfoContent from '../../content/about/nationalInfo.json';
+import { NationalInfoContent } from '../../types/content/about';
+
+// Type assertion for imported JSON
+const typedContent = nationalInfoContent as NationalInfoContent;
+
 export default function NationalInfo() {
   return (
     <section className="bg-white p-8 rounded-lg shadow-md mb-8">
-      <h2 className="text-3xl font-bold mb-6">DSA National</h2>
+      <h2 className="text-3xl font-bold mb-6">{typedContent.title}</h2>
       <div className="prose prose-lg">
-        <p>
-          Delaware DSA is a chapter of the Democratic Socialists of America (DSA), the largest
-          socialist organization in the United States. DSA members are building progressive
-          movements for social change while establishing an openly democratic socialist presence in
-          American communities and politics.
-        </p>
+        <p>{typedContent.description}</p>
         <div className="mt-6">
           <a
-            href="https://www.dsausa.org"
+            href={typedContent.linkHref}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center text-dsa-red hover:underline"
           >
-            Visit DSA National
-            <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {typedContent.linkText}
+            <svg
+              className="ml-2 h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

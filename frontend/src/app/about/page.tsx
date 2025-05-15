@@ -6,12 +6,17 @@ export const dynamic = 'force-dynamic';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
+import pageContent from '../../content/about/page.json';
+import { AboutPageContent } from '../../types/content/about';
 import AboutHero from './AboutHero';
 import Achievements from './Achievements';
 import DemocraticSocialism from './DemocraticSocialism';
 import GetInvolved from './GetInvolved';
 import NationalInfo from './NationalInfo';
 import Timeline from './Timeline';
+
+// Type assertion for imported JSON
+const typedContent = pageContent as AboutPageContent;
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -66,12 +71,7 @@ export default async function AboutPage() {
     const { data } = (await res.json()) as { data: AboutPageData };
     if (!data?.page) return notFound();
 
-    const pageContent =
-      data.page.content ??
-      `
-      <p>Delaware DSA is the Delaware state chapter of the Democratic Socialists of America (DSA), the largest socialist organization in the United States.</p>
-      <p>Our chapter brings together democratic socialists of all backgrounds to organize and fight for a political and economic system that puts people before profits. We believe that both the economy and society should be run democratically to meet human needs.</p>
-    `;
+    const pageContentHtml = data.page.content ?? typedContent.fallbackContent;
 
     const aboutInfo = data.page.about ?? {
       foundingYear: 2021,
@@ -92,12 +92,12 @@ export default async function AboutPage() {
     return (
       <div className="bg-gray-100 py-12">
         <div className="container-page">
-          <h1 className="text-4xl font-bold mb-4">About Delaware DSA</h1>
+          <h1 className="text-4xl font-bold mb-4">{typedContent.title}</h1>
 
           <div className="bg-white p-8 rounded-lg shadow-md mb-8">
             <div
               className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: pageContent }}
+              dangerouslySetInnerHTML={{ __html: pageContentHtml }}
             />
           </div>
 

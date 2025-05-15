@@ -1,32 +1,17 @@
-import React from 'react';
 import Link from 'next/link';
-import { LeadershipMember } from '../types';
+import leadershipSectionContent from '../../../content/ud-ydsa/leadershipSection.json';
+import { LeadershipSectionContent } from '../../../types/content/ud-ydsa';
 
-const leadershipMembers: LeadershipMember[] = [
-  {
-    name: 'Jordan Lee',
-    role: 'Co-Chair',
-    imageInitials: 'JL',
-  },
-  {
-    name: 'Avery Rodriguez',
-    role: 'Co-Chair',
-    imageInitials: 'AR',
-  },
-  {
-    name: 'Taylor Park',
-    role: 'Secretary-Treasurer',
-    imageInitials: 'TP',
-  },
-];
+// Type assertion for imported JSON
+const typedContent = leadershipSectionContent as LeadershipSectionContent;
 
 export default function LeadershipSection() {
   return (
     <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-      <h2 className="text-2xl font-bold mb-6">Chapter Leadership</h2>
+      <h2 className="text-2xl font-bold mb-6">{typedContent.title}</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {leadershipMembers.map((member, index) => (
+        {typedContent.leaders.map((member, index) => (
           <div key={index} className="text-center">
             <div className="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-4 overflow-hidden">
               <div className="w-full h-full flex items-center justify-center bg-dsa-red text-white text-2xl font-bold">
@@ -41,10 +26,10 @@ export default function LeadershipSection() {
 
       <div className="mt-6 text-center">
         <Link
-          href="/contact?subject=UD%20YDSA%20Leadership"
+          href={typedContent.contactLinkHref}
           className="text-dsa-red hover:underline"
         >
-          Contact the leadership team →
+          {typedContent.contactLinkText}
         </Link>
       </div>
     </div>

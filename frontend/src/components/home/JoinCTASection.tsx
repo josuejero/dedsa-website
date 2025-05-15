@@ -4,7 +4,12 @@ import { motion, useAnimation } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import joinCTAContent from '../../content/home/joinCTASection.json';
+import { JoinCTASectionContent } from '../../types/content/home';
 import ConfettiButton from '../ui/Confetti';
+
+// Type assertion for the imported JSON
+const typedJoinCTAContent = joinCTAContent as JoinCTASectionContent;
 
 export default function JoinCTASection() {
   const controls = useAnimation();
@@ -85,22 +90,18 @@ export default function JoinCTASection() {
           className="text-4xl md:text-5xl font-bold mb-4 text-on-accent"
           variants={itemVariants}
         >
-          JOIN THE MOVEMENT
+          {typedJoinCTAContent.heading}
         </motion.h2>
         <motion.p
           className="text-xl mb-8 max-w-2xl mx-auto text-on-accent"
           variants={itemVariants}
         >
-          The corporate interests controlling Delaware aren&apos;t giving up power
-          without a fight. We need you to help build a democratic socialist
-          alternative that works for all Delawareans, not just the wealthy few.
-          Whether you have years of organizing experience or this is your first
-          step into activism, there&apos;s a place for you in Delaware DSA.
+          {typedJoinCTAContent.description}
         </motion.p>
         <motion.div variants={itemVariants}>
           <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
-            <Link href="/join" className="block">
-              JOIN DELAWARE DSA TODAY
+            <Link href={typedJoinCTAContent.buttonHref} className="block">
+              {typedJoinCTAContent.buttonText}
             </Link>
           </ConfettiButton>
         </motion.div>

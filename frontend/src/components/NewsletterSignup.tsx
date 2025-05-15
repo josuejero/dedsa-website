@@ -1,13 +1,17 @@
 'use client';
 
+import newsletterContent from '../content/components/newsletterSignup.json';
 import { useNewsletterSubscription } from '../hooks/useNewsletterSubscription';
-
+import { NewsletterSignupContent } from '../types/content/components';
 import { NewsletterSignupProps } from './types';
+
+// Type assertion for the imported JSON
+const typedNewsletterContent = newsletterContent as NewsletterSignupContent;
 
 export default function NewsletterSignup({
   variant = 'banner',
-  title = 'Stay Updated',
-  description = 'Subscribe to our newsletter to receive the latest updates, events, and actions.',
+  title,
+  description,
 }: NewsletterSignupProps) {
   const {
     email,
@@ -19,6 +23,11 @@ export default function NewsletterSignup({
     errorMessage,
     reset,
   } = useNewsletterSubscription();
+
+  // Use provided title/description or fallback to content from JSON file
+  const variantContent = typedNewsletterContent.variants[variant];
+  const displayTitle = title || variantContent.title;
+  const displayDescription = description || variantContent.description;
 
   const containerClasses = {
     banner: 'bg-dsa-red text-white p-6 rounded-lg',
@@ -59,10 +68,10 @@ export default function NewsletterSignup({
               d="M5 13l4 4L19 7"
             />
           </svg>
-          <h2 className="text-xl font-bold mb-2">Thank You!</h2>
-          <p className="mb-4">
-            You&apos;ve been successfully subscribed to our newsletter.
-          </p>
+          <h2 className="text-xl font-bold mb-2">
+            {typedNewsletterContent.success.title}
+          </h2>
+          <p className="mb-4">{typedNewsletterContent.success.message}</p>
           <button
             onClick={reset}
             className={
@@ -71,7 +80,7 @@ export default function NewsletterSignup({
                 : 'underline hover:no-underline'
             }
           >
-            Subscribe another email
+            {typedNewsletterContent.success.buttonText}
           </button>
         </div>
       </div>
@@ -80,19 +89,19 @@ export default function NewsletterSignup({
 
   return (
     <div className={containerClasses}>
-      <h2 className="text-xl font-bold mb-2">{title}</h2>
-      <p className="mb-4">{description}</p>
+      <h2 className="text-xl font-bold mb-2">{displayTitle}</h2>
+      <p className="mb-4">{displayDescription}</p>
 
       <form onSubmit={subscribe} className="flex flex-col sm:flex-row">
         {isError && (
           <div className="mb-4 p-2 bg-red-100 text-red-800 rounded">
-            {errorMessage}
+            {errorMessage || typedNewsletterContent.error.defaultMessage}
           </div>
         )}
 
         <input
           type="email"
-          placeholder="Your email address"
+          placeholder={typedNewsletterContent.inputPlaceholder}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className={inputClasses}
@@ -122,10 +131,10 @@ export default function NewsletterSignup({
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              Subscribing...
+              {typedNewsletterContent.loadingText}
             </span>
           ) : (
-            'Subscribe'
+            typedNewsletterContent.buttonText
           )}
         </button>
       </form>

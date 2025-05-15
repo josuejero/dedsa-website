@@ -1,115 +1,27 @@
 'use client';
 
-import { useUiString } from '@/hooks/content/useUiString';
 import Link from 'next/link';
+import footerContent from '../content/components/footer.json';
+import { FooterContent } from '../types/content/components';
+
+// Type assertion for the imported JSON
+const typedFooterContent = footerContent as FooterContent;
 
 export default function Footer() {
-  const socialLinks = [
-    {
-      name: useUiString('footer_social_twitter', 'Twitter'),
-      url: 'https://twitter.com/delawaredsa',
-      icon: 'twitter',
-    },
-    {
-      name: useUiString('footer_social_facebook', 'Facebook'),
-      url: 'https://www.facebook.com/delawaredsa',
-      icon: 'facebook',
-    },
-    {
-      name: useUiString('footer_social_instagram', 'Instagram'),
-      url: 'https://www.instagram.com/delawaredsa',
-      icon: 'instagram',
-    },
-  ];
-
-  const footerLinks = [
-    {
-      section: useUiString('footer_section_learn', 'Learn'),
-      links: [
-        {
-          name: useUiString('footer_about_us', 'About Us'),
-          href: '/about',
-        },
-        {
-          name: useUiString('footer_what_we_stand_for', 'What We Stand For'),
-          href: '/what-we-stand-for',
-        },
-        {
-          name: useUiString('footer_leadership', 'Leadership'),
-          href: '/leadership',
-        },
-        {
-          name: useUiString('footer_bylaws', 'Bylaws'),
-          href: '/bylaws',
-        },
-      ],
-    },
-    {
-      section: useUiString('footer_section_get_involved', 'Get Involved'),
-      links: [
-        {
-          name: useUiString('footer_join_dsa', 'Join DSA'),
-          href: '/join',
-        },
-        {
-          name: useUiString('footer_committees', 'Committees'),
-          href: '/committees',
-        },
-        {
-          name: useUiString('footer_events', 'Events'),
-          href: '/calendar',
-        },
-        {
-          name: useUiString('footer_newsletter', 'Newsletter'),
-          href: '/newsletter',
-        },
-      ],
-    },
-    {
-      section: useUiString('footer_section_resources', 'Resources'),
-      links: [
-        {
-          name: useUiString(
-            'footer_membership_handbook',
-            'Membership Handbook'
-          ),
-          href: '/handbook',
-        },
-        {
-          name: useUiString('footer_voting_guide', 'Voting Guide'),
-          href: '/voting-guide',
-        },
-        {
-          name: useUiString('footer_ud_ydsa', 'UD YDSA'),
-          href: '/ud-ydsa',
-        },
-        {
-          name: useUiString('footer_contact', 'Contact'),
-          href: '/contact',
-        },
-      ],
-    },
-  ];
-
   return (
     <footer className="bg-gray-900 text-white" role="contentinfo">
       <div className="container-page py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {}
           <div>
             <h3 className="text-xl font-bold mb-4">
-              {useUiString('footer_organization_name', 'Delaware DSA')}
+              {typedFooterContent.organizationName}
             </h3>
             <p className="text-gray-300 mb-4">
-              {useUiString(
-                'footer_organization_description',
-                'Member-run, democratic socialist organization fighting for a political and economic system that puts people before profits.'
-              )}
+              {typedFooterContent.organizationDescription}
             </p>
 
-            {}
             <div className="flex space-x-4">
-              {socialLinks.map((link) => (
+              {typedFooterContent.socialLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.url}
@@ -150,10 +62,9 @@ export default function Footer() {
             </div>
           </div>
 
-          {}
-          {footerLinks.map((section) => (
-            <div key={section.section}>
-              <h3 className="text-lg font-semibold mb-4">{section.section}</h3>
+          {typedFooterContent.sections.map((section) => (
+            <div key={section.title}>
+              <h3 className="text-lg font-semibold mb-4">{section.title}</h3>
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.name}>
@@ -170,14 +81,12 @@ export default function Footer() {
           ))}
         </div>
 
-        {}
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()}{' '}
-              {useUiString(
-                'footer_copyright',
-                'Delaware DSA. All rights reserved.'
+              {typedFooterContent.copyright.replace(
+                '{year}',
+                new Date().getFullYear().toString()
               )}
             </p>
             <p className="mt-2 md:mt-0">
@@ -185,7 +94,7 @@ export default function Footer() {
                 href="/privacy-policy"
                 className="text-gray-400 hover:text-white"
               >
-                {useUiString('footer_privacy_policy', 'Privacy Policy')}
+                {typedFooterContent.privacyPolicy}
               </Link>
             </p>
           </div>

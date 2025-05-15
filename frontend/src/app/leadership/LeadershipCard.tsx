@@ -1,5 +1,10 @@
 'use client';
 import Image from 'next/image';
+import leadershipCardContent from '../../content/leadership/leadershipCard.json';
+import { LeadershipCardContent } from '../../types/content/leadership';
+
+// Type assertion for imported JSON
+const typedContent = leadershipCardContent as LeadershipCardContent;
 
 interface LeadershipCardProps {
   title?: string;
@@ -10,11 +15,11 @@ interface LeadershipCardProps {
 }
 
 export default function LeadershipCard({
-  title = 'Chapter Member',
-  name = '',
-  bio = '',
-  email = '',
-  imageUrl
+  title = typedContent.roleLabelDefault,
+  name = typedContent.nameLabelDefault,
+  bio = typedContent.bioLabelDefault,
+  email = typedContent.emailLabelDefault,
+  imageUrl,
 }: LeadershipCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -28,7 +33,12 @@ export default function LeadershipCard({
         <h3 className="text-xl font-semibold mb-1">{title}</h3>
         <h4 className="text-lg text-gray-700 mb-4">{name}</h4>
 
-        {bio && <div className="prose prose-sm mb-4" dangerouslySetInnerHTML={{ __html: bio }} />}
+        {bio && (
+          <div
+            className="prose prose-sm mb-4"
+            dangerouslySetInnerHTML={{ __html: bio }}
+          />
+        )}
 
         {email && (
           <a href={`mailto:${email}`} className="text-dsa-red hover:underline">

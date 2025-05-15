@@ -1,6 +1,11 @@
 'use client';
 
+import eventCalendarContent from '../../content/calendar/eventCalendar.json';
+import { EventCalendarContent } from '../../types/content/calendar';
 import { EventListProps } from './types';
+
+// Type assertion for imported JSON
+const typedContent = eventCalendarContent as EventCalendarContent;
 
 export default function EventList({ eventsByDate }: EventListProps) {
   const sortedDates = Object.keys(eventsByDate).sort();
@@ -118,11 +123,9 @@ export default function EventList({ eventsByDate }: EventListProps) {
       ) : (
         <div className="bg-white p-8 rounded-lg text-center">
           <p className="text-xl text-gray-600">
-            No events scheduled for this month.
+            {typedContent.noEventsMessage}
           </p>
-          <p className="text-gray-500 mt-2">
-            Please check back later or select a different month.
-          </p>
+          <p className="text-gray-500 mt-2">{typedContent.checkBackMessage}</p>
         </div>
       )}
     </div>

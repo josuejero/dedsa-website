@@ -4,8 +4,14 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
+import latestUpdatesContent from '../../content/home/latestUpdatesSection.json';
+import { LatestUpdatesSectionContent } from '../../types/content/home';
 
 import { LatestUpdatesSectionProps } from '../types';
+
+// Type assertion for the imported JSON
+const typedLatestUpdatesContent =
+  latestUpdatesContent as LatestUpdatesSectionContent;
 
 export default function LatestUpdatesSection({
   posts,
@@ -53,11 +59,11 @@ export default function LatestUpdatesSection({
       >
         <motion.div className="mb-12 text-center" variants={itemVariants}>
           <h2 className="text-3xl md:text-5xl font-bold mb-2 text-heading">
-            LATEST FROM THE DELAWARE ROSE GARDEN
+            {typedLatestUpdatesContent.heading}
           </h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
           <p className="text-lg text-secondary max-w-2xl mx-auto">
-            News and updates from our chapter
+            {typedLatestUpdatesContent.subtitle}
           </p>
         </motion.div>
 
@@ -214,10 +220,10 @@ export default function LatestUpdatesSection({
           whileTap={{ scale: 0.95 }}
         >
           <Link
-            href="/newsletter"
+            href={typedLatestUpdatesContent.buttonHref}
             className="btn btn-primary shadow-lg hover:shadow-xl transform hover:translate-y-px transition-all px-8 py-3 text-lg"
           >
-            READ ALL UPDATES
+            {typedLatestUpdatesContent.buttonText}
           </Link>
         </motion.div>
       </motion.div>

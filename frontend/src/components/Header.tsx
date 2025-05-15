@@ -3,7 +3,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import headerContent from '../content/components/header.json';
+import { HeaderContent } from '../types/content/components';
 import ThemeToggle from './theme/ThemeToggle';
+
+// Type assertion for the imported JSON
+const typedHeaderContent = headerContent as HeaderContent;
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,17 +24,6 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navItems = [
-    { name: 'Newsletter', href: '/newsletter' },
-    { name: 'What We Stand For', href: '/what-we-stand-for' },
-    { name: 'Calendar', href: '/calendar' },
-    { name: 'Leadership & Structure', href: '/leadership' },
-    { name: 'Committees & Working Groups', href: '/committees' },
-    { name: 'Bylaws', href: '/bylaws' },
-    { name: 'Contact', href: '/contact' },
-    { name: 'UD YDSA', href: '/ud-ydsa' },
-  ];
 
   const isHomePage = pathname === '/';
 
@@ -60,12 +54,12 @@ export default function Header() {
                     : 'text-heading'
               }`}
             >
-              Delaware DSA
+              {typedHeaderContent.siteName}
             </span>
           </Link>
 
           <nav className="hidden md:flex space-x-6">
-            {navItems.map((item) => (
+            {typedHeaderContent.navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
@@ -94,7 +88,7 @@ export default function Header() {
                     : 'btn-primary'
               }`}
             >
-              Join Our Chapter
+              {typedHeaderContent.joinButtonText}
             </Link>
           </div>
 
@@ -138,7 +132,7 @@ export default function Header() {
         {isMenuOpen && (
           <nav className="mt-4 pb-2 md:hidden bg-white rounded-lg shadow-lg">
             <ul className="flex flex-col space-y-2 p-4">
-              {navItems.map((item) => (
+              {typedHeaderContent.navItems.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -155,7 +149,7 @@ export default function Header() {
                   className="block px-2 py-1 mt-2 text-on-accent bg-dsa-red hover:bg-red-700 rounded"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Join Our Chapter
+                  {typedHeaderContent.joinButtonText}
                 </Link>
               </li>
             </ul>

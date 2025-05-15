@@ -1,14 +1,19 @@
 // src/app/calendar/page.tsx
 import { Metadata } from 'next';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
+import pageContent from '../../content/calendar/page.json';
+import { CalendarPageContent } from '../../types/content/calendar';
 import EventCalendar from './EventCalendar';
 import { CalendarEvent, CalendarProps, EventsData } from './types';
+
+// Type assertion for imported JSON
+const typedContent = pageContent as CalendarPageContent;
+
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Events Calendar',
-  description:
-    'Join Delaware DSA for meetings, actions, educational events, and social gatherings.',
+  title: typedContent.title,
+  description: typedContent.subtitle,
 };
 
 // ISR: Revalidate this page every 5 minutes
@@ -91,34 +96,28 @@ export default async function CalendarPage({ searchParams }: CalendarProps) {
     return (
       <div className="bg-gray-100 py-12">
         <div className="container-page">
-          <h1 className="text-4xl font-bold mb-4">Events Calendar</h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Join us for meetings, actions, educational events, and social
-            gatherings.
-          </p>
+          <h1 className="text-4xl font-bold mb-4">{typedContent.title}</h1>
+          <p className="text-xl text-gray-600 mb-8">{typedContent.subtitle}</p>
 
           <EventCalendar events={events} selectedMonth={selectedMonth} />
 
           <div className="mt-12 bg-white p-8 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4">
-              Subscribe to Our Calendar
+              {typedContent.subscribeTitle}
             </h2>
-            <p className="mb-6">
-              Stay up-to-date with all Delaware DSA events by subscribing to our
-              calendar.
-            </p>
+            <p className="mb-6">{typedContent.subscribeText}</p>
             <div className="flex flex-wrap gap-4">
               <a
                 href="#"
                 className="btn bg-blue-500 text-white hover:bg-blue-600"
               >
-                Google Calendar
+                {typedContent.googleCalendarButtonText}
               </a>
               <a
                 href="#"
                 className="btn bg-gray-800 text-white hover:bg-gray-900"
               >
-                iCal / Outlook
+                {typedContent.iCalOutlookButtonText}
               </a>
             </div>
           </div>
@@ -131,10 +130,10 @@ export default async function CalendarPage({ searchParams }: CalendarProps) {
 
     return (
       <ErrorDisplay
-        title="Unable to Load Calendar"
-        message="We’re experiencing technical difficulties loading events. Please try again later."
+        title={typedContent.errorTitle}
+        message={typedContent.errorMessage}
         error={errorMessage}
-        actionLabel="Return to Home"
+        actionLabel={typedContent.errorActionLabel}
         actionHref="/"
       />
     );

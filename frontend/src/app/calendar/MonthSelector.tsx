@@ -1,6 +1,11 @@
 'use client';
 
+import monthSelectorContent from '../../content/calendar/monthSelector.json';
+import { MonthSelectorContent } from '../../types/content/calendar';
 import { MonthSelectorProps } from './types';
+
+// Type assertion for imported JSON
+const typedContent = monthSelectorContent as MonthSelectorContent;
 
 export default function MonthSelector({
   months,
@@ -10,7 +15,7 @@ export default function MonthSelector({
   return (
     <div className="mb-8">
       <label htmlFor="month-select" className="block text-lg font-medium mb-2">
-        Select Month
+        {typedContent.label}
       </label>
       <select
         id="month-select"

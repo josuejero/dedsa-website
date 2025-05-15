@@ -37,3 +37,65 @@ export interface StrategicPrioritiesSectionContent {
   linkHref: string;
   priorities: PriorityItem[];
 }
+
+// Add these interfaces after the existing ones
+
+export interface GetInvolvedSectionContent {
+  heading: string;
+  subheading: string;
+}
+
+export interface UpcomingEvent {
+  title: string;
+  date: string;
+  location: string;
+  isVirtual?: boolean;
+}
+
+export interface UpcomingEventsCardContent {
+  heading: string;
+  buttonText: string;
+  buttonHref: string;
+  events: UpcomingEvent[];
+}
+
+export interface Committee {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface CommitteesCardContent {
+  heading: string;
+  buttonText: string;
+  buttonHref: string;
+  committees: Committee[];
+}
+// Add these interfaces after the existing ones
+
+export interface LatestUpdatesSectionContent {
+  heading: string;
+  subtitle: string;
+  buttonText: string;
+  buttonHref: string;
+}
+
+export interface StatItem {
+  key: string;
+  value: number;
+  label: string;
+  prefix: string;
+  color: string;
+}
+
+export interface ChapterStatsSectionContent {
+  heading: string;
+  stats: StatItem[];
+}
+
+export interface JoinCTASectionContent {
+  heading: string;
+  description: string;
+  buttonText: string;
+  buttonHref: string;
+}

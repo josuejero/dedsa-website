@@ -1,10 +1,16 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
+import pageContent from '../../content/newsletter/page.json';
+import { NewsletterPageContent } from '../../types/content/newsletter';
+
+// Type assertion for imported JSON
+const typedContent = pageContent as NewsletterPageContent;
+
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Newsletter',
+  title: typedContent.title,
   description: 'Latest updates from Delaware DSA',
 };
 
@@ -64,10 +70,10 @@ export default async function NewsletterPage() {
     const errorMessage = err instanceof Error ? err.message : String(err);
     return (
       <ErrorDisplay
-        title="Error Loading Newsletter"
-        message="We're having trouble loading the newsletter. Please try again later."
+        title={typedContent.errorTitle}
+        message={typedContent.errorMessage}
         error={errorMessage}
-        actionLabel="Return to Home"
+        actionLabel={typedContent.errorActionLabel}
         actionHref="/"
       />
     );
@@ -76,7 +82,7 @@ export default async function NewsletterPage() {
   return (
     <div className="bg-gray-100 py-12">
       <div className="container-page">
-        <h1 className="text-4xl font-bold mb-8">Newsletter</h1>
+        <h1 className="text-4xl font-bold mb-8">{typedContent.title}</h1>
 
         {posts.length > 0 ? (
           <div className="space-y-8">
@@ -107,7 +113,7 @@ export default async function NewsletterPage() {
             ))}
           </div>
         ) : (
-          <p>No posts found.</p>
+          <p>{typedContent.noPostsMessage}</p>
         )}
       </div>
     </div>

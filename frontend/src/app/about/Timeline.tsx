@@ -1,11 +1,17 @@
+import timelineContent from '../../content/about/timeline.json';
+import { TimelineContent } from '../../types/content/about';
+
+// Type assertion for imported JSON
+const typedContent = timelineContent as TimelineContent;
+
 interface TimelineProps {
   foundingYear?: number;
   yearsActive?: number;
 }
 
 export default function Timeline({
-  foundingYear = 2021,
-  yearsActive = new Date().getFullYear() - 2021
+  foundingYear = typedContent.defaultFoundingYear,
+  yearsActive = new Date().getFullYear() - typedContent.defaultFoundingYear,
 }: TimelineProps) {
   return (
     <section className="bg-white p-8 rounded-lg shadow-md mb-8">
@@ -13,11 +19,13 @@ export default function Timeline({
       <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-8">
         <div className="text-center md:text-left">
           <p className="text-4xl font-bold text-dsa-red">{foundingYear}</p>
-          <p className="text-lg text-gray-600">Founded</p>
+          <p className="text-lg text-gray-600">{typedContent.foundedLabel}</p>
         </div>
         <div className="text-center md:text-left">
           <p className="text-4xl font-bold text-dsa-red">{yearsActive}</p>
-          <p className="text-lg text-gray-600">Years Active</p>
+          <p className="text-lg text-gray-600">
+            {typedContent.yearsActiveLabel}
+          </p>
         </div>
       </div>
     </section>

@@ -1,15 +1,24 @@
-import React from 'react';
+import meetingInfoSectionContent from '../../../content/ud-ydsa/meetingInfoSection.json';
+import { MeetingInfoSectionContent } from '../../../types/content/ud-ydsa';
 import { SectionProps, SocialLinkProps } from '../types';
 
+// Type assertion for imported JSON
+const typedContent = meetingInfoSectionContent as MeetingInfoSectionContent;
+
 const SocialLink = ({ href, icon, name }: SocialLinkProps) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center group">
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center group"
+  >
     <div
       className={`${
         name === 'Instagram'
           ? 'bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500'
           : name === 'Twitter'
-          ? 'bg-blue-400'
-          : 'bg-blue-600'
+            ? 'bg-blue-400'
+            : 'bg-blue-600'
       } text-white p-2 rounded-full mr-3`}
     >
       {icon}
@@ -26,11 +35,15 @@ export default function MeetingInfoSection({ udYdsaInfo }: SectionProps) {
         dangerouslySetInnerHTML={{ __html: udYdsaInfo.pageContent || '' }}
       />
 
-      <h2 className="text-2xl font-bold mb-6">Get Involved</h2>
+      <h2 className="text-2xl font-bold mb-6">
+        {typedContent.getInvolvedTitle}
+      </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <h3 className="text-xl font-bold mb-4">Meeting Information</h3>
+          <h3 className="text-xl font-bold mb-4">
+            {typedContent.meetingInfoTitle}
+          </h3>
 
           <div className="space-y-4">
             <div className="flex items-start">
@@ -48,7 +61,7 @@ export default function MeetingInfoSection({ udYdsaInfo }: SectionProps) {
                 />
               </svg>
               <div>
-                <p className="font-medium">When</p>
+                <p className="font-medium">{typedContent.meetingWhenLabel}</p>
                 <p>{udYdsaInfo.meetingSchedule}</p>
               </div>
             </div>
@@ -74,7 +87,7 @@ export default function MeetingInfoSection({ udYdsaInfo }: SectionProps) {
                 />
               </svg>
               <div>
-                <p className="font-medium">Where</p>
+                <p className="font-medium">{typedContent.meetingWhereLabel}</p>
                 <p>{udYdsaInfo.meetingLocation}</p>
               </div>
             </div>
@@ -94,7 +107,7 @@ export default function MeetingInfoSection({ udYdsaInfo }: SectionProps) {
                 />
               </svg>
               <div>
-                <p className="font-medium">Email</p>
+                <p className="font-medium">{typedContent.meetingEmailLabel}</p>
                 <a
                   href={`mailto:${udYdsaInfo.contactEmail}`}
                   className="text-dsa-red hover:underline"
@@ -107,24 +120,24 @@ export default function MeetingInfoSection({ udYdsaInfo }: SectionProps) {
         </div>
 
         <div>
-          <h3 className="text-xl font-bold mb-4">Follow UD YDSA</h3>
+          <h3 className="text-xl font-bold mb-4">{typedContent.followTitle}</h3>
 
           <div className="space-y-4">
             <SocialLink
               href={udYdsaInfo.socialMedia.instagram}
-              name="Instagram"
+              name={typedContent.socialLinks.instagram.name}
               icon={<InstagramIcon />}
             />
 
             <SocialLink
               href={udYdsaInfo.socialMedia.twitter}
-              name="Twitter"
+              name={typedContent.socialLinks.twitter.name}
               icon={<TwitterIcon />}
             />
 
             <SocialLink
               href={udYdsaInfo.socialMedia.facebook}
-              name="Facebook"
+              name={typedContent.socialLinks.facebook.name}
               icon={<FacebookIcon />}
             />
           </div>
@@ -143,7 +156,7 @@ const InstagramIcon = () => (
 // Similar TwitterIcon and FacebookIcon components would be defined here
 const TwitterIcon = () => (
   <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M23.643 4.937c-.835.37-1.732.62-2.675.735a4.674 4.674 0 002.042-2.573c-.91.537-1.918.925-2.99 1.134a4.655 4.655 0 00-7.93 4.236A13.215 13.215 0 011.671 3.149a4.645 4.645 0 001.44 6.207A4.63 4.63 0 01.92 9v.058a4.66 4.66 0 003.733-.98c-.01-.04-.01-.08-.01-.12a4.65 4.65 0 004.15-4.64c0-.07-.002-.14-.005-.21A13.188 13.188 0 0012 .5c7.18 0 12 .5z" />
+    <path d="M23.643 4.937c-.835.37-1.732.62-2.675.735a4.674 4.674 0 002.042-2.573c-.91.537-1.918.925-2.99 1.134a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" />
   </svg>
 );
 

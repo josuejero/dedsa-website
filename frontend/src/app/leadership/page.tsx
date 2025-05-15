@@ -1,7 +1,14 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
+import pageContent from '../../content/leadership/page.json';
+import { LeadershipPageContent } from '../../types/content/leadership';
+import ChapterStructure from './ChapterStructure';
 import LeadershipCard from './LeadershipCard';
+
+// Type assertion for imported JSON
+const typedContent = pageContent as LeadershipPageContent;
+
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
@@ -85,12 +92,7 @@ export default async function LeadershipPage() {
     // 404 if neither page nor leadership data
     if (!data.page && !data.leadership) return notFound();
 
-    const pageContent =
-      data.page?.content ??
-      `
-      <p>Delaware DSA is a member-led organization with a democratically elected leadership team. Our chapter is structured to ensure accountability, transparency, and member involvement at every level.</p>
-      <p>Our elected officers serve two-year terms and are responsible for implementing the decisions and priorities established by our membership.</p>
-    `;
+    const pageContentHtml = data.page?.content ?? typedContent.fallbackContent;
 
     let leadershipTeam: LeadershipRole[] =
       data.leadership?.nodes.map((node) => ({
@@ -167,11 +169,11 @@ export default async function LeadershipPage() {
     return (
       <div className="bg-gray-100 py-12">
         <div className="container-page">
-          <h1 className="text-4xl font-bold mb-4">Leadership & Structure</h1>
+          <h1 className="text-4xl font-bold mb-4">{typedContent.title}</h1>
           <div className="bg-white p-8 rounded-lg shadow-md mb-8">
             <div
               className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: pageContent }}
+              dangerouslySetInnerHTML={{ __html: pageContentHtml }}
             />
           </div>
           <h2 className="text-3xl font-bold mb-6">Chapter Leadership</h2>
@@ -187,52 +189,7 @@ export default async function LeadershipPage() {
               />
             ))}
           </div>
-          <div className="mt-12 bg-white p-8 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">Chapter Structure</h2>
-            <p className="mb-4">
-              Our chapter operates with the following organizational structure:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 mb-6">
-              <li>
-                <strong>General Membership:</strong> All dues-paying members
-                have voting rights at general meetings
-              </li>
-              <li>
-                <strong>Steering Committee:</strong> Elected officers who
-                coordinate chapter activities
-              </li>
-              <li>
-                <strong>Working Groups & Committees:</strong> Focus on specific
-                campaigns and chapter operations
-              </li>
-            </ul>
-            <p className="mb-4">
-              We hold general membership meetings monthly and steering committee
-              meetings bi-weekly. All meetings are open to members, and meeting
-              minutes are made available to ensure transparency.
-            </p>
-            <div className="mt-6">
-              <a
-                href="/bylaws"
-                className="inline-flex items-center text-dsa-red hover:underline"
-              >
-                <span>Read our chapter bylaws</span>
-                <svg
-                  className="ml-2 h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
+          <ChapterStructure />
         </div>
       </div>
     );

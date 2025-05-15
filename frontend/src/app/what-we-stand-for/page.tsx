@@ -3,11 +3,16 @@ import { ApolloError } from '@apollo/client';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
+import pageContent from '../../content/what-we-stand-for/page.json';
 import { getClient } from '../../lib/apollo-client';
+import { WhatWeStandForPageContent } from '../../types/content/whatWeStandFor';
 import PositionCard from './PositionCard';
 import { GET_POSITIONS_PAGE } from './queries';
 import { Position } from './types';
 export const dynamic = 'force-dynamic';
+
+// Type assertion for the imported JSON
+const typedPageContent = pageContent as WhatWeStandForPageContent;
 
 export const metadata: Metadata = {
   title: 'What We Stand For',
@@ -63,7 +68,8 @@ export default async function WhatWeStandFor() {
     );
   }
 
-  const pageContent = data.page?.content ?? '';
+  const pageContentHtml =
+    data.page?.content ?? typedPageContent.fallbackContent;
   const positions = data.positions?.nodes ?? [];
 
   return (
@@ -71,25 +77,22 @@ export default async function WhatWeStandFor() {
       <div className="container-page">
         {/* Hero Section */}
         <div className="bg-dsa-red text-white p-8 md:p-12 rounded-lg mb-12">
-          <h1 className="text-4xl font-bold mb-4">What We Stand For</h1>
-          <p className="text-xl">
-            The Delaware DSA is committed to building a more just and equitable
-            society. We believe in democratic socialism—a system where ordinary
-            people have a real voice in our workplaces, communities, and
-            government.
-          </p>
+          <h1 className="text-4xl font-bold mb-4">
+            {typedPageContent.hero.heading}
+          </h1>
+          <p className="text-xl">{typedPageContent.hero.description}</p>
         </div>
 
         {/* Main Content */}
         <div className="bg-white p-8 rounded-lg shadow-md mb-12">
-          {pageContent ? (
+          {pageContentHtml ? (
             <div
               className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: pageContent }}
+              dangerouslySetInnerHTML={{ __html: pageContentHtml }}
             />
           ) : (
             <p className="text-center text-gray-500">
-              Content is not available.
+              {typedPageContent.notFoundMessage}
             </p>
           )}
         </div>
@@ -103,19 +106,23 @@ export default async function WhatWeStandFor() {
           </div>
         ) : (
           <p className="text-center text-gray-500 mb-12">
-            No positions to display at this time.
+            {typedPageContent.emptyPositionsMessage}
           </p>
         )}
 
         {/* CTA Section */}
         <div className="text-center bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-3xl font-bold mb-4">Join Our Movement</h2>
+          <h2 className="text-3xl font-bold mb-4">
+            {typedPageContent.cta.heading}
+          </h2>
           <p className="text-xl mb-6 max-w-2xl mx-auto">
-            If you share our vision for a more just, democratic, and sustainable
-            future, we invite you to join Delaware DSA today.
+            {typedPageContent.cta.description}
           </p>
-          <Link href="/join" className="btn btn-primary text-lg px-8 py-3">
-            Become A Member
+          <Link
+            href={typedPageContent.cta.buttonHref}
+            className="btn btn-primary text-lg px-8 py-3"
+          >
+            {typedPageContent.cta.buttonText}
           </Link>
         </div>
       </div>

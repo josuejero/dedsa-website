@@ -2,8 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import getInvolvedContent from '../../../content/home/getInvolvedSection.json';
+import { GetInvolvedSectionContent } from '../../../types/content/home';
 import CommitteesCard from './CommitteesCard';
 import UpcomingEventsCard from './UpcomingEventsCard';
+
+// Type assertion for the imported JSON
+const typedGetInvolvedContent = getInvolvedContent as GetInvolvedSectionContent;
 
 export default function GetInvolvedSection() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
@@ -54,11 +59,11 @@ export default function GetInvolvedSection() {
       >
         <motion.div className="text-center mb-12" variants={itemVariants}>
           <h2 className="text-3xl md:text-5xl font-bold mb-2 text-heading">
-            GET INVOLVED
+            {typedGetInvolvedContent.heading}
           </h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
           <p className="text-lg text-secondary max-w-3xl mx-auto">
-            Join us in building socialist power across Delaware
+            {typedGetInvolvedContent.subheading}
           </p>
         </motion.div>
 

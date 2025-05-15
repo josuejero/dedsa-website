@@ -2,6 +2,12 @@
 
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import chapterStatsContent from '../../content/home/chapterStatsSection.json';
+import { ChapterStatsSectionContent } from '../../types/content/home';
+
+// Type assertion for the imported JSON
+const typedChapterStatsContent =
+  chapterStatsContent as ChapterStatsSectionContent;
 
 // A simpler, lightweight version of stats animation
 export default function ChapterStatsSection() {
@@ -21,36 +27,6 @@ export default function ChapterStatsSection() {
     }
   }, [inView, isInitialized]);
 
-  const stats = [
-    {
-      key: 'members',
-      value: 220,
-      label: 'Chapter Members',
-      prefix: '',
-      color: '#ec1f27',
-    },
-    {
-      key: 'groups',
-      value: 11,
-      label: 'Working Groups & Committees',
-      prefix: '+',
-      color: '#ef4444',
-    },
-    {
-      key: 'counties',
-      value: 3,
-      label: 'Counties Organized',
-      prefix: '',
-      color: '#f87171',
-    },
-    {
-      key: 'active',
-      value: 9,
-      label: 'Active Membership Rate',
-      prefix: '%',
-      color: '#fca5a5',
-    },
-  ];
   return (
     <section
       ref={ref}
@@ -82,11 +58,11 @@ export default function ChapterStatsSection() {
         <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 p-10 rounded-xl shadow-md relative overflow-hidden">
           <div className="relative z-10">
             <h3 className="text-2xl font-bold mb-8 text-center text-heading">
-              Our Chapter at a Glance
+              {typedChapterStatsContent.heading}
             </h3>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              {stats.map((stat) => (
+              {typedChapterStatsContent.stats.map((stat) => (
                 <div
                   key={stat.key}
                   className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300"

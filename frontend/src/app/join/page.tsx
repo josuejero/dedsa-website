@@ -1,4 +1,4 @@
-// Opt out of static generation so we don’t crash at build time
+// Opt out of static generation so we don't crash at build time
 export const dynamic = 'force-dynamic';
 
 import { Metadata } from 'next';
@@ -64,7 +64,7 @@ export default async function JoinPage() {
     }
   } catch (err: unknown) {
     console.error('Join page fetch error:', err);
-    // We’ll just show the fallback content
+    // We'll just show the fallback content
   }
 
   return (

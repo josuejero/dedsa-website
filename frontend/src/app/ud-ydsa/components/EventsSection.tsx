@@ -1,44 +1,29 @@
-import React from 'react';
 import Link from 'next/link';
-import { Event } from '../types';
+import eventsSectionContent from '../../../content/ud-ydsa/eventsSection.json';
+import { EventsSectionContent } from '../../../types/content/ud-ydsa';
 
-const upcomingEvents: Event[] = [
-  {
-    date: 'April 10, 2025',
-    time: '7:00 PM',
-    title: 'General Meeting',
-    location: 'Morris Library, Room 202',
-    href: '/calendar/event-id',
-  },
-  {
-    date: 'April 15, 2025',
-    time: '5:30 PM',
-    title: 'Cost of Living Campaign Meeting',
-    location: 'Trabant Student Center, Room 109',
-    href: '/calendar/event-id',
-  },
-  {
-    date: 'April 22, 2025',
-    time: '12:00 PM',
-    title: 'Earth Day Rally',
-    location: 'The Green, University of Delaware',
-    href: '/calendar/event-id',
-  },
-];
+// Type assertion for imported JSON
+const typedContent = eventsSectionContent as EventsSectionContent;
 
 export default function EventsSection() {
   return (
     <div className="bg-white p-8 rounded-lg shadow-md mb-8">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Upcoming Events</h2>
-        <Link href="/calendar?tag=ud-ydsa" className="text-dsa-red hover:underline">
-          View all events →
+        <h2 className="text-2xl font-bold">{typedContent.title}</h2>
+        <Link
+          href={typedContent.viewAllLinkHref}
+          className="text-dsa-red hover:underline"
+        >
+          {typedContent.viewAllLinkText}
         </Link>
       </div>
 
       <div className="border border-gray-200 rounded-lg divide-y">
-        {upcomingEvents.map((event, index) => (
-          <div key={index} className="p-4 flex flex-col md:flex-row md:items-center">
+        {typedContent.upcomingEvents.map((event, index) => (
+          <div
+            key={index}
+            className="p-4 flex flex-col md:flex-row md:items-center"
+          >
             <div className="md:w-1/4">
               <p className="font-bold">{event.date}</p>
               <p>{event.time}</p>
@@ -49,7 +34,7 @@ export default function EventsSection() {
             </div>
             <div className="md:w-1/4 mt-2 md:mt-0 md:text-right">
               <Link href={event.href} className="btn btn-primary inline-block">
-                Details
+                {typedContent.detailsButtonText}
               </Link>
             </div>
           </div>

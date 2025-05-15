@@ -1,7 +1,7 @@
-import { Event } from './types';
+import { UpcomingEvent } from '../../../types/content/home';
 
 interface EventItemProps {
-  event: Event;
+  event: UpcomingEvent;
   index: number;
 }
 

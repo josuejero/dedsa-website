@@ -1,12 +1,17 @@
 import Link from 'next/link';
+import articleHeaderContent from '../../../../content/newsletter/articleHeader.json';
+import { ArticleHeaderContent } from '../../../../types/content/newsletter';
 import { Post } from '../types';
+
+// Type assertion for imported JSON
+const typedContent = articleHeaderContent as ArticleHeaderContent;
 
 export default function ArticleHeader({ post }: { post: Post }) {
   return (
     <div className="mb-8">
       <nav className="mb-4">
         <Link href="/newsletter" className="text-dsa-red hover:underline">
-          ← Back to Newsletter
+          {typedContent.backToNewsletterText}
         </Link>
       </nav>
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
@@ -14,7 +19,7 @@ export default function ArticleHeader({ post }: { post: Post }) {
         {new Date(post.date).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
-          day: 'numeric'
+          day: 'numeric',
         })}
       </div>
     </div>

@@ -1,19 +1,19 @@
+import achievementsContent from '../../content/about/achievements.json';
+import { AchievementsContent } from '../../types/content/about';
+
+// Type assertion for imported JSON
+const typedContent = achievementsContent as AchievementsContent;
+
 interface AchievementsProps {
   achievements?: string[];
 }
 
 export default function Achievements({
-  achievements = [
-    'Successfully advocated for tenant protections in Wilmington',
-    'Organized mutual aid networks during the COVID-19 pandemic',
-    'Campaigned for Medicare for All in partnership with healthcare workers',
-    'Supported labor organizing efforts across the state',
-    'Built coalitions with community organizations fighting for racial justice'
-  ]
+  achievements = typedContent.defaultAchievements,
 }: AchievementsProps) {
   return (
     <section className="bg-white p-8 rounded-lg shadow-md mb-8">
-      <h2 className="text-3xl font-bold mb-6">Our Achievements</h2>
+      <h2 className="text-3xl font-bold mb-6">{typedContent.title}</h2>
       <ul className="space-y-4">
         {achievements.map((achievement, index) => (
           <li key={index} className="flex items-start">
