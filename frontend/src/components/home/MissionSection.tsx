@@ -124,7 +124,7 @@ export default function MissionSection() {
               >
                 <div className="w-full h-full">
                   <motion.img
-                    src="/images/home/dsa-event-1.jpg"
+                    src="/home-page-photos/1.jpg"
                     alt="Delaware DSA community event"
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -145,7 +145,7 @@ export default function MissionSection() {
               >
                 <div className="w-full h-full">
                   <motion.img
-                    src="/images/home/dsa-event-2.jpg"
+                    src="home-page-photos/2.jpg"
                     alt="Delaware DSA members organizing"
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -166,7 +166,7 @@ export default function MissionSection() {
               >
                 <div className="w-full h-full">
                   <motion.img
-                    src="/images/home/dsa-event-3.jpg"
+                    src="/home-page-photos/3.jpg"
                     alt="Delaware DSA rally"
                     className="w-full h-full object-cover"
                     onError={(e) => {

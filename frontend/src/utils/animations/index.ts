@@ -31,23 +31,24 @@ export function useTypewriterEffect(text: string, speed = 50) {
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    if (!text) return;
+    let timeoutId: number;
+    let idx = 0;
 
-    let i = 0;
-    setDisplayText('');
-    setIsComplete(false);
-
-    const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayText((prev) => prev + text.charAt(i));
-        i++;
+    const tick = () => {
+      if (idx < text.length) {
+        setDisplayText(text.slice(0, ++idx));
+        timeoutId = window.setTimeout(tick, speed);
       } else {
         setIsComplete(true);
-        clearInterval(interval);
       }
-    }, speed);
+    };
 
-    return () => clearInterval(interval);
+    // reset
+    setDisplayText('');
+    setIsComplete(false);
+    tick();
+
+    return () => clearTimeout(timeoutId);
   }, [text, speed]);
 
   return { displayText, isComplete };
