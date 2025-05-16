@@ -1,11 +1,18 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import getInvolvedContent from '../../../content/consolidated/home.json';
 import { GetInvolvedSectionContent } from '../../../types/content/home';
 import CommitteesCard from './CommitteesCard';
 import UpcomingEventsCard from './UpcomingEventsCard';
+
+const [isClient, setIsClient] = useState(false);
+
+useEffect(() => {
+  setIsClient(true);
+}, []);
 
 // Type assertion for the imported JSON
 const typedGetInvolvedContent =
@@ -37,18 +44,18 @@ export default function GetInvolvedSection() {
   return (
     <section className="py-20 bg-gray-100 dark:bg-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
-        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-          <g fill="#ec1f27">
-            {Array.from({ length: 50 }).map((_, i) => (
-              <circle
-                key={i}
-                r="2"
-                cx={Math.random() * 1024}
-                cy={Math.random() * 1024}
-              />
-            ))}
-          </g>
-        </svg>
+        {isClient && (
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#ec1f27">
+              {Array.from({ length: 50 }).map((_, i) => {
+                // Use a deterministic pattern instead of Math.random()
+                const x = (i * 97) % 1024;
+                const y = (i * 47) % 1024;
+                return <circle key={i} r="2" cx={x} cy={y} />;
+              })}
+            </g>
+          </svg>
+        )}
       </div>
 
       <motion.div
