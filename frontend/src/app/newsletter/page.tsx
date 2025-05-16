@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import path from 'path';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
+import { Newsletter } from '../../types/newsletter';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +17,7 @@ export default async function NewsletterPage() {
     // Read newsletters data from JSON file
     const filePath = path.join(process.cwd(), 'src/data/newsletters.json');
     const fileContents = await fs.readFile(filePath, 'utf8');
-    const newsletters = JSON.parse(fileContents);
+    const newsletters = JSON.parse(fileContents) as Newsletter[];
 
     return (
       <div className="bg-gray-100 py-12">
@@ -25,7 +26,7 @@ export default async function NewsletterPage() {
 
           {newsletters.length > 0 ? (
             <div className="space-y-8">
-              {newsletters.map((newsletter) => (
+              {newsletters.map((newsletter: Newsletter) => (
                 <div
                   key={newsletter.id}
                   className="bg-white rounded-lg shadow-md p-6"
@@ -57,13 +58,14 @@ export default async function NewsletterPage() {
         </div>
       </div>
     );
-  } catch (err) {
-    console.error('Error fetching newsletters:', err);
+  } catch (error) {
+    console.error('Error fetching newsletters:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
     return (
       <ErrorDisplay
         title="Error Loading Newsletter"
         message="We're having trouble loading the newsletter. Please try again later."
-        error={err.message}
+        error={errorMessage}
         actionLabel="Return to Home"
         actionHref="/"
       />

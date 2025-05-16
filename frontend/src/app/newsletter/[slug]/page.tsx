@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import path from 'path';
 import ErrorDisplay from '../../../components/errors/ErrorDisplay';
+import { Newsletter } from '../../../types/newsletter';
 import { generateStaticParams } from './generateStaticParams';
 export { generateStaticParams };
 
@@ -20,9 +21,9 @@ export async function generateMetadata({
     // Read newsletters data
     const filePath = path.join(process.cwd(), 'src/data/newsletters.json');
     const fileContents = await fs.readFile(filePath, 'utf8');
-    const newsletters = JSON.parse(fileContents);
+    const newsletters = JSON.parse(fileContents) as Newsletter[];
 
-    const newsletter = newsletters.find((n) => n.slug === slug);
+    const newsletter = newsletters.find((n: Newsletter) => n.slug === slug);
 
     if (!newsletter) {
       return {
@@ -55,9 +56,9 @@ export default async function NewsletterSlugPage({
     // Read newsletters data
     const filePath = path.join(process.cwd(), 'src/data/newsletters.json');
     const fileContents = await fs.readFile(filePath, 'utf8');
-    const newsletters = JSON.parse(fileContents);
+    const newsletters = JSON.parse(fileContents) as Newsletter[];
 
-    const newsletter = newsletters.find((n) => n.slug === slug);
+    const newsletter = newsletters.find((n: Newsletter) => n.slug === slug);
 
     if (!newsletter) {
       return notFound();
@@ -107,11 +108,12 @@ export default async function NewsletterSlugPage({
     );
   } catch (error) {
     console.error('Error fetching newsletter:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
     return (
       <ErrorDisplay
         title="Error Loading Newsletter"
         message="We're having trouble loading this newsletter. Please try again later."
-        error={error.message}
+        error={errorMessage}
         actionLabel="Return to Newsletter List"
         actionHref="/newsletter"
       />

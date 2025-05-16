@@ -85,14 +85,13 @@ export default async function Home() {
   }
 
   // Use optional chaining and nullish coalescing for safe data access
-  const posts = data?.posts?.nodes ?? [];
 
   return (
     <main className="overflow-hidden">
       <HeroSection />
       <MissionSection />
       <StrategicPrioritiesSection />
-      <LatestUpdatesSection posts={posts} />
+      <LatestUpdatesSection />
       <GetInvolvedSection />
       <ChapterStatsSection />
       <JoinCTASection />
