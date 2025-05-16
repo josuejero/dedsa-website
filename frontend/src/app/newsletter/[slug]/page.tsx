@@ -1,64 +1,39 @@
-// src/app/newsletter/[slug]/page.tsx
-import { ApolloError } from '@apollo/client';
+import { promises as fs } from 'fs';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import path from 'path';
 import ErrorDisplay from '../../../components/errors/ErrorDisplay';
-import newsletterPageContent from '../../../content/newsletter/page.json';
-import { getClient } from '../../../lib/apollo-client';
-import {
-  GET_POST_BY_SLUG,
-  GET_RELATED_POSTS,
-} from '../../../lib/graphql/queries';
-import { NewsletterPageContent } from '../../../types/content/newsletter';
-import ArticleContent from './components/ArticleContent';
-import ArticleFooter from './components/ArticleFooter';
-import ArticleHeader from './components/ArticleHeader';
-import { generateStaticParams } from './staticParams';
-import { Author, Post, RelatedPost } from './types';
-
-// Type assertion for imported JSON
-const typedContent = newsletterPageContent as NewsletterPageContent;
-
-export const dynamic = 'force-dynamic';
-
-interface PageParams {
-  slug: string;
-}
-
+import { generateStaticParams } from './generateStaticParams';
 export { generateStaticParams };
 
-interface PostData {
-  post?: Post | null;
-}
-
-interface RelatedPostsData {
-  posts?: {
-    nodes: RelatedPost[];
-  };
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<PageParams>;
+  params: { slug: string };
 }): Promise<Metadata> {
-  const { slug } = await params;
-  try {
-    const { data } = await getClient().query<PostData>({
-      query: GET_POST_BY_SLUG,
-      variables: { slug },
-    });
+  const { slug } = params;
 
-    if (!data.post) {
+  try {
+    // Read newsletters data
+    const filePath = path.join(process.cwd(), 'src/data/newsletters.json');
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    const newsletters = JSON.parse(fileContents);
+
+    const newsletter = newsletters.find((n) => n.slug === slug);
+
+    if (!newsletter) {
       return {
-        title: 'Post Not Found',
-        description: 'The requested post could not be found.',
+        title: 'Newsletter Not Found',
+        description: 'The requested newsletter could not be found.',
       };
     }
 
     return {
-      title: data.post.title,
-      description: `${data.post.title} - Delaware DSA Newsletter article`,
+      title: newsletter.title,
+      description: newsletter.excerpt,
     };
   } catch (error) {
     console.error('Error generating metadata:', error);
@@ -69,94 +44,77 @@ export async function generateMetadata({
   }
 }
 
-export default async function Page({
+export default async function NewsletterSlugPage({
   params,
 }: {
-  params: Promise<PageParams>;
+  params: { slug: string };
 }) {
-  const { slug } = await params;
-  let post: Post | null = null;
-  let relatedPosts: RelatedPost[] = [];
+  const { slug } = params;
 
   try {
-    // Fetch the post
-    const { data } = await getClient().query<PostData>({
-      query: GET_POST_BY_SLUG,
-      variables: { slug },
-    });
+    // Read newsletters data
+    const filePath = path.join(process.cwd(), 'src/data/newsletters.json');
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    const newsletters = JSON.parse(fileContents);
 
-    if (!data.post) {
+    const newsletter = newsletters.find((n) => n.slug === slug);
+
+    if (!newsletter) {
       return notFound();
     }
 
-    post = data.post;
-
-    // Only fetch related posts if we have categories
-    const categoryIds = post.categories?.nodes?.map((cat) => cat.id) || [];
-
-    if (categoryIds.length > 0) {
-      try {
-        const relatedResult = await getClient().query<RelatedPostsData>({
-          query: GET_RELATED_POSTS,
-          variables: {
-            categoryIds,
-            currentPostId: post.id,
-          },
-        });
-        relatedPosts = relatedResult.data?.posts?.nodes || [];
-      } catch (relatedError) {
-        console.error('Error fetching related posts:', relatedError);
-      }
-    }
-
-    // Ensure post has author information (use author directly, not author.node)
-    const author: Author = post.author ?? {
-      id: 'default',
-      name: 'Delaware DSA',
-      slug: 'delaware-dsa',
-      avatar: null,
-    };
-
-    // Merge the author back onto post
-    post = { ...post, author };
+    // Read the full HTML content
+    const fullContentPath = path.join(
+      process.cwd(),
+      'public',
+      newsletter.fullContentPath
+    );
+    const fullContent = await fs.readFile(fullContentPath, 'utf-8');
 
     return (
-      <article className="bg-gray-100 py-12">
+      <div className="bg-gray-100 py-12">
         <div className="container-page">
-          <ArticleHeader post={post} />
-          <ArticleContent post={post} />
-          <ArticleFooter post={post} relatedPosts={relatedPosts} />
+          <div className="mb-6">
+            <Link href="/newsletter" className="text-dsa-red hover:underline">
+              ← Back to Newsletter List
+            </Link>
+          </div>
+          <div className="bg-white p-8 rounded-lg shadow-md mb-6">
+            <h1 className="text-4xl font-bold mb-4">{newsletter.title}</h1>
+            <p className="text-gray-600 mb-6">
+              {new Date(newsletter.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </p>
+
+            <div className="newsletter-container">
+              <iframe
+                srcDoc={fullContent}
+                style={{
+                  width: '100%',
+                  height: '800px',
+                  border: 'none',
+                  overflow: 'auto',
+                }}
+                title={newsletter.title}
+              />
+            </div>
+          </div>
         </div>
-      </article>
+      </div>
     );
   } catch (error) {
-    console.error('Error fetching post:', error);
-
-    if (error instanceof ApolloError) {
-      if (error.networkError) {
-        return (
-          <ErrorDisplay
-            title={typedContent.errorTitle}
-            message={typedContent.errorMessage}
-            error={error}
-            actionLabel={typedContent.errorActionLabel}
-            actionHref="/"
-          />
-        );
-      } else if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-        return (
-          <ErrorDisplay
-            title={typedContent.errorTitle}
-            message={typedContent.errorMessage}
-            error={error.graphQLErrors[0]}
-            showDetails={process.env.NODE_ENV === 'development'}
-            actionLabel={typedContent.errorActionLabel}
-            actionHref="/"
-          />
-        );
-      }
-    }
-
-    return notFound();
+    console.error('Error fetching newsletter:', error);
+    return (
+      <ErrorDisplay
+        title="Error Loading Newsletter"
+        message="We're having trouble loading this newsletter. Please try again later."
+        error={error.message}
+        actionLabel="Return to Newsletter List"
+        actionHref="/newsletter"
+      />
+    );
   }
 }
