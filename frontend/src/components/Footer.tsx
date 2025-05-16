@@ -13,7 +13,7 @@ export default function Footer() {
       <div className="container-page py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">
+            <h3 className="text-xl font-bold mb-4 text-gray-300">
               {typedFooterContent.organizationName}
             </h3>
             <p className="text-gray-300 mb-4">

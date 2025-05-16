@@ -28,7 +28,7 @@ export default function StrategicPrioritiesSection() {
   // Typewriter effect for the section title
   const { displayText } = useTypewriterEffect(
     typedPrioritiesContent.heading,
-    30
+    100
   );
 
   return (
