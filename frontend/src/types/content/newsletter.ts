@@ -11,7 +11,7 @@ export interface ArticleHeaderContent {
 }
 
 export interface ArticleContentContent {
-  // No text content needed as it's just a wrapper
+  title: string;
 }
 
 export interface ArticleFooterContent {

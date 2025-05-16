@@ -1,9 +1,8 @@
 import GenericSection from '../../components/shared/GenericSection';
-import aboutHeroContent from '../../content/about/aboutHero.json';
+import aboutHero from '../../content/consolidated/about.json';
 import { AboutHeroContent } from '../../types/content/about';
 
-// Type assertion for imported JSON
-const typedContent = aboutHeroContent as AboutHeroContent;
+const typedContent = aboutHero as AboutHeroContent;
 
 interface AboutHeroProps {
   missionStatement?: string;

@@ -45,7 +45,7 @@ export default async function CalendarPage({ searchParams }: CalendarProps) {
   let events: CalendarEvent[] = [];
 
   // State for content
-  let pageContent = {
+  const pageContent = {
     title: 'Events Calendar',
     subtitle:
       'Join us for meetings, actions, educational events, and social gatherings.',
