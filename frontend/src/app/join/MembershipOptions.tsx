@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import membershipOptionsContent from '../../content/join/membershipOptions.json';
+import membershipOptionsData from '../../content/consolidated/join.json';
 import { MembershipOptionsContent } from '../../types/content/join';
 
 // Type assertion for imported JSON
-const typedContent = membershipOptionsContent as MembershipOptionsContent;
+const typedContent =
+  membershipOptionsData.membershipOptions as MembershipOptionsContent;
 
 export default function MembershipOptions() {
   const { dsaMembership, duesWaiver } = typedContent;

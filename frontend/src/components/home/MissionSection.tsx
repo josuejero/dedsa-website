@@ -3,11 +3,12 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { useRef } from 'react';
-import missionContent from '../../content/home/missionSection.json';
+import missionContent from '../../content/consolidated/home.json';
 import { MissionSectionContent } from '../../types/content/home';
 
 // Type assertion for the imported JSON
-const typedMissionContent = missionContent as MissionSectionContent;
+const typedMissionContent =
+  missionContent.missionSection as MissionSectionContent;
 
 export default function MissionSection() {
   const sectionRef = useRef(null);

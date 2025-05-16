@@ -1,8 +1,8 @@
-import timelineContent from '../../content/about/timeline.json';
+import timelineData from '../../content/consolidated/about.json';
 import { TimelineContent } from '../../types/content/about';
 
 // Type assertion for imported JSON
-const typedContent = timelineContent as TimelineContent;
+const typedContent = timelineData.timeline as TimelineContent;
 
 interface TimelineProps {
   foundingYear?: number;

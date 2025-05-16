@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import getInvolvedContent from '../../content/about/getInvolved.json';
+import getInvolvedContent from '../../content/consolidated/about.json';
 import { GetInvolvedContent } from '../../types/content/about';
 
 // Type assertion for imported JSON
-const typedContent = getInvolvedContent as GetInvolvedContent;
+const typedContent = getInvolvedContent.getInvolved as GetInvolvedContent;
 
 export default function GetInvolved() {
   return (

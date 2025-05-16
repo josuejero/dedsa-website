@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
-import pageContent from '../../content/about/page.json';
+import pageData from '../../content/consolidated/about.json';
 import { AboutPageContent } from '../../types/content/about';
 import AboutHero from './AboutHero';
 import Achievements from './Achievements';
@@ -16,7 +16,7 @@ import NationalInfo from './NationalInfo';
 import Timeline from './Timeline';
 
 // Type assertion for imported JSON
-const typedContent = pageContent as AboutPageContent;
+const typedContent = pageData.page as AboutPageContent;
 
 export const metadata: Metadata = {
   title: 'About Us',

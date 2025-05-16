@@ -2,12 +2,12 @@
 
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import chapterStatsContent from '../../content/home/chapterStatsSection.json';
+import chapterStatsContent from '../../content/consolidated/home.json';
 import { ChapterStatsSectionContent } from '../../types/content/home';
 
 // Type assertion for the imported JSON
 const typedChapterStatsContent =
-  chapterStatsContent as ChapterStatsSectionContent;
+  chapterStatsContent.chapterStatsSection as ChapterStatsSectionContent;
 
 // A simpler, lightweight version of stats animation
 export default function ChapterStatsSection() {

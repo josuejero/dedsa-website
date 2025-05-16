@@ -2,14 +2,14 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import prioritiesContent from '../../content/home/strategicPrioritiesSection.json';
+import prioritiesContent from '../../content/consolidated/home.json';
 import { StrategicPrioritiesSectionContent } from '../../types/content/home';
 import { useTypewriterEffect } from '../../utils/animations';
 import Blob from '../ui/Blob';
 
 // Type assertion for the imported JSON
 const typedPrioritiesContent =
-  prioritiesContent as StrategicPrioritiesSectionContent;
+  prioritiesContent.strategicPrioritiesSection as StrategicPrioritiesSectionContent;
 
 export default function StrategicPrioritiesSection() {
   const sectionRef = useRef(null);

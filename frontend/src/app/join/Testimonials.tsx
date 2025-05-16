@@ -1,8 +1,8 @@
-import testimonialsContent from '../../content/join/testimonials.json';
+import testimonialsData from '../../content/consolidated/join.json';
 import { TestimonialsContent } from '../../types/content/join';
 
 // Type assertion for imported JSON
-const typedContent = testimonialsContent as TestimonialsContent;
+const typedContent = testimonialsData.testimonials as TestimonialsContent;
 
 export default function Testimonials() {
   return (

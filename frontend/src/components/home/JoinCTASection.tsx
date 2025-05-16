@@ -4,12 +4,13 @@ import { motion, useAnimation } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import joinCTAContent from '../../content/home/joinCTASection.json';
+import joinCTAContent from '../../content/consolidated/home.json';
 import { JoinCTASectionContent } from '../../types/content/home';
 import ConfettiButton from '../ui/Confetti';
 
 // Type assertion for the imported JSON
-const typedJoinCTAContent = joinCTAContent as JoinCTASectionContent;
+const typedJoinCTAContent =
+  joinCTAContent.joinCTASection as JoinCTASectionContent;
 
 export default function JoinCTASection() {
   const controls = useAnimation();

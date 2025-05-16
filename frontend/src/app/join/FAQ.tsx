@@ -1,8 +1,8 @@
-import faqContent from '../../content/join/faq.json';
+import faqData from '../../content/consolidated/join.json';
 import { FAQContent } from '../../types/content/join';
 
 // Type assertion for imported JSON
-const typedContent = faqContent as FAQContent;
+const typedContent = faqData.faq as FAQContent;
 
 export default function FAQ() {
   return (

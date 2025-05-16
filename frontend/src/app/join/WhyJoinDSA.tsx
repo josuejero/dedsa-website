@@ -1,8 +1,8 @@
-import whyJoinDsaContent from '../../content/join/whyJoinDSA.json';
+import whyJoinDsaContent from '../../content/consolidated/join.json';
 import { WhyJoinDsaContent } from '../../types/content/join';
 
 // Type assertion for imported JSON
-const typedContent = whyJoinDsaContent as WhyJoinDsaContent;
+const typedContent = whyJoinDsaContent.whyJoinDSA as WhyJoinDsaContent;
 
 export default function WhyJoinDSA() {
   return (

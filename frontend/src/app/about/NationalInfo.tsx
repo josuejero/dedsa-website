@@ -1,8 +1,8 @@
-import nationalInfoContent from '../../content/about/nationalInfo.json';
+import nationalInfoData from '../../content/consolidated/about.json';
 import { NationalInfoContent } from '../../types/content/about';
 
 // Type assertion for imported JSON
-const typedContent = nationalInfoContent as NationalInfoContent;
+const typedContent = nationalInfoData.nationalInfo as NationalInfoContent;
 
 export default function NationalInfo() {
   return (

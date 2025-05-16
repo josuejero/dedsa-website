@@ -2,7 +2,7 @@ import GenericSection from '../../components/shared/GenericSection';
 import aboutHero from '../../content/consolidated/about.json';
 import { AboutHeroContent } from '../../types/content/about';
 
-const typedContent = aboutHero as AboutHeroContent;
+const typedContent = aboutHero.aboutHero as AboutHeroContent;
 
 interface AboutHeroProps {
   missionStatement?: string;

@@ -1,8 +1,8 @@
-import joinHeroContent from '../../content/join/joinHero.json';
+import joinHeroData from '../../content/consolidated/join.json';
 import { JoinHeroContent } from '../../types/content/join';
 
 // Type assertion for imported JSON
-const typedContent = joinHeroContent as JoinHeroContent;
+const typedContent = joinHeroData.joinHero as JoinHeroContent;
 
 export default function JoinHero() {
   return (

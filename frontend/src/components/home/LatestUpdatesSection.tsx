@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
-import latestUpdatesContent from '../../content/home/latestUpdatesSection.json';
+import latestUpdatesContent from '../../content/consolidated/home.json';
 import { LatestUpdatesSectionContent } from '../../types/content/home';
 
 import { LatestUpdatesSectionProps } from '../types';
 
 // Type assertion for the imported JSON
 const typedLatestUpdatesContent =
-  latestUpdatesContent as LatestUpdatesSectionContent;
+  latestUpdatesContent.latestUpdatesSection as LatestUpdatesSectionContent;
 
 export default function LatestUpdatesSection({
   posts,

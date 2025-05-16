@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import upcomingEventsContent from '../../../content/home/upcomingEventsCard.json';
+import upcomingEventsContent from '../../../content/consolidated/home.json';
 import { UpcomingEventsCardContent } from '../../../types/content/home';
 import EventItem from './EventItem';
 
 // Type assertion for the imported JSON
 const typedUpcomingEventsContent =
-  upcomingEventsContent as UpcomingEventsCardContent;
+  upcomingEventsContent.upcomingEventsCard as UpcomingEventsCardContent;
 
 export default function UpcomingEventsCard() {
   return (

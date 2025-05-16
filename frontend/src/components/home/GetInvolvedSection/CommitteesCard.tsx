@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import committeesContent from '../../../content/home/committeesCard.json';
+import committeesContent from '../../../content/consolidated/home.json';
 import { CommitteesCardContent } from '../../../types/content/home';
 import CommitteeItem from './CommitteeItem';
 
 // Type assertion for the imported JSON
-const typedCommitteesContent = committeesContent as CommitteesCardContent;
+const typedCommitteesContent =
+  committeesContent.committeesCard as CommitteesCardContent;
 
 export default function CommitteesCard() {
   return (
