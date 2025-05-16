@@ -28,10 +28,7 @@ export default function ChapterStatsSection() {
   }, [inView, isInitialized]);
 
   return (
-    <section
-      ref={ref}
-      className="py-16 bg-white dark:bg-gray-800 relative overflow-hidden"
-    >
+    <section ref={ref} className="py-16 bg-white  relative overflow-hidden">
       {/* Background grid pattern */}
       <div className="absolute inset-0 opacity-5">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +52,7 @@ export default function ChapterStatsSection() {
       </div>
 
       <div className="container-page">
-        <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 p-10 rounded-xl shadow-md relative overflow-hidden">
+        <div className="bg-gradient-to-br from-gray-50 to-gray-100   p-10 rounded-xl shadow-md relative overflow-hidden">
           <div className="relative z-10">
             <h3 className="text-2xl font-bold mb-8 text-center text-heading">
               {typedChapterStatsContent.heading}
@@ -65,7 +62,7 @@ export default function ChapterStatsSection() {
               {typedChapterStatsContent.stats.map((stat) => (
                 <div
                   key={stat.key}
-                  className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300"
+                  className="bg-white  p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300"
                 >
                   <h4
                     className="text-4xl font-bold text-dsa-red mb-2 tabular-nums"

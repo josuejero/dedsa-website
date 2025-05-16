@@ -34,7 +34,7 @@ export default function StrategicPrioritiesSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-20 bg-gray-100 dark:bg-gray-900 relative overflow-hidden"
+      className="py-20 bg-gray-100  relative overflow-hidden"
     >
       {/* Background with dot pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -80,7 +80,7 @@ export default function StrategicPrioritiesSection() {
           {typedPrioritiesContent.priorities.map((p, index) => (
             <motion.div
               key={p.title}
-              className="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-500 border-l-4 border-dsa-red overflow-hidden relative"
+              className="group bg-white  p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-500 border-l-4 border-dsa-red overflow-hidden relative"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
@@ -100,7 +100,7 @@ export default function StrategicPrioritiesSection() {
 
               <div className="flex items-start mb-4 relative z-10">
                 <motion.div
-                  className="p-3 bg-red-50 dark:bg-red-900/30 rounded-full mr-4 group-hover:bg-red-100 dark:group-hover:bg-red-900/50 transition-colors duration-300"
+                  className="p-3 bg-red-50 rounded-full mr-4 group-hover:bg-red-100 transition-colors duration-300"
                   whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                   transition={{ duration: 0.5 }}
                 >

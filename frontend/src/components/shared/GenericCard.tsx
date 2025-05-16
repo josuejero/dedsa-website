@@ -25,8 +25,8 @@ export default function GenericCard({
   isHoverable = false,
 }: GenericCardProps) {
   const cardClasses = tw(
-    'bg-white dark:bg-gray-800 rounded-lg p-6',
-    hasBorder && 'border border-gray-200 dark:border-gray-700',
+    'bg-white rounded-lg p-6',
+    hasBorder && 'border border-gray-200',
     hasShadow && 'shadow-md',
     isHoverable &&
       'hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1',
@@ -38,9 +38,7 @@ export default function GenericCard({
     <div className={cardClasses} onClick={onClick}>
       {icon && <div className="mb-4">{icon}</div>}
       {title && <h3 className="text-xl font-bold mb-2">{title}</h3>}
-      {subtitle && (
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{subtitle}</p>
-      )}
+      {subtitle && <p className="text-gray-600 mb-4">{subtitle}</p>}
       {children}
     </div>
   );

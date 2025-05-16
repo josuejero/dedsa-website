@@ -9,7 +9,7 @@ const typedCommitteesContent =
 
 export default function CommitteesCard() {
   return (
-    <div className="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+    <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
       <div className="flex items-center mb-6">
         <svg
           className="w-8 h-8 text-dsa-red mr-3"

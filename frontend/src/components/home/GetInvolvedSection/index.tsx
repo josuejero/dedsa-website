@@ -8,18 +8,17 @@ import { GetInvolvedSectionContent } from '../../../types/content/home';
 import CommitteesCard from './CommitteesCard';
 import UpcomingEventsCard from './UpcomingEventsCard';
 
-const [isClient, setIsClient] = useState(false);
-
-useEffect(() => {
-  setIsClient(true);
-}, []);
-
 // Type assertion for the imported JSON
 const typedGetInvolvedContent =
   getInvolvedContent.getInvolvedSection as GetInvolvedSectionContent;
 
 export default function GetInvolvedSection() {
+  const [isClient, setIsClient] = useState(false);
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const sectionVariants = {
     hidden: { opacity: 0 },
@@ -42,7 +41,7 @@ export default function GetInvolvedSection() {
   };
 
   return (
-    <section className="py-20 bg-gray-100 dark:bg-gray-900 relative overflow-hidden">
+    <section className="py-20 bg-gray-100 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         {isClient && (
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">

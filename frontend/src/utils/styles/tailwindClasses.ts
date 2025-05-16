@@ -5,7 +5,7 @@ export const tailwindClasses = {
   section: 'py-16 relative overflow-hidden',
 
   // Components
-  card: 'bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300',
+  card: 'bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300',
   button: {
     base: 'inline-flex items-center justify-center font-medium rounded transition-all duration-200',
     primary: 'bg-dsa-red text-white hover:bg-red-700',

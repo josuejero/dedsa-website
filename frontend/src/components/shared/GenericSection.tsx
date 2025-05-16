@@ -19,8 +19,8 @@ export default function GenericSection({
   centered = false,
 }: GenericSectionProps) {
   const bgClasses = {
-    white: 'bg-white dark:bg-gray-800',
-    gray: 'bg-gray-100 dark:bg-gray-900',
+    white: 'bg-white ',
+    gray: 'bg-gray-100',
     primary: 'bg-dsa-red text-white',
     gradient: 'bg-gradient-animated text-white',
   };

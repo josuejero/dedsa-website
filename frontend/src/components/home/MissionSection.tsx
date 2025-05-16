@@ -24,12 +24,12 @@ export default function MissionSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-20 relative bg-white dark:bg-gray-800 overflow-hidden"
+      className="py-20 relative bg-whiteoverflow-hidden"
     >
       {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-[10%] left-[5%] w-32 h-32 rounded-full bg-red-50 dark:bg-red-900/20"
+          className="absolute top-[10%] left-[5%] w-32 h-32 rounded-full bg-red-50"
           style={{ y, opacity }}
         />
         <motion.div

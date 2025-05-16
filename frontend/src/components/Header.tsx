@@ -1,11 +1,11 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import headerContent from '../content/components/header.json';
 import { HeaderContent } from '../types/content/components';
-import ThemeToggle from './theme/ThemeToggle';
 
 // Type assertion for the imported JSON
 const typedHeaderContent = headerContent as HeaderContent;
@@ -31,20 +31,22 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white dark:bg-gray-800 bg-opacity-95 backdrop-blur-sm shadow-md py-2'
+          ? 'bg-white bg-opacity-95 backdrop-blur-sm shadow-md py-2'
           : 'bg-transparent py-4'
       }`}
     >
       <div className="container-page">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <div
-              className={`w-10 h-10 bg-dsa-red rounded-full flex items-center justify-center transition-all ${
+            <Image
+              src="/dedsa-logo.png"
+              alt="Delaware DSA Logo"
+              width={40}
+              height={40}
+              className={`transition-all ${
                 isScrolled ? 'scale-90' : 'scale-100'
               }`}
-            >
-              <span className="text-on-accent font-bold">DSA</span>
-            </div>
+            />
             <span
               className={`text-xl font-bold ${
                 isScrolled
@@ -77,7 +79,6 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-            <ThemeToggle />
             <Link
               href="/join"
               className={`btn ${
