@@ -88,7 +88,7 @@ export default async function Home() {
   const posts = data?.posts?.nodes ?? [];
 
   return (
-    <main className="pt-0 overflow-hidden">
+    <main className="overflow-hidden">
       <HeroSection />
       <MissionSection />
       <StrategicPrioritiesSection />

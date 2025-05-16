@@ -90,7 +90,7 @@ export default async function AboutPage() {
     const yearsActive = currentYear - (aboutInfo.foundingYear || 2021);
 
     return (
-      <div className="bg-gray-100 py-12">
+      <div className="bg-gray-100 py-12 pt-10">
         <div className="container-page">
           <h1 className="text-4xl font-bold mb-4">{typedContent.title}</h1>
 

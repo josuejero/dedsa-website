@@ -81,7 +81,7 @@ export default async function NewsletterPage() {
 
   return (
     <div className="bg-gray-100 py-12">
-      <div className="container-page">
+      <div className="container-page py-12">
         <h1 className="text-4xl font-bold mb-8">{typedContent.title}</h1>
 
         {posts.length > 0 ? (

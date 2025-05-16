@@ -73,8 +73,8 @@ export default async function WhatWeStandFor() {
   const positions = data.positions?.nodes ?? [];
 
   return (
-    <div className="bg-gray-100 py-12">
-      <div className="container-page">
+    <div className="bg-gray-100 py-14">
+      <div className="container-page py-14">
         {/* Hero Section */}
         <div className="bg-dsa-red text-white p-8 md:p-12 rounded-lg mb-12">
           <h1 className="text-4xl font-bold mb-4">
