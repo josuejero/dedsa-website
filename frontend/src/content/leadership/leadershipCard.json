@@ -1,6 +1,6 @@
 {
-  "roleLabelDefault": "Chapter Member",
-  "nameLabelDefault": "",
-  "bioLabelDefault": "",
-  "emailLabelDefault": ""
+  "roleDefault": "Chapter Member",
+  "nameDefault": "",
+  "bioDefault": "",
+  "emailDefault": ""
 }

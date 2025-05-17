@@ -1,10 +1,6 @@
 {
   "formFields": {
-    "name": {
-      "label": "Name",
-      "required": true,
-      "placeholder": "Your name"
-    },
+    "name": { "label": "Name", "required": true, "placeholder": "Your name" },
     "email": {
       "label": "Email",
       "required": true,
@@ -30,13 +26,8 @@
       "rows": 5
     }
   },
-  "buttons": {
-    "submit": "Send Message",
-    "sending": "Sending..."
-  },
-  "validation": {
-    "requiredFields": "Please fill out all required fields."
-  },
+  "buttons": { "submit": "Send Message", "sending": "Sending..." },
+  "validation": { "requiredFields": "Please fill out all required fields." },
   "success": {
     "title": "Thank You!",
     "message": "Your message has been sent successfully. We'll get back to you as soon as possible.",

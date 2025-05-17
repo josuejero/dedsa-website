@@ -24,64 +24,28 @@
     {
       "title": "Learn",
       "links": [
-        {
-          "name": "About Us",
-          "href": "/about"
-        },
-        {
-          "name": "What We Stand For",
-          "href": "/what-we-stand-for"
-        },
-        {
-          "name": "Leadership",
-          "href": "/leadership"
-        },
-        {
-          "name": "Bylaws",
-          "href": "/bylaws"
-        }
+        { "name": "About Us", "href": "/about" },
+        { "name": "What We Stand For", "href": "/what-we-stand-for" },
+        { "name": "Leadership", "href": "/leadership" },
+        { "name": "Bylaws", "href": "/bylaws" }
       ]
     },
     {
       "title": "Get Involved",
       "links": [
-        {
-          "name": "Join DSA",
-          "href": "/join"
-        },
-        {
-          "name": "Committees",
-          "href": "/committees"
-        },
-        {
-          "name": "Events",
-          "href": "/calendar"
-        },
-        {
-          "name": "Newsletter",
-          "href": "/newsletter"
-        }
+        { "name": "Join DSA", "href": "/join" },
+        { "name": "Committees", "href": "/committees" },
+        { "name": "Events", "href": "/calendar" },
+        { "name": "Newsletter", "href": "/newsletter" }
       ]
     },
     {
       "title": "Resources",
       "links": [
-        {
-          "name": "Membership Handbook",
-          "href": "/handbook"
-        },
-        {
-          "name": "Voting Guide",
-          "href": "/voting-guide"
-        },
-        {
-          "name": "UD YDSA",
-          "href": "/ud-ydsa"
-        },
-        {
-          "name": "Contact",
-          "href": "/contact"
-        }
+        { "name": "Membership Handbook", "href": "/handbook" },
+        { "name": "Voting Guide", "href": "/voting-guide" },
+        { "name": "UD YDSA", "href": "/ud-ydsa" },
+        { "name": "Contact", "href": "/contact" }
       ]
     }
   ]

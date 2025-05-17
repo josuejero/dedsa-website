@@ -1,15 +1,19 @@
+'use client';
+
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
-import pageContent from '../../content/leadership/page.json';
-import { LeadershipPageContent } from '../../types/content/leadership';
+import pageJson from '../../content/leadership/page.json';
+import {
+  LeadershipPageContent,
+  LeadershipPageData,
+  LeadershipRole,
+} from '../../types/content/leadership';
 import ChapterStructure from './ChapterStructure';
 import LeadershipCard from './LeadershipCard';
 
-// Type assertion for imported JSON
-const typedContent = pageContent as LeadershipPageContent;
-
 export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'Leadership & Structure',
@@ -17,193 +21,141 @@ export const metadata: Metadata = {
     'Learn about the leadership and organizational structure of Delaware DSA.',
 };
 
-// ISR: revalidate every 5 minutes
-export const revalidate = 300;
+// Inline cast
+const c = pageJson as LeadershipPageContent;
 
-// Inline GraphQL query string
-const GET_LEADERSHIP = `
-  query GetLeadership {
-    page(id: "leadership", idType: URI) {
-      content
-    }
-    leadership(
-      first: 100
-      where: { orderby: { field: MENU_ORDER, order: ASC } }
-    ) {
-      nodes {
-        id
-        title
-        content
-        leadership {
-          role
-          email
-          order
-        }
-        featuredImage {
-          node {
-            sourceUrl
-          }
-        }
-      }
+const Q = `
+  query {
+    page(id:"leadership",idType:URI){content}
+    leadership(first:100,where:{orderby:{field:MENU_ORDER,order:ASC}}){
+      nodes{id,title,content,leadership{role,email,order},featuredImage{node{sourceUrl}}}
     }
   }
 `;
 
-interface LeadershipRole {
-  id: string;
-  title: string;
-  name: string;
-  bio: string;
-  email: string;
-  imageUrl?: string;
-  order: number;
-}
-
-interface LeadershipPageData {
-  page?: { content?: string | null } | null;
-  leadership?: {
-    nodes: Array<{
-      id: string;
-      title: string;
-      content: string;
-      leadership: { role: string; email: string; order: number };
-      featuredImage?: { node: { sourceUrl: string } };
-    }>;
-  };
-}
-
 export default async function LeadershipPage() {
-  const endpoint =
+  const url =
     process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
     'http://delaware-dsa-backend.local/graphql';
+  let data: LeadershipPageData;
 
   try {
-    const res = await fetch(endpoint, {
+    const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       cache: 'force-cache',
-      body: JSON.stringify({ query: GET_LEADERSHIP }),
+      body: JSON.stringify({ query: Q }),
     });
-    if (!res.ok) throw new Error(`Network response was not ok: ${res.status}`);
-
-    const json = await res.json();
-    const data = (json.data ?? {}) as LeadershipPageData;
-
-    // 404 if neither page nor leadership data
-    if (!data.page && !data.leadership) return notFound();
-
-    const pageContentHtml = data.page?.content ?? typedContent.fallbackContent;
-
-    let leadershipTeam: LeadershipRole[] =
-      data.leadership?.nodes.map((node) => ({
-        id: node.id,
-        title: node.leadership.role,
-        name: node.title,
-        bio: node.content,
-        email: node.leadership.email,
-        imageUrl: node.featuredImage?.node.sourceUrl,
-        order: node.leadership.order,
-      })) ?? [];
-
-    if (leadershipTeam.length === 0) {
-      leadershipTeam = [
-        {
-          id: 'chair',
-          title: 'Chapter Chair',
-          name: 'Alex Johnson',
-          bio: '<p>Alex has been an active DSA member since 2019 and works to build coalitions across progressive organizations in Delaware.</p>',
-          email: `chair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
-          imageUrl: undefined,
-          order: 1,
-        },
-        {
-          id: 'vice-chair',
-          title: 'Vice Chair',
-          name: 'Morgan Smith',
-          bio: '<p>Morgan focuses on organizing tenant unions and housing justice initiatives across New Castle County.</p>',
-          email: `vicechair@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
-          imageUrl: undefined,
-          order: 2,
-        },
-        {
-          id: 'secretary',
-          title: 'Secretary',
-          name: 'Jamie Williams',
-          bio: '<p>Jamie maintains chapter records and communications, ensuring organizational transparency and member involvement.</p>',
-          email: `secretary@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
-          imageUrl: undefined,
-          order: 3,
-        },
-        {
-          id: 'treasurer',
-          title: 'Treasurer',
-          name: 'Taylor Reed',
-          bio: '<p>Taylor oversees chapter finances, budget planning, and ensures compliance with financial regulations.</p>',
-          email: `treasurer@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
-          imageUrl: undefined,
-          order: 4,
-        },
-        {
-          id: 'at-large-1',
-          title: 'At-Large Member',
-          name: 'Jordan Chen',
-          bio: '<p>Jordan leads our Medicare for All campaign and represents healthcare workers within the chapter.</p>',
-          email: `atlarge1@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
-          imageUrl: undefined,
-          order: 5,
-        },
-        {
-          id: 'at-large-2',
-          title: 'At-Large Member',
-          name: 'Casey Wilson',
-          bio: '<p>Casey coordinates outreach to labor unions and workplace organizing throughout the state.</p>',
-          email: `atlarge2@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`,
-          imageUrl: undefined,
-          order: 6,
-        },
-      ];
-    }
-
-    leadershipTeam.sort((a, b) => a.order - b.order);
-
-    return (
-      <div className="bg-gray-100 py-12">
-        <div className="container-page">
-          <h1 className="text-4xl font-bold mb-4">{typedContent.title}</h1>
-          <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-            <div
-              className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: pageContentHtml }}
-            />
-          </div>
-          <h2 className="text-3xl font-bold mb-6">Chapter Leadership</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {leadershipTeam.map((leader) => (
-              <LeadershipCard
-                key={leader.id}
-                title={leader.title}
-                name={leader.name}
-                bio={leader.bio}
-                email={leader.email}
-                imageUrl={leader.imageUrl}
-              />
-            ))}
-          </div>
-          <ChapterStructure />
-        </div>
-      </div>
-    );
-  } catch (err: unknown) {
-    console.error('Error loading leadership page:', err);
-    const errorMessage = err instanceof Error ? err.message : String(err);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const j = await res.json();
+    data = (j.data ?? {}) as LeadershipPageData;
+  } catch (e: any) {
     return (
       <ErrorDisplay
         title="Error Loading Leadership Page"
         message="We're having trouble loading this page. Please try again later."
-        error={errorMessage}
+        error={String(e.message || e)}
         actionLabel="Return to Home"
         actionHref="/"
       />
     );
   }
+
+  if (!data.page && !data.leadership) return notFound();
+  const html = data.page?.content ?? c.fallbackContent;
+
+  let team: LeadershipRole[] =
+    data.leadership?.nodes.map((n) => ({
+      id: n.id,
+      title: n.leadership.role,
+      name: n.title,
+      bio: n.content,
+      email: n.leadership.email,
+      imageUrl: n.featuredImage?.node.sourceUrl,
+      order: n.leadership.order,
+    })) || [];
+
+  if (team.length === 0) {
+    const env = (k: string) => `${k}@${process.env.NEXT_PUBLIC_EMAIL_DOMAIN}`;
+    team = [
+      {
+        id: 'chair',
+        title: 'Chapter Chair',
+        name: 'Alex Johnson',
+        bio: '<p>Alex has been an active DSA member since 2019…</p>',
+        email: env('chair'),
+        order: 1,
+      },
+      {
+        id: 'vice-chair',
+        title: 'Vice Chair',
+        name: 'Morgan Smith',
+        bio: '<p>Morgan focuses on organizing tenant unions…</p>',
+        email: env('vicechair'),
+        order: 2,
+      },
+      {
+        id: 'secretary',
+        title: 'Secretary',
+        name: 'Jamie Williams',
+        bio: '<p>Jamie maintains chapter records…</p>',
+        email: env('secretary'),
+        order: 3,
+      },
+      {
+        id: 'treasurer',
+        title: 'Treasurer',
+        name: 'Taylor Reed',
+        bio: '<p>Taylor oversees chapter finances…</p>',
+        email: env('treasurer'),
+        order: 4,
+      },
+      {
+        id: 'at-large-1',
+        title: 'At-Large Member',
+        name: 'Jordan Chen',
+        bio: '<p>Jordan leads our Medicare for All campaign…</p>',
+        email: env('atlarge1'),
+        order: 5,
+      },
+      {
+        id: 'at-large-2',
+        title: 'At-Large Member',
+        name: 'Casey Wilson',
+        bio: '<p>Casey coordinates outreach to labor unions…</p>',
+        email: env('atlarge2'),
+        order: 6,
+      },
+    ];
+  }
+
+  team.sort((a, b) => a.order - b.order);
+
+  return (
+    <div className="bg-gray-100 py-12">
+      <div className="container-page">
+        <h1 className="text-4xl font-bold mb-4">{c.title}</h1>
+        <div className="bg-white p-8 rounded-lg shadow-md mb-8">
+          <div
+            className="prose prose-lg max-w-none"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        </div>
+        <h2 className="text-3xl font-bold mb-6">Chapter Leadership</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {team.map((l) => (
+            <LeadershipCard
+              key={l.id}
+              title={l.title}
+              name={l.name}
+              bio={l.bio}
+              email={l.email}
+              imageUrl={l.imageUrl}
+            />
+          ))}
+        </div>
+        <ChapterStructure />
+      </div>
+    </div>
+  );
 }

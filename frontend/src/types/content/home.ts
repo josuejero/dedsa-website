@@ -4,24 +4,15 @@ export interface HeroSectionContent {
   tagline: string;
   description: string;
   buttons: {
-    primary: {
-      text: string;
-      href: string;
-    };
-    secondary: {
-      text: string;
-      href: string;
-    };
+    primary: { text: string; href: string };
+    secondary: { text: string; href: string };
   };
 }
 
 export interface MissionSectionContent {
   heading: string;
   paragraphs: string[];
-  button: {
-    text: string;
-    href: string;
-  };
+  button: { text: string; href: string };
 }
 
 export interface PriorityItem {
@@ -35,7 +26,11 @@ export interface StrategicPrioritiesSectionContent {
   subtitle: string;
   linkText: string;
   linkHref: string;
-  priorities: PriorityItem[];
+  priorities: Array<{
+    title: string;
+    description: string;
+    iconPath: string;
+  }>;
 }
 
 // Add these interfaces after the existing ones

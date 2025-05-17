@@ -16,15 +16,15 @@ export interface FooterLink {
   href: string;
 }
 
-export interface FooterSection {
-  title: string;
-  links: FooterLink[];
-}
-
 export interface SocialLink {
   name: string;
   url: string;
-  icon: string;
+  icon: 'twitter' | 'facebook' | 'instagram';
+}
+
+export interface FooterSection {
+  title: string;
+  links: { name: string; href: string }[];
 }
 
 export interface FooterContent {

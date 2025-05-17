@@ -17,5 +17,8 @@
   "workspaces": [
     "backend",
     "frontend"
-  ]
+  ],
+  "dependencies": {
+    "js-tiktoken": "^1.0.20"
+  }
 }

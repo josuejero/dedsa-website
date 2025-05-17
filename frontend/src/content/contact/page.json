@@ -10,35 +10,18 @@
     "getInTouch": {
       "title": "Get In Touch",
       "contactTypes": {
-        "email": {
-          "label": "Email"
-        },
-        "phone": {
-          "label": "Phone"
-        },
-        "mailingAddress": {
-          "label": "Mailing Address"
-        }
+        "email": { "label": "Email" },
+        "phone": { "label": "Phone" },
+        "mailingAddress": { "label": "Mailing Address" }
       }
     },
-    "sendMessage": {
-      "title": "Send Us a Message"
-    },
+    "sendMessage": { "title": "Send Us a Message" },
     "followUs": {
       "title": "Follow Us",
       "socialLinks": [
-        {
-          "name": "Twitter",
-          "url": "https://twitter.com/delawaredsa"
-        },
-        {
-          "name": "Facebook",
-          "url": "https://facebook.com/delawaredsa"
-        },
-        {
-          "name": "Instagram",
-          "url": "https://instagram.com/delawaredsa"
-        }
+        { "name": "Twitter", "url": "https://twitter.com/delawaredsa" },
+        { "name": "Facebook", "url": "https://facebook.com/delawaredsa" },
+        { "name": "Instagram", "url": "https://instagram.com/delawaredsa" }
       ]
     }
   },

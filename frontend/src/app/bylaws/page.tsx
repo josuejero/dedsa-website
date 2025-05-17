@@ -1,140 +1,104 @@
+// src/app/bylaws/page.tsx
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
-import pageContent from '../../content/bylaws/page.json';
-import { BylawsPageContent } from '../../types/content/bylaws';
+import json from '../../content/bylaws/page.json';
 import BylawsDocument from './BylawsDocument';
 import FrequentlyAskedQuestions from './FrequentlyAskedQuestions';
 import KeyGovernanceSections from './KeyGovernanceSections';
 import OtherDocuments from './OtherDocuments';
+
 export const dynamic = 'force-dynamic';
-
-// Type assertion for the imported JSON
-const typedPageContent = pageContent as BylawsPageContent;
-
+export const revalidate = 300;
 export const metadata: Metadata = {
   title: 'Bylaws',
-  description: 'Delaware DSA chapter bylaws and governance documents.',
+  description: 'Chapter bylaws and governance.',
 };
 
-// ISR: Revalidate this page every 5 minutes
-export const revalidate = 300;
-
-// GraphQL query string
-const GET_BYLAWS_PAGE = `
-  query GetBylawsPage {
-    page(id: "bylaws", idType: URI) {
-      content
-      bylaws {
-        pdfUrl
-        lastUpdated
-      }
-    }
-  }
-`;
-
-interface BylawsPageData {
-  page?: {
-    content?: string | null;
-    bylaws?: {
-      pdfUrl?: string | null;
-      lastUpdated?: string | null;
-    } | null;
-  } | null;
-}
+const j = json as {
+  title: string;
+  fallbackContent: string;
+  currentVersionLabel: string;
+  lastUpdatedLabel: string;
+  downloadButtonText: string;
+};
+const Q = `query{page(id:"bylaws",idType:URI){content,bylaws{pdfUrl,lastUpdated}}}`;
 
 export default async function BylawsPage() {
-  const endpoint =
+  const ep =
     process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
     'http://delaware-dsa-backend.local/graphql';
 
   try {
-    const res = await fetch(endpoint, {
+    const res = await fetch(ep, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       cache: 'force-cache',
-      body: JSON.stringify({ query: GET_BYLAWS_PAGE }),
+      body: JSON.stringify({ query: Q }),
     });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-    if (!res.ok) {
-      throw new Error(`Network response was not ok: ${res.status}`);
-    }
+    const pg = (await res.json()).data.page;
+    if (!pg) return notFound();
 
-    const json = await res.json();
-    const data = (json.data ?? {}) as BylawsPageData;
-
-    // If there's no page data, render 404
-    if (!data.page) {
-      return notFound();
-    }
-
-    const contentHtml = data.page.content ?? typedPageContent.fallbackContent;
-
-    const bylawsPdf =
-      data.page.bylaws?.pdfUrl || '/documents/delaware-dsa-bylaws.pdf';
-    const lastUpdated = data.page.bylaws?.lastUpdated || 'January 15, 2024';
+    const html = pg.content ?? j.fallbackContent;
+    const pdf = pg.bylaws?.pdfUrl ?? '/documents/delaware-dsa-bylaws.pdf';
+    const lu = pg.bylaws?.lastUpdated ?? 'January 15, 2024';
 
     return (
       <div className="bg-gray-100 py-12">
         <div className="container-page">
-          <h1 className="text-4xl font-bold mb-4">{typedPageContent.title}</h1>
+          <h1 className="text-4xl font-bold mb-4">{j.title}</h1>
 
-          <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-            <div
-              className="prose prose-lg max-w-none mb-6"
-              dangerouslySetInnerHTML={{ __html: contentHtml }}
-            />
+          <div
+            className="bg-white p-8 rounded-lg shadow-md mb-8"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
 
-            <div className="flex flex-col md:flex-row md:items-center justify-between bg-gray-50 p-4 rounded-lg mb-6">
-              <div>
-                <p className="font-medium">
-                  {typedPageContent.currentVersionLabel}{' '}
-                  <span className="text-gray-600">
-                    {typedPageContent.lastUpdatedLabel} {lastUpdated}
-                  </span>
-                </p>
-              </div>
-              <div className="mt-4 md:mt-0">
-                <a
-                  href={bylawsPdf}
-                  download
-                  className="btn btn-primary flex items-center"
-                >
-                  <svg
-                    className="h-5 w-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    />
-                  </svg>
-                  {typedPageContent.downloadButtonText}
-                </a>
-              </div>
-            </div>
+          <div className="flex justify-between bg-gray-50 p-4 rounded-lg mb-6">
+            <p className="font-medium">
+              {j.currentVersionLabel}{' '}
+              <span className="text-gray-600">
+                {j.lastUpdatedLabel} {lu}
+              </span>
+            </p>
+            <a
+              href={pdf}
+              download
+              className="btn btn-primary flex items-center"
+            >
+              <svg
+                className="h-5 w-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
+              </svg>
+              {j.downloadButtonText}
+            </a>
           </div>
 
-          <BylawsDocument bylawsPdf={bylawsPdf} />
-          <KeyGovernanceSections bylawsPdf={bylawsPdf} />
-          <FrequentlyAskedQuestions lastUpdated={lastUpdated} />
+          <BylawsDocument bylawsPdf={pdf} />
+          <KeyGovernanceSections bylawsPdf={pdf} />
+          <FrequentlyAskedQuestions lastUpdated={lu} />
           <OtherDocuments />
         </div>
       </div>
     );
-  } catch (err: unknown) {
-    console.error('Bylaws fetch error:', err);
-    const errorMessage = err instanceof Error ? err.message : String(err);
-
+  } catch (error: unknown) {
+    console.error('Bylaws fetch error:', error);
+    const msg = error instanceof Error ? error.message : String(error);
     return (
       <ErrorDisplay
         title="Error Loading Bylaws"
         message="We're having trouble loading this page. Please try again later."
-        error={errorMessage}
+        error={msg}
         actionLabel="Return to Home"
         actionHref="/"
       />

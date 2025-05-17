@@ -1,85 +1,50 @@
-// frontend/src/types/content/contact.ts
-
-// Page content types
 export interface ContactInfo {
   email: string;
   phone: string;
   mailingAddress: string;
 }
 
-export interface ContactType {
-  label: string;
-}
-
-export interface SocialLinkType {
-  name: string;
-  url: string;
-}
-
-export interface ContactPageSections {
-  getInTouch: {
-    title: string;
-    contactTypes: {
-      email: ContactType;
-      phone: ContactType;
-      mailingAddress: ContactType;
-    };
-  };
-  sendMessage: {
-    title: string;
-  };
-  followUs: {
-    title: string;
-    socialLinks: SocialLinkType[];
-  };
-}
-
 export interface ContactPageContent {
   heading: string;
   fallbackContent: string;
   fallbackContactInfo: ContactInfo;
-  sections: ContactPageSections;
-  error: {
-    title: string;
-    actionLabel: string;
+  sections: {
+    getInTouch: {
+      title: string;
+      contactTypes: {
+        email: { label: string };
+        phone: { label: string };
+        mailingAddress: { label: string };
+      };
+    };
+    sendMessage: { title: string };
+    followUs: {
+      title: string;
+      socialLinks: { name: string; url: string }[];
+    };
   };
-}
-
-// Contact form types
-export interface FormFieldOption {
-  value: string;
-  label: string;
-}
-
-export interface FormField {
-  label: string;
-  required: boolean;
-  placeholder: string;
-  options?: FormFieldOption[];
-  rows?: number;
+  error: { title: string; actionLabel: string };
 }
 
 export interface ContactFormContent {
   formFields: {
-    name: FormField;
-    email: FormField;
-    subject: FormField;
-    message: FormField;
+    name: { label: string; required: true; placeholder: string };
+    email: { label: string; required: true; placeholder: string };
+    subject: {
+      label: string;
+      required: false;
+      placeholder: string;
+      options: { value: string; label: string }[];
+    };
+    message: {
+      label: string;
+      required: true;
+      placeholder: string;
+      rows: number;
+    };
   };
-  buttons: {
-    submit: string;
-    sending: string;
-  };
-  validation: {
-    requiredFields: string;
-  };
-  success: {
-    title: string;
-    message: string;
-    buttonText: string;
-  };
-  error: {
-    general: string;
-    title: string;
-  };
+  buttons: { submit: string; sending: string };
+  validation: { requiredFields: string };
+  success: { title: string; message: string; buttonText: string };
+  error: { general: string; title: string };
 }

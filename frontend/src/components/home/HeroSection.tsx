@@ -4,35 +4,30 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import heroContent from '../../content/consolidated/home.json';
+import homeJson from '../../content/consolidated/home.json';
 import { HeroSectionContent } from '../../types/content/home';
 import Blob from '../ui/Blob';
 import ConfettiButton from '../ui/Confetti';
 
-const typedHeroContent = heroContent.heroSection as HeroSectionContent;
+// Inline cast
+const c = homeJson.heroSection as HeroSectionContent;
 
 export default function HeroSection() {
-  const [isClient, setIsClient] = useState(false);
+  const [ready, setReady] = useState(false);
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
-  // Ensure hydration mismatch prevention
   useEffect(() => {
-    setIsClient(true);
+    setReady(true);
   }, []);
 
-  // Animation variants
-  const containerVariants = {
+  const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
     },
   };
-
-  const itemVariants = {
+  const item = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -43,15 +38,12 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center py-20 md:py-28 overflow-hidden">
-      {/* Background with animated gradient */}
-      <div className="absolute inset-0 bg-gradient-animated z-0"></div>
-
-      {/* Diagonal line pattern overlay */}
+      <div className="absolute inset-0 bg-gradient-animated z-0" />
       <div className="absolute inset-0 bg-black bg-opacity-20 z-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern
-              id="diagonalHatch"
+              id="diag"
               width="10"
               height="10"
               patternUnits="userSpaceOnUse"
@@ -68,29 +60,25 @@ export default function HeroSection() {
               />
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#diagonalHatch)" />
+          <rect width="100%" height="100%" fill="url(#diag)" />
         </svg>
       </div>
 
-      {/* Organic shapes */}
-      {isClient && (
+      {ready && (
         <>
           <Blob
-            color="rgba(236, 31, 39, 0.15)"
+            color="rgba(236,31,39,0.15)"
             className="top-[10%] right-[10%] z-10"
             size="300px"
           />
           <Blob
-            color="rgba(236, 31, 39, 0.1)"
+            color="rgba(236,31,39,0.1)"
             className="bottom-[20%] left-[5%] z-10"
             size="400px"
           />
           <motion.div
             className="absolute top-[30%] right-[30%] rotate-12 z-10 w-20 h-20 bg-white opacity-5 rounded"
-            animate={{
-              rotate: [12, -12, 12],
-              y: [0, 20, 0],
-            }}
+            animate={{ rotate: [12, -12, 12], y: [0, 20, 0] }}
             transition={{
               duration: 10,
               repeat: Infinity,
@@ -101,21 +89,18 @@ export default function HeroSection() {
       )}
 
       <div className="container-page relative z-20" ref={ref}>
-        {isClient && (
+        {ready && (
           <motion.div
             className="max-w-3xl"
-            variants={containerVariants}
+            variants={container}
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
           >
             <motion.h1
               className="text-4xl md:text-7xl font-bold mb-6 tracking-tight text-on-accent relative inline-block"
-              variants={itemVariants}
+              variants={item}
             >
-              <span className="relative z-10">
-                {typedHeroContent.mainHeading}
-              </span>
-
+              <span className="relative z-10">{c.mainHeading}</span>
               <motion.span
                 className="absolute -bottom-2 left-0 h-4 bg-dsa-red z-0"
                 initial={{ width: 0 }}
@@ -124,29 +109,28 @@ export default function HeroSection() {
               />
             </motion.h1>
 
-            <motion.div variants={itemVariants}>
+            <motion.div variants={item}>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-on-accent">
-                {typedHeroContent.subHeading}
+                {c.subHeading}
               </h2>
             </motion.div>
 
             <motion.p
               className="text-xl mb-2 text-on-accent opacity-90"
-              variants={itemVariants}
+              variants={item}
             >
-              {typedHeroContent.tagline}
+              {c.tagline}
             </motion.p>
 
             <motion.p
               className="text-xl mb-8 leading-relaxed text-on-accent"
-              variants={itemVariants}
+              variants={item}
             >
-              {typedHeroContent.description.split('.').map(
-                (sentence: string, index: React.Key | null | undefined) =>
-                  sentence.trim() && (
-                    <React.Fragment key={index}>
-                      {sentence.trim()}.
-                      <br />
+              {c.description.split('.').map(
+                (s, i) =>
+                  s.trim() && (
+                    <React.Fragment key={i}>
+                      {s.trim()}.<br />
                     </React.Fragment>
                   )
               )}
@@ -154,22 +138,18 @@ export default function HeroSection() {
 
             <motion.div
               className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
-              variants={itemVariants}
+              variants={item}
             >
-              <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition duration-300 ease-in-out transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
-                <Link
-                  href={typedHeroContent.buttons.primary.href}
-                  className="block"
-                >
-                  {typedHeroContent.buttons.primary.text}
+              <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
+                <Link href={c.buttons.primary.href}>
+                  {c.buttons.primary.text}
                 </Link>
               </ConfettiButton>
-
               <Link
-                href={typedHeroContent.buttons.secondary.href}
-                className="btn border-2 border-white text-on-accent hover:bg-white hover:text-dsa-red font-medium transition duration-300 ease-in-out"
+                href={c.buttons.secondary.href}
+                className="btn border-2 border-white text-on-accent hover:bg-white hover:text-dsa-red font-medium transition"
               >
-                {typedHeroContent.buttons.secondary.text}
+                {c.buttons.secondary.text}
               </Link>
             </motion.div>
           </motion.div>

@@ -10,8 +10,22 @@ export interface UdYdsaInfo {
   contactEmail: string;
   meetingLocation: string;
   meetingSchedule: string;
-  socialMedia: SocialMediaLinks;
+  socialMedia: {
+    instagram: string;
+    twitter: string;
+    facebook: string;
+  };
   pageContent: string;
+}
+
+export interface SectionProps {
+  udYdsaInfo: UdYdsaInfo;
+}
+
+export interface SocialLinkProps {
+  href: string;
+  icon: React.ReactNode;
+  name: string;
 }
 
 export interface Event {
@@ -36,14 +50,4 @@ export interface LeadershipMember {
 export interface UdYdsaPageProps {
   pageContent: string;
   udYdsaInfo: UdYdsaInfo;
-}
-
-export interface SectionProps {
-  udYdsaInfo: UdYdsaInfo;
-}
-
-export interface SocialLinkProps {
-  href: string;
-  icon: React.ReactNode;
-  name: string;
 }
