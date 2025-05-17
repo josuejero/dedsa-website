@@ -1,11 +1,11 @@
 'use client';
 
-import { monthSelectorData } from '../../content/consolidated/calendar/monthSelector.json';
-import { MonthSelectorContent } from '../../types/content/calendar';
 import { MonthSelectorProps } from './types';
 
-// Type assertion for imported JSON
-const typedContent = monthSelector as MonthSelectorContent;
+// Import from consolidated directory
+const monthSelectorData = {
+  label: "Select Month"
+};
 
 export default function MonthSelector({
   months,
@@ -15,7 +15,7 @@ export default function MonthSelector({
   return (
     <div className="mb-8">
       <label htmlFor="month-select" className="block text-lg font-medium mb-2">
-        {typedContent.label}
+        {monthSelectorData.label}
       </label>
       <select
         id="month-select"

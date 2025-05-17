@@ -47,12 +47,13 @@ export default async function LeadershipPage() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const j = await res.json();
     data = (j.data ?? {}) as LeadershipPageData;
-  } catch (e: any) {
+  } catch (e: unknown) {
+    const errorMessage = e instanceof Error ? e.message : String(e);
     return (
       <ErrorDisplay
         title="Error Loading Leadership Page"
         message="We're having trouble loading this page. Please try again later."
-        error={String(e.message || e)}
+        error={errorMessage}
         actionLabel="Return to Home"
         actionHref="/"
       />

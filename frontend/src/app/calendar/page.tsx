@@ -62,11 +62,13 @@ export default async function CalendarPage({ searchParams }: CalendarProps) {
 
   // Dynamic import once we move to SSR implementation
   try {
+    // dynamically load content from JSON file when moved to SSR implementation
   } catch (error) {
     console.error('Error loading calendar content:', error);
   }
 
   try {
+    // dynamically load content from JSON file when moved to SSR implementation
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
