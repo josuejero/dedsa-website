@@ -1,4 +1,4 @@
-import whyJoinDsaContent from '../../content/consolidated/join.json';
+import whyJoinDsaContent from '../../content/consolidated/join/whyJoinDSA.json';
 import { WhyJoinDsaContent } from '../../types/content/join';
 
 // Type assertion for imported JSON

@@ -1,11 +1,11 @@
 'use client';
 
-import monthSelectorData from '../../content/consolidated/calendar.json';
+import { monthSelectorData } from '../../content/consolidated/calendar/monthSelector.json';
 import { MonthSelectorContent } from '../../types/content/calendar';
 import { MonthSelectorProps } from './types';
 
 // Type assertion for imported JSON
-const typedContent = monthSelectorData.monthSelector as MonthSelectorContent;
+const typedContent = monthSelector as MonthSelectorContent;
 
 export default function MonthSelector({
   months,

@@ -62,9 +62,6 @@ export default async function CalendarPage({ searchParams }: CalendarProps) {
 
   // Dynamic import once we move to SSR implementation
   try {
-    // In a real implementation with consolidated JSON:
-    // const data = await import('../../content/consolidated/calendar.json');
-    // pageContent = data.page;
   } catch (error) {
     console.error('Error loading calendar content:', error);
   }

@@ -9,12 +9,5 @@
     "subscribeText": "Stay up-to-date with all Delaware DSA events by subscribing to our calendar.",
     "googleCalendarButtonText": "Google Calendar",
     "iCalOutlookButtonText": "iCal / Outlook"
-  },
-  "eventCalendar": {
-    "noEventsMessage": "No events scheduled for this month.",
-    "checkBackMessage": "Please check back later or select a different month."
-  },
-  "monthSelector": {
-    "label": "Select Month"
   }
 }

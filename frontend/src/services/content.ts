@@ -1,4 +1,4 @@
-import { fetchGraphQL } from '../utils/graphql/fetcher';
+// services/content.ts
 
 // Default values for fallbacks
 const DEFAULT_GLOBAL_CONTENT = {
@@ -6,7 +6,7 @@ const DEFAULT_GLOBAL_CONTENT = {
   tagline: 'Democratic Socialists of America',
   joinButtonText: 'Join Our Chapter',
   contactInfo: {
-    email: 'info@delawardsa.org',
+    email: 'info@delawaredsa.org',
     phone: '(302) 555-0123',
     mailingAddress: 'Delaware DSA\nP.O. Box 12345\nWilmington, DE 19801',
   },
@@ -19,10 +19,6 @@ const DEFAULT_GLOBAL_CONTENT = {
 
 interface GlobalContent {
   globalContent?: typeof DEFAULT_GLOBAL_CONTENT;
-}
-
-interface HomeContent {
-  homeContent?: Record<string, unknown>;
 }
 
 interface UiString {
@@ -42,109 +38,78 @@ interface UiStringsByComponent {
   }>;
 }
 
-// Get global content - server side
-export async function getGlobalContent() {
-  try {
-    const query = `
-      query GetGlobalContent {
-        acfOptions {
-          globalContent {
-            siteName
-            tagline
-            joinButtonText
-            contactInfo {
-              email
-              phone
-              mailingAddress
-            }
-            socialLinks {
-              twitter
-              facebook
-              instagram
-            }
-          }
-        }
-      }
-    `;
+// … your existing getGlobalContent, getHomeContent, getUiString, getUiStringsByComponent here …
 
-    const response = await fetchGraphQL<{ acfOptions: GlobalContent }>(query);
-    return response.data?.acfOptions?.globalContent || DEFAULT_GLOBAL_CONTENT;
-  } catch (error) {
-    console.error('Error fetching global content:', error);
-    return DEFAULT_GLOBAL_CONTENT;
-  }
-}
+// -----------------------------------------------------------------------------
+// Now import each JSON slice:
 
-// Get home page content - server side
-export async function getHomeContent() {
-  try {
-    const query = `
-      query GetHomeContent {
-        acfOptions {
-          homeContent
-        }
-      }
-    `;
+// Home page sections
+import { chapterStatsSection } from '../content/consolidated/home/chapterStatsSection.json';
+import { committeesCard } from '../content/consolidated/home/committeesCard.json';
+import { getInvolvedSection } from '../content/consolidated/home/getInvolvedSection.json';
+import { heroSection } from '../content/consolidated/home/heroSection.json';
+import { joinCTASection } from '../content/consolidated/home/joinCTASection.json';
+import { latestUpdatesSection } from '../content/consolidated/home/latestUpdatesSection.json';
+import { missionSection } from '../content/consolidated/home/missionSection.json';
+import { strategicPrioritiesSection } from '../content/consolidated/home/strategicPrioritiesSection.json';
+import { upcomingEventsCard } from '../content/consolidated/home/upcomingEventsCard.json';
 
-    const response = await fetchGraphQL<{ acfOptions: HomeContent }>(query);
-    return response.data?.acfOptions?.homeContent || {};
-  } catch (error) {
-    console.error('Error fetching home content:', error);
-    return {};
-  }
-}
+// “Join” page sections
+import { faq } from '../content/consolidated/join/faq.json';
+import { joinHero } from '../content/consolidated/join/joinHero.json';
+import { membershipOptions } from '../content/consolidated/join/membershipOptions.json';
+import { testimonials } from '../content/consolidated/join/testimonials.json';
+import { whyJoinDSA } from '../content/consolidated/join/whyJoinDSA.json';
 
-// Get UI string - server side
-export async function getUiString(key: string, fallback: string = '') {
-  try {
-    const query = `
-      query GetUiString($key: String!) {
-        uiStringByKey(key: $key) {
-          stringData {
-            stringValue
-          }
-        }
-      }
-    `;
+// “About” page sections
+import { aboutHero } from '../content/consolidated/about/aboutHero.json';
+import { achievements } from '../content/consolidated/about/achievements.json';
+import { democraticSocialism } from '../content/consolidated/about/democraticSocialism.json';
+import { getInvolved as aboutGetInvolved } from '../content/consolidated/about/getInvolved.json';
+import { nationalInfo } from '../content/consolidated/about/nationalInfo.json';
+import { page as aboutPage } from '../content/consolidated/about/page.json';
+import { timeline } from '../content/consolidated/about/timeline.json';
 
-    const response = await fetchGraphQL<UiString>(query, { key });
-    return response.data?.uiStringByKey?.stringData?.stringValue || fallback;
-  } catch (error) {
-    console.error(`Error fetching UI string "${key}":`, error);
-    return fallback;
-  }
-}
+// “Calendar” page sections
+import { eventCalendar } from '../content/consolidated/calendar/eventCalendar.json';
+import { monthSelector } from '../content/consolidated/calendar/monthSelector.json';
+import { page as calendarPage } from '../content/consolidated/calendar/page.json';
 
-// Get UI strings by component - server side
-export async function getUiStringsByComponent(componentId: string) {
-  try {
-    const query = `
-      query GetUiStringsByComponent($componentId: String!) {
-        uiStringsByComponent(componentId: $componentId) {
-          stringData {
-            stringKey
-            stringValue
-          }
-        }
-      }
-    `;
+// -----------------------------------------------------------------------------
+// Export aggregated objects for each page:
 
-    const response = await fetchGraphQL<UiStringsByComponent>(query, {
-      componentId,
-    });
+export const homeContent = {
+  chapterStatsSection,
+  committeesCard,
+  getInvolvedSection,
+  heroSection,
+  joinCTASection,
+  latestUpdatesSection,
+  missionSection,
+  strategicPrioritiesSection,
+  upcomingEventsCard,
+};
 
-    const strings: Record<string, string> = {};
-    response.data?.uiStringsByComponent?.forEach((item) => {
-      const { stringKey, stringValue } = item.stringData;
-      strings[stringKey] = stringValue;
-    });
+export const joinContent = {
+  faq,
+  joinHero,
+  membershipOptions,
+  testimonials,
+  whyJoinDSA,
+};
 
-    return strings;
-  } catch (error) {
-    console.error(
-      `Error fetching UI strings for component "${componentId}":`,
-      error
-    );
-    return {};
-  }
-}
+export const aboutContent = {
+  aboutHero,
+  achievements,
+  democraticSocialism,
+  getInvolved: aboutGetInvolved,
+  nationalInfo,
+  page: aboutPage,
+  timeline,
+};
+
+export const calendarContent = {
+  page: calendarPage,
+  eventCalendar,
+  monthSelector,
+};
