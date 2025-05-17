@@ -1,5 +1,7 @@
 // types.ts - Shared type definitions for UD YDSA components
 
+// types.ts - Shared type definitions for UD YDSA components
+
 export interface SocialMediaLinks {
   instagram: string;
   twitter: string;

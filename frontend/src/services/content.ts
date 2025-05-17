@@ -1,12 +1,4 @@
-import { getClient } from '../lib/apollo-client';
-import {
-  GET_GLOBAL_CONTENT,
-  GET_HOME_CONTENT,
-} from '../lib/graphql/queries/content/global';
-import {
-  GET_UI_STRING,
-  GET_UI_STRINGS_BY_COMPONENT,
-} from '../lib/graphql/queries/content/strings';
+import { fetchGraphQL } from '../utils/graphql/fetcher';
 
 // Default values for fallbacks
 const DEFAULT_GLOBAL_CONTENT = {
@@ -25,14 +17,58 @@ const DEFAULT_GLOBAL_CONTENT = {
   },
 };
 
+interface GlobalContent {
+  globalContent?: typeof DEFAULT_GLOBAL_CONTENT;
+}
+
+interface HomeContent {
+  homeContent?: Record<string, unknown>;
+}
+
+interface UiString {
+  uiStringByKey?: {
+    stringData?: {
+      stringValue?: string;
+    };
+  };
+}
+
+interface UiStringsByComponent {
+  uiStringsByComponent?: Array<{
+    stringData: {
+      stringKey: string;
+      stringValue: string;
+    };
+  }>;
+}
+
 // Get global content - server side
 export async function getGlobalContent() {
   try {
-    const { data } = await getClient().query({
-      query: GET_GLOBAL_CONTENT,
-    });
+    const query = `
+      query GetGlobalContent {
+        acfOptions {
+          globalContent {
+            siteName
+            tagline
+            joinButtonText
+            contactInfo {
+              email
+              phone
+              mailingAddress
+            }
+            socialLinks {
+              twitter
+              facebook
+              instagram
+            }
+          }
+        }
+      }
+    `;
 
-    return data?.acfOptions?.globalContent || DEFAULT_GLOBAL_CONTENT;
+    const response = await fetchGraphQL<{ acfOptions: GlobalContent }>(query);
+    return response.data?.acfOptions?.globalContent || DEFAULT_GLOBAL_CONTENT;
   } catch (error) {
     console.error('Error fetching global content:', error);
     return DEFAULT_GLOBAL_CONTENT;
@@ -42,11 +78,16 @@ export async function getGlobalContent() {
 // Get home page content - server side
 export async function getHomeContent() {
   try {
-    const { data } = await getClient().query({
-      query: GET_HOME_CONTENT,
-    });
+    const query = `
+      query GetHomeContent {
+        acfOptions {
+          homeContent
+        }
+      }
+    `;
 
-    return data?.acfOptions?.homeContent || {};
+    const response = await fetchGraphQL<{ acfOptions: HomeContent }>(query);
+    return response.data?.acfOptions?.homeContent || {};
   } catch (error) {
     console.error('Error fetching home content:', error);
     return {};
@@ -56,12 +97,18 @@ export async function getHomeContent() {
 // Get UI string - server side
 export async function getUiString(key: string, fallback: string = '') {
   try {
-    const { data } = await getClient().query({
-      query: GET_UI_STRING,
-      variables: { key },
-    });
+    const query = `
+      query GetUiString($key: String!) {
+        uiStringByKey(key: $key) {
+          stringData {
+            stringValue
+          }
+        }
+      }
+    `;
 
-    return data?.uiStringByKey?.stringData?.stringValue || fallback;
+    const response = await fetchGraphQL<UiString>(query, { key });
+    return response.data?.uiStringByKey?.stringData?.stringValue || fallback;
   } catch (error) {
     console.error(`Error fetching UI string "${key}":`, error);
     return fallback;
@@ -71,14 +118,23 @@ export async function getUiString(key: string, fallback: string = '') {
 // Get UI strings by component - server side
 export async function getUiStringsByComponent(componentId: string) {
   try {
-    const { data } = await getClient().query({
-      query: GET_UI_STRINGS_BY_COMPONENT,
-      variables: { componentId },
+    const query = `
+      query GetUiStringsByComponent($componentId: String!) {
+        uiStringsByComponent(componentId: $componentId) {
+          stringData {
+            stringKey
+            stringValue
+          }
+        }
+      }
+    `;
+
+    const response = await fetchGraphQL<UiStringsByComponent>(query, {
+      componentId,
     });
 
     const strings: Record<string, string> = {};
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?.uiStringsByComponent?.forEach((item: any) => {
+    response.data?.uiStringsByComponent?.forEach((item) => {
       const { stringKey, stringValue } = item.stringData;
       strings[stringKey] = stringValue;
     });

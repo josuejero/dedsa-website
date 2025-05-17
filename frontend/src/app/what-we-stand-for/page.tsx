@@ -2,7 +2,7 @@
 import { Metadata } from 'next';
 import ErrorDisplay from '../../components/errors/ErrorDisplay';
 import pageJson from '../../content/what-we-stand-for/page.json';
-import { getClient } from '../../lib/apollo-client';
+import { fetchGraphQL } from '../../utils/graphql/fetcher';
 import PositionCard from './PositionCard';
 import { Position } from './types';
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: 'Delaware DSA positions and values.',
 };
 
-const j = pageJson as {
+interface WhatWeStandForContent {
   hero: { heading: string; description: string };
   fallbackContent: string;
   cta: {
@@ -23,17 +23,26 @@ const j = pageJson as {
   };
   emptyPositionsMessage: string;
   notFoundMessage: string;
-};
-const Q = `query{page(id:"what-we-stand-for",idType:URI){content}positions(first:100){nodes{id,title}}}`;
+}
+
+interface PageData {
+  page: { content: string };
+  positions: { nodes: Position[] };
+}
+
+const j = pageJson as WhatWeStandForContent;
+const Q = `query{page(id:"what-we-stand-for",idType:URI){content}positions(first:100){nodes{id,title,content,menuOrder}}}`;
 
 export default async function WhatWeStandFor() {
   try {
-    const res = await getClient().query<{
-      page: { content: string };
-      positions: { nodes: Position[] };
-    }>({ query: Q });
-    const html = res.data.page.content || j.fallbackContent;
-    const ps = res.data.positions.nodes || [];
+    const response = await fetchGraphQL<PageData>(Q);
+    const data = response.data || {
+      page: { content: '' },
+      positions: { nodes: [] },
+    };
+
+    const html = data.page?.content || j.fallbackContent;
+    const ps = data.positions?.nodes || [];
 
     return (
       <div className="bg-gray-100 py-14">
@@ -54,8 +63,8 @@ export default async function WhatWeStandFor() {
           </div>
           {ps.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              {ps.map((p) => (
-                <PositionCard key={p.id} position={p} />
+              {ps.map((position: Position) => (
+                <PositionCard key={position.id} position={position} />
               ))}
             </div>
           ) : (
@@ -78,11 +87,11 @@ export default async function WhatWeStandFor() {
     );
   } catch (error: unknown) {
     console.error('Error loading positions page:', error);
-    const msg =
+    const message =
       error instanceof Error ? error.message : 'An unexpected error occurred.';
     return (
       <ErrorDisplay
-        error={msg}
+        error={message}
         showDetails={process.env.NODE_ENV === 'development'}
       />
     );

@@ -1,5 +1,13 @@
 import Link from 'next/link';
-import { ErrorDisplayProps } from '../types';
+
+interface ErrorDisplayProps {
+  title?: string;
+  message?: string;
+  error?: Error | unknown;
+  showDetails?: boolean;
+  actionLabel?: string;
+  actionHref?: string;
+}
 
 export default function ErrorDisplay({
   title = 'Something went wrong',
@@ -9,7 +17,9 @@ export default function ErrorDisplay({
   actionLabel = 'Go back home',
   actionHref = '/',
 }: ErrorDisplayProps) {
-  const errMsg = error instanceof Error ? error.message : String(error || '');
+  const errorMessage =
+    error instanceof Error ? error.message : String(error || '');
+
   return (
     <div className="py-12">
       <div className="container-page">
@@ -29,9 +39,9 @@ export default function ErrorDisplay({
           </svg>
           <h1 className="text-2xl font-bold mb-4">{title}</h1>
           <p className="text-gray-600 mb-6">{message}</p>
-          {showDetails && errMsg && (
+          {showDetails && errorMessage && (
             <div className="mb-6 p-4 bg-gray-100 rounded-lg text-left">
-              <p className="text-sm font-mono text-gray-700">{errMsg}</p>
+              <p className="text-sm font-mono text-gray-700">{errorMessage}</p>
             </div>
           )}
           <div className="flex justify-center">
