@@ -24,7 +24,12 @@
         "name": "next"
       }
     ],
-    "paths": { "@/*": ["src/*"] },
+    "paths": {
+      "@/*": ["src/*"],
+      "@/core/*": ["src/core/*"],
+      "@/features/*": ["src/features/*"],
+      "@/app/*": ["src/app/*"]
+    },
     "baseUrl": ".",
     "types": ["node"]
   },

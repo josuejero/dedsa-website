@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "clean": "rm -rf .next dist",
+    "rebuild": "npm run clean && npm run build"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",

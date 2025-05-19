@@ -1,0 +1,22 @@
+[
+  {
+    "id": "may-2025-newsletter",
+    "title": "The Delaware Rose Garden - May 01, 2025",
+    "date": "2025-05-02",
+    "slug": "may-2025-newsletter",
+    "excerpt": "We have a busy month ahead with several important events and organizational changes. This newsletter includes information about the new International Solidarity Working Group, our upcoming Nakba commemoration, and details for our Solidarity Fair in June.",
+    "featuredImage": {
+      "node": {
+        "sourceUrl": "/newsletters/images/may-2025-header.jpg",
+        "altText": "Delaware DSA May 01, 2025 Newsletter"
+      }
+    },
+    "author": {
+      "node": {
+        "name": "Delaware DSA"
+      }
+    },
+    "content": "<div class='newsletter-content'>International Solidarity Working Group Formation, Nakba Commemoration, and more in this month's newsletter.</div>",
+    "fullContentPath": "/newsletters/may-2025-newsletter.html"
+  }
+]

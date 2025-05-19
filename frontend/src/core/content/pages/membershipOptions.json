@@ -1,0 +1,28 @@
+{
+  "membershipOptions": {
+    "dsaMembership": {
+      "title": "DSA Membership",
+      "subtitle": "Join the national Democratic Socialists of America",
+      "benefits": [
+        "<strong>National membership</strong> with automatic Delaware chapter membership",
+        "<strong>Sliding scale dues</strong> based on income ($27-$130 annually)",
+        "<strong>Publications</strong> including the Democratic Left magazine",
+        "<strong>Voting rights</strong> in Delaware DSA chapter decisions",
+        "<strong>Full participation</strong> in national and local campaigns"
+      ],
+      "buttonText": "Join DSA",
+      "buttonUrl": "https://www.example.com"
+    },
+    "duesWaiver": {
+      "title": "Dues Waiver Program",
+      "subtitle": "Financial assistance for membership dues",
+      "paragraphs": [
+        "We believe that financial circumstances should never be a barrier to joining DSA. Our dues waiver program provides options for those who cannot afford the standard membership dues.",
+        "DSA offers reduced dues options starting at $1/month for those experiencing financial hardship. Delaware DSA can also sponsor memberships for those who cannot afford any dues at all.",
+        "To request a dues waiver or sponsorship from Delaware DSA, please contact us using the button below."
+      ],
+      "buttonText": "Request Dues Waiver",
+      "buttonUrl": "/contact?subject=Dues%20Waiver"
+    }
+  }
+}

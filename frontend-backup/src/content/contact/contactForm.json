@@ -1,0 +1,40 @@
+{
+  "formFields": {
+    "name": { "label": "Name", "required": true, "placeholder": "Your name" },
+    "email": {
+      "label": "Email",
+      "required": true,
+      "placeholder": "Your email address"
+    },
+    "subject": {
+      "label": "Subject",
+      "required": false,
+      "placeholder": "Subject of your message",
+      "options": [
+        { "value": "", "label": "Select a subject" },
+        { "value": "General Inquiry", "label": "General Inquiry" },
+        { "value": "Membership", "label": "Membership" },
+        { "value": "Events", "label": "Events" },
+        { "value": "Volunteer", "label": "Volunteer" },
+        { "value": "Other", "label": "Other" }
+      ]
+    },
+    "message": {
+      "label": "Message",
+      "required": true,
+      "placeholder": "Your message",
+      "rows": 5
+    }
+  },
+  "buttons": { "submit": "Send Message", "sending": "Sending..." },
+  "validation": { "requiredFields": "Please fill out all required fields." },
+  "success": {
+    "title": "Thank You!",
+    "message": "Your message has been sent successfully. We'll get back to you as soon as possible.",
+    "buttonText": "Send Another Message"
+  },
+  "error": {
+    "general": "Failed to send message. Please try again later.",
+    "title": "Error"
+  }
+}
