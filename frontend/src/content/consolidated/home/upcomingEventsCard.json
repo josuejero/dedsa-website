@@ -5,12 +5,6 @@
     "buttonHref": "/calendar",
     "events": [
       {
-        "title": "Membership Engagement Committee Meeting",
-        "date": "May 19, 2025 • 7:30 PM",
-        "location": "Zoom",
-        "isVirtual": true
-      },
-      {
         "title": "Migrant Rights Working Group Meeting",
         "date": "May 22, 2025 • 5:00 PM",
         "location": "Discord",

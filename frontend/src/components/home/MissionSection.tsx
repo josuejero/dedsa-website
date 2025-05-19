@@ -134,41 +134,98 @@ export default function MissionSection() {
           </motion.div>
 
           <motion.div
-            className="md:w-1/2 relative h-80 md:h-96 grid grid-cols-3 grid-rows-2 gap-4"
+            className="md:w-1/2 relative h-96 md:h-[450px]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            {[
-              '/home-page-photos/1.jpg',
-              '/home-page-photos/2.jpg',
-              '/home-page-photos/3.jpg',
-            ].map((src, i) => (
+            {/* Container for overlapping images */}
+            <div className="relative w-full h-full">
+              {/* First image - positioned at top-left */}
               <motion.div
-                key={i}
-                className={`relative bg-gray-50 rounded-lg overflow-hidden shadow-lg col-span-${i < 2 ? 2 : 3} row-span-${i === 1 ? 2 : 1}`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                className="absolute top-0 left-0 w-[60%] h-[65%] z-10 rounded-lg overflow-hidden shadow-lg"
+                initial={{ opacity: 0, x: -20, y: -20 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
-                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                whileHover={{
+                  scale: 1.05,
+                  zIndex: 30,
+                  transition: { duration: 0.3 },
+                }}
               >
                 <Image
-                  src={src}
+                  src="/home-page-photos/1.jpg"
                   alt="DSA event"
-                  width={500}
-                  height={300}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg"
                   onError={(e) => {
-                    // Fallback for image loading errors
                     const target = e.target as HTMLImageElement;
                     target.src =
                       "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='sans-serif' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23666'%3EEvent Photo%3C/text%3E%3C/svg%3E";
                   }}
                 />
               </motion.div>
-            ))}
+
+              {/* Second image - overlapping in middle-right */}
+              <motion.div
+                className="absolute top-[15%] right-0 w-[50%] h-[60%] z-20 rounded-lg overflow-hidden shadow-lg"
+                initial={{ opacity: 0, x: 20, y: 20 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                whileHover={{
+                  scale: 1.05,
+                  zIndex: 30,
+                  transition: { duration: 0.3 },
+                }}
+              >
+                <Image
+                  src="/home-page-photos/2.jpg"
+                  alt="DSA event"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src =
+                      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='sans-serif' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23666'%3EEvent Photo%3C/text%3E%3C/svg%3E";
+                  }}
+                />
+              </motion.div>
+
+              {/* Third image - at bottom-center, overlapping the other two */}
+              <motion.div
+                className="absolute bottom-0 left-[20%] w-[60%] h-[50%] z-30 rounded-lg overflow-hidden shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                whileHover={{
+                  scale: 1.05,
+                  zIndex: 40,
+                  transition: { duration: 0.3 },
+                }}
+              >
+                <Image
+                  src="/home-page-photos/3.jpg"
+                  alt="DSA event"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src =
+                      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='sans-serif' font-size='12' text-anchor='middle' dominant-baseline='middle' fill='%23666'%3EEvent Photo%3C/text%3E%3C/svg%3E";
+                  }}
+                />
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>

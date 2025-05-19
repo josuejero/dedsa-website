@@ -57,15 +57,14 @@ export default function ChapterStatsSection() {
             <h3 className="text-2xl font-bold mb-8 text-center text-heading">
               {typedChapterStatsContent.heading}
             </h3>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div className="flex flex-wrap justify-center gap-6">
               {typedChapterStatsContent.stats.map((stat) => (
                 <div
                   key={stat.key}
-                  className="bg-white  p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300"
+                  className="bg-white p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 w-[calc(50%-12px)] md:w-[calc(25%-18px)]"
                 >
                   <h4
-                    className="text-4xl font-bold text-dsa-red mb-2 tabular-nums"
+                    className="text-4xl font-bold text-dsa-red mb-2 tabular-nums text-center"
                     ref={
                       (statsRefs as Record<string, RefObject<null>>)[stat.key]
                     }
@@ -81,7 +80,7 @@ export default function ChapterStatsSection() {
                       `0${stat.prefix}`
                     )}
                   </h4>
-                  <p className="text-sm font-medium text-secondary">
+                  <p className="text-sm font-medium text-secondary text-center">
                     {stat.label}
                   </p>
                 </div>
