@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "heading": "What We Stand For",
+    "description": "The Delaware DSA is committed to building a more just and equitable society. We believe in democratic socialism—a system where ordinary people have a real voice in our workplaces, communities, and government."
+  },
+  "fallbackContent": "<p>Delaware DSA is the Delaware state chapter of the Democratic Socialists of America (DSA), the largest socialist organization in the United States.</p><p>Our chapter brings together democratic socialists of all backgrounds to organize and fight for a political and economic system that puts people before profits. We believe that both the economy and society should be run democratically to meet human needs.</p>",
+  "cta": {
+    "heading": "Join Our Movement",
+    "description": "If you share our vision for a more just, democratic, and sustainable future, we invite you to join Delaware DSA today.",
+    "buttonText": "Become A Member",
+    "buttonHref": "/join"
+  },
+  "emptyPositionsMessage": "No positions to display at this time.",
+  "notFoundMessage": "Content is not available."
+}

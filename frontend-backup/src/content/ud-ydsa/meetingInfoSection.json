@@ -1,0 +1,13 @@
+{
+  "getInvolvedTitle": "Get Involved",
+  "meetingInfoTitle": "Meeting Information",
+  "meetingWhenLabel": "When",
+  "meetingWhereLabel": "Where",
+  "meetingEmailLabel": "Email",
+  "followTitle": "Follow UD YDSA",
+  "socialLinks": {
+    "instagram": { "name": "Instagram", "href": "https://instagram.com" },
+    "twitter": { "name": "Twitter", "href": "https://twitter.com" },
+    "facebook": { "name": "Facebook", "href": "https://facebook.com" }
+  }
+}

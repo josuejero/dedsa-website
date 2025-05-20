@@ -1,0 +1,12 @@
+{
+  "heroSection": {
+    "mainHeading": "BUILDING DEMOCRATIC POWER",
+    "subHeading": "Delaware DSA",
+    "tagline": "Organizing for a democratic socialist Delaware since 2021",
+    "description": "We're building a movement to challenge corporate control of Delaware's economy and politics. Together, we're fighting for housing justice, international solidarity, immigrant rights, and a Delaware that puts people before profits.",
+    "buttons": {
+      "primary": { "text": "JOIN OUR CHAPTER", "href": "/join" },
+      "secondary": { "text": "ATTEND AN EVENT", "href": "/calendar" }
+    }
+  }
+}
