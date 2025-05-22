@@ -3,8 +3,8 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import getInvolvedContent from '../../../content/consolidated/home.json';
-import { GetInvolvedSectionContent } from '../../../types/content/home';
+import getInvolvedContent from '../../../../content/consolidated/home.json';
+import { GetInvolvedSectionContent } from '../../../../types/content/home';
 import CommitteesCard from './CommitteesCard';
 import UpcomingEventsCard from './UpcomingEventsCard';
 

@@ -2,9 +2,9 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import homeJson from '../../content/consolidated/home.json';
-import { StrategicPrioritiesSectionContent } from '../../types/content/home';
-import { useTypewriterEffect } from '../../utils/animations';
+import homeJson from '../../../content/consolidated/home.json';
+import { StrategicPrioritiesSectionContent } from '../../../types/content/home';
+import { useTypewriterEffect } from '../../../utils/animations';
 import Blob from '../ui/Blob';
 
 // Inline cast to drop a separate binding

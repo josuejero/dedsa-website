@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import homeJson from '../../content/consolidated/home.json';
-import { HeroSectionContent } from '../../types/content/home';
+import homeJson from '../../../content/consolidated/home.json';
+import { HeroSectionContent } from '../../../types/content/home';
 import Blob from '../ui/Blob';
 import ConfettiButton from '../ui/Confetti';
 

@@ -2,8 +2,8 @@
 
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import chapterStatsContent from '../../content/consolidated/home.json';
-import { ChapterStatsSectionContent } from '../../types/content/home';
+import chapterStatsContent from '../../../content/consolidated/home.json';
+import { ChapterStatsSectionContent } from '../../../types/content/home';
 
 // Type assertion for the imported JSON
 const typedChapterStatsContent =
