@@ -1,16 +1,17 @@
 'use client';
 
+import { contentService } from '@/core/services/contentService';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import homeJson from '../../../content/consolidated/home.json';
 import { HeroSectionContent } from '../../../types/content/home';
 import Blob from '../ui/Blob';
 import ConfettiButton from '../ui/Confetti';
 
 // Inline cast
-const c = homeJson.heroSection as HeroSectionContent;
+const homeContent = contentService.getPageContent('home');
+const c = homeContent.heroSection as HeroSectionContent;
 
 export default function HeroSection() {
   const [ready, setReady] = useState(false);
