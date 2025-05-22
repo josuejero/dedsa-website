@@ -1,18 +1,21 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Home',
-  description:
-    'Delaware chapter of the Democratic Socialists of America (DSA).',
-};
+import ChapterStatsSection from './components/ChapterStatsSection';
+import GetInvolvedSection from './components/GetInvolvedSection';
+import HeroSection from './components/HeroSection';
+import JoinCTASection from './components/JoinCTASection';
+import LatestUpdatesSection from './components/LatestUpdatesSection';
+import MissionSection from './components/MissionSection';
+import StrategicPrioritiesSection from './components/StrategicPrioritiesSection';
 
 export default function HomePage() {
   return (
-    <div className="bg-gray-100 py-12">
-      <div className="container-page">
-        <h1 className="text-4xl font-bold mb-4">Home Page</h1>
-        <p>This is a placeholder for the home page components</p>
-      </div>
-    </div>
+    <>
+      <HeroSection />
+      <MissionSection />
+      <StrategicPrioritiesSection />
+      <GetInvolvedSection />
+      <ChapterStatsSection />
+      <LatestUpdatesSection />
+      <JoinCTASection />
+    </>
   );
 }

@@ -45,3 +45,11 @@ export interface FAQContent {
     answer: string;
   }>;
 }
+
+export interface JoinPageContent {
+  joinHero: JoinHeroContent;
+  whyJoinDSA: WhyJoinDsaContent;
+  testimonials: TestimonialsContent;
+  membershipOptions: MembershipOptionsContent;
+  faq: FAQContent;
+}

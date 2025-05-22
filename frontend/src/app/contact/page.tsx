@@ -6,10 +6,14 @@ import type {
 import ContactFeature from '@/features/contact';
 
 export default function ContactPage() {
-  const data = contentService.getPageContent(
+  const pageData = contentService.getPageContent(
     'contact'
   ) as ContactPageContent & {
     contactForm: ContactFormContent;
   };
-  return <ContactFeature {...data} {...data.contactForm} />;
+
+  // Destructure to avoid property conflicts
+  const { contactForm, ...pageContent } = pageData;
+
+  return <ContactFeature {...pageContent} contactForm={contactForm} />;
 }
