@@ -11,5 +11,10 @@
     "buttonHref": "/join"
   },
   "emptyPositionsMessage": "No positions to display at this time.",
-  "notFoundMessage": "Content is not available."
+  "notFoundMessage": "Content is not available.",
+  "positionCard": {
+    "ariaLabels": {
+      "position": "Position statement on"
+    }
+  }
 }
