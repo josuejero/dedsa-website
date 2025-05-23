@@ -1,4 +1,4 @@
-import { Committee } from '../../../../types/content/home';
+import { Committee } from '@/core/types/pages/home';
 
 interface CommitteeItemProps {
   committee: Committee;

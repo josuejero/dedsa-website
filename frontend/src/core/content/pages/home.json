@@ -1,0 +1,90 @@
+{
+  "heroSection": {
+    "mainHeading": "Delaware DSA",
+    "subHeading": "Building Power for Working People",
+    "tagline": "Member-run, progressive activism since 2021",
+    "description": "We're building a democratic, multi-racial socialist movement in Delaware that fights for economic, racial, and social justice for all working people.",
+    "buttons": {
+      "primary": {
+        "text": "Join Our Chapter",
+        "href": "/join"
+      },
+      "secondary": {
+        "text": "Learn More",
+        "href": "/about"
+      }
+    }
+  },
+  "missionSection": {
+    "heading": "Our Mission",
+    "paragraphs": [
+      "Delaware DSA is committed to building a more just and equitable society.",
+      "We believe in democratic socialism—a system where ordinary people have a real voice in our workplaces, communities, and government."
+    ],
+    "button": {
+      "text": "What We Stand For",
+      "href": "/what-we-stand-for"
+    }
+  },
+  "strategicPrioritiesSection": {
+    "heading": "Our Strategic Priorities",
+    "subtitle": "Fighting for working people across Delaware",
+    "linkText": "Learn more about our work",
+    "linkHref": "/what-we-stand-for",
+    "priorities": [
+      {
+        "title": "Healthcare for All",
+        "description": "Fighting for Medicare for All and universal healthcare",
+        "iconPath": "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+      }
+    ]
+  },
+  "getInvolvedSection": {
+    "heading": "Get Involved",
+    "subheading": "Join us in building a better Delaware"
+  },
+  "upcomingEventsCard": {
+    "heading": "Upcoming Events",
+    "buttonText": "View All Events",
+    "buttonHref": "/calendar",
+    "events": [
+      {
+        "title": "General Meeting",
+        "date": "March 15, 2025",
+        "location": "Wilmington Community Center",
+        "isVirtual": false
+      }
+    ]
+  },
+  "committeesCard": {
+    "heading": "Committees & Working Groups",
+    "buttonText": "View All Committees",
+    "buttonHref": "/committees",
+    "committees": [
+      {
+        "title": "Political Action",
+        "description": "Electoral organizing and candidate endorsements",
+        "icon": "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+      }
+    ],
+    "initialDisplayCount": 4
+  },
+  "chapterStatsSection": {
+    "heading": "Delaware DSA by the Numbers",
+    "stats": [
+      {
+        "key": "members",
+        "value": 150,
+        "label": "Active Members",
+        "prefix": "+",
+        "color": "#ec1f27"
+      }
+    ]
+  },
+  "joinCTASection": {
+    "heading": "Ready to Join the Movement?",
+    "description": "Become part of Delaware's growing democratic socialist movement.",
+    "buttonText": "Join Delaware DSA",
+    "buttonHref": "/join"
+  }
+}

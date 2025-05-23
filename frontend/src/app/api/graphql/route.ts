@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { handleGraphQLRequest } from '../../../mocks/api/mockApiHandlers';
+import { handleGraphQLRequest } from '@/mocks/api/mockApiHandlers';
 
 // Force using mock data via environment variable
 const useMockApi = process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'true';

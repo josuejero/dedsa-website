@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { forwardRef } from 'react';
 
-import { ButtonProps } from '../types/index';
+import { ButtonProps } from '@/core/components/types';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (

@@ -1,9 +1,9 @@
+import { ThemeProvider } from '@/app/theme/ThemeProvider';
+import Footer from '@/core/components/layout/Footer';
+import Header from '@/core/components/layout/Header';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React from 'react';
-import Footer from '../core/components/layout/Footer';
-import Header from '../core/components/layout/Header';
-import { ThemeProvider } from '../components/theme/ThemeProvider';
 import './globals.css';
 import { Providers } from './providers';
 

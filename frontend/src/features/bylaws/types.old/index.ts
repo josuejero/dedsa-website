@@ -1,4 +1,4 @@
-// frontend/src/types/content/bylaws.ts
+// frontend/src/core/types/pages/bylaws.ts
 
 export interface BylawsPageContent {
   title: string;

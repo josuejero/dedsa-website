@@ -2,10 +2,10 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import homeJson from '../../../content/consolidated/home.json';
-import { StrategicPrioritiesSectionContent } from '../../../types/content/home';
-import { useTypewriterEffect } from '../../../utils/animations';
-import Blob from '../ui/Blob';
+import homeJson from '@/core/content/pages/home.json';
+import { StrategicPrioritiesSectionContent } from '@/core/types/pages/home';
+import { useTypewriterEffect } from '@/core/utils/animations';
+import Blob from '@/core/components/ui/Blob';
 
 // Inline cast to drop a separate binding
 const c =

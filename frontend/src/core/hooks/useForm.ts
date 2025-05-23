@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 
-import { UseFormProps } from '../types/hooks';
+import { UseFormProps } from '@/core/types/hooks';
 
 export function useForm<T extends Record<string, unknown>>({
   initialValues,

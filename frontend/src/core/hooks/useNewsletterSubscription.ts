@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { SubscriptionStatus } from '../types/hooks';
+import { SubscriptionStatus } from '@/core/types/hooks';
 
 export function useNewsletterSubscription() {
   const [email, setEmail] = useState('');

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import committeesContent from '../../../../content/consolidated/home.json';
-import { CommitteesCardContent } from '../../../../types/content/home';
+import committeesContent from '@/core/content/pages/home.json';
+import { CommitteesCardContent } from '@/core/types/pages/home';
 import CommitteeItem from './CommitteeItem';
 
 // Type assertion for the imported JSON

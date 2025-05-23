@@ -4,8 +4,8 @@ import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
-import homeJson from '../../../content/consolidated/home.json';
-import { MissionSectionContent } from '../../../types/content/home';
+import homeJson from '@/core/content/pages/home.json';
+import { MissionSectionContent } from '@/core/types/pages/home';
 
 // Inline cast so we can drop a separate typed variable
 const m = homeJson.missionSection as MissionSectionContent;

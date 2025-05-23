@@ -1,4 +1,4 @@
-// frontend/src/types/content/whatWeStandFor.ts
+// frontend/src/core/types/pages/whatWeStandFor.ts
 
 export interface WhatWeStandForHero {
   heading: string;

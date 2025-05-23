@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { NextResponse } from 'next/server';
 import path from 'path';
-import { Newsletter } from '../../../types/newsletter/index';
+import { Newsletter } from '@/core/types/index';
 
 export async function GET() {
   try {

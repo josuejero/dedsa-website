@@ -1,5 +1,5 @@
-import otherDocumentsContent from '../../../content/bylaws/otherDocuments.json';
-import { OtherDocumentsContent } from '../../../types/content/bylaws';
+import otherDocumentsContent from '@/core/content/pages/bylaws/otherDocuments.json';
+import { OtherDocumentsContent } from '@/core/types/pages/bylaws';
 
 // Type assertion for the imported JSON
 const typedOtherDocumentsContent =

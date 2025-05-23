@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import membershipOptionsData from '../content/join.json';
-import { MembershipOptionsContent } from '../types';
+import membershipOptionsData from '@/features/join/content/join.json';
+import { MembershipOptionsContent } from '@/features/join/types';
 
 // Type assertion for imported JSON
 const typedContent =

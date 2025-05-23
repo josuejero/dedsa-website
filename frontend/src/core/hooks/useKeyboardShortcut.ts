@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-import { KeyMap, ShortcutOptions } from '../types/hooks';
+import { KeyMap, ShortcutOptions } from '@/core/types/hooks';
 
 export function useKeyboardShortcut(
   keyMap: KeyMap,

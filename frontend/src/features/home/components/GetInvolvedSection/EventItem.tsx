@@ -1,4 +1,4 @@
-import { UpcomingEvent } from '../../../../types/content/home';
+import { UpcomingEvent } from '@/core/types/pages/home';
 
 interface EventItemProps {
   event: UpcomingEvent;

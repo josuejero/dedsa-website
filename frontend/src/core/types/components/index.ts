@@ -1,2 +1,2 @@
 // Re-export component types
-export * from '../../components/types';
+export * from '@/core/components/types';

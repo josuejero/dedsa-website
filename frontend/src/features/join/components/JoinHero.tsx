@@ -1,5 +1,5 @@
-import joinHeroData from '../content/join.json';
-import { JoinHeroContent } from '../types';
+import joinHeroData from '@/features/join/content/join.json';
+import { JoinHeroContent } from '@/features/join/types';
 
 // Type assertion for imported JSON
 const typedContent = joinHeroData.joinHero as JoinHeroContent;

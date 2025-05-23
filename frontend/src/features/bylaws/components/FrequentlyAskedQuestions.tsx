@@ -1,5 +1,5 @@
-import faqContent from '../../../content/bylaws/frequentlyAskedQuestions.json';
-import { FAQContent } from '../../../types/content/bylaws';
+import faqContent from '@/core/content/pages/bylaws/frequentlyAskedQuestions.json';
+import { FAQContent } from '@/core/types/pages/bylaws';
 
 // Type assertion for the imported JSON
 const typedFaqContent = faqContent as FAQContent;

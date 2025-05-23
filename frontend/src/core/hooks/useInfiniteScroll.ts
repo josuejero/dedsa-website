@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { UseInfiniteScrollProps } from '../types/hooks';
+import { UseInfiniteScrollProps } from '@/core/types/hooks';
 
 export function useInfiniteScroll({
   threshold = 100,

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import keyGovernanceContent from '../../../content/bylaws/keyGovernanceSections.json';
-import { KeyGovernanceSectionsContent } from '../../../types/content/bylaws';
+import keyGovernanceContent from '@/core/content/pages/bylaws/keyGovernanceSections.json';
+import { KeyGovernanceSectionsContent } from '@/core/types/pages/bylaws';
 
 // Type assertion for the imported JSON
 const typedKeyGovernanceContent =

@@ -1,5 +1,5 @@
-import faqData from '../content/join.json';
-import { FAQContent } from '../types';
+import faqData from '@/features/join/content/join.json';
+import { FAQContent } from '@/features/join/types';
 
 // Type assertion for imported JSON
 const typedContent = faqData.faq as FAQContent;

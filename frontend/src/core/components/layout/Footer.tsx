@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import footerJson from '../../content/layout/footer.json';
-import { FooterContent, FooterSection, SocialLink } from '../../types/layout';
+import footerJson from '@/core/content/layout/footer.json';
+import { FooterContent, FooterSection, SocialLink } from '@/core/types/layout';
 
 const f = footerJson as FooterContent;
 

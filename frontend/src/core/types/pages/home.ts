@@ -1,3 +1,4 @@
+// src/core/types/pages/home.ts
 export interface HeroSectionContent {
   mainHeading: string;
   subHeading: string;
@@ -15,12 +16,6 @@ export interface MissionSectionContent {
   button: { text: string; href: string };
 }
 
-export interface PriorityItem {
-  title: string;
-  description: string;
-  iconPath: string;
-}
-
 export interface StrategicPrioritiesSectionContent {
   heading: string;
   subtitle: string;
@@ -32,8 +27,6 @@ export interface StrategicPrioritiesSectionContent {
     iconPath: string;
   }>;
 }
-
-// Add these interfaces after the existing ones
 
 export interface GetInvolvedSectionContent {
   heading: string;
@@ -66,14 +59,6 @@ export interface CommitteesCardContent {
   buttonHref: string;
   committees: Committee[];
   initialDisplayCount?: number;
-}
-// Add these interfaces after the existing ones
-
-export interface LatestUpdatesSectionContent {
-  heading: string;
-  subtitle: string;
-  buttonText: string;
-  buttonHref: string;
 }
 
 export interface StatItem {

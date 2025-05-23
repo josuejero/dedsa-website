@@ -1,4 +1,3 @@
-// src/utils/animations.ts
 import { useEffect, useState } from 'react';
 
 export function useTypewriterEffect(text: string, speed: number = 100) {

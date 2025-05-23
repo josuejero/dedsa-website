@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import hJson from '../../content/layout/header.json';
-import { HeaderContent } from '../../types/layout';
+import hJson from '@/core/content/layout/header.json';
+import { HeaderContent } from '@/core/types/layout';
 
 const h = hJson as HeaderContent;
 

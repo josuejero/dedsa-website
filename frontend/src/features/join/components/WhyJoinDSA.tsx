@@ -1,5 +1,5 @@
-import whyJoinDsaContent from '../content/join.json';
-import { WhyJoinDsaContent } from '../types';
+import whyJoinDsaContent from '@/features/join/content/join.json';
+import { WhyJoinDsaContent } from '@/features/join/types';
 
 // Type assertion for imported JSON
 const typedContent = whyJoinDsaContent.whyJoinDSA as WhyJoinDsaContent;

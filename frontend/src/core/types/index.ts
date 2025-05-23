@@ -1,6 +1,21 @@
-// src/core/types/index.ts
-// Re-export all types for easy importing
-export * from './api';
-export * from './components';
-export * from './pages';
-export * from './shared';
+// src/core/types/newsletter/index.ts
+export interface Newsletter {
+  id: string;
+  title: string;
+  date: string;
+  slug: string;
+  excerpt: string;
+  featuredImage?: {
+    node: {
+      sourceUrl: string;
+      altText: string;
+    };
+  };
+  author?: {
+    node: {
+      name: string;
+    };
+  };
+  content?: string;
+  fullContentPath?: string;
+}

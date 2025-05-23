@@ -1,5 +1,5 @@
-import testimonialsData from '../content/join.json';
-import { TestimonialsContent } from '../types';
+import testimonialsData from '@/features/join/content/join.json';
+import { TestimonialsContent } from '@/features/join/types';
 
 // Type assertion for imported JSON
 const typedContent = testimonialsData.testimonials as TestimonialsContent;

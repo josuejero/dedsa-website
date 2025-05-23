@@ -1,6 +1,91 @@
 import type { NewsletterPageContent, ArticleHeaderContent, ArticleFooterContent } from '@/core/types/pages/newsletter';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
 type Props = NewsletterPageContent & ArticleHeaderContent & ArticleFooterContent;
+
+interface Newsletter {
+  id: string;
+  title: string;
+  date: string;
+  slug: string;
+  excerpt: string;
+}
+
 export default function NewsletterPage(props: Props) {
-  // TODO: render the newsletter page using props.noPostsMessage, props.articleHeader, props.articleFooter, etc.
-  return <pre>{JSON.stringify(props, null, 2)}</pre>;
+  const { title, noPostsMessage, errorTitle, errorMessage, errorActionLabel } = props;
+  const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('/api/newsletters')
+      .then(res => res.json())
+      .then(data => {
+        setNewsletters(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-100 py-12">
+        <div className="container-page">
+          <div className="text-center">Loading newsletters...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-100 py-12">
+        <div className="container-page">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">{errorTitle}</h1>
+            <p className="mb-4">{errorMessage}</p>
+            <Link href="/" className="btn btn-primary">
+              {errorActionLabel}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-100 py-12">
+      <div className="container-page">
+        <h1 className="text-4xl font-bold mb-8">{title}</h1>
+        
+        {newsletters.length === 0 ? (
+          <p className="text-center text-gray-600">{noPostsMessage}</p>
+        ) : (
+          <div className="grid gap-6">
+            {newsletters.map((newsletter) => (
+              <article key={newsletter.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                <h2 className="text-2xl font-bold mb-2">
+                  <Link href={`/newsletter/${newsletter.slug}`} className="hover:text-dsa-red">
+                    {newsletter.title}
+                  </Link>
+                </h2>
+                <p className="text-gray-600 mb-4">
+                  {new Date(newsletter.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </p>
+                <p className="text-gray-700">{newsletter.excerpt}</p>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

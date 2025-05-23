@@ -1,4 +1,4 @@
-// frontend/src/types/content/components.ts
+// frontend/src/core/types/pages/components.ts
 
 export interface NavItem {
   name: string;
