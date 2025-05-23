@@ -1,29 +1,29 @@
 {
-  "title": "Key Governance Sections",
   "sections": [
     {
-      "title": "Chapter Structure",
       "description": "Our chapter is structured with a Steering Committee, elected officers, standing committees, and working groups. General membership meetings are held monthly.",
+      "linkText": "Go to Chapter Structure",
       "pageLink": "page=2",
-      "linkText": "Go to Chapter Structure"
+      "title": "Chapter Structure"
     },
     {
-      "title": "Decision Making",
       "description": "Major decisions are made democratically through membership votes. Our chapter strives for consensus while recognizing the need for timely action.",
+      "linkText": "Go to Decision Making",
       "pageLink": "page=4",
-      "linkText": "Go to Decision Making"
+      "title": "Decision Making"
     },
     {
-      "title": "Elections & Terms",
       "description": "Officers serve for two-year terms. Elections are held annually with staggered terms to ensure continuity of leadership and institutional knowledge.",
+      "linkText": "Go to Elections & Terms",
       "pageLink": "page=6",
-      "linkText": "Go to Elections & Terms"
+      "title": "Elections & Terms"
     },
     {
-      "title": "Amendments",
       "description": "Bylaws can be amended through a two-thirds vote of members present at a general meeting, with amendments proposed at least two weeks in advance.",
+      "linkText": "Go to Amendments",
       "pageLink": "page=10",
-      "linkText": "Go to Amendments"
+      "title": "Amendments"
     }
-  ]
+  ],
+  "title": "Key Governance Sections"
 }

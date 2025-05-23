@@ -1,0 +1,14 @@
+{
+  "articleFooter": {
+    "noRelatedArticlesMessage": "No related articles found",
+    "relatedArticlesTitle": "Related Articles"
+  },
+  "articleHeader": {
+    "backToNewsletterText": "← Back to Newsletter"
+  },
+  "errorActionLabel": "Return to Home",
+  "errorMessage": "We're having trouble loading the newsletter. Please try again later.",
+  "errorTitle": "Error Loading Newsletter",
+  "noPostsMessage": "No posts found.",
+  "title": "Newsletter"
+}

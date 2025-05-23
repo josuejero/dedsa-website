@@ -1,22 +1,22 @@
 {
-  "title": "Chapter Leadership",
-  "contactLinkText": "Contact the leadership team →",
   "contactLinkHref": "/contact?subject=UD%20YDSA%20Leadership",
+  "contactLinkText": "Contact the leadership team →",
   "leaders": [
     {
+      "imageInitials": "JL",
       "name": "Jordan Lee",
-      "role": "Co-Chair",
-      "imageInitials": "JL"
+      "role": "Co-Chair"
     },
     {
+      "imageInitials": "AR",
       "name": "Avery Rodriguez",
-      "role": "Co-Chair",
-      "imageInitials": "AR"
+      "role": "Co-Chair"
     },
     {
+      "imageInitials": "TP",
       "name": "Taylor Park",
-      "role": "Secretary-Treasurer",
-      "imageInitials": "TP"
+      "role": "Secretary-Treasurer"
     }
-  ]
+  ],
+  "title": "Chapter Leadership"
 }

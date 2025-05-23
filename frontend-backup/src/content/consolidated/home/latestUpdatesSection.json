@@ -1,8 +1,8 @@
 {
   "latestUpdatesSection": {
-    "heading": "LATEST FROM THE DELAWARE ROSE GARDEN",
-    "subtitle": "News and updates from our chapter",
+    "buttonHref": "/newsletter",
     "buttonText": "READ ALL UPDATES",
-    "buttonHref": "/newsletter"
+    "heading": "LATEST FROM THE DELAWARE ROSE GARDEN",
+    "subtitle": "News and updates from our chapter"
   }
 }

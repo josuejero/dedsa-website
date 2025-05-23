@@ -1,23 +1,23 @@
 {
   "democraticSocialism": {
-    "title": "What is Democratic Socialism?",
     "principles": [
       {
-        "title": "Economic Democracy",
-        "description": "We believe the economy should be democratically owned and controlled to meet human needs."
+        "description": "We believe the economy should be democratically owned and controlled to meet human needs.",
+        "title": "Economic Democracy"
       },
       {
-        "title": "Social Justice",
-        "description": "We fight for racial, gender, and economic justice for all people."
+        "description": "We fight for racial, gender, and economic justice for all people.",
+        "title": "Social Justice"
       },
       {
-        "title": "Workers' Rights",
-        "description": "We support workers organizing for better wages, benefits, and working conditions."
+        "description": "We support workers organizing for better wages, benefits, and working conditions.",
+        "title": "Workers' Rights"
       },
       {
-        "title": "Healthcare",
-        "description": "We advocate for a universal, single-payer healthcare system."
+        "description": "We advocate for a universal, single-payer healthcare system.",
+        "title": "Healthcare"
       }
-    ]
+    ],
+    "title": "What is Democratic Socialism?"
   }
 }

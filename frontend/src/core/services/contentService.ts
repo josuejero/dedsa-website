@@ -18,7 +18,7 @@ const pageContent = {
 const componentContent = {
   header: require('../content/components/header.json'),
   footer: require('../content/components/footer.json'),
-  newsletterSignup: require('../content/components/newsletterSignup.json'),
+  newsletterSignup: require('../content/shared/newsletters.json'),
 };
 
 const sharedContent = {

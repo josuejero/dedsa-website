@@ -1,0 +1,107 @@
+{
+  "campaignsSection": {
+    "campaigns": [
+      {
+        "description": "Fighting for affordable housing, meal plan reform, and cost of attendance reductions to make education accessible for all students.",
+        "linkHref": "/calendar?tag=ud-ydsa",
+        "linkText": "Join the campaign →",
+        "title": "Cost of Living Crisis"
+      },
+      {
+        "description": "Supporting campus workers through solidarity actions and advocating for fair wages and working conditions for all university employees.",
+        "linkHref": "/calendar?tag=ud-ydsa",
+        "linkText": "Join the campaign →",
+        "title": "Labor Solidarity"
+      },
+      {
+        "description": "Pressuring the university to divest from fossil fuels and implement sustainable practices across campus operations.",
+        "linkHref": "/calendar?tag=ud-ydsa",
+        "linkText": "Join the campaign →",
+        "title": "Climate Justice"
+      }
+    ],
+    "title": "Current Campaigns"
+  },
+  "eventsSection": {
+    "detailsButtonText": "Details",
+    "title": "Upcoming Events",
+    "upcomingEvents": [
+      {
+        "date": "April 10, 2025",
+        "href": "/calendar/event-id",
+        "location": "Morris Library, Room 202",
+        "time": "7:00 PM",
+        "title": "General Meeting"
+      },
+      {
+        "date": "April 15, 2025",
+        "href": "/calendar/event-id",
+        "location": "Trabant Student Center, Room 109",
+        "time": "5:30 PM",
+        "title": "Cost of Living Campaign Meeting"
+      },
+      {
+        "date": "April 22, 2025",
+        "href": "/calendar/event-id",
+        "location": "The Green, University of Delaware",
+        "time": "12:00 PM",
+        "title": "Earth Day Rally"
+      }
+    ],
+    "viewAllLinkHref": "/calendar?tag=ud-ydsa",
+    "viewAllLinkText": "View all events →"
+  },
+  "hero": {
+    "subtitle": "Building student power at the University of Delaware",
+    "title": "UD Young Democratic Socialists of America"
+  },
+  "joinSection": {
+    "buttonText": "Get Involved",
+    "description": "We're building student power at the University of Delaware. Join us to fight for a more just university and a democratic socialist future.",
+    "title": "Join UD YDSA Today!"
+  },
+  "leadershipSection": {
+    "contactLinkHref": "/contact?subject=UD%20YDSA%20Leadership",
+    "contactLinkText": "Contact the leadership team →",
+    "leaders": [
+      {
+        "imageInitials": "JL",
+        "name": "Jordan Lee",
+        "role": "Co-Chair"
+      },
+      {
+        "imageInitials": "AR",
+        "name": "Avery Rodriguez",
+        "role": "Co-Chair"
+      },
+      {
+        "imageInitials": "TP",
+        "name": "Taylor Park",
+        "role": "Secretary-Treasurer"
+      }
+    ],
+    "title": "Chapter Leadership"
+  },
+  "meetingInfoSection": {
+    "followTitle": "Follow UD YDSA",
+    "getInvolvedTitle": "Get Involved",
+    "meetingEmailLabel": "Email",
+    "meetingInfoTitle": "Meeting Information",
+    "meetingWhenLabel": "When",
+    "meetingWhereLabel": "Where",
+    "socialLinks": {
+      "facebook": {
+        "href": "https://facebook.com",
+        "name": "Facebook"
+      },
+      "instagram": {
+        "href": "https://instagram.com",
+        "name": "Instagram"
+      },
+      "twitter": {
+        "href": "https://twitter.com",
+        "name": "Twitter"
+      }
+    }
+  }
+}

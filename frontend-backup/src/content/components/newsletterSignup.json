@@ -1,28 +1,28 @@
 {
-  "variants": {
-    "banner": {
-      "title": "Stay Updated",
-      "description": "Subscribe to our newsletter to receive the latest updates, events, and actions."
-    },
-    "sidebar": {
-      "title": "Stay Updated",
-      "description": "Subscribe to our newsletter to receive the latest updates, events, and actions."
-    },
-    "footer": {
-      "title": "Stay Updated",
-      "description": "Subscribe to our newsletter to receive the latest updates, events, and actions."
-    }
-  },
-  "inputPlaceholder": "Your email address",
   "buttonText": "Subscribe",
-  "loadingText": "Subscribing...",
-  "success": {
-    "title": "Thank You!",
-    "message": "You've been successfully subscribed to our newsletter.",
-    "buttonText": "Subscribe another email"
-  },
   "error": {
     "defaultMessage": "Please fill out all required fields.",
     "networkError": "Failed to send message. Please try again later."
+  },
+  "inputPlaceholder": "Your email address",
+  "loadingText": "Subscribing...",
+  "success": {
+    "buttonText": "Subscribe another email",
+    "message": "You've been successfully subscribed to our newsletter.",
+    "title": "Thank You!"
+  },
+  "variants": {
+    "banner": {
+      "description": "Subscribe to our newsletter to receive the latest updates, events, and actions.",
+      "title": "Stay Updated"
+    },
+    "footer": {
+      "description": "Subscribe to our newsletter to receive the latest updates, events, and actions.",
+      "title": "Stay Updated"
+    },
+    "sidebar": {
+      "description": "Subscribe to our newsletter to receive the latest updates, events, and actions.",
+      "title": "Stay Updated"
+    }
   }
 }

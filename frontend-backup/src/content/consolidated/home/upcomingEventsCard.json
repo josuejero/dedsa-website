@@ -1,27 +1,27 @@
 {
   "upcomingEventsCard": {
-    "heading": "Upcoming Events",
-    "buttonText": "VIEW ALL EVENTS",
     "buttonHref": "/calendar",
+    "buttonText": "VIEW ALL EVENTS",
     "events": [
       {
-        "title": "Migrant Rights Working Group Meeting",
         "date": "May 22, 2025 • 5:00 PM",
+        "isVirtual": true,
         "location": "Discord",
-        "isVirtual": true
+        "title": "Migrant Rights Working Group Meeting"
       },
       {
-        "title": "Communications Committee Meeting",
         "date": "May 26, 2025 • 7:30 PM",
+        "isVirtual": true,
         "location": "Zoom",
-        "isVirtual": true
+        "title": "Communications Committee Meeting"
       },
       {
-        "title": "International Solidarity Working Group Meeting",
         "date": "May 27, 2025 • 6:30 PM",
+        "isVirtual": true,
         "location": "Jitsi",
-        "isVirtual": true
+        "title": "International Solidarity Working Group Meeting"
       }
-    ]
+    ],
+    "heading": "Upcoming Events"
   }
 }

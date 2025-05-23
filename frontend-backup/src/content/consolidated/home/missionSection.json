@@ -1,10 +1,13 @@
 {
   "missionSection": {
+    "button": {
+      "href": "/what-we-stand-for",
+      "text": "What We Stand For"
+    },
     "heading": "Our Mission",
     "paragraphs": [
       "Delaware DSA is building a democratic-socialist movement where production and resources are controlled by the people, not private profit. We reject the capitalist economic order, systemic oppression, and violence that characterizes our society.",
       "We're committed to a 'New Delaware Way' rooted in equitable wealth, gender and racial justice, and freedom from poverty and exploitation. Our chapter welcomes plural left tendencies, supports independent mass organizations, and stands firmly against imperialism."
-    ],
-    "button": { "text": "What We Stand For", "href": "/what-we-stand-for" }
+    ]
   }
 }
