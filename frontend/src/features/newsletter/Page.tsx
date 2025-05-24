@@ -1,8 +1,16 @@
-import type { NewsletterPageContent, ArticleHeaderContent, ArticleFooterContent } from '@/core/types/pages/newsletter';
+'use client';
+
+import type {
+  ArticleFooterContent,
+  ArticleHeaderContent,
+  NewsletterPageContent,
+} from '@/core/types/pages/newsletter';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-type Props = NewsletterPageContent & ArticleHeaderContent & ArticleFooterContent;
+type Props = NewsletterPageContent &
+  ArticleHeaderContent &
+  ArticleFooterContent;
 
 interface Newsletter {
   id: string;
@@ -13,19 +21,20 @@ interface Newsletter {
 }
 
 export default function NewsletterPage(props: Props) {
-  const { title, noPostsMessage, errorTitle, errorMessage, errorActionLabel } = props;
+  const { title, noPostsMessage, errorTitle, errorMessage, errorActionLabel } =
+    props;
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/newsletters')
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setNewsletters(data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
@@ -59,17 +68,23 @@ export default function NewsletterPage(props: Props) {
 
   return (
     <div className="min-h-screen bg-gray-100 py-12">
-      <div className="container-page">
+      <div className="container-page py-12">
         <h1 className="text-4xl font-bold mb-8">{title}</h1>
-        
+
         {newsletters.length === 0 ? (
           <p className="text-center text-gray-600">{noPostsMessage}</p>
         ) : (
           <div className="grid gap-6">
             {newsletters.map((newsletter) => (
-              <article key={newsletter.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <article
+                key={newsletter.id}
+                className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+              >
                 <h2 className="text-2xl font-bold mb-2">
-                  <Link href={`/newsletter/${newsletter.slug}`} className="hover:text-dsa-red">
+                  <Link
+                    href={`/newsletter/${newsletter.slug}`}
+                    className="hover:text-dsa-red"
+                  >
                     {newsletter.title}
                   </Link>
                 </h2>
@@ -77,7 +92,7 @@ export default function NewsletterPage(props: Props) {
                   {new Date(newsletter.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
-                    day: 'numeric'
+                    day: 'numeric',
                   })}
                 </p>
                 <p className="text-gray-700">{newsletter.excerpt}</p>

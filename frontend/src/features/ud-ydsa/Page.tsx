@@ -5,24 +5,40 @@ import type {
   JoinSectionContent,
   LeadershipSectionContent,
   MeetingInfoSectionContent,
+  UdYdsaPageContent,
 } from '@/core/types/pages/ud-ydsa';
 
-type Props = HeroSectionContent &
-  CampaignsSectionContent &
-  EventsSectionContent &
-  JoinSectionContent &
-  LeadershipSectionContent &
-  MeetingInfoSectionContent;
+type Props = UdYdsaPageContent;
 
 export default function UdYdsaPage(props: Props) {
+  const {
+    hero,
+    campaignsSection,
+    eventsSection,
+    meetingInfoSection,
+    leadershipSection,
+    joinSection,
+  } = props;
+
   return (
     <div className="min-h-screen bg-gray-100">
-      <HeroSection hero={props} />
-      <CampaignsSection {...props} />
-      <EventsSection {...props} />
-      <MeetingInfoSection {...props} />
-      <LeadershipSection {...props} />
-      <JoinSection {...props} />
+      {/* passes only the hero object */}
+      <HeroSection hero={hero} />
+
+      {/* passes only campaigns array */}
+      <CampaignsSection campaigns={campaignsSection.campaigns} />
+
+      {/* eventsSection already has the right shape */}
+      <EventsSection {...eventsSection} />
+
+      {/* meetingInfoSection contains socialLinks */}
+      <MeetingInfoSection {...meetingInfoSection} />
+
+      {/* leadershipSection has leaders/contactLink */}
+      <LeadershipSection {...leadershipSection} />
+
+      {/* joinSection has title/description/buttonText */}
+      <JoinSection {...joinSection} />
     </div>
   );
 }
@@ -50,18 +66,23 @@ function CampaignsSection({
       <div className="container-page">
         <h2 className="text-3xl font-bold mb-8">Current Campaigns</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {campaigns?.map((campaign, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-3">{campaign.title}</h3>
-              <p className="text-gray-700 mb-4">{campaign.description}</p>
-              <a
-                href={campaign.linkHref}
-                className="text-dsa-red hover:underline"
-              >
-                {campaign.linkText}
-              </a>
-            </div>
-          ))}
+          {campaigns?.map(
+            (
+              campaign: CampaignsSectionContent['campaigns'][number],
+              index: number
+            ) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-xl font-bold mb-3">{campaign.title}</h3>
+                <p className="text-gray-700 mb-4">{campaign.description}</p>
+                <a
+                  href={campaign.linkHref}
+                  className="text-dsa-red hover:underline"
+                >
+                  {campaign.linkText}
+                </a>
+              </div>
+            )
+          )}
         </div>
       </div>
     </section>
@@ -79,14 +100,19 @@ function EventsSection({
       <div className="container-page">
         <h2 className="text-3xl font-bold mb-8">Upcoming Events</h2>
         <div className="space-y-4 mb-8">
-          {upcomingEvents?.map((event, index) => (
-            <div key={index} className="border-l-4 border-dsa-red pl-4 py-3">
-              <h3 className="font-bold text-lg">{event.title}</h3>
-              <p className="text-gray-600">
-                {event.date} at {event.time} • {event.location}
-              </p>
-            </div>
-          ))}
+          {upcomingEvents?.map(
+            (
+              event: EventsSectionContent['upcomingEvents'][number],
+              index: number
+            ) => (
+              <div key={index} className="border-l-4 border-dsa-red pl-4 py-3">
+                <h3 className="font-bold text-lg">{event.title}</h3>
+                <p className="text-gray-600">
+                  {event.date} at {event.time} • {event.location}
+                </p>
+              </div>
+            )
+          )}
         </div>
         <a href={viewAllLinkHref} className="text-dsa-red hover:underline">
           {viewAllLinkText}
@@ -154,15 +180,20 @@ function LeadershipSection({
       <div className="container-page">
         <h2 className="text-3xl font-bold mb-8">Chapter Leadership</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {leaders?.map((leader, index) => (
-            <div key={index} className="text-center">
-              <div className="w-24 h-24 mx-auto mb-4 bg-dsa-red text-white rounded-full flex items-center justify-center text-2xl font-bold">
-                {leader.imageInitials}
+          {leaders?.map(
+            (
+              leader: LeadershipSectionContent['leaders'][number],
+              index: number
+            ) => (
+              <div key={index} className="text-center">
+                <div className="w-24 h-24 mx-auto mb-4 bg-dsa-red text-white rounded-full flex items-center justify-center text-2xl font-bold">
+                  {leader.imageInitials}
+                </div>
+                <h3 className="font-bold">{leader.name}</h3>
+                <p className="text-gray-600">{leader.role}</p>
               </div>
-              <h3 className="font-bold">{leader.name}</h3>
-              <p className="text-gray-600">{leader.role}</p>
-            </div>
-          ))}
+            )
+          )}
         </div>
         <div className="text-center">
           <a href={contactLinkHref} className="text-dsa-red hover:underline">

@@ -1,3 +1,5 @@
+'use client';
+
 import GenericCard from '@/core/components/shared/GenericCard';
 import GenericSection from '@/core/components/shared/GenericSection';
 import { tw } from '@/core/utils/styles/tailwindClasses';

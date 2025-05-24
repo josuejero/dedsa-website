@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import AboutHero from './components/AboutHero';
 import Achievements from './components/Achievements';
 import DemocraticSocialism from './components/DemocraticSocialism';
@@ -6,12 +5,6 @@ import GetInvolved from './components/GetInvolved';
 import NationalInfo from './components/NationalInfo';
 import Timeline from './components/Timeline';
 import { AboutPageProps } from './types';
-
-export const metadata: Metadata = {
-  title: 'About Us',
-  description:
-    'Learn about the Delaware chapter of the Democratic Socialists of America.',
-};
 
 export default function AboutPage(props: AboutPageProps) {
   return (

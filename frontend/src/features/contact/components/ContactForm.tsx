@@ -1,3 +1,5 @@
+'use client';
+
 import { useForm } from '@/core/hooks/useForm';
 import type { ContactFormContent } from '@/core/types/pages/contact';
 

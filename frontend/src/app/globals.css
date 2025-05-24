@@ -276,3 +276,39 @@
     width: 100%;
   }
 }
+/* Newsletter-specific styles */
+.newsletter-content {
+  line-height: 1.8;
+}
+
+.newsletter-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.newsletter-content td {
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+.newsletter-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.newsletter-content a {
+  color: #ec1f27;
+  text-decoration: none;
+}
+
+.newsletter-content a:hover {
+  text-decoration: underline;
+}
+
+/* Email table styling adjustments for web display */
+.newsletter-content table[cellpadding] {
+  border: none;
+  box-shadow: none;
+}

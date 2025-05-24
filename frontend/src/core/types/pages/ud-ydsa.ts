@@ -57,3 +57,12 @@ export interface LeadershipSectionContent {
     imageInitials: string;
   }>;
 }
+
+export interface UdYdsaPageContent {
+  hero: HeroSectionContent;
+  campaignsSection: CampaignsSectionContent;
+  eventsSection: EventsSectionContent;
+  joinSection: JoinSectionContent;
+  leadershipSection: LeadershipSectionContent;
+  meetingInfoSection: MeetingInfoSectionContent;
+}
