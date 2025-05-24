@@ -1,9 +1,96 @@
 {
   "hero": {
     "heading": "What We Stand For",
-    "description": "The Delaware DSA is committed to building a more just and equitable society. We believe in democratic socialism—a system where ordinary people have a real voice in our workplaces, communities, and government."
+    "description": "Delaware DSA is committed to creating a society built on compassion and equity rather than greed and oppression. We believe in a just world based on popular control of resources and production, equitable distribution, and a dignified life for every person."
   },
-  "fallbackContent": "<p>Delaware DSA is the Delaware state chapter of the Democratic Socialists of America (DSA), the largest socialist organization in the United States.</p><p>Our chapter brings together democratic socialists of all backgrounds to organize and fight for a political and economic system that puts people before profits. We believe that both the economy and society should be run democratically to meet human needs.</p>",
+  "aboutSection": {
+    "title": "Who We Are",
+    "content": "Delaware DSA is a local chapter of the Democratic Socialists of America, the largest socialist organization in the United States with over 92,000 members and chapters in all 50 states. We became an official chapter in 2021 and represent all three counties in Delaware: Kent, New Castle and Sussex."
+  },
+  "beliefs": {
+    "title": "Our Beliefs",
+    "subtitle": "We are socialists because we believe in justice. We are democratic because transformation must come from the bottom up.",
+    "principles": [
+      {
+        "title": "Popular Control",
+        "description": "We believe in democratic control of resources and production by working people, not corporate elites.",
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+      },
+      {
+        "title": "Equitable Distribution",
+        "description": "Resources should be distributed based on human need, ensuring everyone has access to a dignified life.",
+        "icon": "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+      },
+      {
+        "title": "Bottom-Up Change",
+        "description": "Real transformation happens when millions of working-class people stand together, not through elite politics.",
+        "icon": "M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
+      },
+      {
+        "title": "Democratic Organization",
+        "description": "We are a member-funded, member-run organization that fights for reforms empowering working people.",
+        "icon": "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+      }
+    ]
+  },
+  "platform": {
+    "title": "Delaware DSA Platform",
+    "subtitle": "Our core platform planks guide all our work toward justice",
+    "planks": [
+      {
+        "title": "Abolition of the Carceral State",
+        "description": "We work to dismantle the prison-industrial complex, end mass incarceration, defund police, abolish bail, and create community-based alternatives to punishment that address root causes of harm.",
+        "icon": "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4",
+        "color": "#7c3aed"
+      },
+      {
+        "title": "Green New Deal",
+        "description": "We fight for massive public investment in renewable energy, sustainable infrastructure, and good union jobs to address the climate crisis while ensuring a just transition for workers.",
+        "icon": "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+        "color": "#059669"
+      },
+      {
+        "title": "Housing for All",
+        "description": "Housing is a human right. We organize for tenant protections, rent control, social housing, and an end to homelessness through comprehensive housing justice policies.",
+        "icon": "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
+        "color": "#dc2626"
+      },
+      {
+        "title": "Health Justice",
+        "description": "Healthcare is a human right. We advocate for Medicare for All, mental health resources, reproductive justice, and addressing health disparities in our communities.",
+        "icon": "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+        "color": "#dc2626"
+      }
+    ]
+  },
+  "priorities2025": {
+    "title": "Chapter Priorities for 2025",
+    "subtitle": "Fighting for working people across Delaware",
+    "linkText": "Learn more about our work",
+    "linkHref": "/what-we-stand-for",
+    "priorities": [
+      {
+        "description": "Working alongside migrants' rights organizations to protect communities from ICE authoritarianism and create sanctuary policies throughout the state.",
+        "iconPath": "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
+        "title": "Defending Communities from ICE"
+      },
+      {
+        "description": "Building coalitions to decrease economic support for the state of Israel through targeted campaigns like 'No Appetite 4 Apartheid' and establishing apartheid-free zones.",
+        "iconPath": "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+        "title": "Delaware Against Apartheid"
+      },
+      {
+        "description": "Fighting for tenant protections, promoting affordable housing policies, and organizing renters through our H.O.M.E.S. Campaign.",
+        "iconPath": "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
+        "title": "Housing Justice & Rent Stabilization"
+      },
+      {
+        "description": "Working to transform Delaware from a state that 'doesn't persecute' to one that actively supports and protects transgender people through model legislation.",
+        "iconPath": "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z",
+        "title": "Making Delaware a Trans Refuge State"
+      }
+    ]
+  },
   "cta": {
     "heading": "Join Our Movement",
     "description": "If you share our vision for a more just, democratic, and sustainable future, we invite you to join Delaware DSA today.",
