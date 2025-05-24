@@ -1,10 +1,10 @@
 // src/core/utils/graphql/fetcher.ts
-interface GraphQLResponse<T = any> {
+interface GraphQLResponse<T = unknown> {
   data?: T;
   errors?: Array<{ message: string }>;
 }
 
-export async function fetchGraphQL<T = any>(
+export async function fetchGraphQL<T = unknown>(
   query: string,
   variables?: Record<string, unknown>
 ): Promise<GraphQLResponse<T>> {

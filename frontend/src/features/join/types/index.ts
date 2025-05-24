@@ -1,9 +1,5 @@
 // src/features/join/types/index.ts
 
-export interface JoinPageProps {
-  // Page props
-}
-
 export interface JoinHeroContent {
   title: string;
   subtitle: string;

@@ -1,28 +1,43 @@
 // src/core/services/contentService.ts
+import footer from '../content/components/footer.json';
+import header from '../content/components/header.json';
+import about from '../content/pages/about.json';
+import bylaws from '../content/pages/bylaws.json';
+import calendar from '../content/pages/calendar.json';
+import contact from '../content/pages/contact.json';
+import home from '../content/pages/home.json';
+import join from '../content/pages/join.json';
+import leadership from '../content/pages/leadership.json';
+import newsletter from '../content/pages/newsletter.json';
+import udYdsa from '../content/pages/ud-ydsa.json';
+import whatWeStandFor from '../content/pages/what-we-stand-for.json';
+import {
+  default as newsletters,
+  default as newsletterSignup,
+} from '../content/shared/newsletters.json';
 
 // Import all content directly
 const pageContent = {
-  about: require('../content/pages/about.json'),
-  home: require('../content/pages/home.json'),
-  join: require('../content/pages/join.json'),
-  calendar: require('../content/pages/calendar.json'),
-  contact: require('../content/pages/contact.json'),
-  leadership: require('../content/pages/leadership.json'),
-  newsletter: require('../content/pages/newsletter.json'),
-  'what-we-stand-for': require('../content/pages/what-we-stand-for.json'),
-  'ud-ydsa': require('../content/pages/ud-ydsa.json'),
-
-  bylaws: require('../content/pages/bylaws.json'),
+  about,
+  home,
+  join,
+  calendar,
+  contact,
+  leadership,
+  newsletter,
+  bylaws,
+  whatWeStandFor,
+  udYdsa,
 };
 
 const componentContent = {
-  header: require('../content/components/header.json'),
-  footer: require('../content/components/footer.json'),
-  newsletterSignup: require('../content/shared/newsletters.json'),
+  header,
+  footer,
+  newsletterSignup,
 };
 
 const sharedContent = {
-  newsletters: require('../content/shared/newsletters.json'),
+  newsletters,
 };
 
 export const contentService = {

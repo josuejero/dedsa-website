@@ -12,13 +12,6 @@ type Props = CalendarPageContent & {
 export default function CalendarPage({
   title,
   subtitle,
-  errorTitle,
-  errorMessage,
-  errorActionLabel,
-  subscribeTitle,
-  subscribeText,
-  googleCalendarButtonText,
-  iCalOutlookButtonText,
   eventCalendar,
   monthSelectorData,
 }: Props) {

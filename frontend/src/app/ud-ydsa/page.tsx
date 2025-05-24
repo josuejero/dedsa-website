@@ -10,7 +10,9 @@ import type {
 import UdYdsaFeature from '@/features/ud-ydsa';
 
 export default function UdYdsaPage() {
-  const data = contentService.getPageContent('ud-ydsa') as HeroSectionContent &
+  const data = contentService.getPageContent(
+    'udYdsa'
+  ) as unknown as HeroSectionContent &
     CampaignsSectionContent &
     EventsSectionContent &
     JoinSectionContent &

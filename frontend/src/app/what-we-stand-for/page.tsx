@@ -7,8 +7,8 @@ import WhatWeStandForFeature from '@/features/what-we-stand-for';
 
 export default function WhatWeStandForPage() {
   const data = contentService.getPageContent(
-    'what-we-stand-for'
-  ) as WhatWeStandForHero & {
+    'whatWeStandFor'
+  ) as unknown as WhatWeStandForHero & {
     positionCard: PositionCardContent;
   };
   return <WhatWeStandForFeature {...data} />;

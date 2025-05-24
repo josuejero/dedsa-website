@@ -1,4 +1,15 @@
 // src/core/types/pages/home.ts
+
+export interface HomePageContent {
+  heroSection: HeroSectionContent;
+  missionSection: MissionSectionContent;
+  strategicPrioritiesSection: StrategicPrioritiesSectionContent;
+  getInvolvedSection: GetInvolvedSectionContent;
+  upcomingEventsCard: UpcomingEventsCardContent;
+  committeesCard: CommitteesCardContent;
+  chapterStatsSection: ChapterStatsSectionContent;
+  joinCTASection: JoinCTASectionContent;
+}
 export interface HeroSectionContent {
   mainHeading: string;
   subHeading: string;

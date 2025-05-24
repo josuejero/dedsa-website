@@ -2,30 +2,32 @@ import { useForm } from '@/core/hooks/useForm';
 import type { ContactFormContent } from '@/core/types/pages/contact';
 
 export default function ContactForm(props: ContactFormContent) {
-  const { formFields, buttons, validation, success, error } = props;
-  
+  const { formFields, buttons } = props;
+
   const form = useForm({
     initialValues: {
       name: '',
       email: '',
       subject: '',
-      message: ''
+      message: '',
     },
     onSubmit: async (values) => {
       console.log('Form submitted:', values);
       // TODO: Implement actual submission
-    }
+    },
   });
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-      
+
       <form onSubmit={form.handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium mb-1">
             {formFields.name.label}
-            {formFields.name.required && <span className="text-red-500">*</span>}
+            {formFields.name.required && (
+              <span className="text-red-500">*</span>
+            )}
           </label>
           <input
             type="text"
@@ -37,11 +39,13 @@ export default function ContactForm(props: ContactFormContent) {
             required={formFields.name.required}
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium mb-1">
             {formFields.email.label}
-            {formFields.email.required && <span className="text-red-500">*</span>}
+            {formFields.email.required && (
+              <span className="text-red-500">*</span>
+            )}
           </label>
           <input
             type="email"
@@ -53,11 +57,13 @@ export default function ContactForm(props: ContactFormContent) {
             required={formFields.email.required}
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium mb-1">
             {formFields.message.label}
-            {formFields.message.required && <span className="text-red-500">*</span>}
+            {formFields.message.required && (
+              <span className="text-red-500">*</span>
+            )}
           </label>
           <textarea
             name="message"
@@ -69,7 +75,7 @@ export default function ContactForm(props: ContactFormContent) {
             required={formFields.message.required}
           />
         </div>
-        
+
         <button
           type="submit"
           disabled={form.isSubmitting}

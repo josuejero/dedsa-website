@@ -8,13 +8,7 @@ import ContactInfo from './components/ContactInfo';
 type Props = ContactPageContent & { contactForm: ContactFormContent };
 
 export default function ContactPage(props: Props) {
-  const {
-    heading,
-    fallbackContent,
-    fallbackContactInfo,
-    sections,
-    contactForm,
-  } = props;
+  const { heading, fallbackContactInfo, sections, contactForm } = props;
 
   return (
     <div className="bg-gray-100 min-h-screen py-12">

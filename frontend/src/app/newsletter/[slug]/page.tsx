@@ -1,5 +1,3 @@
-import { notFound } from 'next/navigation';
-
 interface PageProps {
   params: { slug: string };
 }

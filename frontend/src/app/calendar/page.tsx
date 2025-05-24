@@ -9,7 +9,7 @@ import CalendarFeature from '@/features/calendar';
 export default function CalendarPage() {
   const data = contentService.getPageContent(
     'calendar'
-  ) as CalendarPageContent & {
+  ) as unknown as CalendarPageContent & {
     eventCalendar: EventCalendarContent;
     monthSelectorData: MonthSelectorContent;
   };

@@ -10,13 +10,7 @@ type Props = LeadershipPageContent & {
 };
 
 export default function LeadershipPage(props: Props) {
-  const {
-    title,
-    introContent,
-    fallbackContent,
-    chapterStructure,
-    leadershipCard,
-  } = props;
+  const { title, introContent, fallbackContent, chapterStructure } = props;
 
   return (
     <div className="bg-gray-100 min-h-screen py-12">
@@ -36,7 +30,7 @@ export default function LeadershipPage(props: Props) {
         <ChapterStructure {...chapterStructure} />
 
         {/* Leadership Cards */}
-        <LeadershipSection {...leadershipCard} />
+        <LeadershipSection />
       </div>
     </div>
   );
@@ -81,7 +75,7 @@ function ChapterStructure(props: ChapterStructureContent) {
 }
 
 // Leadership Section Component (placeholder for now)
-function LeadershipSection(props: LeadershipCardContent) {
+function LeadershipSection() {
   return (
     <section className="bg-white rounded-lg shadow-md p-8">
       <h2 className="text-3xl font-bold mb-6">Chapter Leadership</h2>

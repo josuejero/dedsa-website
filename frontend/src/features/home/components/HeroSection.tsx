@@ -1,17 +1,20 @@
 'use client';
 
+import Blob from '@/core/components/ui/Blob';
+import ConfettiButton from '@/core/components/ui/Confetti';
 import { contentService } from '@/core/services/contentService';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { HeroSectionContent } from '@/core/types/pages/home';
-import Blob from '@/core/components/ui/Blob';
-import ConfettiButton from '@/core/components/ui/Confetti';
 
 // Inline cast
-const homeContent = contentService.getPageContent('home');
-const c = homeContent.heroSection as HeroSectionContent;
+
+import type { HomePageContent } from '@/core/types/pages/home';
+
+const homeContent = contentService.getPageContent('home') as HomePageContent;
+
+const c = homeContent.heroSection;
 
 export default function HeroSection() {
   const [ready, setReady] = useState(false);

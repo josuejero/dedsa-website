@@ -1,6 +1,16 @@
+// src/core/types/pages/about.ts
+
 export interface AboutPageContent {
-  title: string;
-  fallbackContent: string;
+  page: {
+    title: string;
+    fallbackContent: string;
+  };
+  aboutHero: AboutHeroContent;
+  achievements: AchievementsContent;
+  democraticSocialism: DemocraticSocialismContent;
+  getInvolved: GetInvolvedContent;
+  nationalInfo: NationalInfoContent;
+  timeline: TimelineContent;
 }
 
 export interface AboutHeroContent {
