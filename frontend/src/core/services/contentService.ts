@@ -21,7 +21,7 @@ const pageContent = {
   about,
   home,
   join,
-  calendar,
+  calendar, // Make sure this is included
   contact,
   leadership,
   newsletter,

@@ -1,3 +1,5 @@
+// next.config.ts
+
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import type { NextConfig } from 'next';
 
@@ -40,6 +42,49 @@ const nextConfig: NextConfig = {
   ],
 
   headers: async () => [
+    // 1) Calendar embed exception
+    {
+      source: '/calendar',
+      headers: [
+        // Allow the page to be framed by itself
+        { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+
+        // Permit iframes from Google Calendar & Google Accounts for OAuth redirects
+        {
+          key: 'Content-Security-Policy',
+          value: [
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+            "style-src 'self' 'unsafe-inline'",
+            "img-src 'self' data: https: http:",
+            "font-src 'self' data:",
+            "object-src 'none'",
+            "base-uri 'self'",
+            "form-action 'self'",
+            // Allow embedding of Google Calendar & account login within your page
+            "frame-src 'self' https://calendar.google.com https://accounts.google.com",
+            // Deprecated alias for older browsers
+            "child-src 'self' https://calendar.google.com https://accounts.google.com",
+            // Continue to prevent your page being embedded elsewhere
+            "frame-ancestors 'none'",
+            'block-all-mixed-content',
+          ].join('; '),
+        },
+      ],
+    },
+
+    // 2) Static assets caching policy
+    {
+      source: '/static/(.*)',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=31536000, immutable',
+        },
+      ],
+    },
+
+    // 3) Global security headers for all other routes
     {
       source: '/(.*)',
       headers: [
@@ -56,8 +101,8 @@ const nextConfig: NextConfig = {
             "default-src 'self'",
             "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
             "style-src 'self' 'unsafe-inline'",
-            "img-src 'self' data: https: http:'",
-            "font-src 'self' data:'",
+            "img-src 'self' data: https: http:",
+            "font-src 'self' data:",
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",
@@ -69,12 +114,6 @@ const nextConfig: NextConfig = {
           key: 'Permissions-Policy',
           value: 'camera=(), microphone=(), geolocation=()',
         },
-      ],
-    },
-    {
-      source: '/static/(.*)',
-      headers: [
-        { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
       ],
     },
   ],

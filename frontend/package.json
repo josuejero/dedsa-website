@@ -13,7 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.13.8",
     "@apollo/client-integration-nextjs": "^0.12.2",
-    "framer-motion": "^12.11.0",
+    "framer-motion": "^12.12.2",
     "graphql": "^16.11.0",
     "gsap": "^3.13.0",
     "lottie-web": "^5.12.2",
