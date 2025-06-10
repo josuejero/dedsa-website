@@ -117,47 +117,98 @@ export default function CalendarFeature({
               </div>
 
               {showEmbed ? (
-                <iframe
-                  src={googleCalendarEmbedUrl}
-                  style={{ border: 0 }}
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
-                  scrolling="no"
-                  className="rounded w-full"
-                  title="Delaware DSA Calendar"
-                />
-              ) : (
-                <div className="text-center py-20">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {errorTitle || 'Calendar Hidden'}
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    {errorMessage ||
-                      'Click "Show Calendar" to view our events.'}
-                  </p>
-                  <button
-                    onClick={() => setShowEmbed(true)}
-                    className="btn btn-primary"
+                <div className="relative">
+                  <iframe
+                    src={googleCalendarEmbedUrl}
+                    style={{ border: 0 }}
+                    width="100%"
+                    height="600"
+                    className="rounded w-full border-none"
+                    title="Delaware DSA Calendar"
+                    onError={() => setShowEmbed(false)}
+                  ></iframe>
+                  {/* Fallback overlay */}
+                  <div
+                    id="calendar-fallback"
+                    className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-90 text-center p-8 rounded"
                   >
-                    {errorActionLabel || 'Show Calendar'}
-                  </button>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        {errorTitle || 'Calendar Temporarily Unavailable'}
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        {errorMessage ||
+                          'The embedded calendar cannot be displayed. Please use the links below to view our calendar.'}
+                      </p>
+                      <a
+                        href={googleCalendarUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary mr-2"
+                      >
+                        {googleCalendarButtonText || 'Open in Google Calendar'}
+                      </a>
+                      <button
+                        onClick={() => setShowEmbed(false)}
+                        className="btn btn-secondary"
+                      >
+                        {errorActionLabel || 'View Event List'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold mb-4">Upcoming Events</h3>
+                  {eventCalendar.events.length > 0 ? (
+                    eventCalendar.events.slice(0, 10).map((event) => (
+                      <div
+                        key={event.id}
+                        className="border-l-4 border-dsa-red bg-white p-4 rounded-r-lg shadow-sm"
+                      >
+                        <h4 className="font-semibold text-lg mb-1">
+                          {event.title}
+                        </h4>
+                        <p className="text-sm text-gray-600 mb-2">
+                          {new Date(event.startDate).toLocaleDateString(
+                            'en-US',
+                            {
+                              weekday: 'long',
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                              hour: 'numeric',
+                              minute: '2-digit',
+                            }
+                          )}
+                        </p>
+                        <p className="text-sm text-gray-700">
+                          {event.isVirtual ? '🔗 Virtual Event' : '📍'}{' '}
+                          {event.location}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-gray-600">
+                      No upcoming events scheduled.
+                    </p>
+                  )}
                 </div>
               )}
-            </div>
 
-            {/* Display event calendar fallback message */}
-            <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-              <h3 className="text-xl font-bold mb-4">Event Information</h3>
-              <div className="text-center py-8">
-                <p className="text-gray-600 mb-2">
-                  {eventCalendar?.noEventsMessage ||
-                    'No upcoming events scheduled.'}
-                </p>
-                <p className="text-gray-500 text-sm">
-                  {eventCalendar?.checkBackMessage ||
-                    'Please check back later for updates.'}
-                </p>
+              {/* Display event calendar fallback message */}
+              <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+                <h3 className="text-xl font-bold mb-4">Event Information</h3>
+                <div className="text-center py-8">
+                  <p className="text-gray-600 mb-2">
+                    {eventCalendar?.noEventsMessage ||
+                      'No upcoming events scheduled.'}
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    {eventCalendar?.checkBackMessage ||
+                      'Please check back later for updates.'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

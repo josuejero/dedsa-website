@@ -44,7 +44,7 @@ const nextConfig: NextConfig = {
   headers: async () => [
     // 1) Calendar embed exception
     {
-      source: '/calendar',
+      source: '/(.*)',
       headers: [
         // Allow the page to be framed by itself
         { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
@@ -66,6 +66,7 @@ const nextConfig: NextConfig = {
             // Deprecated alias for older browsers
             "child-src 'self' https://calendar.google.com https://accounts.google.com",
             // Continue to prevent your page being embedded elsewhere
+            "frame-src 'self' https://calendar.google.com https://*.google.com; frame-ancestors 'self';",
             "frame-ancestors 'none'",
             'block-all-mixed-content',
           ].join('; '),

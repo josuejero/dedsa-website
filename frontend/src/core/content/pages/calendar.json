@@ -44,7 +44,7 @@
   },
   "subscription": {
     "calendarId": "f17d4d4d1756675b31bf0c7cc145c8e2b0fd967d93c55e23c40a0fe15fe4fd8d@group.calendar.google.com",
-    "googleCalendarEmbedUrl": "https://calendar.google.com/calendar/embed?src=f17d4d4d1756675b31bf0c7cc145c8e2b0fd967d93c55e23c40a0fe15fe4fd8d%40group.calendar.google.com&ctz=America%2FNew_York",
+    "googleCalendarEmbedUrl": "https://calendar.google.com/calendar/embed?src=f17d4d4d1756675b31bf0c7cc145c8e2b0fd967d93c55e23c40a0fe15fe4fd8d%40group.calendar.google.com&ctz=America%2FNew_York&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&wkst=1",
     "googleCalendarUrl": "https://calendar.google.com/calendar/u/0?cid=f17d4d4d1756675b31bf0c7cc145c8e2b0fd967d93c55e23c40a0fe15fe4fd8d@group.calendar.google.com",
     "iCalUrl": "https://calendar.google.com/calendar/ical/f17d4d4d1756675b31bf0c7cc145c8e2b0fd967d93c55e23c40a0fe15fe4fd8d%40group.calendar.google.com/public/basic.ics",
     "subscriptionInstructions": "Subscribe to receive automatic updates about Delaware DSA events in your preferred calendar app."
