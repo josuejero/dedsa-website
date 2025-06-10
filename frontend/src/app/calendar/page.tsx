@@ -8,6 +8,7 @@ import type {
   MonthSelectorContent,
 } from '@/core/types/pages/calendar';
 import CalendarFeature from '@/features/calendar';
+import { Metadata } from 'next';
 
 interface CalendarContent {
   page: CalendarPageContent;
@@ -16,16 +17,32 @@ interface CalendarContent {
   subscription: CalendarSubscription;
 }
 
+// Generate metadata for SEO
+export const metadata: Metadata = {
+  title: 'Events Calendar | Delaware DSA',
+  description:
+    'Join us for meetings, actions, educational events, and social gatherings. View our calendar and subscribe to stay updated on Delaware DSA events.',
+  openGraph: {
+    title: 'Events Calendar | Delaware DSA',
+    description:
+      'Join us for meetings, actions, educational events, and social gatherings.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Events Calendar | Delaware DSA',
+    description:
+      'Join us for meetings, actions, educational events, and social gatherings.',
+  },
+};
+
 export default function CalendarPage() {
   const data = contentService.getPageContent(
     'calendar'
   ) as unknown as CalendarContent;
   const { page, eventCalendar, monthSelectorData, subscription } = data;
 
-  // 👇 Temporary workaround: TS2322 will go away once you add these three props
-  //    to CalendarFeatureProps in your CalendarFeature component.
   return (
-    // @ts-expect-error extend CalendarFeatureProps to include eventCalendar, monthSelectorData, subscription
     <CalendarFeature
       {...page}
       eventCalendar={eventCalendar}

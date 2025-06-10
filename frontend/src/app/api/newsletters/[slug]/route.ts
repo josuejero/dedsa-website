@@ -1,22 +1,54 @@
-import { Newsletter } from '@/core/types/index';
-import { promises as fs } from 'fs';
+// src/app/api/newsletters/[slug]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
+
+// Mock newsletter data - replace with your actual data source
+const newsletters = {
+  'march-2024': {
+    id: 'march-2024',
+    title: 'Delaware DSA March 2024 Newsletter',
+    date: '2024-03-01',
+    content: 'March newsletter content...',
+    author: 'Delaware DSA Communications Committee',
+    excerpt:
+      'Updates on our organizing efforts, upcoming events, and member spotlights.',
+  },
+  'february-2024': {
+    id: 'february-2024',
+    title: 'Delaware DSA February 2024 Newsletter',
+    date: '2024-02-01',
+    content: 'February newsletter content...',
+    author: 'Delaware DSA Communications Committee',
+    excerpt:
+      'Building momentum in the new year with exciting campaigns and actions.',
+  },
+  latest: {
+    id: 'latest',
+    title: 'Delaware DSA Latest Newsletter',
+    date: '2024-06-01',
+    content: 'Latest newsletter content...',
+    author: 'Delaware DSA Communications Committee',
+    excerpt: 'Our most recent updates and upcoming activities.',
+  },
+};
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = params;
+    // Await the params since they're now async in Next.js 15
+    const { slug } = await params;
 
-    // Read newsletters data from JSON file
-    const filePath = path.join(process.cwd(), 'src/data/newsletters.json');
-    const fileContents = await fs.readFile(filePath, 'utf8');
-    const newsletters = JSON.parse(fileContents) as Newsletter[];
+    // Validate slug
+    if (!slug || typeof slug !== 'string') {
+      return NextResponse.json(
+        { error: 'Invalid newsletter slug' },
+        { status: 400 }
+      );
+    }
 
-    // Find the newsletter by slug
-    const newsletter = newsletters.find((n) => n.slug === slug);
+    // Get newsletter data
+    const newsletter = newsletters[slug as keyof typeof newsletters];
 
     if (!newsletter) {
       return NextResponse.json(
@@ -25,28 +57,41 @@ export async function GET(
       );
     }
 
-    // If there's a fullContentPath, try to read the HTML content
-    if (newsletter.fullContentPath) {
-      try {
-        const htmlPath = path.join(
-          process.cwd(),
-          'public',
-          newsletter.fullContentPath
-        );
-        const htmlContent = await fs.readFile(htmlPath, 'utf8');
-        newsletter.content = htmlContent;
-      } catch (htmlError) {
-        console.warn('Could not read HTML content:', htmlError);
-        // Keep the existing content from JSON
-      }
-    }
-
-    return NextResponse.json(newsletter);
+    // Return newsletter data
+    return NextResponse.json({
+      success: true,
+      data: newsletter,
+    });
   } catch (error) {
     console.error('Error fetching newsletter:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch newsletter' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
+  }
+}
+
+// Optional: Add other HTTP methods if needed
+export async function HEAD(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const { slug } = await params;
+    const newsletter = newsletters[slug as keyof typeof newsletters];
+
+    if (!newsletter) {
+      return new NextResponse(null, { status: 404 });
+    }
+
+    return new NextResponse(null, {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Last-Modified': newsletter.date,
+      },
+    });
+  } catch (error) {
+    return new NextResponse(null, { status: 500 });
   }
 }
