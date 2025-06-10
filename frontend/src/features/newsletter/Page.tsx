@@ -1,16 +1,8 @@
 'use client';
 
-import type {
-  ArticleFooterContent,
-  ArticleHeaderContent,
-  NewsletterPageContent,
-} from '@/core/types/pages/newsletter';
+import type { NewsletterPageContent } from '@/core/types/pages/newsletter';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
-type Props = NewsletterPageContent &
-  ArticleHeaderContent &
-  ArticleFooterContent;
 
 interface Newsletter {
   id: string;
@@ -18,9 +10,10 @@ interface Newsletter {
   date: string;
   slug: string;
   excerpt: string;
+  htmlPath?: string;
 }
 
-export default function NewsletterPage(props: Props) {
+export default function NewsletterPage(props: NewsletterPageContent) {
   const { title, noPostsMessage, errorTitle, errorMessage, errorActionLabel } =
     props;
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
@@ -82,10 +75,18 @@ export default function NewsletterPage(props: Props) {
               >
                 <h2 className="text-2xl font-bold mb-2">
                   <Link
-                    href={`/newsletter/${newsletter.slug}`}
+                    href={
+                      newsletter.htmlPath || `/newsletter/${newsletter.slug}`
+                    }
+                    target={newsletter.htmlPath ? '_blank' : undefined}
                     className="hover:text-dsa-red"
                   >
                     {newsletter.title}
+                    {newsletter.htmlPath && (
+                      <span className="ml-2 text-sm text-gray-500">
+                        (View HTML)
+                      </span>
+                    )}
                   </Link>
                 </h2>
                 <p className="text-gray-600 mb-4">

@@ -91,7 +91,7 @@ export async function HEAD(
         'Last-Modified': newsletter.date,
       },
     });
-  } catch (error) {
+  } catch {
     return new NextResponse(null, { status: 500 });
   }
 }

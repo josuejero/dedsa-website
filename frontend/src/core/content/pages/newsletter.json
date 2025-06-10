@@ -4,11 +4,11 @@
   "errorTitle": "Error Loading Newsletter",
   "errorMessage": "We're having trouble loading the newsletter. Please try again later.",
   "errorActionLabel": "Return to Home",
+  "articleHeader": {
+    "backToNewsletterText": "← Back to Newsletter"
+  },
   "articleFooter": {
     "relatedArticlesTitle": "Related Articles",
     "noRelatedArticlesMessage": "No related articles found"
-  },
-  "articleHeader": {
-    "backToNewsletterText": "← Back to Newsletter"
   }
 }

@@ -1,6 +1,7 @@
 // src/core/services/contentService.ts
 import footer from '../content/components/footer.json';
 import header from '../content/components/header.json';
+import newsletterSignup from '../content/components/newsletterSignup.json';
 import about from '../content/pages/about.json';
 import bylaws from '../content/pages/bylaws.json';
 import calendar from '../content/pages/calendar.json';
@@ -11,17 +12,13 @@ import leadership from '../content/pages/leadership.json';
 import newsletter from '../content/pages/newsletter.json';
 import udYdsa from '../content/pages/ud-ydsa.json';
 import whatWeStandFor from '../content/pages/what-we-stand-for.json';
-import {
-  default as newsletters,
-  default as newsletterSignup,
-} from '../content/shared/newsletters.json';
 
 // Import all content directly
 const pageContent = {
   about,
   home,
   join,
-  calendar, // Make sure this is included
+  calendar,
   contact,
   leadership,
   newsletter,
@@ -34,10 +31,6 @@ const componentContent = {
   header,
   footer,
   newsletterSignup,
-};
-
-const sharedContent = {
-  newsletters,
 };
 
 export const contentService = {
@@ -53,12 +46,5 @@ export const contentService = {
    */
   getComponentContent: (componentName: keyof typeof componentContent) => {
     return componentContent[componentName];
-  },
-
-  /**
-   * Get shared content
-   */
-  getSharedContent: (contentName: keyof typeof sharedContent) => {
-    return sharedContent[contentName];
   },
 };

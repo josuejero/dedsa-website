@@ -1,20 +1,43 @@
-import { promises as fs } from 'fs';
-import { NextResponse } from 'next/server';
-import path from 'path';
-import { Newsletter } from '@/core/types/index';
+import { NewsletterService } from '@/core/services/newsletterService';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   try {
-    // Read newsletters data from JSON file
-    const filePath = path.join(process.cwd(), 'src/data/newsletters.json');
-    const fileContents = await fs.readFile(filePath, 'utf8');
-    const newsletters = JSON.parse(fileContents) as Newsletter[];
+    const { slug } = await params;
 
-    return NextResponse.json(newsletters);
+    if (!slug || typeof slug !== 'string') {
+      return NextResponse.json(
+        { error: 'Invalid newsletter slug' },
+        { status: 400 }
+      );
+    }
+
+    const newsletterService = NewsletterService.getInstance();
+    const newsletter = await newsletterService.getNewsletter(slug);
+
+    if (!newsletter) {
+      return NextResponse.json(
+        { error: 'Newsletter not found' },
+        { status: 404 }
+      );
+    }
+
+    const content = await newsletterService.getNewsletterContent(newsletter);
+
+    return NextResponse.json({
+      success: true,
+      data: {
+        ...newsletter,
+        content,
+      },
+    });
   } catch (error) {
-    console.error('Error fetching newsletters:', error);
+    console.error('Error fetching newsletter:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch newsletters' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
