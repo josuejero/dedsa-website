@@ -7,6 +7,7 @@ export interface Event {
   date: string;
   location: string;
   isVirtual?: boolean;
+  startDate: string;
 }
 
 interface GoogleCalendarEvent {
@@ -24,35 +25,25 @@ interface GoogleCalendarEvent {
   location?: string;
 }
 
-interface UseGoogleCalendarResult {
+export function useGoogleCalendar(): {
   events: Event[];
   isLoading: boolean;
   isError: boolean;
-}
-
-const fetcher = async (url: string): Promise<GoogleCalendarEvent[]> => {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error('Failed to fetch events');
-  }
-  return res.json();
-};
-
-export function useGoogleCalendar(): UseGoogleCalendarResult {
-  const { data, error, isLoading } = useSWR<GoogleCalendarEvent[]>(
-    '/api/events',
-    fetcher
-  );
-
+} {
+  const fetcher = async (url: string) => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Failed to fetch events');
+    return res.json() as Promise<GoogleCalendarEvent[]>;
+  };
+  const { data, error, isLoading } = useSWR('/api/events', fetcher);
   const events: Event[] = (data || [])
-    .filter((e) => e && e.summary && (e.start?.dateTime || e.start?.date))
+    .filter((e) => e?.summary && (e.start.dateTime || e.start.date))
     .map((e) => {
-      const startDateTime = e.start.dateTime || e.start.date!;
-      const eventDate = new Date(startDateTime);
-
+      const iso = e.start.dateTime || e.start.date!;
+      const dt = new Date(iso);
       return {
-        title: e.summary || 'Untitled Event',
-        date: eventDate.toLocaleDateString('en-US', {
+        title: e.summary,
+        date: dt.toLocaleString('en-US', {
           weekday: 'long',
           year: 'numeric',
           month: 'long',
@@ -63,16 +54,14 @@ export function useGoogleCalendar(): UseGoogleCalendarResult {
             hour12: true,
           }),
         }),
+        startDate: iso, // raw ISO for calendar plotting :contentReference[oaicite:6]{index=6}
         location: e.location || 'Location TBD',
-        isVirtual: !!e.location
-          ?.toLowerCase()
-          .match(/zoom|jitsi|meet|virtual/i),
+        isVirtual: !!e.location?.match(/zoom|jitsi|meet|virtual/i),
       };
     });
-
   return {
     events,
     isLoading,
-    isError: !!error,
+    isError: !!error, // SWR error handling can retry, surface to UI :contentReference[oaicite:7]{index=7}
   };
 }

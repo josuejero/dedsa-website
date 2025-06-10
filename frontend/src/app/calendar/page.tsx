@@ -31,8 +31,8 @@ export default function CalendarPage() {
     events: events.map((event, index) => ({
       id: `event-${index}`,
       title: event.title,
-      startDate: new Date().toISOString(), // Use proper date from event
-      slug: event.title.toLowerCase().replace(/\s+/g, '-'),
+      startDate: event.startDate, // use raw ISO for proper date placement :contentReference[oaicite:9]{index=9}
+      slug: encodeURIComponent(event.title.toLowerCase().replace(/\s+/g, '-')), // safe URL encoding :contentReference[oaicite:10]{index=10}
       description: `Event: ${event.title}`,
       location: event.location,
       isVirtual: event.isVirtual,
