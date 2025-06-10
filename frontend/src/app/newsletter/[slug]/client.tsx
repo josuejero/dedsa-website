@@ -3,6 +3,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface Newsletter {
   id: string;
@@ -26,6 +27,39 @@ export default function NewsletterPageClient({
   publishDate,
   otherNewsletters,
 }: NewsletterPageClientProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const handleShare = () => {
+    if (isClient && navigator.share) {
+      navigator
+        .share({
+          title: newsletter.title,
+          url: window.location.href,
+        })
+        .catch(console.error);
+    }
+  };
+
+  const handleEmailShare = () => {
+    if (isClient) {
+      const subject = encodeURIComponent(newsletter.title);
+      const body = encodeURIComponent(
+        `Check out this newsletter from Delaware DSA: ${window.location.href}`
+      );
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+  };
+
+  const handlePrint = () => {
+    if (isClient) {
+      window.print();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 py-12">
       <div className="container-page">
@@ -44,8 +78,8 @@ export default function NewsletterPageClient({
               </li>
               <li>/</li>
               <li>
-                <Link href="/newsletters" className="hover:text-dsa-red">
-                  Newsletters
+                <Link href="/newsletter" className="hover:text-dsa-red">
+                  Newsletter
                 </Link>
               </li>
               <li>/</li>
@@ -97,27 +131,15 @@ export default function NewsletterPageClient({
 
               {/* Share Buttons */}
               <div className="flex gap-4 pt-6 border-t">
-                <button
-                  onClick={() =>
-                    navigator.share?.({
-                      title: newsletter.title,
-                      url: window.location.href,
-                    })
-                  }
-                  className="btn btn-outline"
-                >
-                  Share Newsletter
-                </button>
-                <a
-                  href={`mailto:?subject=${encodeURIComponent(newsletter.title)}&body=${encodeURIComponent(`Check out this newsletter from Delaware DSA: ${window.location.href}`)}`}
-                  className="btn btn-outline"
-                >
+                {isClient && 'share' in navigator && (
+                  <button onClick={handleShare} className="btn btn-outline">
+                    Share Newsletter
+                  </button>
+                )}
+                <button onClick={handleEmailShare} className="btn btn-outline">
                   Email This
-                </a>
-                <button
-                  onClick={() => window.print()}
-                  className="btn btn-outline"
-                >
+                </button>
+                <button onClick={handlePrint} className="btn btn-outline">
                   Print
                 </button>
               </div>
@@ -142,13 +164,22 @@ export default function NewsletterPageClient({
                 Ready to join the fight for democratic socialism in Delaware?
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Link href="/join" className="btn btn-white">
+                <Link
+                  href="/join"
+                  className="btn bg-white text-dsa-red hover:bg-gray-100"
+                >
                   Join Delaware DSA
                 </Link>
-                <Link href="/volunteer" className="btn btn-outline-white">
+                <Link
+                  href="/contact"
+                  className="btn border-2 border-white text-white hover:bg-white hover:text-dsa-red"
+                >
                   Volunteer
                 </Link>
-                <Link href="/donate" className="btn btn-outline-white">
+                <Link
+                  href="/contact"
+                  className="btn border-2 border-white text-white hover:bg-white hover:text-dsa-red"
+                >
                   Donate
                 </Link>
               </div>
@@ -214,7 +245,7 @@ export default function NewsletterPageClient({
               })}
             </div>
             <div className="mt-6 text-center">
-              <Link href="/newsletters" className="btn btn-secondary">
+              <Link href="/newsletter" className="btn btn-secondary">
                 View All Newsletters
               </Link>
             </div>
@@ -222,8 +253,8 @@ export default function NewsletterPageClient({
 
           {/* Navigation */}
           <div className="mt-8 flex justify-between">
-            <Link href="/newsletters" className="btn btn-secondary">
-              ← Back to Newsletters
+            <Link href="/newsletter" className="btn btn-secondary">
+              ← Back to Newsletter
             </Link>
             <a
               href={`mailto:communications@delawardsa.org?subject=Feedback on ${newsletter.title}`}
