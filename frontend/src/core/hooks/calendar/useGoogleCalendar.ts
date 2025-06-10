@@ -1,7 +1,18 @@
+// frontend/src/core/hooks/calendar/useGoogleCalendar.ts
 'use client';
 
 import type { CalendarEvent } from '@/core/types/pages/calendar';
 import { useEffect, useState } from 'react';
+
+// Define the shape of the Google Calendar API event
+interface GoogleCalendarApiEvent {
+  id: string;
+  summary?: string;
+  description?: string;
+  start: { date?: string; dateTime?: string };
+  end: { dateTime?: string };
+  location?: string;
+}
 
 const CALENDAR_ID =
   'f17d4d4d1756675b31bf0c7cc145c8e2b0fd967d93c55e23c40a0fe15fe4fd8d@group.calendar.google.com';
@@ -16,7 +27,6 @@ export function useGoogleCalendar() {
     const fetchEvents = async () => {
       if (!API_KEY) {
         console.warn('Google Calendar API key not found. Using mock data.');
-        // Fall back to mock data
         setLoading(false);
         return;
       }
@@ -24,20 +34,24 @@ export function useGoogleCalendar() {
       setLoading(true);
       try {
         const now = new Date().toISOString();
-        const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=50`;
+        const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
+          CALENDAR_ID
+        )}/events?key=${API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=50`;
 
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data: { items: GoogleCalendarApiEvent[] } = await response.json();
 
-        const calendarEvents: CalendarEvent[] = data.items.map((item: any) => ({
+        const calendarEvents: CalendarEvent[] = data.items.map((item) => ({
           id: item.id,
-          title: item.summary || 'Untitled Event',
-          description: item.description || '',
-          startDate: item.start.date || item.start.dateTime?.split('T')[0],
+          title: item.summary ?? 'Untitled Event',
+          description: item.description ?? '',
+          // always produce a string for startDate
+          startDate:
+            item.start.date ?? item.start.dateTime?.split('T')[0] ?? '',
           startTime: item.start.dateTime
             ? new Date(item.start.dateTime).toLocaleTimeString('en-US', {
                 hour12: false,
@@ -52,16 +66,16 @@ export function useGoogleCalendar() {
                 minute: '2-digit',
               })
             : undefined,
-          location: item.location || '',
+          location: item.location ?? '',
           isVirtual:
             item.location?.includes('zoom') ||
             item.location?.includes('meet.google.com') ||
             false,
-          virtualLink: extractVirtualLink(item.description || ''),
-          category: categorizeEvent(item.summary || ''),
-          slug: generateSlug(item.summary || '', item.id),
+          virtualLink: extractVirtualLink(item.description ?? ''),
+          category: categorizeEvent(item.summary ?? ''),
+          slug: generateSlug(item.summary ?? '', item.id),
           isAllDay: !item.start.dateTime,
-          tags: extractTags(item.description || ''),
+          tags: extractTags(item.description ?? ''),
         }));
 
         setEvents(calendarEvents);
@@ -81,7 +95,7 @@ export function useGoogleCalendar() {
 
 // Helper functions
 function extractVirtualLink(description: string): string | undefined {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const urlRegex = /(https?:\/\/[^"]+)/g;
   const urls = description.match(urlRegex);
   return urls?.find(
     (url) => url.includes('zoom') || url.includes('meet.google.com')

@@ -4,6 +4,7 @@ import { Newsletter } from '@/core/types/index';
 import ArticleContent from '@/features/newsletter/components/newsletter-article/ArticleContent';
 import ArticleFooter from '@/features/newsletter/components/newsletter-article/ArticleFooter';
 import ArticleHeader from '@/features/newsletter/components/newsletter-article/ArticleHeader';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -64,9 +65,9 @@ export default function NewsletterArticlePage({ params }: PageProps) {
               Error Loading Newsletter
             </h1>
             <p className="mb-4">{error}</p>
-            <a href="/newsletter" className="btn btn-primary">
+            <Link href="/newsletter" className="btn btn-primary">
               Back to Newsletter
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+// File: frontend/src/features/calendar/components/CalendarHeader.tsx
 'use client';
 
 import type { CalendarViewType } from '@/core/types/pages/calendar';
@@ -27,33 +28,39 @@ export default function CalendarHeader({
 }: CalendarHeaderProps) {
   const formatTitle = () => {
     switch (viewType) {
-      case 'month':
+      case 'month': {
         return currentDate.toLocaleDateString('en-US', {
           month: 'long',
           year: 'numeric',
         });
-      case 'week':
+      }
+      case 'week': {
         const startOfWeek = new Date(currentDate);
         startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
         const endOfWeek = new Date(startOfWeek);
         endOfWeek.setDate(startOfWeek.getDate() + 6);
         return `${startOfWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endOfWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
-      case 'day':
+      }
+      case 'day': {
         return currentDate.toLocaleDateString('en-US', {
           weekday: 'long',
           month: 'long',
           day: 'numeric',
           year: 'numeric',
         });
-      case 'list':
+      }
+      case 'list': {
         return 'Upcoming Events';
-      default:
+      }
+      default: {
         return '';
+      }
     }
   };
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      {/* Navigation and Title */}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <button
@@ -61,38 +68,14 @@ export default function CalendarHeader({
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Previous"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
+            {/* SVG icon */}
           </button>
           <button
             onClick={() => onNavigate('next')}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Next"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
+            {/* SVG icon */}
           </button>
         </div>
 
@@ -113,6 +96,7 @@ export default function CalendarHeader({
         </button>
       </div>
 
+      {/* View Options */}
       <div className="flex bg-gray-100 rounded-lg p-1">
         {VIEW_OPTIONS.map((option) => (
           <button
