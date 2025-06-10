@@ -21,38 +21,80 @@ export default function EventCard({
   event,
   isCompact = false,
 }: EventCardProps) {
+  // Add safety check for event object
+  if (!event) {
+    console.error('EventCard: event prop is undefined');
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+        <p className="text-red-600">Error: Event data is missing</p>
+      </div>
+    );
+  }
+
+  // Add safety checks for required properties
+  const safeEvent = {
+    id: event.id || 'unknown',
+    title: event.title || 'Untitled Event',
+    description: event.description || '',
+    startDate: event.startDate || new Date().toISOString(),
+    startTime: event.startTime,
+    endTime: event.endTime,
+    location: event.location,
+    isVirtual: event.isVirtual || false,
+    category: event.category || 'other',
+    committee: event.committee,
+    registrationRequired: event.registrationRequired || false,
+    registrationLink: event.registrationLink,
+    capacity: event.capacity,
+    attendeeCount: event.attendeeCount,
+    tags: event.tags || [],
+    slug: event.slug || event.id || 'unknown',
+  };
+
   const formatTime = (startTime?: string, endTime?: string) => {
     if (!startTime) return '';
 
-    const start = new Date(`2000-01-01T${startTime}`);
-    const startFormatted = start.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    });
-
-    if (endTime) {
-      const end = new Date(`2000-01-01T${endTime}`);
-      const endFormatted = end.toLocaleTimeString('en-US', {
+    try {
+      const start = new Date(`2000-01-01T${startTime}`);
+      const startFormatted = start.toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: '2-digit',
         hour12: true,
       });
-      return `${startFormatted} - ${endFormatted}`;
-    }
 
-    return startFormatted;
+      if (endTime) {
+        const end = new Date(`2000-01-01T${endTime}`);
+        const endFormatted = end.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+        });
+        return `${startFormatted} - ${endFormatted}`;
+      }
+
+      return startFormatted;
+    } catch (error) {
+      console.error('Error formatting time:', error);
+      return startTime;
+    }
   };
 
   const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-    });
+    try {
+      return new Date(date).toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return date;
+    }
   };
 
-  const categoryColor = CATEGORY_COLORS[event.category || 'other'];
+  const categoryColor =
+    CATEGORY_COLORS[safeEvent.category as keyof typeof CATEGORY_COLORS] ||
+    CATEGORY_COLORS.other;
 
   if (isCompact) {
     return (
@@ -64,7 +106,7 @@ export default function EventCard({
       >
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <h3 className="font-semibold text-lg mb-1">{event.title}</h3>
+            <h3 className="font-semibold text-lg mb-1">{safeEvent.title}</h3>
             <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
               <span className="flex items-center gap-1">
                 <svg
@@ -80,9 +122,9 @@ export default function EventCard({
                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                   />
                 </svg>
-                {formatDate(event.startDate)}
+                {formatDate(safeEvent.startDate)}
               </span>
-              {event.startTime && (
+              {safeEvent.startTime && (
                 <span className="flex items-center gap-1">
                   <svg
                     className="w-4 h-4"
@@ -97,18 +139,18 @@ export default function EventCard({
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  {formatTime(event.startTime, event.endTime)}
+                  {formatTime(safeEvent.startTime, safeEvent.endTime)}
                 </span>
               )}
             </div>
             <p className="text-sm text-gray-600 line-clamp-2">
-              {event.description}
+              {safeEvent.description}
             </p>
           </div>
           <span
             className={`px-2 py-1 text-xs rounded-full border ${categoryColor}`}
           >
-            {event.category}
+            {safeEvent.category}
           </span>
         </div>
       </motion.div>
@@ -125,17 +167,19 @@ export default function EventCard({
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">
           <h3 className="text-xl font-bold text-gray-900 line-clamp-2">
-            {event.title}
+            {safeEvent.title}
           </h3>
           <span
             className={`px-3 py-1 text-sm rounded-full border ${categoryColor}`}
           >
-            {event.category}
+            {safeEvent.category}
           </span>
         </div>
 
-        {event.description && (
-          <p className="text-gray-600 mb-4 line-clamp-3">{event.description}</p>
+        {safeEvent.description && (
+          <p className="text-gray-600 mb-4 line-clamp-3">
+            {safeEvent.description}
+          </p>
         )}
 
         <div className="space-y-2 mb-4">
@@ -153,15 +197,17 @@ export default function EventCard({
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
-            <span>{formatDate(event.startDate)}</span>
-            {event.startTime && (
-              <span>• {formatTime(event.startTime, event.endTime)}</span>
+            <span>{formatDate(safeEvent.startDate)}</span>
+            {safeEvent.startTime && (
+              <span>
+                • {formatTime(safeEvent.startTime, safeEvent.endTime)}
+              </span>
             )}
           </div>
 
-          {event.location && (
+          {safeEvent.location && (
             <div className="flex items-center gap-2 text-sm text-gray-600">
-              {event.isVirtual ? (
+              {safeEvent.isVirtual ? (
                 <svg
                   className="w-4 h-4 flex-shrink-0"
                   fill="none"
@@ -190,14 +236,14 @@ export default function EventCard({
                   />
                 </svg>
               )}
-              <span>{event.location}</span>
-              {event.isVirtual && (
+              <span>{safeEvent.location}</span>
+              {safeEvent.isVirtual && (
                 <span className="text-blue-600 font-medium">Virtual Event</span>
               )}
             </div>
           )}
 
-          {event.committee && (
+          {safeEvent.committee && (
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <svg
                 className="w-4 h-4 flex-shrink-0"
@@ -212,13 +258,13 @@ export default function EventCard({
                   d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              <span>{event.committee}</span>
+              <span>{safeEvent.committee}</span>
             </div>
           )}
         </div>
 
         <div className="flex flex-wrap gap-2 mb-4">
-          {event.tags?.map((tag) => (
+          {safeEvent.tags.map((tag) => (
             <span
               key={tag}
               className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded"
@@ -230,16 +276,16 @@ export default function EventCard({
 
         <div className="flex justify-between items-center pt-4 border-t border-gray-200">
           <Link
-            href={`/calendar/events/${event.slug}`}
+            href={`/calendar/events/${safeEvent.slug}`}
             className="text-dsa-red hover:text-red-700 font-medium text-sm"
           >
             View Details →
           </Link>
 
           <div className="flex gap-2">
-            {event.registrationRequired && event.registrationLink && (
+            {safeEvent.registrationRequired && safeEvent.registrationLink && (
               <a
-                href={event.registrationLink}
+                href={safeEvent.registrationLink}
                 className="btn btn-primary text-sm px-4 py-2"
               >
                 Register

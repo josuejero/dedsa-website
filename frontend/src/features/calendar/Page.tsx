@@ -9,7 +9,7 @@ import type {
 } from '@/core/types/pages/calendar';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface CalendarFeatureProps extends CalendarPageContent {
   /** The structured data for the full calendar view */
@@ -39,7 +39,27 @@ export default function CalendarFeature({
 }: CalendarFeatureProps) {
   const [showEmbed, setShowEmbed] = useState(true);
   const [selectedMonth, setSelectedMonth] = useState('');
+  const [debugInfo, setDebugInfo] = useState<any>(null);
+
   const { googleCalendarEmbedUrl, iCalUrl, googleCalendarUrl } = subscription;
+
+  // Add debug logging
+  useEffect(() => {
+    console.log('CalendarFeature props:', {
+      title,
+      subtitle,
+      eventCalendar,
+      monthSelectorData,
+      subscription,
+    });
+    setDebugInfo({
+      title,
+      subtitle,
+      eventCalendar,
+      monthSelectorData,
+      subscription,
+    });
+  }, [title, subtitle, eventCalendar, monthSelectorData, subscription]);
 
   return (
     <div className="min-h-screen bg-gray-100 py-12">
@@ -57,6 +77,16 @@ export default function CalendarFeature({
               'Join us for meetings, actions, educational events, and social gatherings.'}
           </p>
         </motion.div>
+
+        {/* Debug Information - Remove this in production */}
+        {process.env.NODE_ENV === 'development' && debugInfo && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <h3 className="font-bold text-yellow-800 mb-2">Debug Info:</h3>
+            <pre className="text-xs text-yellow-700 overflow-auto">
+              {JSON.stringify(debugInfo, null, 2)}
+            </pre>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Main Calendar Area */}
@@ -121,11 +151,11 @@ export default function CalendarFeature({
               <h3 className="text-xl font-bold mb-4">Event Information</h3>
               <div className="text-center py-8">
                 <p className="text-gray-600 mb-2">
-                  {eventCalendar.noEventsMessage ||
+                  {eventCalendar?.noEventsMessage ||
                     'No upcoming events scheduled.'}
                 </p>
                 <p className="text-gray-500 text-sm">
-                  {eventCalendar.checkBackMessage ||
+                  {eventCalendar?.checkBackMessage ||
                     'Please check back later for updates.'}
                 </p>
               </div>
@@ -137,7 +167,7 @@ export default function CalendarFeature({
             {/* Month Selector */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="text-lg font-semibold mb-4">
-                {monthSelectorData.label || 'Browse by Month'}
+                {monthSelectorData?.label || 'Browse by Month'}
               </h3>
               <select
                 className="w-full p-2 border border-gray-300 rounded"
@@ -171,7 +201,7 @@ export default function CalendarFeature({
 
               <div className="space-y-3">
                 <a
-                  href={`https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(subscription.googleCalendarEmbedUrl.split('?cid=')[1])}`}
+                  href={`https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(subscription?.googleCalendarEmbedUrl?.split('?cid=')[1] || '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary w-full flex items-center justify-center"
@@ -179,7 +209,7 @@ export default function CalendarFeature({
                   {googleCalendarButtonText || 'Subscribe to Google Calendar'}
                 </a>
                 <a
-                  href={`https://outlook.live.com/calendar/0/addcalendar?url=${encodeURIComponent(iCalUrl)}`}
+                  href={`https://outlook.live.com/calendar/0/addcalendar?url=${encodeURIComponent(iCalUrl || '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-secondary w-full flex items-center justify-center"

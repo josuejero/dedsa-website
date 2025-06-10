@@ -15,10 +15,18 @@ export interface CalendarPageContent {
 export interface EventCalendarContent {
   noEventsMessage: string;
   checkBackMessage: string;
-}
+  loadingMessage: string;
+  errorLoadingMessage: string;
 
+  // ** New live‐data props **
+  events: CalendarEvent[];
+  isLoading: boolean;
+  error?: Error;
+}
 export interface MonthSelectorContent {
   label: string;
+  previousMonth: string;
+  nextMonth: string;
 }
 
 // Enhanced event types for calendar
@@ -55,7 +63,7 @@ export interface CalendarSubscription {
   googleCalendarEmbedUrl: string;
   googleCalendarUrl: string;
   iCalUrl: string;
-  subscriptionInstructions: string;
+  subscriptionInstructions?: string;
 }
 
 export interface CalendarFilters {

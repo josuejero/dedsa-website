@@ -1,4 +1,13 @@
+'use client';
+
+import type { CalendarEvent } from '@/core/types/pages/calendar';
 import useSWR from 'swr';
+
+interface UseGoogleCalendarResult {
+  events: CalendarEvent[];
+  isLoading: boolean;
+  error?: Error;
+}
 
 type Raw = {
   id: string;
@@ -9,25 +18,37 @@ type Raw = {
 
 export function useGoogleCalendar() {
   const fetcher = (url: string) =>
-    fetch(url).then((res) => res.json() as Promise<Raw[]>);
+    fetch(url).then((res) => {
+      if (!res.ok) {
+        throw new Error('Failed to fetch events');
+      }
+      return res.json() as Promise<Raw[]>;
+    });
+
   const { data, error } = useSWR('/api/events', fetcher);
 
-  const events =
-    data?.map((e) => {
+  // Add safety checks and better error handling
+  const events = (data || [])
+    .filter((e) => e && e.summary && (e.start?.dateTime || e.start?.date))
+    .map((e) => {
       const dt = e.start.dateTime ?? e.start.date!;
       return {
-        title: e.summary,
+        title: e.summary || 'Untitled Event',
         date: new Date(dt).toLocaleString('en-US', {
           month: 'long',
           day: 'numeric',
           year: 'numeric',
-          hour: 'numeric',
-          minute: '2-digit',
+          hour: e.start.dateTime ? 'numeric' : undefined,
+          minute: e.start.dateTime ? '2-digit' : undefined,
         }),
         location: e.location || 'TBD',
         isVirtual: !!e.location?.toLowerCase().match(/zoom|jitsi|meet/),
       };
-    }) ?? [];
+    });
 
-  return { events, isLoading: !data && !error, isError: !!error };
+  return {
+    events: events || [],
+    isLoading: !data && !error,
+    isError: !!error,
+  };
 }

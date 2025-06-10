@@ -1,7 +1,11 @@
 'use client';
 
 import type {
+  CorePrinciplesContent,
+  DemocraticStructureContent,
+  OrganizationContent,
   PositionCardContent,
+  StrategicGoalsContent,
   WhatWeStandForPageContent,
 } from '@/core/types/pages/whatWeStandFor';
 import { motion } from 'framer-motion';
@@ -11,7 +15,18 @@ import { useInView } from 'react-intersection-observer';
 type Props = WhatWeStandForPageContent & { positionCard: PositionCardContent };
 
 export default function WhatWeStandForPage(props: Props) {
-  const { hero, aboutSection, beliefs, platform, priorities2025, cta } = props;
+  const {
+    hero,
+    aboutSection,
+    corePrinciplesSection,
+    strategicGoalsSection,
+    beliefs,
+    platform,
+    democraticStructureSection,
+    priorities2025,
+    organizationSection,
+    cta,
+  } = props;
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -21,14 +36,20 @@ export default function WhatWeStandForPage(props: Props) {
       {/* About Section */}
       <AboutSection aboutSection={aboutSection} />
 
+      {/* Core Principles Section - NEW */}
+      <CorePrinciplesSection corePrinciplesSection={corePrinciplesSection} />
+
+      {/* Strategic Goals Section - NEW */}
+      <StrategicGoalsSection strategicGoalsSection={strategicGoalsSection} />
+
       {/* Beliefs Section */}
       <BeliefsSection beliefs={beliefs} />
 
-      {/* Platform Section */}
-      <PlatformSection platform={platform} />
-
       {/* 2025 Priorities Section */}
       <PrioritiesSection priorities2025={priorities2025} />
+
+      {/* Organization Section - NEW */}
+      <OrganizationSection organizationSection={organizationSection} />
 
       {/* Call to Action */}
       <CTASection cta={cta} />
@@ -104,6 +125,201 @@ function AboutSection({
         >
           {aboutSection.content}
         </motion.p>
+      </div>
+    </motion.section>
+  );
+}
+
+// NEW: Core Principles Section Component
+function CorePrinciplesSection({
+  corePrinciplesSection,
+}: {
+  corePrinciplesSection: CorePrinciplesContent;
+}) {
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+
+  return (
+    <motion.section
+      ref={ref}
+      className="py-16 bg-gray-50"
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="container-page">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ y: 30, opacity: 0 }}
+          animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            {corePrinciplesSection.title}
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            {corePrinciplesSection.subtitle}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {corePrinciplesSection.principles.map((principle, index) => (
+            <motion.div
+              key={principle.title}
+              className="bg-white border-l-4 border-dsa-red p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+              initial={{ y: 30, opacity: 0 }}
+              animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="flex items-start mb-4">
+                <div className="p-3 bg-red-50 rounded-full mr-4 flex-shrink-0">
+                  <svg
+                    className="w-6 h-6 text-dsa-red"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d={principle.icon}
+                    />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {principle.title}
+                  </h3>
+                  <p className="text-gray-700 leading-relaxed mb-3">
+                    {principle.description}
+                  </p>
+                  <Link
+                    href={principle.sourceLink}
+                    className="text-sm text-dsa-red hover:underline inline-flex items-center"
+                  >
+                    Source: {principle.source}
+                    <svg
+                      className="ml-1 w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+// NEW: Strategic Goals Section Component
+function StrategicGoalsSection({
+  strategicGoalsSection,
+}: {
+  strategicGoalsSection: StrategicGoalsContent;
+}) {
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+
+  return (
+    <motion.section
+      ref={ref}
+      className="py-16 bg-white"
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="container-page">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ y: 30, opacity: 0 }}
+          animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            {strategicGoalsSection.title}
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            {strategicGoalsSection.subtitle}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {strategicGoalsSection.goals.map((goal, index) => (
+            <motion.div
+              key={goal.title}
+              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
+              initial={{ y: 30, opacity: 0 }}
+              animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="text-center">
+                <div className="p-4 bg-blue-50 rounded-full mx-auto mb-4 w-16 h-16 flex items-center justify-center">
+                  <svg
+                    className="w-8 h-8 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d={goal.icon}
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  {goal.title}
+                </h3>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  {goal.description}
+                </p>
+                <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                  Bylaws {goal.source}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <Link
+            href="/bylaws"
+            className="inline-flex items-center text-dsa-red hover:underline font-medium text-lg"
+          >
+            Read our complete bylaws
+            <svg
+              className="ml-2 w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </Link>
+        </motion.div>
       </div>
     </motion.section>
   );
@@ -258,6 +474,149 @@ function PlatformSection({
   );
 }
 
+// NEW: Democratic Structure Section Component
+function DemocraticStructureSection({
+  democraticStructureSection,
+}: {
+  democraticStructureSection: DemocraticStructureContent;
+}) {
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+
+  return (
+    <motion.section
+      ref={ref}
+      className="py-16 bg-gray-50"
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="container-page">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ y: 30, opacity: 0 }}
+          animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            {democraticStructureSection.title}
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            {democraticStructureSection.subtitle}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {democraticStructureSection.structure.map((item, index) => (
+            <motion.div
+              key={item.title}
+              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+              initial={{ y: 30, opacity: 0 }}
+              animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="text-center mb-6">
+                <div className="p-4 bg-green-50 rounded-full mx-auto mb-4 w-16 h-16 flex items-center justify-center">
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d={item.icon}
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  {item.description}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  Key Responsibilities:
+                </h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  {item.responsibilities.map((responsibility, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <svg
+                        className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      {responsibility}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <Link
+            href="/leadership"
+            className="inline-flex items-center text-dsa-red hover:underline font-medium text-lg mr-6"
+          >
+            Meet our current leadership
+            <svg
+              className="ml-2 w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </Link>
+          <Link
+            href="/bylaws"
+            className="inline-flex items-center text-dsa-red hover:underline font-medium text-lg"
+          >
+            Read governance details
+            <svg
+              className="ml-2 w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </Link>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+}
+
 // Priorities Section Component - Updated for 2025
 function PrioritiesSection({
   priorities2025,
@@ -269,7 +628,7 @@ function PrioritiesSection({
   return (
     <motion.section
       ref={ref}
-      className="py-20 bg-gray-100 relative overflow-hidden"
+      className="py-20 bg-white relative overflow-hidden"
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.8 }}
@@ -389,6 +748,132 @@ function PrioritiesSection({
               />
             </motion.svg>
           </a>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+}
+
+// NEW: Organization Section Component
+function OrganizationSection({
+  organizationSection,
+}: {
+  organizationSection: OrganizationContent;
+}) {
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+
+  return (
+    <motion.section
+      ref={ref}
+      className="py-16 bg-gray-50"
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="container-page">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ y: 30, opacity: 0 }}
+          animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            {organizationSection.title}
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            {organizationSection.subtitle}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          {organizationSection.organizationTypes.map((type, index) => (
+            <motion.div
+              key={type.title}
+              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+              initial={{ y: 30, opacity: 0 }}
+              animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="flex items-start mb-6">
+                <div className="p-3 bg-purple-50 rounded-full mr-4">
+                  <svg
+                    className="w-6 h-6 text-purple-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d={type.icon}
+                    />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {type.title}
+                  </h3>
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    {type.description}
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-3">Examples:</h4>
+                <div className="grid grid-cols-1 gap-2">
+                  {type.examples.map((example, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center p-2 bg-gray-50 rounded text-sm"
+                    >
+                      <svg
+                        className="w-4 h-4 text-purple-500 mr-2 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      {example}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          className="bg-white p-8 rounded-lg shadow-md text-center"
+          initial={{ y: 30, opacity: 0 }}
+          animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            Ready to Get Involved?
+          </h3>
+          <p className="text-lg text-gray-700 mb-6 max-w-3xl mx-auto">
+            {organizationSection.participationInfo}
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/committees" className="btn btn-primary">
+              View All Committees
+            </Link>
+            <Link href="/join" className="btn btn-secondary">
+              Join Delaware DSA
+            </Link>
+            <Link href="/bylaws" className="btn btn-outline">
+              Read Our Bylaws
+            </Link>
+          </div>
         </motion.div>
       </div>
     </motion.section>

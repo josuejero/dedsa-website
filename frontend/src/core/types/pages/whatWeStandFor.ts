@@ -72,3 +72,72 @@ export interface PositionCardContent {
     position: string;
   };
 }
+export interface CorePrincipleItem {
+  title: string;
+  description: string;
+  icon: string;
+  source: string;
+  sourceLink: string;
+}
+
+export interface CorePrinciplesContent {
+  title: string;
+  subtitle: string;
+  principles: CorePrincipleItem[];
+}
+
+export interface StrategicGoal {
+  title: string;
+  description: string;
+  icon: string;
+  source: string;
+}
+
+export interface StrategicGoalsContent {
+  title: string;
+  subtitle: string;
+  goals: StrategicGoal[];
+}
+
+export interface DemocraticStructureItem {
+  title: string;
+  description: string;
+  icon: string;
+  responsibilities: string[];
+}
+
+export interface DemocraticStructureContent {
+  title: string;
+  subtitle: string;
+  structure: DemocraticStructureItem[];
+}
+
+export interface OrganizationType {
+  title: string;
+  description: string;
+  icon: string;
+  examples: string[];
+}
+
+export interface OrganizationContent {
+  title: string;
+  subtitle: string;
+  organizationTypes: OrganizationType[];
+  participationInfo: string;
+}
+
+// Update the main interface
+export interface WhatWeStandForPageContent {
+  hero: WhatWeStandForHero;
+  aboutSection: AboutSectionContent;
+  corePrinciplesSection: CorePrinciplesContent;
+  strategicGoalsSection: StrategicGoalsContent;
+  beliefs: BeliefsContent;
+  platform: PlatformContent;
+  democraticStructureSection: DemocraticStructureContent;
+  priorities2025: Priorities2025Content;
+  organizationSection: OrganizationContent;
+  cta: WhatWeStandForCTA;
+  emptyPositionsMessage: string;
+  notFoundMessage: string;
+}
