@@ -22,14 +22,20 @@ export default function CalendarPage() {
   // live events hook
   const { events, isLoading, isError } = useGoogleCalendar();
 
+  // Debug logging
+  console.log('Calendar Page Debug:', { events, isLoading, isError });
+
   // merge static + dynamic into the shape CalendarFeature expects
   const eventCalendar: EventCalendarContent = {
     ...cfg.eventCalendar,
-    events: events.map((event) => ({
-      ...event,
-      id: event.title,
-      startDate: new Date(event.date).toISOString(),
+    events: events.map((event, index) => ({
+      id: `event-${index}`,
+      title: event.title,
+      startDate: new Date().toISOString(), // Use proper date from event
       slug: event.title.toLowerCase().replace(/\s+/g, '-'),
+      description: `Event: ${event.title}`,
+      location: event.location,
+      isVirtual: event.isVirtual,
     })),
     isLoading,
     error: isError ? new Error('Failed to load calendar events') : undefined,

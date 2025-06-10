@@ -1,54 +1,78 @@
 'use client';
 
-import type { CalendarEvent } from '@/core/types/pages/calendar';
 import useSWR from 'swr';
 
-interface UseGoogleCalendarResult {
-  events: CalendarEvent[];
-  isLoading: boolean;
-  error?: Error;
+export interface Event {
+  title: string;
+  date: string;
+  location: string;
+  isVirtual?: boolean;
 }
 
-type Raw = {
+interface GoogleCalendarEvent {
   id: string;
   summary: string;
-  start: { dateTime?: string; date?: string };
+  description?: string;
+  start: {
+    dateTime?: string;
+    date?: string;
+  };
+  end?: {
+    dateTime?: string;
+    date?: string;
+  };
   location?: string;
+}
+
+interface UseGoogleCalendarResult {
+  events: Event[];
+  isLoading: boolean;
+  isError: boolean;
+}
+
+const fetcher = async (url: string): Promise<GoogleCalendarEvent[]> => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error('Failed to fetch events');
+  }
+  return res.json();
 };
 
-export function useGoogleCalendar() {
-  const fetcher = (url: string) =>
-    fetch(url).then((res) => {
-      if (!res.ok) {
-        throw new Error('Failed to fetch events');
-      }
-      return res.json() as Promise<Raw[]>;
-    });
+export function useGoogleCalendar(): UseGoogleCalendarResult {
+  const { data, error, isLoading } = useSWR<GoogleCalendarEvent[]>(
+    '/api/events',
+    fetcher
+  );
 
-  const { data, error } = useSWR('/api/events', fetcher);
-
-  // Add safety checks and better error handling
-  const events = (data || [])
+  const events: Event[] = (data || [])
     .filter((e) => e && e.summary && (e.start?.dateTime || e.start?.date))
     .map((e) => {
-      const dt = e.start.dateTime ?? e.start.date!;
+      const startDateTime = e.start.dateTime || e.start.date!;
+      const eventDate = new Date(startDateTime);
+
       return {
         title: e.summary || 'Untitled Event',
-        date: new Date(dt).toLocaleString('en-US', {
+        date: eventDate.toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
           month: 'long',
           day: 'numeric',
-          year: 'numeric',
-          hour: e.start.dateTime ? 'numeric' : undefined,
-          minute: e.start.dateTime ? '2-digit' : undefined,
+          ...(e.start.dateTime && {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+          }),
         }),
-        location: e.location || 'TBD',
-        isVirtual: !!e.location?.toLowerCase().match(/zoom|jitsi|meet/),
+        location: e.location || 'Location TBD',
+        isVirtual: !!e.location
+          ?.toLowerCase()
+          .match(/zoom|jitsi|meet|virtual/i),
       };
     });
 
   return {
-    events: events || [],
-    isLoading: !data && !error,
+    events,
+    isLoading,
     isError: !!error,
   };
 }
