@@ -1,20 +1,20 @@
+// src/features/home/components/GetInvolvedSection/index.tsx
 'use client';
 
+import { useGoogleCalendar } from '@/core/hooks/calendar/useGoogleCalendar';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import getInvolvedContent from '@/core/content/pages/home.json';
-import { GetInvolvedSectionContent } from '@/core/types/pages/home';
 import CommitteesCard from './CommitteesCard';
 import UpcomingEventsCard from './UpcomingEventsCard';
 
-// Type assertion for the imported JSON
-const typedGetInvolvedContent =
-  getInvolvedContent.getInvolvedSection as GetInvolvedSectionContent;
+// (You can remove this import if you no longer need JSON content for heading/subheading)
+// import getInvolvedContent from '@/core/content/pages/home.json';
 
 export default function GetInvolvedSection() {
   const [isClient, setIsClient] = useState(false);
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { events, isLoading, isError } = useGoogleCalendar();
 
   useEffect(() => {
     setIsClient(true);
@@ -47,7 +47,6 @@ export default function GetInvolvedSection() {
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
             <g fill="#ec1f27">
               {Array.from({ length: 50 }).map((_, i) => {
-                // Use a deterministic pattern instead of Math.random()
                 const x = (i * 97) % 1024;
                 const y = (i * 47) % 1024;
                 return <circle key={i} r="2" cx={x} cy={y} />;
@@ -66,17 +65,21 @@ export default function GetInvolvedSection() {
       >
         <motion.div className="text-center mb-12" variants={itemVariants}>
           <h2 className="text-3xl md:text-5xl font-bold mb-2 text-heading">
-            {typedGetInvolvedContent.heading}
+            {/* You can hard-code or prop-drill this heading now */}
+            Get Involved
           </h2>
           <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
           <p className="text-lg text-secondary max-w-3xl mx-auto">
-            {typedGetInvolvedContent.subheading}
+            {/* You can hard-code or prop-drill this subheading now */}
+            Join a committee or attend our next event.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <motion.div variants={itemVariants}>
-            <UpcomingEventsCard />
+            {isError && <p className="text-red-500">Failed to load events.</p>}
+            {isLoading && <p>Loading events…</p>}
+            {!isLoading && !isError && <UpcomingEventsCard events={events} />}
           </motion.div>
           <motion.div variants={itemVariants}>
             <CommitteesCard />

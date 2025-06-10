@@ -1,15 +1,17 @@
+// src/features/home/components/GetInvolvedSection/UpcomingEventsCard.tsx
+'use client';
+
 import Link from 'next/link';
-import upcomingEventsContent from '@/core/content/pages/home.json';
-import { UpcomingEventsCardContent } from '@/core/types/pages/home';
 import EventItem from './EventItem';
+import { Event } from './types';
 
-// Type assertion for the imported JSON
-const typedUpcomingEventsContent =
-  upcomingEventsContent.upcomingEventsCard as UpcomingEventsCardContent;
+interface Props {
+  events: Event[];
+}
 
-export default function UpcomingEventsCard() {
+export default function UpcomingEventsCard({ events }: Props) {
   return (
-    <div className="group bg-white  p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+    <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
       <div className="flex items-center mb-6">
         <svg
           className="w-8 h-8 text-dsa-red mr-3"
@@ -25,20 +27,22 @@ export default function UpcomingEventsCard() {
             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
           />
         </svg>
-        <h3 className="text-2xl font-bold">
-          {typedUpcomingEventsContent.heading}
-        </h3>
+        <h3 className="text-2xl font-bold">Upcoming Events</h3>
       </div>
 
       <div className="space-y-4">
-        {typedUpcomingEventsContent.events.map((event, index) => (
-          <EventItem key={event.title} event={event} index={index} />
+        {events.map((event, index) => (
+          <EventItem
+            key={`${event.title}-${index}`}
+            event={event}
+            index={index}
+          />
         ))}
       </div>
 
       <div className="mt-8">
         <Link
-          href={typedUpcomingEventsContent.buttonHref}
+          href="/calendar"
           className="group inline-flex items-center btn btn-primary shadow-sm hover:shadow transition-all"
         >
           <svg
@@ -54,7 +58,7 @@ export default function UpcomingEventsCard() {
               d="M19 9l-7 7-7-7"
             />
           </svg>
-          {typedUpcomingEventsContent.buttonText}
+          View All Events
         </Link>
       </div>
     </div>

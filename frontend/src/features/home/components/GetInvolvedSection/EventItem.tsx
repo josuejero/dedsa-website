@@ -28,7 +28,7 @@ export default function EventItem({ event, index }: EventItemProps) {
         </svg>
         {event.date}
       </p>
-      <p className="text-sm flex items-center mt-1">
+      {/* <p className="text-sm flex items-center mt-1">
         <svg
           className="w-4 h-4 mr-1 flex-shrink-0"
           fill="none"
@@ -52,7 +52,7 @@ export default function EventItem({ event, index }: EventItemProps) {
           )}
         </svg>
         {event.location}
-      </p>
+      </p> */}
     </div>
   );
 }

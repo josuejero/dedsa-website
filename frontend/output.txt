@@ -1,38 +1,273 @@
 
-> frontend@0.1.0 type-check
-> tsc --noEmit
+=== src/app/api/events/route.ts ===
+import { google } from 'googleapis';
+import { NextResponse } from 'next/server';
+import serviceAccount from '../../../googleService.json';
 
-src/app/calendar/page.tsx(37,26): error TS2339: Property 'page' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'page' does not exist on type '{ heroSection: { mainHeading: string; subHeading: string; tagline: string; description: string; buttons: { primary: { text: string; href: string; }; secondary: { text: string; href: string; }; }; }; missionSection: { ...; }; ... 5 more ...; joinCTASection: { ...; }; }'.
-src/app/calendar/page.tsx(39,21): error TS2339: Property 'page' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'page' does not exist on type '{ heroSection: { mainHeading: string; subHeading: string; tagline: string; description: string; buttons: { primary: { text: string; href: string; }; secondary: { text: string; href: string; }; }; }; missionSection: { ...; }; ... 5 more ...; joinCTASection: { ...; }; }'.
-src/app/calendar/page.tsx(41,31): error TS2339: Property 'page' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'page' does not exist on type '{ heroSection: { mainHeading: string; subHeading: string; tagline: string; description: string; buttons: { primary: { text: string; href: string; }; secondary: { text: string; href: string; }; }; }; missionSection: { ...; }; ... 5 more ...; joinCTASection: { ...; }; }'.
-src/app/calendar/page.tsx(43,21): error TS2339: Property 'page' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'page' does not exist on type '{ heroSection: { mainHeading: string; subHeading: string; tagline: string; description: string; buttons: { primary: { text: string; href: string; }; secondary: { text: string; href: string; }; }; }; missionSection: { ...; }; ... 5 more ...; joinCTASection: { ...; }; }'.
-src/app/calendar/page.tsx(45,37): error TS2339: Property 'page' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'page' does not exist on type '{ heroSection: { mainHeading: string; subHeading: string; tagline: string; description: string; buttons: { primary: { text: string; href: string; }; secondary: { text: string; href: string; }; }; }; missionSection: { ...; }; ... 5 more ...; joinCTASection: { ...; }; }'.
-src/app/calendar/page.tsx(47,21): error TS2339: Property 'page' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'page' does not exist on type '{ heroSection: { mainHeading: string; subHeading: string; tagline: string; description: string; buttons: { primary: { text: string; href: string; }; secondary: { text: string; href: string; }; }; }; missionSection: { ...; }; ... 5 more ...; joinCTASection: { ...; }; }'.
-src/app/calendar/page.tsx(49,21): error TS2339: Property 'page' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'page' does not exist on type '{ heroSection: { mainHeading: string; subHeading: string; tagline: string; description: string; buttons: { primary: { text: string; href: string; }; secondary: { text: string; href: string; }; }; }; missionSection: { ...; }; ... 5 more ...; joinCTASection: { ...; }; }'.
-src/app/calendar/page.tsx(52,21): error TS2339: Property 'page' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'page' does not exist on type '{ heroSection: { mainHeading: string; subHeading: string; tagline: string; description: string; buttons: { primary: { text: string; href: string; }; secondary: { text: string; href: string; }; }; }; missionSection: { ...; }; ... 5 more ...; joinCTASection: { ...; }; }'.
-src/app/calendar/page.tsx(54,21): error TS2339: Property 'page' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'page' does not exist on type '{ heroSection: { mainHeading: string; subHeading: string; tagline: string; description: string; buttons: { primary: { text: string; href: string; }; secondary: { text: string; href: string; }; }; }; missionSection: { ...; }; ... 5 more ...; joinCTASection: { ...; }; }'.
-src/app/calendar/page.tsx(59,21): error TS2339: Property 'eventCalendar' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'eventCalendar' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; }'.
-src/app/calendar/page.tsx(62,21): error TS2339: Property 'eventCalendar' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'eventCalendar' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; }'.
-src/app/calendar/page.tsx(68,26): error TS2339: Property 'monthSelector' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'monthSelector' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; }'.
-src/app/calendar/page.tsx(73,21): error TS2339: Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; }'.
-src/app/calendar/page.tsx(76,21): error TS2339: Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; }'.
-src/app/calendar/page.tsx(79,21): error TS2339: Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; }'.
-src/app/calendar/page.tsx(82,21): error TS2339: Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; }'.
-src/app/calendar/page.tsx(85,21): error TS2339: Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; } | ... 8 more ... | { ...; }'.
-  Property 'subscription' does not exist on type '{ page: { title: string; fallbackContent: string; }; aboutHero: { title: string; defaultMissionStatement: string; }; achievements: { title: string; defaultAchievements: string[]; }; democraticSocialism: { ...; }; getInvolved: { ...; }; nationalInfo: { ...; }; timeline: { ...; }; }'.
+type CalendarEventRaw = {
+  id: string;
+  summary: string;
+  start: { dateTime?: string; date?: string };
+  location?: string;
+};
+
+export async function GET() {
+  const auth = new google.auth.JWT({
+    email: serviceAccount.client_email,
+    key: serviceAccount.private_key,
+    scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
+  });
+
+  const calendar = google.calendar({ version: 'v3', auth });
+  const { data } = await calendar.events.list({
+    calendarId: process.env.GOOGLE_CALENDAR_ID!,
+    timeMin: new Date().toISOString(),
+    maxResults: 5,
+    singleEvents: true,
+    orderBy: 'startTime',
+  });
+
+  const events: CalendarEventRaw[] = (data.items || []).map((e) => ({
+    id: e.id!,
+    summary: e.summary || 'No title',
+    start: e.start!,
+    location: e.location,
+  }));
+
+  return NextResponse.json(events);
+}
+
+=== src/core/hooks/calendar/useGoogleCalendar.ts ===
+import useSWR from 'swr';
+
+type Raw = {
+  id: string;
+  summary: string;
+  start: { dateTime?: string; date?: string };
+  location?: string;
+};
+
+export function useGoogleCalendar() {
+  const fetcher = (url: string) =>
+    fetch(url).then((res) => res.json() as Promise<Raw[]>);
+  const { data, error } = useSWR('/api/events', fetcher);
+
+  const events =
+    data?.map((e) => {
+      const dt = e.start.dateTime ?? e.start.date!;
+      return {
+        title: e.summary,
+        date: new Date(dt).toLocaleString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+        }),
+        location: e.location || 'TBD',
+        isVirtual: !!e.location?.toLowerCase().match(/zoom|jitsi|meet/),
+      };
+    }) ?? [];
+
+  return { events, isLoading: !data && !error, isError: !!error };
+}
+
+=== src/app/page.tsx ===
+import HomePage from '@/features/home/Page';
+export default HomePage;
+
+=== src/features/home/Page.tsx ===
+import ChapterStatsSection from './components/ChapterStatsSection';
+import GetInvolvedSection from './components/GetInvolvedSection';
+import HeroSection from './components/HeroSection';
+import JoinCTASection from './components/JoinCTASection';
+import LatestUpdatesSection from './components/LatestUpdatesSection';
+import MissionSection from './components/MissionSection';
+import StrategicPrioritiesSection from './components/StrategicPrioritiesSection';
+
+export default function HomePage() {
+  return (
+    <>
+      <HeroSection />
+      <MissionSection />
+      <StrategicPrioritiesSection />
+      <GetInvolvedSection />
+      <ChapterStatsSection />
+      <LatestUpdatesSection />
+      <JoinCTASection />
+    </>
+  );
+}
+
+=== src/features/home/components/GetInvolvedSection/types.ts ===
+// frontend/src/components/home/GetInvolvedSection/types.ts
+
+export interface Event {
+  title: string;
+  date: string;
+  location: string;
+  isVirtual?: boolean;
+}
+
+export interface Committee {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+=== src/features/home/components/GetInvolvedSection/UpcomingEventsCard.tsx ===
+import upcomingEventsContent from '@/core/content/pages/home.json';
+import { UpcomingEventsCardContent } from '@/core/types/pages/home';
+import Link from 'next/link';
+import EventItem from './EventItem';
+
+// Type assertion for the imported JSON
+const typedUpcomingEventsContent =
+  upcomingEventsContent.upcomingEventsCard as UpcomingEventsCardContent;
+
+export default function UpcomingEventsCard() {
+  return (
+    <div className="group bg-white  p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+      <div className="flex items-center mb-6">
+        <svg
+          className="w-8 h-8 text-dsa-red mr-3"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+        <h3 className="text-2xl font-bold">
+          {typedUpcomingEventsContent.heading}
+        </h3>
+      </div>
+
+      <div className="space-y-4">
+        {typedUpcomingEventsContent.events.map((event, index) => (
+          <EventItem key={event.title} event={event} index={index} />
+        ))}
+      </div>
+
+      <div className="mt-8">
+        <Link
+          href={typedUpcomingEventsContent.buttonHref}
+          className="group inline-flex items-center btn btn-primary shadow-sm hover:shadow transition-all"
+        >
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+          {typedUpcomingEventsContent.buttonText}
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+=== src/features/home/components/GetInvolvedSection/index.tsx ===
+'use client';
+
+import getInvolvedContent from '@/core/content/pages/home.json';
+import { useGoogleCalendar } from '@/core/hooks/calendar/useGoogleCalendar';
+import { GetInvolvedSectionContent } from '@/core/types/pages/home';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+import CommitteesCard from './CommitteesCard';
+import UpcomingEventsCard from './UpcomingEventsCard';
+// Type assertion for the imported JSON
+const typedGetInvolvedContent =
+  getInvolvedContent.getInvolvedSection as GetInvolvedSectionContent;
+
+export default function GetInvolvedSection() {
+  const [isClient, setIsClient] = useState(false);
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { events, isLoading, isError } = useGoogleCalendar();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: 'beforeChildren',
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
+  return (
+    <section className="py-20 bg-gray-100 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-5">
+        {isClient && (
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#ec1f27">
+              {Array.from({ length: 50 }).map((_, i) => {
+                // Use a deterministic pattern instead of Math.random()
+                const x = (i * 97) % 1024;
+                const y = (i * 47) % 1024;
+                return <circle key={i} r="2" cx={x} cy={y} />;
+              })}
+            </g>
+          </svg>
+        )}
+      </div>
+
+      <motion.div
+        className="container-page relative z-10"
+        ref={ref}
+        initial="hidden"
+        animate={inView ? 'visible' : 'hidden'}
+        variants={sectionVariants}
+      >
+        <motion.div className="text-center mb-12" variants={itemVariants}>
+          <h2 className="text-3xl md:text-5xl font-bold mb-2 text-heading">
+            {typedGetInvolvedContent.heading}
+          </h2>
+          <div className="w-24 h-1 bg-dsa-red mx-auto mb-4 rounded"></div>
+          <p className="text-lg text-secondary max-w-3xl mx-auto">
+            {typedGetInvolvedContent.subheading}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div variants={itemVariants}>
+            {isError && <p className="text-red-500">Failed to load events.</p>}
+            {isLoading && <p>Loading events…</p>}
+            {!isLoading && !isError && <UpcomingEventsCard events={events} />}
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <CommitteesCard />
+          </motion.div>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
