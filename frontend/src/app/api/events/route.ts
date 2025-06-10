@@ -1,3 +1,4 @@
+// src/app/api/events/route.ts
 import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
 import serviceAccount from '../../../googleService.json';
@@ -25,12 +26,20 @@ export async function GET() {
     orderBy: 'startTime',
   });
 
-  const events: CalendarEventRaw[] = (data.items || []).map((e) => ({
-    id: e.id!,
-    summary: e.summary || 'No title',
-    start: e.start!,
-    location: e.location,
-  }));
+  const events: CalendarEventRaw[] = (data.items || []).map((e) => {
+    const { dateTime, date } = e.start ?? {};
+    return {
+      id: e.id!,
+      summary: e.summary || 'No title',
+      start: {
+        // null → undefined
+        dateTime: dateTime ?? undefined,
+        date: date ?? undefined,
+      },
+      // also drop nulls from location
+      location: e.location ?? undefined,
+    };
+  });
 
   return NextResponse.json(events);
 }

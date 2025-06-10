@@ -1,4 +1,3 @@
-// src/core/types/newsletter/index.ts
 export interface Newsletter {
   id: string;
   title: string;
@@ -6,16 +5,10 @@ export interface Newsletter {
   slug: string;
   excerpt: string;
   featuredImage?: {
-    node: {
-      sourceUrl: string;
-      altText: string;
-    };
+    node: { sourceUrl: string; altText: string };
   };
-  author?: {
-    node: {
-      name: string;
-    };
-  };
+  author?: { node: { name: string } };
   content?: string;
-  fullContentPath?: string;
+  fullContentPath?: string; // you may already have this
+  htmlPath: string; // <-- new
 }
