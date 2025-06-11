@@ -35,18 +35,23 @@ export function useGoogleCalendar(): {
     if (!res.ok) throw new Error('Failed to fetch events');
     return res.json() as Promise<GoogleCalendarEvent[]>;
   };
-  const { data, error, isLoading } = useSWR('/api/events', fetcher);
+
+  const { data, error, isLoading } = useSWR('/api/events', fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+
   const events: Event[] = (data || [])
     .filter((e) => e?.summary && (e.start.dateTime || e.start.date))
+    .slice(0, 3) // Only show next 3 events on home page
     .map((e) => {
       const iso = e.start.dateTime || e.start.date!;
       const dt = new Date(iso);
       return {
         title: e.summary,
         date: dt.toLocaleString('en-US', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
+          weekday: 'short',
+          month: 'short',
           day: 'numeric',
           ...(e.start.dateTime && {
             hour: 'numeric',
@@ -54,14 +59,17 @@ export function useGoogleCalendar(): {
             hour12: true,
           }),
         }),
-        startDate: iso, // raw ISO for calendar plotting :contentReference[oaicite:6]{index=6}
+        startDate: iso,
         location: e.location || 'Location TBD',
-        isVirtual: !!e.location?.match(/zoom|jitsi|meet|virtual/i),
+        isVirtual: !!e.location
+          ?.toLowerCase()
+          .match(/zoom|jitsi|meet|virtual|online/i),
       };
     });
+
   return {
     events,
     isLoading,
-    isError: !!error, // SWR error handling can retry, surface to UI :contentReference[oaicite:7]{index=7}
+    isError: !!error,
   };
 }
