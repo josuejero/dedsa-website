@@ -42,19 +42,6 @@ export default function CalendarPage() {
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    });
-  };
-
   const getEventDate = (event: CalendarEvent): Date => {
     const dateString = event.start.dateTime || event.start.date || '';
     return new Date(dateString);
@@ -88,7 +75,7 @@ export default function CalendarPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 py-12">
+      <div className="min-h-screen bg-dsa-red-t4 py-12">
         <div className="container-page">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-dsa-red mx-auto"></div>
@@ -101,7 +88,7 @@ export default function CalendarPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-100 py-12">
+      <div className="min-h-screen bg-dsa-red-t4 py-12">
         <div className="container-page">
           <div className="bg-red-50 border border-red-200 rounded-lg p-6">
             <h2 className="text-xl font-bold text-red-800 mb-2">
@@ -118,11 +105,11 @@ export default function CalendarPage() {
   const groupedEvents = groupEventsByDate(currentMonthEvents);
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12">
+    <div className="min-h-screen bg-dsa-red-t4 py-12">
       <div className="container-page">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">Delaware DSA Calendar</h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-dsa-black">
             Join us for meetings, actions, educational events, and social
             gatherings.
           </p>
@@ -137,7 +124,7 @@ export default function CalendarPage() {
                 className={`px-4 py-2 rounded ${
                   view === 'list'
                     ? 'bg-dsa-red text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    : 'bg-gray-200 text-dsa-black hover:bg-gray-300'
                 }`}
               >
                 List View
@@ -147,7 +134,7 @@ export default function CalendarPage() {
                 className={`px-4 py-2 rounded ${
                   view === 'month'
                     ? 'bg-dsa-red text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    : 'bg-gray-200 text-dsa-black hover:bg-gray-300'
                 }`}
               >
                 Month View
@@ -161,7 +148,7 @@ export default function CalendarPage() {
                   newDate.setMonth(newDate.getMonth() - 1);
                   setSelectedMonth(newDate);
                 }}
-                className="p-2 hover:bg-gray-100 rounded"
+                className="p-2 hover:bg-dsa-red-t4 rounded"
               >
                 ←
               </button>
@@ -177,7 +164,7 @@ export default function CalendarPage() {
                   newDate.setMonth(newDate.getMonth() + 1);
                   setSelectedMonth(newDate);
                 }}
-                className="p-2 hover:bg-gray-100 rounded"
+                className="p-2 hover:bg-dsa-red-t4 rounded"
               >
                 →
               </button>
@@ -207,7 +194,7 @@ export default function CalendarPage() {
           {view === 'list' ? (
             <div className="space-y-6">
               {Object.keys(groupedEvents).length === 0 ? (
-                <p className="text-gray-500 text-center py-8">
+                <p className="text-dsa-black text-center py-8">
                   No events scheduled for{' '}
                   {selectedMonth.toLocaleDateString('en-US', {
                     month: 'long',
@@ -225,7 +212,7 @@ export default function CalendarPage() {
                       key={dateKey}
                       className="border-b border-gray-200 pb-6 last:border-0"
                     >
-                      <h3 className="text-lg font-bold text-gray-900 mb-3">
+                      <h3 className="text-lg font-bold text-dsa-black mb-3">
                         {new Date(dateKey).toLocaleDateString('en-US', {
                           weekday: 'long',
                           month: 'long',
@@ -238,11 +225,11 @@ export default function CalendarPage() {
                             key={event.id}
                             className="bg-gray-50 rounded-lg p-4"
                           >
-                            <h4 className="font-semibold text-gray-900">
+                            <h4 className="font-semibold text-dsa-black">
                               {event.summary}
                             </h4>
                             {event.start.dateTime && (
-                              <p className="text-sm text-gray-600 mt-1">
+                              <p className="text-sm text-dsa-black mt-1">
                                 {new Date(
                                   event.start.dateTime
                                 ).toLocaleTimeString('en-US', {
@@ -261,12 +248,12 @@ export default function CalendarPage() {
                               </p>
                             )}
                             {event.location && (
-                              <p className="text-sm text-gray-600 mt-1">
+                              <p className="text-sm text-dsa-black mt-1">
                                 📍 {event.location}
                               </p>
                             )}
                             {event.description && (
-                              <p className="text-sm text-gray-700 mt-2">
+                              <p className="text-sm text-dsa-black mt-2">
                                 {event.description.substring(0, 200)}...
                               </p>
                             )}
@@ -285,7 +272,7 @@ export default function CalendarPage() {
         {/* Subscribe Section */}
         <div className="mt-8 bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-bold mb-4">Stay Updated</h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-dsa-black mb-4">
             Subscribe to our calendar to automatically receive updates about
             Delaware DSA events.
           </p>
@@ -343,7 +330,7 @@ function MonthView({
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
               <th
                 key={day}
-                className="text-center p-2 font-semibold text-gray-700"
+                className="text-center p-2 font-semibold text-dsa-black"
               >
                 {day}
               </th>
@@ -381,7 +368,7 @@ function MonthView({
                             </div>
                           ))}
                           {dayEvents.length > 2 && (
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-dsa-black">
                               +{dayEvents.length - 2} more
                             </div>
                           )}

@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-dsa-red-t4">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-lg w-full text-center">
         <div className="text-dsa-red mb-4">
           <svg
@@ -37,14 +37,14 @@ export default function Error({
 
         <h1 className="text-2xl font-bold mb-4">Something went wrong!</h1>
 
-        <p className="text-gray-600 mb-6">
+        <p className="text-dsa-black mb-6">
           We apologize for the inconvenience. Please try again later.
         </p>
 
         <div className="flex justify-center space-x-4">
           <button
             onClick={reset}
-            className="btn bg-gray-200 text-gray-800 hover:bg-gray-300"
+            className="btn bg-gray-200 text-dsa-black hover:bg-gray-300"
           >
             Try again
           </button>

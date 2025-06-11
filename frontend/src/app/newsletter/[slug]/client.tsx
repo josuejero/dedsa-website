@@ -61,7 +61,7 @@ export default function NewsletterPageClient({
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12">
+    <div className="min-h-screen bg-dsa-red-t4 py-12">
       <div className="container-page">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -70,7 +70,7 @@ export default function NewsletterPageClient({
         >
           {/* Breadcrumb */}
           <nav className="mb-6">
-            <ol className="flex items-center space-x-2 text-sm text-gray-600">
+            <ol className="flex items-center space-x-2 text-sm text-dsa-black">
               <li>
                 <Link href="/" className="hover:text-dsa-red">
                   Home
@@ -83,7 +83,7 @@ export default function NewsletterPageClient({
                 </Link>
               </li>
               <li>/</li>
-              <li className="text-gray-900">{newsletter.title}</li>
+              <li className="text-dsa-black">{newsletter.title}</li>
             </ol>
           </nav>
 
@@ -97,10 +97,10 @@ export default function NewsletterPageClient({
                       Featured
                     </span>
                   )}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                  <h1 className="text-4xl font-bold text-dsa-black mb-2">
                     {newsletter.title}
                   </h1>
-                  <div className="flex items-center gap-4 text-gray-600 mb-4">
+                  <div className="flex items-center gap-4 text-dsa-black mb-4">
                     <span>By {newsletter.author}</span>
                     <span>•</span>
                     <time dateTime={newsletter.date}>
@@ -111,7 +111,7 @@ export default function NewsletterPageClient({
                       })}
                     </time>
                   </div>
-                  <p className="text-xl text-gray-700">{newsletter.excerpt}</p>
+                  <p className="text-xl text-dsa-black">{newsletter.excerpt}</p>
                 </div>
               </div>
 
@@ -121,7 +121,7 @@ export default function NewsletterPageClient({
                   {newsletter.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                      className="px-3 py-1 bg-dsa-red-t4 text-dsa-black rounded-full text-sm"
                     >
                       #{tag}
                     </span>
@@ -166,7 +166,7 @@ export default function NewsletterPageClient({
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link
                   href="/join"
-                  className="btn bg-white text-dsa-red hover:bg-gray-100"
+                  className="btn bg-white text-dsa-red hover:bg-dsa-red-t4"
                 >
                   Join Delaware DSA
                 </Link>
@@ -188,10 +188,10 @@ export default function NewsletterPageClient({
 
           {/* Newsletter Subscription */}
           <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            <h3 className="text-2xl font-bold text-dsa-black mb-4">
               Subscribe to Our Newsletter
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-dsa-black mb-6">
               Stay up-to-date with Delaware DSA news, events, and organizing
               updates.
             </p>
@@ -210,7 +210,7 @@ export default function NewsletterPageClient({
 
           {/* Other Newsletters */}
           <div className="bg-white rounded-lg shadow-md p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
+            <h3 className="text-2xl font-bold text-dsa-black mb-6">
               Other Newsletters
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -227,17 +227,17 @@ export default function NewsletterPageClient({
                         Featured
                       </span>
                     )}
-                    <h4 className="font-semibold text-gray-900 mb-2">
+                    <h4 className="font-semibold text-dsa-black mb-2">
                       {otherNewsletter.title}
                     </h4>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-dsa-black mb-2">
                       {otherDate.toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',
                       })}
                     </p>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-dsa-black">
                       {otherNewsletter.excerpt}
                     </p>
                   </Link>

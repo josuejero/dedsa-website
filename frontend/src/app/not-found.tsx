@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-dsa-red-t4">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-lg w-full text-center">
         <div className="text-dsa-red mb-4">
           <svg
@@ -25,7 +25,7 @@ export default function NotFound() {
 
         <h1 className="text-2xl font-bold mb-4">Page Not Found</h1>
 
-        <p className="text-gray-600 mb-6">
+        <p className="text-dsa-black mb-6">
           The page you are looking for does not exist or has been moved.
         </p>
 

@@ -10,7 +10,7 @@ export default function EventItem({ event, index }: EventItemProps) {
   if (!event) {
     return (
       <div className="border-l-4 border-gray-300 pl-4 py-3 bg-gray-50 rounded-r-lg">
-        <p className="text-gray-500 text-sm">Event data unavailable</p>
+        <p className="text-dsa-black text-sm">Event data unavailable</p>
       </div>
     );
   }
@@ -24,11 +24,11 @@ export default function EventItem({ event, index }: EventItemProps) {
 
   return (
     <div
-      className="border-l-4 border-dsa-red pl-4 py-3 bg-gray-50 rounded-r-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-x-1"
+      className="border-l-4 border-dsa-red pl-4 py-3 bg-gray-50 rounded-r-lg hover:bg-dsa-red-t4 transition-all duration-300 transform hover:-translate-x-1"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <h4 className="font-bold">{safeEvent.title}</h4>
-      <p className="text-sm text-gray-600 flex items-center">
+      <p className="text-sm text-dsa-black flex items-center">
         <svg
           className="w-4 h-4 mr-1 flex-shrink-0"
           fill="none"

@@ -13,7 +13,7 @@ export default function LeadershipPage(props: Props) {
   const { title, introContent, fallbackContent, chapterStructure } = props;
 
   return (
-    <div className="bg-gray-100 min-h-screen py-12">
+    <div className="bg-dsa-red-t4 min-h-screen py-12">
       <div className="container-page">
         {/* Page Header */}
         <div className="mb-12">
@@ -56,7 +56,7 @@ function ChapterStructure(props: ChapterStructureContent) {
         {Object.entries(structureItems).map(([key, item]) => (
           <div key={key} className="border-l-4 border-dsa-red pl-4">
             <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-            <p className="text-gray-600">{item.description}</p>
+            <p className="text-dsa-black">{item.description}</p>
           </div>
         ))}
       </div>
@@ -79,7 +79,7 @@ function LeadershipSection() {
   return (
     <section className="bg-white rounded-lg shadow-md p-8">
       <h2 className="text-3xl font-bold mb-6">Chapter Leadership</h2>
-      <p className="text-gray-600">
+      <p className="text-dsa-black">
         Leadership information will be displayed here.
       </p>
       {/* TODO: Implement actual leadership cards when data is available */}

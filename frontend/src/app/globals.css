@@ -19,6 +19,24 @@
     --btn-secondary-text: theme('colors.dsa-red');
     --card-title: theme('colors.gray.800');
     --card-text: theme('colors.gray.600');
+
+    --type-4xl: 4rem; /* 64pt */
+    --type-3xl: 3rem; /* 48pt */
+    --type-2xl: 2.25rem; /* 36pt */
+    --type-xl: 1.75rem; /* 28pt */
+    --type-lg: 1.25rem; /* 20pt */
+    --type-base: 1rem; /* 16pt */
+    --type-sm: 0.875rem; /* 14pt */
+
+    /* Tracking */
+    --tracking-display: -0.02em; /* ≥64pt */
+    --tracking-heading: 0; /* 16-48pt */
+    --tracking-small: 0.08em; /* ≤12pt */
+
+    /* Line height */
+    --leading-tight: 1.2;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.75;
   }
 
   html {
@@ -27,6 +45,18 @@
 
   body {
     @apply antialiased text-primary leading-relaxed bg-white;
+  }
+
+  h1 {
+    letter-spacing: var(--tracking-display);
+  }
+  h2,
+  h3 {
+    letter-spacing: var(--tracking-heading);
+  }
+  .text-sm,
+  .text-xs {
+    letter-spacing: var(--tracking-small);
   }
 
   /* Heading styles */
@@ -93,6 +123,15 @@
   }
   .text-on-accent {
     color: var(--on-accent);
+  }
+
+  body {
+    font-size: max(16px, 1rem);
+  }
+  @media print {
+    body {
+      font-size: max(10pt, 1rem);
+    }
   }
 
   /* Button base */
@@ -162,9 +201,19 @@
     @apply text-transparent bg-clip-text bg-gradient-to-r from-dsa-red to-red-600;
   }
   .bg-gradient-animated {
-    background: linear-gradient(-45deg, #ec1f27, #f87171, #ef4444, #dc2626);
-    background-size: 400% 400%;
-    animation: gradientMove 15s ease infinite;
+    background: linear-gradient(135deg, #ec1f27 0%, #f04c53 50%, #ec1f27 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
   }
 
   /* Backdrop blur */

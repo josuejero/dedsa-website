@@ -30,7 +30,7 @@ export default function CommitteeItem({
         </svg>
         {committee.title}
       </h4>
-      <p className="text-sm mt-2 pl-7 group-hover:text-gray-800 transition-colors">
+      <p className="text-sm mt-2 pl-7 group-hover:text-dsa-black transition-colors">
         {committee.description}
       </p>
     </div>

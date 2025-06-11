@@ -83,7 +83,7 @@ export default function CalendarFilters({
           </label>
           <div className="relative">
             <svg
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dsa-black"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -112,7 +112,7 @@ export default function CalendarFilters({
           className={`px-4 py-2 rounded-lg transition-colors flex items-center gap-2 ${
             hasActiveFilters
               ? 'bg-dsa-red text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-dsa-red-t4 text-dsa-black hover:bg-gray-200'
           }`}
         >
           <svg
@@ -139,7 +139,7 @@ export default function CalendarFilters({
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+            className="px-4 py-2 text-dsa-black hover:text-dsa-black transition-colors"
           >
             Clear Filters
           </button>
@@ -152,7 +152,7 @@ export default function CalendarFilters({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Categories */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-3">Categories</h3>
+              <h3 className="font-semibold text-dsa-black mb-3">Categories</h3>
               <div className="space-y-2">
                 {CATEGORIES.map((category) => (
                   <label
@@ -167,7 +167,7 @@ export default function CalendarFilters({
                       }
                       className="rounded border-gray-300 text-dsa-red focus:ring-dsa-red"
                     />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-dsa-black">
                       {category.label}
                     </span>
                   </label>
@@ -177,7 +177,7 @@ export default function CalendarFilters({
 
             {/* Committees */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-3">Committees</h3>
+              <h3 className="font-semibold text-dsa-black mb-3">Committees</h3>
               <div className="space-y-2">
                 {COMMITTEES.map((committee) => (
                   <label
@@ -192,7 +192,7 @@ export default function CalendarFilters({
                       }
                       className="rounded border-gray-300 text-dsa-red focus:ring-dsa-red"
                     />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-dsa-black">
                       {committee.label}
                     </span>
                   </label>

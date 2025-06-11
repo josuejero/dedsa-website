@@ -20,7 +20,7 @@ export default function GenericSection({
 }: GenericSectionProps) {
   const bgClasses = {
     white: 'bg-white ',
-    gray: 'bg-gray-100',
+    gray: 'bg-dsa-red-t4',
     primary: 'bg-dsa-red text-white',
     gradient: 'bg-gradient-animated text-white',
   };

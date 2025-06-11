@@ -2,7 +2,6 @@
 
 import type {
   CorePrinciplesContent,
-  DemocraticStructureContent,
   OrganizationContent,
   PositionCardContent,
   StrategicGoalsContent,
@@ -21,15 +20,14 @@ export default function WhatWeStandForPage(props: Props) {
     corePrinciplesSection,
     strategicGoalsSection,
     beliefs,
-    platform,
-    democraticStructureSection,
+
     priorities2025,
     organizationSection,
     cta,
   } = props;
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-dsa-red-t4">
       {/* Hero Section */}
       <HeroSection hero={hero} />
 
@@ -156,7 +154,7 @@ function CorePrinciplesSection({
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             {corePrinciplesSection.title}
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-dsa-black max-w-3xl mx-auto">
             {corePrinciplesSection.subtitle}
           </p>
         </motion.div>
@@ -188,10 +186,10 @@ function CorePrinciplesSection({
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-xl font-bold text-dsa-black mb-2">
                     {principle.title}
                   </h3>
-                  <p className="text-gray-700 leading-relaxed mb-3">
+                  <p className="text-dsa-black leading-relaxed mb-3">
                     {principle.description}
                   </p>
                   <Link
@@ -249,7 +247,7 @@ function StrategicGoalsSection({
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             {strategicGoalsSection.title}
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-dsa-black max-w-3xl mx-auto">
             {strategicGoalsSection.subtitle}
           </p>
         </motion.div>
@@ -280,13 +278,13 @@ function StrategicGoalsSection({
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-dsa-black mb-4">
                   {goal.title}
                 </h3>
-                <p className="text-gray-700 leading-relaxed mb-4">
+                <p className="text-dsa-black leading-relaxed mb-4">
                   {goal.description}
                 </p>
-                <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                <span className="text-sm text-dsa-black bg-dsa-red-t4 px-2 py-1 rounded">
                   Bylaws {goal.source}
                 </span>
               </div>
@@ -351,7 +349,7 @@ function BeliefsSection({
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             {beliefs.title}
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-dsa-black max-w-3xl mx-auto">
             {beliefs.subtitle}
           </p>
         </motion.div>
@@ -383,235 +381,12 @@ function BeliefsSection({
                 </div>
                 <h3 className="text-xl font-bold">{principle.title}</h3>
               </div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-dsa-black leading-relaxed">
                 {principle.description}
               </p>
             </motion.div>
           ))}
         </div>
-      </div>
-    </motion.section>
-  );
-}
-
-// Platform Section Component
-function PlatformSection({
-  platform,
-}: {
-  platform: WhatWeStandForPageContent['platform'];
-}) {
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-
-  return (
-    <motion.section
-      ref={ref}
-      className="py-16 bg-white"
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="container-page">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ y: 30, opacity: 0 }}
-          animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {platform.title}
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            {platform.subtitle}
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {platform.planks.map((plank, index) => (
-            <motion.div
-              key={plank.title}
-              className="bg-white border-l-4 p-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
-              style={{ borderLeftColor: plank.color }}
-              initial={{ y: 30, opacity: 0 }}
-              animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="flex items-start mb-4">
-                <div
-                  className="p-3 rounded-full mr-4"
-                  style={{ backgroundColor: `${plank.color}20` }}
-                >
-                  <svg
-                    className="w-6 h-6"
-                    style={{ color: plank.color }}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d={plank.icon}
-                    />
-                  </svg>
-                </div>
-                <h3
-                  className="text-xl font-bold"
-                  style={{ color: plank.color }}
-                >
-                  {plank.title}
-                </h3>
-              </div>
-              <p className="text-gray-700 leading-relaxed">
-                {plank.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </motion.section>
-  );
-}
-
-// NEW: Democratic Structure Section Component
-function DemocraticStructureSection({
-  democraticStructureSection,
-}: {
-  democraticStructureSection: DemocraticStructureContent;
-}) {
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-
-  return (
-    <motion.section
-      ref={ref}
-      className="py-16 bg-gray-50"
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="container-page">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ y: 30, opacity: 0 }}
-          animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {democraticStructureSection.title}
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            {democraticStructureSection.subtitle}
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {democraticStructureSection.structure.map((item, index) => (
-            <motion.div
-              key={item.title}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
-              initial={{ y: 30, opacity: 0 }}
-              animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="text-center mb-6">
-                <div className="p-4 bg-green-50 rounded-full mx-auto mb-4 w-16 h-16 flex items-center justify-center">
-                  <svg
-                    className="w-8 h-8 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d={item.icon}
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  {item.description}
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">
-                  Key Responsibilities:
-                </h4>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  {item.responsibilities.map((responsibility, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <svg
-                        className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      {responsibility}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <Link
-            href="/leadership"
-            className="inline-flex items-center text-dsa-red hover:underline font-medium text-lg mr-6"
-          >
-            Meet our current leadership
-            <svg
-              className="ml-2 w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </Link>
-          <Link
-            href="/bylaws"
-            className="inline-flex items-center text-dsa-red hover:underline font-medium text-lg"
-          >
-            Read governance details
-            <svg
-              className="ml-2 w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </Link>
-        </motion.div>
       </div>
     </motion.section>
   );
@@ -780,7 +555,7 @@ function OrganizationSection({
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             {organizationSection.title}
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-dsa-black max-w-3xl mx-auto">
             {organizationSection.subtitle}
           </p>
         </motion.div>
@@ -812,17 +587,17 @@ function OrganizationSection({
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-xl font-bold text-dsa-black mb-2">
                     {type.title}
                   </h3>
-                  <p className="text-gray-700 leading-relaxed mb-4">
+                  <p className="text-dsa-black leading-relaxed mb-4">
                     {type.description}
                   </p>
                 </div>
               </div>
 
               <div>
-                <h4 className="font-semibold text-gray-900 mb-3">Examples:</h4>
+                <h4 className="font-semibold text-dsa-black mb-3">Examples:</h4>
                 <div className="grid grid-cols-1 gap-2">
                   {type.examples.map((example, idx) => (
                     <div
@@ -857,10 +632,10 @@ function OrganizationSection({
           animate={inView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <h3 className="text-2xl font-bold text-dsa-black mb-4">
             Ready to Get Involved?
           </h3>
-          <p className="text-lg text-gray-700 mb-6 max-w-3xl mx-auto">
+          <p className="text-lg text-dsa-black mb-6 max-w-3xl mx-auto">
             {organizationSection.participationInfo}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
@@ -916,7 +691,7 @@ function CTASection({ cta }: { cta: WhatWeStandForPageContent['cta'] }) {
         >
           <Link
             href={cta.buttonHref}
-            className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3"
+            className="btn bg-white text-dsa-red hover:bg-dsa-red-t4 text-lg px-8 py-3"
           >
             {cta.buttonText}
           </Link>

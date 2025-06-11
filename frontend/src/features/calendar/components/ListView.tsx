@@ -30,7 +30,7 @@ export default function ListView({ events }: ListViewProps) {
     return (
       <div className="bg-white rounded-lg shadow-md p-8 text-center">
         <svg
-          className="w-16 h-16 mx-auto text-gray-400 mb-4"
+          className="w-16 h-16 mx-auto text-dsa-black mb-4"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -42,10 +42,10 @@ export default function ListView({ events }: ListViewProps) {
             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
           />
         </svg>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <h3 className="text-lg font-semibold text-dsa-black mb-2">
           No Events Found
         </h3>
-        <p className="text-gray-600">
+        <p className="text-dsa-black">
           There are no events matching your current filters.
         </p>
       </div>
@@ -76,8 +76,8 @@ export default function ListView({ events }: ListViewProps) {
                   isToday
                     ? 'text-dsa-red'
                     : isPast
-                      ? 'text-gray-500'
-                      : 'text-gray-900'
+                      ? 'text-dsa-black'
+                      : 'text-dsa-black'
                 }`}
               >
                 {date.toLocaleDateString('en-US', {
@@ -92,7 +92,7 @@ export default function ListView({ events }: ListViewProps) {
                 </span>
               )}
               {isPast && (
-                <span className="px-2 py-1 bg-gray-200 text-gray-600 text-sm rounded-full">
+                <span className="px-2 py-1 bg-gray-200 text-dsa-black text-sm rounded-full">
                   Past Event
                 </span>
               )}

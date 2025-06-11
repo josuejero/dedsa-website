@@ -25,7 +25,7 @@ export default function StrategicPrioritiesSection() {
   const { displayText } = useTypewriterEffect(c.heading, 100);
 
   return (
-    <section ref={ref} className="py-20 bg-gray-100 relative overflow-hidden">
+    <section ref={ref} className="py-20 bg-dsa-red-t4 relative overflow-hidden">
       {/* Dot-pattern background */}
       <div className="absolute inset-0 opacity-5">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">

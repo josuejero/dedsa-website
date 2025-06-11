@@ -28,10 +28,10 @@ export default function Footer() {
       <div className="container-page py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4 text-gray-300">
+            <h3 className="text-xl font-bold mb-4 text-dsa-black">
               {f.organizationName}
             </h3>
-            <p className="text-gray-300 mb-4">{f.organizationDescription}</p>
+            <p className="text-dsa-black mb-4">{f.organizationDescription}</p>
             <div className="flex space-x-4">
               {f.socialLinks.map((l: SocialLink) => (
                 <a
@@ -40,7 +40,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={l.name}
-                  className="text-gray-300 hover:text-white"
+                  className="text-dsa-black hover:text-white"
                 >
                   <SocialIcon name={l.icon} />
                 </a>
@@ -56,7 +56,7 @@ export default function Footer() {
                   <li key={ln.name}>
                     <Link
                       href={ln.href}
-                      className="text-gray-300 hover:text-white hover:no-underline"
+                      className="text-dsa-black hover:text-white hover:no-underline"
                     >
                       {ln.name}
                     </Link>
@@ -69,7 +69,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-dsa-black">
               {f.copyright.replace(
                 '{year}',
                 new Date().getFullYear().toString()
@@ -78,7 +78,7 @@ export default function Footer() {
             <p className="mt-2 md:mt-0">
               <Link
                 href="/privacy-policy"
-                className="text-gray-400 hover:text-white"
+                className="text-dsa-black hover:text-white"
               >
                 {f.privacyPolicy}
               </Link>

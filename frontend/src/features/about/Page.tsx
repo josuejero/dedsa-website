@@ -8,7 +8,7 @@ import { AboutPageProps } from './types';
 
 export default function AboutPage(props: AboutPageProps) {
   return (
-    <div className="bg-gray-100 py-12 pt-10">
+    <div className="bg-dsa-red-t4 py-12 pt-10">
       <div className="container-page">
         <h1 className="text-4xl font-bold mb-4">About Delaware DSA</h1>
         <AboutHero missionStatement={props.missionStatement} />

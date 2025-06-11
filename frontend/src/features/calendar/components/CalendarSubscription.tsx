@@ -50,7 +50,7 @@ export default function CalendarSubscription({
         </button>
       </div>
 
-      <p className="text-gray-600 mb-4">
+      <p className="text-dsa-black mb-4">
         Stay up-to-date with all Delaware DSA events by subscribing to our
         calendar.
       </p>
@@ -104,7 +104,7 @@ export default function CalendarSubscription({
 
           {/* iCal/Manual */}
           <div className="p-4 border rounded-lg">
-            <p className="text-sm text-gray-600 mb-2">Copy the iCal URL:</p>
+            <p className="text-sm text-dsa-black mb-2">Copy the iCal URL:</p>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -117,7 +117,7 @@ export default function CalendarSubscription({
                 className={`px-3 py-2 text-sm rounded transition-colors ${
                   copied === 'ical'
                     ? 'bg-green-100 text-green-800'
-                    : 'bg-gray-100 hover:bg-gray-200'
+                    : 'bg-dsa-red-t4 hover:bg-gray-200'
                 }`}
               >
                 {copied === 'ical' ? 'Copied!' : 'Copy'}

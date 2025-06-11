@@ -39,7 +39,7 @@ export default function CalendarFeature({
 }: CalendarFeatureProps) {
   const [showEmbed, setShowEmbed] = useState(true);
   const [selectedMonth, setSelectedMonth] = useState('');
-  const [debugInfo, setDebugInfo] = useState<any>(null);
+  const [debugInfo, setDebugInfo] = useState<CalendarFeatureProps | null>(null);
 
   const { googleCalendarEmbedUrl, iCalUrl, googleCalendarUrl } = subscription;
 
@@ -62,7 +62,7 @@ export default function CalendarFeature({
   }, [title, subtitle, eventCalendar, monthSelectorData, subscription]);
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12">
+    <div className="min-h-screen bg-dsa-red-t4 py-12">
       <div className="container-page">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ export default function CalendarFeature({
           <h1 className="text-4xl font-bold mb-4">
             {title || 'Events Calendar'}
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-dsa-black">
             {subtitle ||
               'Join us for meetings, actions, educational events, and social gatherings.'}
           </p>
@@ -100,7 +100,7 @@ export default function CalendarFeature({
                     className={`px-4 py-2 rounded transition-colors ${
                       showEmbed
                         ? 'bg-dsa-red text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        : 'bg-gray-200 text-dsa-black hover:bg-gray-300'
                     }`}
                   >
                     {showEmbed ? 'Hide Calendar' : 'Show Calendar'}
@@ -133,10 +133,10 @@ export default function CalendarFeature({
                     className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-90 text-center p-8 rounded"
                   >
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      <h3 className="text-lg font-semibold text-dsa-black mb-2">
                         {errorTitle || 'Calendar Temporarily Unavailable'}
                       </h3>
-                      <p className="text-gray-600 mb-4">
+                      <p className="text-dsa-black mb-4">
                         {errorMessage ||
                           'The embedded calendar cannot be displayed. Please use the links below to view our calendar.'}
                       </p>
@@ -169,7 +169,7 @@ export default function CalendarFeature({
                         <h4 className="font-semibold text-lg mb-1">
                           {event.title}
                         </h4>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm text-dsa-black mb-2">
                           {new Date(event.startDate).toLocaleDateString(
                             'en-US',
                             {
@@ -182,14 +182,14 @@ export default function CalendarFeature({
                             }
                           )}
                         </p>
-                        <p className="text-sm text-gray-700">
+                        <p className="text-sm text-dsa-black">
                           {event.isVirtual ? '🔗 Virtual Event' : '📍'}{' '}
                           {event.location}
                         </p>
                       </div>
                     ))
                   ) : (
-                    <p className="text-gray-600">
+                    <p className="text-dsa-black">
                       No upcoming events scheduled.
                     </p>
                   )}
@@ -200,11 +200,11 @@ export default function CalendarFeature({
               <div className="bg-white rounded-lg shadow-md p-6 mt-6">
                 <h3 className="text-xl font-bold mb-4">Event Information</h3>
                 <div className="text-center py-8">
-                  <p className="text-gray-600 mb-2">
+                  <p className="text-dsa-black mb-2">
                     {eventCalendar?.noEventsMessage ||
                       'No upcoming events scheduled.'}
                   </p>
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-dsa-black text-sm">
                     {eventCalendar?.checkBackMessage ||
                       'Please check back later for updates.'}
                   </p>
@@ -245,7 +245,7 @@ export default function CalendarFeature({
               <h3 className="text-lg font-semibold mb-4">
                 {subscribeTitle || 'Subscribe to Our Calendar'}
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-dsa-black mb-4">
                 {subscribeText ||
                   'Stay up-to-date with all Delaware DSA events by subscribing to our calendar.'}
               </p>
@@ -315,17 +315,17 @@ export default function CalendarFeature({
               <div className="space-y-3 text-sm">
                 <div>
                   <strong>General Meetings:</strong>
-                  <p className="text-gray-600">
+                  <p className="text-dsa-black">
                     Fourth Monday of each month, 7:00 PM
                   </p>
                 </div>
                 <div>
                   <strong>Location:</strong>
-                  <p className="text-gray-600">Usually virtual via Zoom</p>
+                  <p className="text-dsa-black">Usually virtual via Zoom</p>
                 </div>
                 <div>
                   <strong>Contact:</strong>
-                  <p className="text-gray-600">
+                  <p className="text-dsa-black">
                     <a
                       href="mailto:info@delawardsa.org"
                       className="text-dsa-red hover:underline"
@@ -368,7 +368,7 @@ export default function CalendarFeature({
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="text-lg font-semibold mb-4">Need Help?</h3>
               <div className="space-y-3 text-sm">
-                <p className="text-gray-600">
+                <p className="text-dsa-black">
                   Having trouble viewing the calendar or need event details?
                 </p>
                 <div className="space-y-2">

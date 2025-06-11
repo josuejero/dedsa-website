@@ -49,7 +49,7 @@ export default function DemocraticSocialism() {
             isHoverable={true}
             hasBorder={true}
           >
-            <p className="text-gray-700">{principle.description}</p>
+            <p className="text-dsa-black">{principle.description}</p>
           </GenericCard>
         ))}
       </div>

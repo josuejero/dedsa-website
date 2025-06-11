@@ -100,7 +100,7 @@ export default function JoinCTASection() {
           {typedJoinCTAContent.description}
         </motion.p>
         <motion.div variants={itemVariants}>
-          <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 text-lg px-8 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
+          <ConfettiButton className="btn bg-white text-dsa-red hover:bg-dsa-red-t4 text-lg px-8 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
             <Link href={typedJoinCTAContent.buttonHref} className="block">
               {typedJoinCTAContent.buttonText}
             </Link>

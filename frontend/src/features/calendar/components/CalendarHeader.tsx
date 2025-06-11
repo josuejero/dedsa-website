@@ -65,14 +65,14 @@ export default function CalendarHeader({
         <div className="flex items-center gap-2">
           <button
             onClick={() => onNavigate('prev')}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-dsa-red-t4 rounded-lg transition-colors"
             aria-label="Previous"
           >
             {/* SVG icon */}
           </button>
           <button
             onClick={() => onNavigate('next')}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-dsa-red-t4 rounded-lg transition-colors"
             aria-label="Next"
           >
             {/* SVG icon */}
@@ -97,7 +97,7 @@ export default function CalendarHeader({
       </div>
 
       {/* View Options */}
-      <div className="flex bg-gray-100 rounded-lg p-1">
+      <div className="flex bg-dsa-red-t4 rounded-lg p-1">
         {VIEW_OPTIONS.map((option) => (
           <button
             key={option.type}
@@ -105,7 +105,7 @@ export default function CalendarHeader({
             className={`px-3 py-2 text-sm rounded transition-all ${
               viewType === option.type
                 ? 'bg-white shadow-sm text-dsa-red font-medium'
-                : 'text-gray-600 hover:text-gray-900'
+                : 'text-dsa-black hover:text-dsa-black'
             }`}
           >
             {option.label}

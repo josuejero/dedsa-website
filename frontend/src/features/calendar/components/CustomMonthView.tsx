@@ -57,7 +57,7 @@ export default function CustomMonthView({
         {weekDays.map((day) => (
           <div
             key={day}
-            className="p-4 text-center font-semibold text-gray-700 bg-gray-50"
+            className="p-4 text-center font-semibold text-dsa-black bg-gray-50"
           >
             {day}
           </div>
@@ -83,10 +83,10 @@ export default function CustomMonthView({
               <div
                 className={`text-sm font-semibold mb-2 ${
                   !isCurrentMonth
-                    ? 'text-gray-400'
+                    ? 'text-dsa-black'
                     : isToday
                       ? 'text-blue-600'
-                      : 'text-gray-900'
+                      : 'text-dsa-black'
                 }`}
               >
                 {date.getDate()}
@@ -107,7 +107,7 @@ export default function CustomMonthView({
                     </div>
                   ))}
                   {dayEvents.length > 2 && (
-                    <div className="text-xs text-gray-500 font-medium">
+                    <div className="text-xs text-dsa-black font-medium">
                       +{dayEvents.length - 2} more
                     </div>
                   )}

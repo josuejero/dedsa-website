@@ -44,7 +44,7 @@ export default function UpcomingEventsCard({ events, maxEvents = 3 }: Props) {
             />
           ))
         ) : (
-          <div className="text-center py-4 text-gray-500">
+          <div className="text-center py-4 text-dsa-black">
             <p>No upcoming events scheduled.</p>
           </div>
         )}

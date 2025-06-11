@@ -11,7 +11,7 @@ export default function ContactPage(props: Props) {
   const { heading, fallbackContactInfo, sections, contactForm } = props;
 
   return (
-    <div className="bg-gray-100 min-h-screen py-12">
+    <div className="bg-dsa-red-t4 min-h-screen py-12">
       <div className="container-page">
         <h1 className="text-4xl font-bold mb-8">{heading}</h1>
 

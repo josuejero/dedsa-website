@@ -2,15 +2,31 @@ import { ThemeProvider } from '@/app/theme/ThemeProvider';
 import Footer from '@/core/components/layout/Footer';
 import Header from '@/core/components/layout/Header';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import React from 'react';
 import './globals.css';
 import { Providers } from './providers';
 
-const inter = Inter({
-  subsets: ['latin'],
+const manifoldDSA = localFont({
+  src: [
+    {
+      path: '../../public/fonts/ManifoldDSA-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ManifoldDSA-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ManifoldDSA-Black.woff2',
+      weight: '900',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-manifold-dsa',
   display: 'swap',
-  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
@@ -28,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={manifoldDSA.variable}>
       <body className="flex flex-col min-h-screen">
         <Providers>
           <ThemeProvider>

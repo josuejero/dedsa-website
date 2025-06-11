@@ -10,7 +10,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'dsa-red': '#ec1f27',
+        dsa: {
+          red: {
+            DEFAULT: '#EC1F27',
+            t1: '#F04C53',
+            t2: '#F4797E',
+            t3: '#F7A5A9',
+            t4: '#FBD2D4',
+          },
+          black: {
+            DEFAULT: '#231F20',
+            t1: '#514D4E',
+            t2: '#7F7B7C',
+            t3: '#ADA9AA',
+            t4: '#DBD7D8',
+          },
+          cream: '#FFF3F5',
+        },
       },
       typography: {
         DEFAULT: {

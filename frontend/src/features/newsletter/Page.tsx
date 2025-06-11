@@ -35,7 +35,7 @@ export default function NewsletterPage(props: NewsletterPageContent) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 py-12">
+      <div className="min-h-screen bg-dsa-red-t4 py-12">
         <div className="container-page">
           <div className="text-center">Loading newsletters...</div>
         </div>
@@ -45,7 +45,7 @@ export default function NewsletterPage(props: NewsletterPageContent) {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-100 py-12">
+      <div className="min-h-screen bg-dsa-red-t4 py-12">
         <div className="container-page">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">{errorTitle}</h1>
@@ -60,12 +60,12 @@ export default function NewsletterPage(props: NewsletterPageContent) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12">
+    <div className="min-h-screen bg-dsa-red-t4 py-12">
       <div className="container-page py-12">
         <h1 className="text-4xl font-bold mb-8">{title}</h1>
 
         {newsletters.length === 0 ? (
-          <p className="text-center text-gray-600">{noPostsMessage}</p>
+          <p className="text-center text-dsa-black">{noPostsMessage}</p>
         ) : (
           <div className="grid gap-6">
             {newsletters.map((newsletter) => (
@@ -83,20 +83,20 @@ export default function NewsletterPage(props: NewsletterPageContent) {
                   >
                     {newsletter.title}
                     {newsletter.htmlPath && (
-                      <span className="ml-2 text-sm text-gray-500">
+                      <span className="ml-2 text-sm text-dsa-black">
                         (View HTML)
                       </span>
                     )}
                   </Link>
                 </h2>
-                <p className="text-gray-600 mb-4">
+                <p className="text-dsa-black mb-4">
                   {new Date(newsletter.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
                   })}
                 </p>
-                <p className="text-gray-700">{newsletter.excerpt}</p>
+                <p className="text-dsa-black">{newsletter.excerpt}</p>
               </article>
             ))}
           </div>

@@ -6,7 +6,7 @@ import WhyJoinDSA from './components/WhyJoinDSA';
 
 export default function JoinPage() {
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-dsa-red-t4 min-h-screen">
       <div className="container-page py-12">
         <JoinHero />
         <WhyJoinDSA />

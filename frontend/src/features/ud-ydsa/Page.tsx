@@ -21,7 +21,7 @@ export default function UdYdsaPage(props: Props) {
   } = props;
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-dsa-red-t4">
       {/* passes only the hero object */}
       <HeroSection hero={hero} />
 
@@ -73,7 +73,7 @@ function CampaignsSection({
             ) => (
               <div key={index} className="bg-white p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-bold mb-3">{campaign.title}</h3>
-                <p className="text-gray-700 mb-4">{campaign.description}</p>
+                <p className="text-dsa-black mb-4">{campaign.description}</p>
                 <a
                   href={campaign.linkHref}
                   className="text-dsa-red hover:underline"
@@ -107,7 +107,7 @@ function EventsSection({
             ) => (
               <div key={index} className="border-l-4 border-dsa-red pl-4 py-3">
                 <h3 className="font-bold text-lg">{event.title}</h3>
-                <p className="text-gray-600">
+                <p className="text-dsa-black">
                   {event.date} at {event.time} • {event.location}
                 </p>
               </div>
@@ -190,7 +190,7 @@ function LeadershipSection({
                   {leader.imageInitials}
                 </div>
                 <h3 className="font-bold">{leader.name}</h3>
-                <p className="text-gray-600">{leader.role}</p>
+                <p className="text-dsa-black">{leader.role}</p>
               </div>
             )
           )}
@@ -212,7 +212,7 @@ function JoinSection({ title, description, buttonText }: JoinSectionContent) {
       <div className="container-page text-center">
         <h2 className="text-3xl font-bold mb-4">{title}</h2>
         <p className="text-xl mb-8 max-w-2xl mx-auto">{description}</p>
-        <a href="/join" className="btn bg-white text-dsa-red hover:bg-gray-100">
+        <a href="/join" className="btn bg-white text-dsa-red hover:bg-dsa-red-t4">
           {buttonText}
         </a>
       </div>

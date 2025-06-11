@@ -16,7 +16,7 @@ export default function BylawsDocument({ bylawsPdf }: BylawsDocumentProps) {
         {typedBylawsDocumentContent.title}
       </h2>
 
-      <div className="aspect-[8.5/11] w-full bg-gray-100 rounded-lg overflow-hidden">
+      <div className="aspect-[8.5/11] w-full bg-dsa-red-t4 rounded-lg overflow-hidden">
         <iframe
           src={bylawsPdf}
           className="w-full h-full"
@@ -24,7 +24,7 @@ export default function BylawsDocument({ bylawsPdf }: BylawsDocumentProps) {
         />
       </div>
 
-      <div className="mt-4 text-center text-gray-600 text-sm">
+      <div className="mt-4 text-center text-dsa-black text-sm">
         {typedBylawsDocumentContent.fallbackMessage}{' '}
         <a href={bylawsPdf} download className="text-dsa-red hover:underline">
           {typedBylawsDocumentContent.downloadLinkText}

@@ -14,7 +14,7 @@ const CATEGORY_COLORS = {
   action: 'bg-red-100 text-red-800 border-red-200',
   social: 'bg-green-100 text-green-800 border-green-200',
   education: 'bg-purple-100 text-purple-800 border-purple-200',
-  other: 'bg-gray-100 text-gray-800 border-gray-200',
+  other: 'bg-dsa-red-t4 text-dsa-black border-gray-200',
 };
 
 export default function EventCard({
@@ -107,7 +107,7 @@ export default function EventCard({
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <h3 className="font-semibold text-lg mb-1">{safeEvent.title}</h3>
-            <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
+            <div className="flex items-center gap-4 text-sm text-dsa-black mb-2">
               <span className="flex items-center gap-1">
                 <svg
                   className="w-4 h-4"
@@ -143,7 +143,7 @@ export default function EventCard({
                 </span>
               )}
             </div>
-            <p className="text-sm text-gray-600 line-clamp-2">
+            <p className="text-sm text-dsa-black line-clamp-2">
               {safeEvent.description}
             </p>
           </div>
@@ -166,7 +166,7 @@ export default function EventCard({
     >
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">
-          <h3 className="text-xl font-bold text-gray-900 line-clamp-2">
+          <h3 className="text-xl font-bold text-dsa-black line-clamp-2">
             {safeEvent.title}
           </h3>
           <span
@@ -177,13 +177,13 @@ export default function EventCard({
         </div>
 
         {safeEvent.description && (
-          <p className="text-gray-600 mb-4 line-clamp-3">
+          <p className="text-dsa-black mb-4 line-clamp-3">
             {safeEvent.description}
           </p>
         )}
 
         <div className="space-y-2 mb-4">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2 text-sm text-dsa-black">
             <svg
               className="w-4 h-4 flex-shrink-0"
               fill="none"
@@ -206,7 +206,7 @@ export default function EventCard({
           </div>
 
           {safeEvent.location && (
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-sm text-dsa-black">
               {safeEvent.isVirtual ? (
                 <svg
                   className="w-4 h-4 flex-shrink-0"
@@ -244,7 +244,7 @@ export default function EventCard({
           )}
 
           {safeEvent.committee && (
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-sm text-dsa-black">
               <svg
                 className="w-4 h-4 flex-shrink-0"
                 fill="none"
@@ -267,7 +267,7 @@ export default function EventCard({
           {safeEvent.tags.map((tag) => (
             <span
               key={tag}
-              className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded"
+              className="px-2 py-1 bg-dsa-red-t4 text-dsa-black text-xs rounded"
             >
               #{tag}
             </span>

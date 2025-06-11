@@ -144,7 +144,7 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
               variants={item}
             >
-              <ConfettiButton className="btn bg-white text-dsa-red hover:bg-gray-100 font-medium transition transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
+              <ConfettiButton className="btn bg-white text-dsa-red hover:bg-dsa-red-t4 font-medium transition transform hover:scale-105 focus:ring-4 focus:ring-white focus:ring-opacity-50 animation-pulse">
                 <Link href={c.buttons.primary.href}>
                   {c.buttons.primary.text}
                 </Link>

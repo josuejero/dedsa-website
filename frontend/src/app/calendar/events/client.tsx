@@ -37,7 +37,7 @@ export default function CalendarEventClient({
   relatedEvents,
 }: CalendarEventClientProps) {
   return (
-    <div className="min-h-screen bg-gray-100 py-12">
+    <div className="min-h-screen bg-dsa-red-t4 py-12">
       <div className="container-page">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,7 +46,7 @@ export default function CalendarEventClient({
         >
           {/* Breadcrumb */}
           <nav className="mb-6">
-            <ol className="flex items-center space-x-2 text-sm text-gray-600">
+            <ol className="flex items-center space-x-2 text-sm text-dsa-black">
               <li>
                 <Link href="/" className="hover:text-dsa-red">
                   Home
@@ -59,7 +59,7 @@ export default function CalendarEventClient({
                 </Link>
               </li>
               <li>/</li>
-              <li className="text-gray-900">{event.title}</li>
+              <li className="text-dsa-black">{event.title}</li>
             </ol>
           </nav>
 
@@ -77,7 +77,7 @@ export default function CalendarEventClient({
                             ? 'bg-red-100 text-red-800'
                             : event.category === 'social'
                               ? 'bg-green-100 text-green-800'
-                              : 'bg-gray-100 text-gray-800'
+                              : 'bg-dsa-red-t4 text-dsa-black'
                       }`}
                     >
                       {event.category.charAt(0).toUpperCase() +
@@ -89,10 +89,10 @@ export default function CalendarEventClient({
                       </span>
                     )}
                   </div>
-                  <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                  <h1 className="text-4xl font-bold text-dsa-black mb-2">
                     {event.title}
                   </h1>
-                  <p className="text-xl text-gray-600">
+                  <p className="text-xl text-dsa-black">
                     {event.committee} Committee
                   </p>
                 </div>
@@ -102,10 +102,10 @@ export default function CalendarEventClient({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg font-semibold text-dsa-black mb-2">
                       Date & Time
                     </h3>
-                    <div className="text-gray-700">
+                    <div className="text-dsa-black">
                       <p className="font-medium">
                         {eventDate.toLocaleDateString('en-US', {
                           weekday: 'long',
@@ -124,10 +124,10 @@ export default function CalendarEventClient({
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg font-semibold text-dsa-black mb-2">
                       Location
                     </h3>
-                    <p className="text-gray-700">{event.location}</p>
+                    <p className="text-dsa-black">{event.location}</p>
                     {event.isVirtual && event.virtualLink && (
                       <a
                         href={event.virtualLink}
@@ -144,7 +144,7 @@ export default function CalendarEventClient({
                 <div className="space-y-4">
                   {event.registrationRequired && (
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      <h3 className="text-lg font-semibold text-dsa-black mb-2">
                         Registration
                       </h3>
                       {event.registrationLink ? (
@@ -157,12 +157,12 @@ export default function CalendarEventClient({
                           Register Now
                         </a>
                       ) : (
-                        <p className="text-gray-700">
+                        <p className="text-dsa-black">
                           Registration required - contact us for details
                         </p>
                       )}
                       {event.capacity && (
-                        <p className="text-sm text-gray-600 mt-2">
+                        <p className="text-sm text-dsa-black mt-2">
                           {event.attendeeCount || 0} / {event.capacity}{' '}
                           registered
                         </p>
@@ -172,14 +172,14 @@ export default function CalendarEventClient({
 
                   {event.tags && event.tags.length > 0 && (
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      <h3 className="text-lg font-semibold text-dsa-black mb-2">
                         Tags
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {event.tags.map((tag, index) => (
                           <span
                             key={index}
-                            className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm"
+                            className="px-2 py-1 bg-dsa-red-t4 text-dsa-black rounded text-sm"
                           >
                             {tag}
                           </span>
@@ -192,10 +192,10 @@ export default function CalendarEventClient({
 
               {/* Event Description */}
               <div className="border-t pt-8">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                <h3 className="text-lg font-semibold text-dsa-black mb-4">
                   About This Event
                 </h3>
-                <div className="prose max-w-none text-gray-700">
+                <div className="prose max-w-none text-dsa-black">
                   <p>{event.description}</p>
                 </div>
               </div>
@@ -222,7 +222,7 @@ export default function CalendarEventClient({
 
           {/* Related Events */}
           <div className="mt-12 bg-white rounded-lg shadow-md p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
+            <h3 className="text-2xl font-bold text-dsa-black mb-6">
               More Events
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -232,13 +232,13 @@ export default function CalendarEventClient({
                   href={`/calendar/events/${relatedEvent.id}`}
                   className="block p-4 border rounded-lg hover:border-dsa-red transition-colors"
                 >
-                  <h4 className="font-semibold text-gray-900 mb-2">
+                  <h4 className="font-semibold text-dsa-black mb-2">
                     {relatedEvent.title}
                   </h4>
-                  <p className="text-sm text-gray-600 mb-2">
+                  <p className="text-sm text-dsa-black mb-2">
                     {new Date(relatedEvent.date).toLocaleDateString()}
                   </p>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-dsa-black">
                     {relatedEvent.description.slice(0, 100)}...
                   </p>
                 </Link>

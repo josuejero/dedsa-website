@@ -41,7 +41,7 @@ export default function GetInvolvedSection() {
   };
 
   return (
-    <section className="py-20 bg-gray-100 relative overflow-hidden">
+    <section className="py-20 bg-dsa-red-t4 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         {isClient && (
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">

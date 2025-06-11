@@ -3,6 +3,20 @@ import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
 import path from 'path';
 
+interface ServiceAccount {
+  client_email: string;
+  private_key: string;
+  type: string;
+  project_id: string;
+  private_key_id: string;
+  client_id: string;
+  auth_uri: string;
+  token_uri: string;
+  auth_provider_x509_cert_url: string;
+  client_x509_cert_url: string;
+  universe_domain: string;
+}
+
 export async function GET() {
   // 1. Validate env
   const calendarId = process.env.GOOGLE_CALENDAR_ID;
@@ -16,7 +30,7 @@ export async function GET() {
   try {
     const credsPath = path.join(process.cwd(), 'src', 'googleService.json');
     const content = await fs.readFile(credsPath, 'utf8');
-    serviceAccount = JSON.parse(content);
+    const serviceAccount: ServiceAccount = JSON.parse(content);
   } catch (err) {
     console.error('Could not load googleService.json:', err);
     return NextResponse.json({ error: 'Credentials missing' }, { status: 500 });
