@@ -7,9 +7,13 @@ import { Event } from './types';
 
 interface Props {
   events: Event[];
+  maxEvents?: number; // Add optional prop to control number of events
 }
 
-export default function UpcomingEventsCard({ events }: Props) {
+export default function UpcomingEventsCard({ events, maxEvents = 3 }: Props) {
+  // Limit the number of events displayed
+  const displayedEvents = events.slice(0, maxEvents);
+
   return (
     <div className="group bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
       <div className="flex items-center mb-6">
@@ -31,13 +35,19 @@ export default function UpcomingEventsCard({ events }: Props) {
       </div>
 
       <div className="space-y-4">
-        {events.map((event, index) => (
-          <EventItem
-            key={`${event.title}-${index}`}
-            event={event}
-            index={index}
-          />
-        ))}
+        {displayedEvents.length > 0 ? (
+          displayedEvents.map((event, index) => (
+            <EventItem
+              key={`${event.title}-${index}`}
+              event={event}
+              index={index}
+            />
+          ))
+        ) : (
+          <div className="text-center py-4 text-gray-500">
+            <p>No upcoming events scheduled.</p>
+          </div>
+        )}
       </div>
 
       <div className="mt-8">

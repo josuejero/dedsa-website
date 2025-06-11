@@ -1,63 +1,60 @@
+import { promises as fs } from 'fs';
 import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
+import path from 'path';
 
 export async function GET() {
+  // 1. Validate env
+  const calendarId = process.env.GOOGLE_CALENDAR_ID;
+  if (!calendarId) {
+    console.error('GOOGLE_CALENDAR_ID is not set');
+    return NextResponse.json({ error: 'Missing calendar ID' }, { status: 500 });
+  }
+
+  // 2. Load service account
+  let serviceAccount: any;
   try {
-    // Check for required environment variables
-    if (!process.env.GOOGLE_CALENDAR_ID) {
-      console.error('GOOGLE_CALENDAR_ID environment variable is not set');
-      return NextResponse.json(
-        { error: 'Calendar configuration missing' },
-        { status: 500 }
-      );
-    }
+    const credsPath = path.join(process.cwd(), 'src', 'googleService.json');
+    const content = await fs.readFile(credsPath, 'utf8');
+    serviceAccount = JSON.parse(content);
+  } catch (err) {
+    console.error('Could not load googleService.json:', err);
+    return NextResponse.json({ error: 'Credentials missing' }, { status: 500 });
+  }
 
-    // Import service account credentials
-    let serviceAccount;
-    try {
-      serviceAccount = await import('../../../googleService.json');
-    } catch (error) {
-      console.error('Google service account file not found:', error);
-      return NextResponse.json(
-        { error: 'Service account credentials missing' },
-        { status: 500 }
-      );
-    }
-
-    // Create Google Auth client
+  try {
+    // 3. Authenticate
     const auth = new google.auth.JWT({
       email: serviceAccount.client_email,
       key: serviceAccount.private_key,
       scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
     });
-
-    // Initialize Calendar API
     const calendar = google.calendar({ version: 'v3', auth });
 
-    // Fetch events
+    // 4. Fetch events
     const { data } = await calendar.events.list({
-      calendarId: process.env.GOOGLE_CALENDAR_ID,
+      calendarId,
       timeMin: new Date().toISOString(),
       singleEvents: true,
       orderBy: 'startTime',
       maxResults: 50,
     });
 
-    // Transform events to expected format
-    const events = (data.items || []).map((event) => ({
-      id: event.id || '',
-      summary: event.summary || 'No title',
-      description: event.description || '',
-      start: event.start || {},
-      end: event.end || {},
-      location: event.location || '',
+    // 5. Transform
+    const events = (data.items || []).map((evt) => ({
+      id: evt.id || '',
+      summary: evt.summary || 'No title',
+      description: evt.description || '',
+      start: evt.start || {},
+      end: evt.end || {},
+      location: evt.location || '',
     }));
 
     return NextResponse.json(events);
-  } catch (error) {
-    console.error('Calendar API error:', error);
+  } catch (err) {
+    console.error('Calendar API error:', err);
     return NextResponse.json(
-      { error: 'Failed to fetch calendar events' },
+      { error: 'Failed to fetch events' },
       { status: 500 }
     );
   }
