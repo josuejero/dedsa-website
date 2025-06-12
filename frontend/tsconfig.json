@@ -26,7 +26,7 @@
     ],
     "paths": { "@/*": ["src/*"], "@/core/*": ["src/core/*"] },
     "baseUrl": ".",
-    "types": ["node"]
+    "types": ["node", "jest"]
   },
   "include": [
     "*.config.ts",
@@ -35,7 +35,8 @@
     ".next/types/**/*.ts",
     "src",
     "setupTests.ts",
-    "src/**/*.json"
+    "src/**/*.json",
+    "jest.config.js"
   ],
   "references": [],
   "exclude": ["node_modules"]
