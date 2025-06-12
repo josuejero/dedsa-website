@@ -12,11 +12,11 @@
     --text-secondary: theme('colors.gray.600');
     --text-muted: theme('colors.gray.500');
     --heading-text: theme('colors.gray.900');
-    --link-text: theme('colors.dsa-red');
+    --link-text: theme('colors.dsa.red.DEFAULT');
     --nav-text: theme('colors.gray.700');
     --on-accent: theme('colors.white');
     --btn-primary-text: var(--on-accent);
-    --btn-secondary-text: theme('colors.dsa-red');
+    --btn-secondary-text: theme('colors.dsa.red.DEFAULT');
     --card-title: theme('colors.gray.800');
     --card-text: theme('colors.gray.600');
 
