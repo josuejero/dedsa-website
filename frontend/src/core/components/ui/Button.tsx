@@ -5,14 +5,14 @@ import { ButtonProps } from '@/core/components/types';
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'primary', size = 'md', className = '', ...props }, ref) => {
     const baseClasses =
-      'inline-flex items-center justify-center font-manifold-dsa font-bold rounded-none transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
+      'btn inline-flex items-center justify-center font-manifold-dsa font-bold rounded-none transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
 
     const variantClasses = {
-      primary: 'bg-dsa-red text-white hover:bg-dsa-red-t1 focus:ring-dsa-red',
+      primary: 'btn-primary bg-dsa-red text-white hover:bg-dsa-red-t1 focus:ring-dsa-red',
       secondary:
-        'bg-white text-dsa-red border-2 border-dsa-red hover:bg-dsa-red hover:text-white focus:ring-dsa-red',
+        'btn-secondary bg-white text-dsa-red border-2 border-dsa-red hover:bg-dsa-red hover:text-white focus:ring-dsa-red',
       outline:
-        'bg-transparent text-dsa-red border-2 border-dsa-red hover:bg-dsa-red hover:text-white focus:ring-dsa-red',
+        'btn-outline bg-transparent text-dsa-red border-2 border-dsa-red hover:bg-dsa-red hover:text-white focus:ring-dsa-red',
     }[variant];
 
     const sizeClasses = {

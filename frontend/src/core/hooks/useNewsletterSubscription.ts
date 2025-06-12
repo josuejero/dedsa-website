@@ -22,7 +22,7 @@ export function useNewsletterSubscription() {
     setErrorMessage('');
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 50));
 
       setStatus('success');
       setEmail('');
