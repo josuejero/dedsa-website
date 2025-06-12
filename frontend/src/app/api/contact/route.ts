@@ -17,7 +17,10 @@ export async function POST(req: Request) {
       !isEmail(cleanEmail) ||
       !isNonEmpty(cleanMessage)
     ) {
-      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+      return new Response(JSON.stringify({ error: 'Invalid input' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const transporter = nodemailer.createTransport({
@@ -31,17 +34,20 @@ export async function POST(req: Request) {
 
     await transporter.sendMail({
       from: cleanEmail,
-      to: process.env.CONTACT_EMAIL_TO || process.env.EMAIL_SERVICE_USER,
+      to: process.env.CONTACT_EMAIL_TO || process.env.EMAIL_SERVICE_USER || '',
       subject: cleanSubject || `Contact form submission from ${cleanName}`,
       text: cleanMessage,
     });
 
-    return NextResponse.json({ success: true });
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error('Error processing contact form:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
