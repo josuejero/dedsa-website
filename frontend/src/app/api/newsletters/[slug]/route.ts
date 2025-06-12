@@ -1,11 +1,10 @@
 // frontend/src/app/api/newsletters/[slug]/route.ts
 import fs from 'fs/promises';
-import { NextRequest } from 'next/server';
 import path from 'path';
 
 export async function GET(
-  _req: NextRequest,
-  { params }: { params: { slug: string } }
+  _req: Request,
+  { params }: any
 ) {
   const { slug } = params;
   const filePath = path.join(
