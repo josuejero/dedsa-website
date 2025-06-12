@@ -16,6 +16,10 @@ const EXCLUDE_FILES = [
   'may-2025-newsletter.html',
   '.DS_Store',
   'dedsa-logo.png',
+  '*.woff',
+  '*.woff2',
+  '*.eot',
+  'output.txt',
   /\.(test|spec)\.[jt]sx?$/,
 ];
 
@@ -38,6 +42,7 @@ async function* getFiles(dir) {
           'backend',
           'original-backup',
           'dist',
+          'fonts',
         ].includes(dirent.name)
       ) {
         continue;

@@ -66,7 +66,6 @@ yarn-error.log*
 *.sw?
 # Project specific
 .tmp/
-package-lock.json
 .env.local
 .env.*.local
 .env.production
