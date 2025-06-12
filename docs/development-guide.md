@@ -15,3 +15,7 @@
 ## Deployment
 
 Refer to the deployment documentation for production setup instructions.
+
+## Token Management
+
+Run `node count-tokens-dir.js` to view token counts for each file. You can minimize JSON files to lower the overall count by executing `node minify-json.js` from the repository root.

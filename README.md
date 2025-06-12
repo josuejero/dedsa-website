@@ -38,3 +38,7 @@ Website for Delaware DSA
 ## Setup
 
 Run `./setup.sh` from the repository root to install Node tooling used by the frontend.
+
+## Token Management
+
+Use `node count-tokens-dir.js` to inspect token counts for all files. To reduce token usage in JSON content, run `node minify-json.js` which minifies every JSON file in the repository.
