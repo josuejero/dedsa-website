@@ -1,18 +1,15 @@
 'use client';
 
 import type {
-  CorePrinciplesContent,
-  OrganizationContent,
   PositionCardContent,
-  StrategicGoalsContent,
   WhatWeStandForPageContent,
 } from '@/core/types/pages/whatWeStandFor';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 import CorePrinciplesSection from './CorePrinciplesSection';
-import StrategicGoalsSection from './StrategicGoalsSection';
 import OrganizationSection from './OrganizationSection';
+import StrategicGoalsSection from './StrategicGoalsSection';
 
 type Props = WhatWeStandForPageContent & { positionCard: PositionCardContent };
 
