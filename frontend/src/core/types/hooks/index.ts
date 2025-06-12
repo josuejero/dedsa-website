@@ -18,16 +18,5 @@ export interface UseInfiniteScrollProps {
   onLoadMore: () => Promise<void>;
 }
 
-// useKeyboardShortcut types
-export type KeyHandler = (event: KeyboardEvent) => void;
-export type KeyMap = Record<string, KeyHandler>;
-
-export interface ShortcutOptions {
-  ctrlKey?: boolean;
-  altKey?: boolean;
-  shiftKey?: boolean;
-  metaKey?: boolean;
-}
-
 // useNewsletterSubscription types
 export type SubscriptionStatus = 'idle' | 'submitting' | 'success' | 'error';
