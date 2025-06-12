@@ -3,6 +3,7 @@ import 'whatwg-fetch';
 
 // Mock IntersectionObserver
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 (global as any).IntersectionObserver = class IntersectionObserver {
   constructor() {}
   disconnect() {}
