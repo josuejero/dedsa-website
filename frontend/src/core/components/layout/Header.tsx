@@ -79,7 +79,11 @@ export default function Header() {
         </div>
 
         {/* Mobile menu toggle */}
-        <button className="md:hidden" onClick={() => setOpen(!open)}>
+        <button
+          className="md:hidden"
+          aria-label="Toggle navigation menu"
+          onClick={() => setOpen(!open)}
+        >
           <svg
             className={`h-6 w-6 ${
               sc ? 'text-heading' : home ? 'text-on-accent' : 'text-heading'
