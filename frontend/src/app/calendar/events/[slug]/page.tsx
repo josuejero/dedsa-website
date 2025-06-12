@@ -104,7 +104,6 @@ export default async function CalendarEventPage({ params }: PageProps) {
     notFound();
   }
 
-  const eventDate = new Date(`${event.date}T${event.startTime || '00:00'}`);
   const allEvents = Object.values(events);
   const relatedEvents = allEvents.filter((e) => e.id !== event.id).slice(0, 2);
 
