@@ -1,7 +1,6 @@
 // src/core/services/contentService.ts
 import footer from '../content/layout/footer.json';
 import header from '../content/layout/header.json';
-import newsletterSignup from '../content/components/newsletterSignup.json';
 import about from '../content/pages/about.json';
 import bylaws from '../content/pages/bylaws.json';
 import calendar from '../content/pages/calendar.json';
@@ -30,7 +29,6 @@ const pageContent = {
 const componentContent = {
   header,
   footer,
-  newsletterSignup,
 };
 
 export const contentService = {
