@@ -1,6 +1,6 @@
 // src/core/services/contentService.ts
-import footer from '../content/components/footer.json';
-import header from '../content/components/header.json';
+import footer from '../content/layout/footer.json';
+import header from '../content/layout/header.json';
 import newsletterSignup from '../content/components/newsletterSignup.json';
 import about from '../content/pages/about.json';
 import bylaws from '../content/pages/bylaws.json';
