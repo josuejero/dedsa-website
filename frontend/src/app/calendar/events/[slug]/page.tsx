@@ -109,14 +109,7 @@ export default async function CalendarEventPage({ params }: PageProps) {
   const allEvents = Object.values(events);
   const relatedEvents = allEvents.filter((e) => e.id !== event.id).slice(0, 2);
 
-  return (
-    <CalendarEventClient
-      event={event}
-      eventDate={eventDate}
-      isUpcoming={isUpcoming}
-      relatedEvents={relatedEvents}
-    />
-  );
+  return <CalendarEventClient event={event} relatedEvents={relatedEvents} />;
 }
 
 // Generate metadata for SEO

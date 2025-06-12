@@ -25,7 +25,7 @@ export const a11y = {
 
   // Generate accessible color pairs
   getAccessiblePair: (baseColor: string) => {
-    const pairs = {
+    const pairs: Record<string, { light: string; dark: string | null }> = {
       '#EC1F27': { light: '#FFFFFF', dark: '#231F20' },
       '#231F20': { light: '#FFFFFF', dark: null },
     };

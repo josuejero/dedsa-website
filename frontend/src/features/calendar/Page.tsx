@@ -39,8 +39,8 @@ export default function CalendarFeature({
 }: CalendarFeatureProps) {
   const [showEmbed, setShowEmbed] = useState(true);
   const [selectedMonth, setSelectedMonth] = useState('');
-  const [debugInfo, setDebugInfo] = useState<CalendarFeatureProps | null>(null);
-
+  const [debugInfo, setDebugInfo] =
+    useState<Partial<CalendarFeatureProps> | null>(null);
   const { googleCalendarEmbedUrl, iCalUrl, googleCalendarUrl } = subscription;
 
   // Add debug logging

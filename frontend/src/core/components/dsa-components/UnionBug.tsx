@@ -1,5 +1,13 @@
-export const UnionBug = ({ printer = 'Local 123', size = 'small' }) => {
-  const sizes = {
+type BugSize = 'small' | 'medium' | 'large';
+
+export const UnionBug = ({
+  printer = 'Local 123',
+  size = 'small',
+}: {
+  printer?: string;
+  size?: BugSize;
+}) => {
+  const sizes: Record<BugSize, { width: string; fontSize: string }> = {
     small: { width: '0.5in', fontSize: '6pt' },
     medium: { width: '0.75in', fontSize: '8pt' },
     large: { width: '1in', fontSize: '10pt' },
