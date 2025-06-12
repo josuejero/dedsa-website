@@ -3,7 +3,7 @@
 import Blob from '@/core/components/ui/Blob';
 import ConfettiButton from '@/core/components/ui/Confetti';
 import { contentService } from '@/core/services/contentService';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -24,19 +24,19 @@ export default function HeroSection() {
     setReady(true);
   }, []);
 
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: { staggerChildren: 0.2, delayChildren: 0.3 },
     },
   };
-  const item = {
+  const item: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
+      transition: { duration: 0.8, ease: 'easeOut' as const },
     },
   };
 

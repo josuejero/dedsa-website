@@ -33,30 +33,37 @@ export default function ContactInfo({
           </div>
         </div>
 
-        <div className="flex items-start">
-          <PhoneIcon className="h-6 w-6 text-dsa-red mr-3 mt-1" />
-          <div>
-            <p className="font-semibold">
-              {sections.getInTouch.contactTypes.phone.label}
-            </p>
-            <a
-              href={`tel:${contactInfo.phone}`}
-              className="text-dsa-red hover:underline"
-            >
-              {contactInfo.phone}
-            </a>
+        {contactInfo.phone && sections.getInTouch.contactTypes.phone && (
+          <div className="flex items-start">
+            <PhoneIcon className="h-6 w-6 text-dsa-red mr-3 mt-1" />
+            <div>
+              <p className="font-semibold">
+                {sections.getInTouch.contactTypes.phone.label}
+              </p>
+              <a
+                href={`tel:${contactInfo.phone}`}
+                className="text-dsa-red hover:underline"
+              >
+                {contactInfo.phone}
+              </a>
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="flex items-start">
-          <MapPinIcon className="h-6 w-6 text-dsa-red mr-3 mt-1" />
-          <div>
-            <p className="font-semibold">
-              {sections.getInTouch.contactTypes.mailingAddress.label}
-            </p>
-            <p className="whitespace-pre-line">{contactInfo.mailingAddress}</p>
-          </div>
-        </div>
+        {contactInfo.mailingAddress &&
+          sections.getInTouch.contactTypes.mailingAddress && (
+            <div className="flex items-start">
+              <MapPinIcon className="h-6 w-6 text-dsa-red mr-3 mt-1" />
+              <div>
+                <p className="font-semibold">
+                  {sections.getInTouch.contactTypes.mailingAddress.label}
+                </p>
+                <p className="whitespace-pre-line">
+                  {contactInfo.mailingAddress}
+                </p>
+              </div>
+            </div>
+          )}
       </div>
     </div>
   );

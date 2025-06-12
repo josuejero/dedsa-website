@@ -1,7 +1,6 @@
 import FAQ from './components/FAQ';
 import JoinHero from './components/JoinHero';
 import MembershipOptions from './components/MembershipOptions';
-import Testimonials from './components/Testimonials';
 import WhyJoinDSA from './components/WhyJoinDSA';
 
 export default function JoinPage() {
@@ -11,7 +10,6 @@ export default function JoinPage() {
         <JoinHero />
         <WhyJoinDSA />
         <MembershipOptions />
-        <Testimonials />
         <FAQ />
       </div>
     </div>
