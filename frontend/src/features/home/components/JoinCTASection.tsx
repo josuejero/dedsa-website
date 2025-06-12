@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, type Variants } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -22,7 +22,7 @@ export default function JoinCTASection() {
     }
   }, [controls, inView]);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -33,17 +33,17 @@ export default function JoinCTASection() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
+      transition: { duration: 0.8, ease: 'easeOut' as const },
     },
   };
 
   // Animated diagonal line pattern
-  const linePatternVariants = {
+  const linePatternVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 0.1,

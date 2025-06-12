@@ -1,6 +1,7 @@
 'use client';
 
 import useSWR from 'swr';
+import sampleData from '@/core/content/sample-events.json';
 
 export interface Event {
   title: string;
@@ -41,7 +42,9 @@ export function useGoogleCalendar(): {
     revalidateOnReconnect: false,
   });
 
-  const events: Event[] = (data || [])
+  const eventData = data && !error ? data : (sampleData as GoogleCalendarEvent[]);
+
+  const events: Event[] = (eventData || [])
     .filter((e) => e?.summary && (e.start.dateTime || e.start.date))
     .slice(0, 3) // Only show next 3 events on home page
     .map((e) => {
@@ -70,6 +73,6 @@ export function useGoogleCalendar(): {
   return {
     events,
     isLoading,
-    isError: !!error,
+    isError: !!error && !data,
   };
 }
