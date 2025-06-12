@@ -1,16 +1,30 @@
 'use client';
-import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
-import type { ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
   fallback?: ReactNode;
 }
 
-export default function ErrorBoundary({ children, fallback }: Props) {
-  return (
-    <ReactErrorBoundary fallbackRender={() => <>{fallback || <p>Something went wrong.</p>}</>}>
-      {children}
-    </ReactErrorBoundary>
-  );
+interface State {
+  hasError: boolean;
+}
+
+export default class ErrorBoundary extends Component<Props, State> {
+  state: State = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error) {
+    console.error(error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <>{this.props.fallback || <p>Something went wrong.</p>}</>;
+    }
+    return this.props.children;
+  }
 }

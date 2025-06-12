@@ -48,7 +48,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav, now centered */}
-        <nav className="hidden md:flex flex-1 items-center justify-center space-x-6">
+        <div className="hidden md:flex flex-1 items-center justify-center space-x-6">
           {h.navItems.map((i: { name: string; href: string }) => (
             <Link
               key={i.name}
@@ -60,7 +60,7 @@ export default function Header() {
               {i.name}
             </Link>
           ))}
-        </nav>
+        </div>
 
         {/* Join button */}
         <div className="hidden md:flex">
