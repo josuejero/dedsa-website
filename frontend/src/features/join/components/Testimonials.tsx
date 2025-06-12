@@ -1,4 +1,4 @@
-import testimonialsData from '@/features/join/content/join.json';
+import testimonialsData from '@/core/content/pages/join.json';
 import { TestimonialsContent } from '@/features/join/types';
 
 // Type assertion for imported JSON

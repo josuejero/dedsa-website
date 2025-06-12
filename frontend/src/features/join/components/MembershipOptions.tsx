@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import membershipOptionsData from '@/features/join/content/join.json';
+import membershipOptionsData from '@/core/content/pages/join.json';
 import { MembershipOptionsContent } from '@/features/join/types';
 
 // Type assertion for imported JSON

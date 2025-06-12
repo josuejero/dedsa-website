@@ -1,4 +1,4 @@
-import faqData from '@/features/join/content/join.json';
+import faqData from '@/core/content/pages/join.json';
 import { FAQContent } from '@/features/join/types';
 
 // Type assertion for imported JSON
