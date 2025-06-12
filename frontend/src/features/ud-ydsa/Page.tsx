@@ -7,6 +7,7 @@ import type {
   MeetingInfoSectionContent,
   UdYdsaPageContent,
 } from '@/core/types/pages/ud-ydsa';
+import { EventDisplay } from '@/core/components/events';
 
 type Props = UdYdsaPageContent;
 
@@ -100,19 +101,9 @@ function EventsSection({
       <div className="container-page">
         <h2 className="text-3xl font-bold mb-8">Upcoming Events</h2>
         <div className="space-y-4 mb-8">
-          {upcomingEvents?.map(
-            (
-              event: EventsSectionContent['upcomingEvents'][number],
-              index: number
-            ) => (
-              <div key={index} className="border-l-4 border-dsa-red pl-4 py-3">
-                <h3 className="font-bold text-lg">{event.title}</h3>
-                <p className="text-dsa-black">
-                  {event.date} at {event.time} • {event.location}
-                </p>
-              </div>
-            )
-          )}
+          {upcomingEvents?.map((event, index) => (
+            <EventDisplay key={index} event={event} />
+          ))}
         </div>
         <a href={viewAllLinkHref} className="text-dsa-red hover:underline">
           {viewAllLinkText}
