@@ -1,10 +1,21 @@
+import Image from 'next/image';
+import { DSALogo } from './DSALogo';
+
+interface SocialMediaTemplateProps {
+  platform: 'instagram' | 'twitter' | 'facebook' | 'tiktok';
+  campaign: string;
+  message: string;
+  cta: string;
+  image?: string;
+}
+
 export const SocialMediaTemplate = ({
   platform,
   campaign,
   message,
   cta,
   image,
-}) => {
+}: SocialMediaTemplateProps) => {
   const specs = {
     instagram: { width: 1080, height: 1350, ratio: '4:5' },
     twitter: { width: 1600, height: 900, ratio: '16:9' },

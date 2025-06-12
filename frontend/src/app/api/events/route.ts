@@ -26,11 +26,11 @@ export async function GET() {
   }
 
   // 2. Load service account
-  let serviceAccount: any;
+  let serviceAccount: ServiceAccount;
   try {
     const credsPath = path.join(process.cwd(), 'src', 'googleService.json');
     const content = await fs.readFile(credsPath, 'utf8');
-    const serviceAccount: ServiceAccount = JSON.parse(content);
+    serviceAccount = JSON.parse(content) as ServiceAccount;
   } catch (err) {
     console.error('Could not load googleService.json:', err);
     return NextResponse.json({ error: 'Credentials missing' }, { status: 500 });
@@ -54,15 +54,7 @@ export async function GET() {
       maxResults: 50,
     });
 
-    // 5. Transform
-    const events = (data.items || []).map((evt) => ({
-      id: evt.id || '',
-      summary: evt.summary || 'No title',
-      description: evt.description || '',
-      start: evt.start || {},
-      end: evt.end || {},
-      location: evt.location || '',
-    }));
+    const events = data.items;
 
     return NextResponse.json(events);
   } catch (err) {
