@@ -10,6 +10,7 @@ import join from '../content/pages/join.json';
 import leadership from '../content/pages/leadership.json';
 import newsletter from '../content/pages/newsletter.json';
 import udYdsa from '../content/pages/ud-ydsa.json';
+import committees from '../content/pages/committees.json';
 import whatWeStandFor from '../content/pages/what-we-stand-for.json';
 
 // Import all content directly
@@ -22,6 +23,7 @@ const pageContent = {
   leadership,
   newsletter,
   bylaws,
+  committees,
   whatWeStandFor,
   udYdsa,
 };
