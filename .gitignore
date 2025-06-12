@@ -81,3 +81,5 @@ migrations/*.sql
 # Cypress support builds (if any)
 cypress/**/*.js
 cypress/**/*.d.ts
+coverage/
+output.txt
