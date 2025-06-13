@@ -46,11 +46,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={manifoldDSA.variable}>
       <body className="flex flex-col min-h-screen">
-        <a href="#main" className="sr-only focus:not-sr-only">Skip to content</a>
+        <a href="#main" className="sr-only focus:not-sr-only">
+          Skip to content
+        </a>
         <Providers>
           <ThemeProvider>
             <Header />
-            <main id="main" className="flex-grow">{children}</main>
+            <main id="main" className="flex-grow">
+              {children}
+            </main>
             <Footer />
           </ThemeProvider>
         </Providers>
