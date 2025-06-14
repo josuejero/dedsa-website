@@ -361,3 +361,27 @@
   border: none;
   box-shadow: none;
 }
+
+/*----------------------------------------------
+  5. Additional Utilities and Components
+-----------------------------------------------*/
+@layer components {
+  .glow-card {
+    @apply shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg;
+  }
+  .frosted-bg {
+    @apply bg-white/30 backdrop-blur-md;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
