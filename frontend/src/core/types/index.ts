@@ -12,7 +12,12 @@ export interface BaseEvent {
   isVirtual?: boolean;
 }
 
-export type EventCategory = 'meeting' | 'action' | 'social' | 'education' | 'other';
+export type EventCategory =
+  | 'meeting'
+  | 'action'
+  | 'social'
+  | 'education'
+  | 'other';
 
 export interface CalendarEvent extends BaseEvent {
   startDate: string;

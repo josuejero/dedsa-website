@@ -3,8 +3,12 @@ import { sanitizeString } from '../sanitization';
 describe('sanitizeString', () => {
   it('removes HTML tags', () => {
     expect(sanitizeString('<p>Hello</p>')).toBe('Hello');
-    expect(sanitizeString('<script>alert("xss")</script>')).toBe('alert("xss")');
-    expect(sanitizeString('Text with <b>bold</b> and <i>italic</i>')).toBe('Text with bold and italic');
+    expect(sanitizeString('<script>alert("xss")</script>')).toBe(
+      'alert("xss")'
+    );
+    expect(sanitizeString('Text with <b>bold</b> and <i>italic</i>')).toBe(
+      'Text with bold and italic'
+    );
   });
 
   it('trims whitespace', () => {

@@ -16,5 +16,7 @@ export default function ValidatedForm<T extends Record<string, any>>({
   children,
 }: ValidatedFormProps<T>) {
   const methods = useForm<T>({ resolver: yupResolver(schema), mode: 'onBlur' });
-  return <form onSubmit={methods.handleSubmit(onSubmit)}>{children(methods)}</form>;
+  return (
+    <form onSubmit={methods.handleSubmit(onSubmit)}>{children(methods)}</form>
+  );
 }

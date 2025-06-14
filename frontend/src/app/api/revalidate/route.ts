@@ -25,7 +25,10 @@ export async function POST(request: NextRequest) {
 
     // Validate presence of secret
     if (!secret) {
-      return NextResponse.json({ error: 'Missing secret parameter' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Missing secret parameter' },
+        { status: 400 }
+      );
     }
 
     // Constant-time comparison replaced by simple equality for now
@@ -49,11 +52,14 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
           revalidated: true,
           path,
-          message: `Path "${path}" revalidated successfully`
+          message: `Path "${path}" revalidated successfully`,
         });
       } catch (err) {
         console.error('Error revalidating path:', err);
-        return NextResponse.json({ error: 'Failed to revalidate path' }, { status: 500 });
+        return NextResponse.json(
+          { error: 'Failed to revalidate path' },
+          { status: 500 }
+        );
       }
     }
 
@@ -64,11 +70,14 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
           revalidated: true,
           tag,
-          message: `Tag "${tag}" revalidated successfully`
+          message: `Tag "${tag}" revalidated successfully`,
         });
       } catch (err) {
         console.error('Error revalidating tag:', err);
-        return NextResponse.json({ error: 'Failed to revalidate tag' }, { status: 500 });
+        return NextResponse.json(
+          { error: 'Failed to revalidate tag' },
+          { status: 500 }
+        );
       }
     }
 

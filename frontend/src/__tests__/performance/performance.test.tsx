@@ -26,9 +26,13 @@ describe('Performance Tests', () => {
   it('Does not have memory leaks on unmount', () => {
     const { unmount } = render(<HomePage />);
 
-    const beforeUnmount = (global as any).gc ? performance.memory.usedJSHeapSize : 0;
+    const beforeUnmount = (global as any).gc
+      ? performance.memory.usedJSHeapSize
+      : 0;
     unmount();
-    const afterUnmount = (global as any).gc ? performance.memory.usedJSHeapSize : 0;
+    const afterUnmount = (global as any).gc
+      ? performance.memory.usedJSHeapSize
+      : 0;
 
     expect(afterUnmount - beforeUnmount).toBeLessThan(1000000);
   });

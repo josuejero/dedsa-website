@@ -3,7 +3,9 @@ import HeroSection from '../HeroSection';
 
 jest.mock('framer-motion', () => ({
   motion: {
-    section: ({ children, ...props }: any) => <section {...props}>{children}</section>,
+    section: ({ children, ...props }: any) => (
+      <section {...props}>{children}</section>
+    ),
     div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
     h1: ({ children, ...props }: any) => <h1 {...props}>{children}</h1>,
     h2: ({ children, ...props }: any) => <h2 {...props}>{children}</h2>,
@@ -16,12 +18,16 @@ describe('HeroSection', () => {
   it('renders main heading and subheading', () => {
     render(<HeroSection />);
     expect(screen.getByText('Delaware DSA')).toBeInTheDocument();
-    expect(screen.getByText('Building Power for Working People')).toBeInTheDocument();
+    expect(
+      screen.getByText('Building Power for Working People')
+    ).toBeInTheDocument();
   });
 
   it('renders tagline and description', () => {
     render(<HeroSection />);
-    expect(screen.getByText('Member-run, progressive activism since 2021')).toBeInTheDocument();
+    expect(
+      screen.getByText('Member-run, progressive activism since 2021')
+    ).toBeInTheDocument();
     expect(screen.getByText(/We're building a democratic/)).toBeInTheDocument();
   });
 

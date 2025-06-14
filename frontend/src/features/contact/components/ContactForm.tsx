@@ -15,10 +15,7 @@ interface FormValues {
 const schema: yup.ObjectSchema<FormValues> = yup
   .object({
     name: yup.string().required('Name is required'),
-    email: yup
-      .string()
-      .email('Invalid email')
-      .required('Email is required'),
+    email: yup.string().email('Invalid email').required('Email is required'),
     subject: yup.string().default(''),
     message: yup.string().required('Message is required'),
   })
@@ -72,7 +69,9 @@ export default function ContactForm(props: ContactFormContent) {
       <div>
         <label className="block text-sm font-medium mb-1">
           {formFields.message.label}
-          {formFields.message.required && <span className="text-red-500">*</span>}
+          {formFields.message.required && (
+            <span className="text-red-500">*</span>
+          )}
         </label>
         <textarea
           {...form.register('message')}
@@ -87,7 +86,11 @@ export default function ContactForm(props: ContactFormContent) {
         )}
       </div>
 
-      <button type="submit" disabled={form.formState.isSubmitting} className="btn btn-primary w-full">
+      <button
+        type="submit"
+        disabled={form.formState.isSubmitting}
+        className="btn btn-primary w-full"
+      >
         {form.formState.isSubmitting ? buttons.sending : buttons.submit}
       </button>
     </>

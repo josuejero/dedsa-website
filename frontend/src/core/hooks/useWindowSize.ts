@@ -11,7 +11,7 @@ interface WindowSize {
 const BREAKPOINTS = {
   mobile: 640,
   tablet: 768,
-  desktop: 1024
+  desktop: 1024,
 } as const;
 
 export function useWindowSize(): WindowSize {
@@ -20,7 +20,7 @@ export function useWindowSize(): WindowSize {
     height: typeof window !== 'undefined' ? window.innerHeight : 0,
     isMobile: false,
     isTablet: false,
-    isDesktop: true
+    isDesktop: true,
   });
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export function useWindowSize(): WindowSize {
         height: window.innerHeight,
         isMobile: width < BREAKPOINTS.mobile,
         isTablet: width >= BREAKPOINTS.mobile && width < BREAKPOINTS.desktop,
-        isDesktop: width >= BREAKPOINTS.desktop
+        isDesktop: width >= BREAKPOINTS.desktop,
       });
     };
 

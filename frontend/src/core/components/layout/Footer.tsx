@@ -28,9 +28,7 @@ export default function Footer() {
       <div className="container-page py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">
-              {f.organizationName}
-            </h3>
+            <h3 className="text-xl font-bold mb-4">{f.organizationName}</h3>
             <p className="mb-4">{f.organizationDescription}</p>
             <div className="flex space-x-4">
               {f.socialLinks.map((l: SocialLink) => (
@@ -56,7 +54,7 @@ export default function Footer() {
                   <li key={ln.name}>
                     <Link
                       href={ln.href}
-                    className="text-white hover:text-dsa-red hover:no-underline"
+                      className="text-white hover:text-dsa-red hover:no-underline"
                     >
                       {ln.name}
                     </Link>

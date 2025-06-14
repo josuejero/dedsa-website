@@ -6,7 +6,11 @@ interface EventDisplayProps {
   showVirtualBadge?: boolean;
 }
 
-export function EventDisplay({ event, variant = 'compact', showVirtualBadge = true }: EventDisplayProps) {
+export function EventDisplay({
+  event,
+  variant = 'compact',
+  showVirtualBadge = true,
+}: EventDisplayProps) {
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('en-US', {
       weekday: 'short',

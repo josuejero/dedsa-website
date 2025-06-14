@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 const rateLimit = {
   windowMs: 60 * 1000, // 1 minute
-  max: 60 // limit each IP to 60 requests per windowMs
+  max: 60, // limit each IP to 60 requests per windowMs
 };
 
 const cache = new Map();
@@ -19,13 +19,15 @@ export function middleware(request: NextRequest) {
   const windowStart = now - rateLimit.windowMs;
 
   const requestTimestamps = cache.get(ip) || [];
-  const recentRequests = requestTimestamps.filter((timestamp: number) => timestamp > windowStart);
+  const recentRequests = requestTimestamps.filter(
+    (timestamp: number) => timestamp > windowStart
+  );
 
   if (recentRequests.length >= rateLimit.max) {
     return new NextResponse(
       JSON.stringify({
         error: 'Too many requests',
-        message: 'Please try again later'
+        message: 'Please try again later',
       }),
       {
         status: 429,
@@ -33,8 +35,8 @@ export function middleware(request: NextRequest) {
           'Content-Type': 'application/json',
           'X-RateLimit-Limit': rateLimit.max.toString(),
           'X-RateLimit-Remaining': '0',
-          'Retry-After': '60'
-        }
+          'Retry-After': '60',
+        },
       }
     );
   }
@@ -44,11 +46,14 @@ export function middleware(request: NextRequest) {
 
   const response = NextResponse.next();
   response.headers.set('X-RateLimit-Limit', rateLimit.max.toString());
-  response.headers.set('X-RateLimit-Remaining', (rateLimit.max - recentRequests.length).toString());
+  response.headers.set(
+    'X-RateLimit-Remaining',
+    (rateLimit.max - recentRequests.length).toString()
+  );
 
   return response;
 }
 
 export const config = {
-  matcher: '/api/:path*'
+  matcher: '/api/:path*',
 };

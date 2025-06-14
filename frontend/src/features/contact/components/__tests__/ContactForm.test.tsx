@@ -8,7 +8,12 @@ const content: ContactFormContent = {
   formFields: {
     name: { label: 'Name', required: true, placeholder: '' },
     email: { label: 'Email', required: true, placeholder: '' },
-    subject: { label: 'Subject', required: false, placeholder: '', options: [] },
+    subject: {
+      label: 'Subject',
+      required: false,
+      placeholder: '',
+      options: [],
+    },
     message: { label: 'Message', required: true, placeholder: '', rows: 3 },
   },
   buttons: { submit: 'Send', sending: 'Sending...' },

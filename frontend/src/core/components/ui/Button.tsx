@@ -8,7 +8,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'btn inline-flex items-center justify-center font-manifold-dsa font-bold rounded-none transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
 
     const variantClasses = {
-      primary: 'btn-primary bg-dsa-red text-white hover:bg-dsa-red-t1 focus:ring-dsa-red',
+      primary:
+        'btn-primary bg-dsa-red text-white hover:bg-dsa-red-t1 focus:ring-dsa-red',
       secondary:
         'btn-secondary bg-white text-dsa-red border-2 border-dsa-red hover:bg-dsa-red hover:text-white focus:ring-dsa-red',
       outline:

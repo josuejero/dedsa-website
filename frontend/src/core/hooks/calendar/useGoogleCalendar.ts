@@ -42,7 +42,8 @@ export function useGoogleCalendar(): {
     revalidateOnReconnect: false,
   });
 
-  const eventData = data && !error ? data : (sampleData as GoogleCalendarEvent[]);
+  const eventData =
+    data && !error ? data : (sampleData as GoogleCalendarEvent[]);
 
   const events: Event[] = (eventData || [])
     .filter((e) => e?.summary && (e.start.dateTime || e.start.date))

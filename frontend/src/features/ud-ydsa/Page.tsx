@@ -203,7 +203,10 @@ function JoinSection({ title, description, buttonText }: JoinSectionContent) {
       <div className="container-page text-center">
         <h2 className="text-3xl font-bold mb-4">{title}</h2>
         <p className="text-xl mb-8 max-w-2xl mx-auto">{description}</p>
-        <a href="/join" className="btn bg-white text-dsa-red hover:bg-dsa-red-t4">
+        <a
+          href="/join"
+          className="btn bg-white text-dsa-red hover:bg-dsa-red-t4"
+        >
           {buttonText}
         </a>
       </div>

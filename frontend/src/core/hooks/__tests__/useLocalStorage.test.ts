@@ -49,9 +49,7 @@ describe('useLocalStorage', () => {
   });
 
   it('syncs across windows via storage event', () => {
-    const { result } = renderHook(() =>
-      useLocalStorage('testKey', 'initial')
-    );
+    const { result } = renderHook(() => useLocalStorage('testKey', 'initial'));
 
     const storageEvent = new StorageEvent('storage', {
       key: 'testKey',
